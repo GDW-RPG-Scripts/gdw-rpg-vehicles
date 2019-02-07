@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/GDW/RPG/Tools">
+        <file>images/sunburst.gif</file>
+    </qresource>
+</RCC>
