@@ -11,7 +11,7 @@
 
 #include "mainwindow.hh"
 
-int main(int argc, char *argv[])
+int main(int argc, char* argv[])
 {
   Q_INIT_RESOURCE(gdw_rpg_vehicles);
 
@@ -32,10 +32,10 @@ int main(int argc, char *argv[])
   app.installTranslator(&qtTranslator);
 
   QTranslator myappTranslator;
-  myappTranslator.load("myapp_" + QLocale::system().name());
+  myappTranslator.load("grv_" + QLocale::system().name());
   app.installTranslator(&myappTranslator);
 
-  MainWindow mainWin;
+  GDW::RPG::MainWindow mainWin;
   if (!parser.positionalArguments().isEmpty())
     mainWin.LoadFile(parser.positionalArguments().first());
   mainWin.show();

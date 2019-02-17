@@ -5,152 +5,291 @@
 
 #include "treeitem.hh"
 
+#include "ui_mainwindow.h"
+#include "ui_vehicleform.h"
+#include "ui_weaponform.h"
+
+#include "vehicle.hh"
+#include "weapon.hh"
+
+#include <QDebug>
+#include <QGroupBox>
 #include <QJsonArray>
 #include <QJsonDocument>
-#include <QDebug>
+#include <QStackedWidget>
+#include <QVBoxLayout>
 
-const int GDW::RPG::VehicleTreeItem::TYPE = 1001;
-const int GDW::RPG::WeaponTreeItem::TYPE = 1002;
-
-GDW::RPG::ObjectTreeItem::~ObjectTreeItem()
+namespace GDW
 {
-  delete mObject;
-}
+  namespace RPG
+  {
+    ObjectTreeItem::ObjectTreeItem(QList<QVariant>& data, ObjectTreeItem* parent)
+      : mItemData(data), mParentItem(parent)
+    {}
 
-GDW::RPG::ObjectTreeItem::ObjectTreeItem(Object* object, int type, const QFontMetrics& fontMetrics)
-  : mObject(object), mFontMetrics(fontMetrics)
-{
-  setChildIndicatorPolicy(DontShowIndicatorWhenChildless);
-}
+    ObjectTreeItem::~ObjectTreeItem()
+    {
+      qDeleteAll(mChildItems);
+    }
 
-GDW::RPG::Object&
-GDW::RPG::ObjectTreeItem::GetObject()
-{
-  return *mObject;
-}
+    ObjectTreeItem*
+    ObjectTreeItem::AppendChild(ObjectTreeItem* item)
+    {
+      mChildItems.append(item);
 
-const GDW::RPG::Object&
-GDW::RPG::ObjectTreeItem::GetObject() const
-{
-  return *mObject;
-}
+      return item;
+    }
 
-const QFontMetrics&
-GDW::RPG::ObjectTreeItem::FontMetrics() const
-{
-  return mFontMetrics;
-}
+    ObjectTreeItem*
+    ObjectTreeItem::Child(int row)
+    {
+      return mChildItems.value(row);
+    }
 
-QVariant
-GDW::RPG::ObjectTreeItem::data(int column, int role) const
-{
-  QString textArray[] = {
-    mObject->Name(),
-    mObject->Type(),
-    mObject->Nationality()
-  };
-  QString text = textArray[column];
+    int
+    ObjectTreeItem::ChildCount() const
+    {
+      return mChildItems.count();
+    }
 
-  QSize sizeHint = FontMetrics().boundingRect(text).size();
+    int
+    ObjectTreeItem::ColumnCount() const
+    {
+      return mItemData.count();
+    }
 
-  QVariant result[] = {
-    text,
-    QVariant(),
-    text,
-    mObject->Name(),
-    mObject->Name(),
-    mObject->Name(),
-    QVariant(),
-    0x0101,
-    QVariant(),
-    QVariant(),
-    QVariant(),
-    text,
-    text,
-    sizeHint,
-    0
-  };
+    QVariant
+    ObjectTreeItem::Data(int column) const
+    {
+      return mItemData.value(column);
+    }
 
-  qDebug() << "Object::data("
-           << column
-           << ", "
-           << role
-           << ") = "
-           << sizeHint
-           << ": "
-           << result->toString();
+    ObjectTreeItem*
+    ObjectTreeItem::ParentItem()
+    {
+      return mParentItem;
+    }
 
-  return result[role];
-}
+    int
+    ObjectTreeItem::Row() const
+    {
+      if (mParentItem)
+        return mParentItem->mChildItems.indexOf(const_cast<ObjectTreeItem*>(this));
 
-void
-GDW::RPG::VehicleTreeItem::addVehicle(const QJsonObject& json, QTree* tree)
-{
-  GDW::RPG::Vehicle* v =
-      new GDW::RPG::Vehicle(json);
-  VehicleTreeItem* vtwi =
-      new VehicleTreeItem(v, tree->fontMetrics());
-  if(!v->Weapons().isEmpty()) {
-      QMutableListIterator<GDW::RPG::Weapon*> qli(v->Weapons());
-      while (qli.hasNext()) {
-          WeaponTreeItem* wtwi = new WeaponTreeItem(qli.next(), tree->fontMetrics());
-          vtwi->addChild(wtwi);
+      return 0;
+    }
+
+    ObjectTreeItem*
+    ObjectTreeItem::Unpack(const QJsonValue& json, ObjectTreeItem* parent)
+    {
+      static const QString GDW_RPG_TYPE = "__GDW_RPG_Type__";
+      static const QHash<const QString,std::function<ObjectTreeItem*(const QJsonObject&,ObjectTreeItem*)> >
+          TYPE_MAP({{Vehicle::JSON_TYPE, VehicleTreeItem::Unpack},
+                    {Weapon::JSON_TYPE, WeaponTreeItem::Unpack}
+                   });
+
+      if(json.isObject())
+      {
+        QJsonObject obj = json.toObject();
+        if (obj.contains(GDW_RPG_TYPE) && obj[GDW_RPG_TYPE].isString()) {
+          const QString type = obj[GDW_RPG_TYPE].toString();
+          if(TYPE_MAP.contains(type)) {
+            std::function<ObjectTreeItem*(const QJsonObject&,ObjectTreeItem*)>
+                fn = TYPE_MAP[type];
+            ObjectTreeItem* item = fn(obj, parent);
+            parent->AppendChild(item);
+          }
         }
-    }
-  tree->addTopLevelItem(vtwi);
-}
+      }
 
-void
-GDW::RPG::VehicleTreeItem::Load(const QJsonDocument& jdoc, QTree* tree)
-{
-  if(jdoc.isNull())
+      return nullptr;
+    }
+
+    void
+    ObjectTreeItem::Display(Ui::MainWindow*)
+    {}
+
+    Object*
+    ObjectTreeItem::GetObject()
     {
-      return;
+      return nullptr;
     }
-  else if(jdoc.isObject())
+
+    const Object*
+    ObjectTreeItem::GetObject() const
     {
-      addVehicle(jdoc.object(), tree);
+      return nullptr;
     }
-  else if (jdoc.isArray())
+
+    QDebug&
+    operator<<(QDebug& debug, const ObjectTreeItem& item)
     {
-      QJsonArray ja = jdoc.array();
-      for (int i = 0; i < ja.size(); ++i)
-        {
-          addVehicle(ja[i].toObject(), tree);
-        }
+      return item.Debug(debug);
     }
 
-  tree->setEnabled(true);
-}
+    QDebug&
+    ObjectTreeItem::Debug(QDebug& debug) const
+    {
+      return debug;
+    }
 
-GDW::RPG::VehicleTreeItem::VehicleTreeItem(Vehicle* vehicle, const QFontMetrics& fontMetrics)
-  : ObjectTreeItem(vehicle, TYPE, fontMetrics)
-{}
+    /*
+     *
+     */
+    VehicleTreeItem*
+    VehicleTreeItem::Unpack(const QJsonObject& json, ObjectTreeItem* parent)
+    {
+      Vehicle* vehicle = new Vehicle(json);
 
-GDW::RPG::Vehicle&
-GDW::RPG::VehicleTreeItem::GetObject()
-{
-  return static_cast<GDW::RPG::Vehicle&>(ObjectTreeItem::GetObject());
-}
+      QList<QVariant> vehicleData;
 
-const GDW::RPG::Vehicle&
-GDW::RPG::VehicleTreeItem::GetObject() const
-{
-  return static_cast<const GDW::RPG::Vehicle&>(ObjectTreeItem::GetObject());
-}
+      vehicleData << vehicle->Name()
+                  << vehicle->Type()
+                  << vehicle->Nationality();
 
-GDW::RPG::WeaponTreeItem::WeaponTreeItem(Weapon* weapon, const QFontMetrics& fontMetrics)
-  : ObjectTreeItem(weapon, TYPE, fontMetrics)
-{}
+      VehicleTreeItem* vti = new VehicleTreeItem(vehicleData, parent, vehicle);
 
-GDW::RPG::Weapon&
-GDW::RPG::WeaponTreeItem::GetObject()
-{
-  return static_cast<GDW::RPG::Weapon&>(ObjectTreeItem::GetObject());
-}
+      QList<Weapon*> weapons = vehicle->Weapons();
+      for (int i = 0; i < weapons.size(); ++i)
+      {
+        QList<QVariant> weaponData;
 
-const GDW::RPG::Weapon&
-GDW::RPG::WeaponTreeItem::GetObject() const
-{
-  return static_cast<const GDW::RPG::Weapon&>(ObjectTreeItem::GetObject());
-}
+        weaponData << weapons[i]->Wtyp()
+                   << weapons[i]->Range()
+                   << weapons[i]->RateOfFire();
+
+        vti->AppendChild(new WeaponTreeItem(weaponData, vti, weapons[i]));
+      }
+
+      return vti;
+    }
+
+    VehicleTreeItem::VehicleTreeItem(QList<QVariant>& data, ObjectTreeItem* parent, Vehicle* vehicle) //, const QFontMetrics& fontMetrics)
+      : ObjectTreeItem(data, parent), mVehicle(vehicle)
+    {}
+
+    VehicleTreeItem::~VehicleTreeItem()
+    {}
+
+    void
+    VehicleTreeItem::Display(Ui::MainWindow* mainWindow)
+    {
+      qDebug() << "VehicleTreeItem::Display(Ui::MainWindow* " << hex << &mainWindow << ")";
+
+      QWidget* wrapper = new QWidget;
+      Ui::VehicleForm* ui = new Ui::VehicleForm;
+      ui->setupUi(wrapper);
+
+      ui->nameLineEdit->setText(mVehicle->Name());
+      ui->typeLineEdit->setText(mVehicle->Type());
+      ui->nationalityLineEdit->setText(mVehicle->Nationality());
+
+      QVBoxLayout* hbox = new QVBoxLayout;
+      hbox->addWidget(wrapper);
+      // hbox->addStretch(1);
+
+      QGroupBox* widget = mainWindow->objectWidget;
+      QLayout* layout = widget->layout();
+      if(layout != nullptr) {
+        delete layout;
+      }
+
+      widget->setTitle("Vehicle: " + mVehicle->Name());
+      widget->setLayout(hbox);
+      widget->update();
+    }
+
+    Object*
+    VehicleTreeItem::GetObject()
+    {
+      return mVehicle;
+    }
+
+    const Object*
+    VehicleTreeItem::GetObject() const
+    {
+      return mVehicle;
+    }
+
+    QDebug&
+    VehicleTreeItem::Debug(QDebug& debug) const
+    {
+      debug.nospace() << "Vehicle: ";
+
+      return debug;
+    }
+
+    /*
+     *
+     */
+    WeaponTreeItem*
+    WeaponTreeItem::Unpack(const QJsonObject& json, ObjectTreeItem* parent)
+    {
+      Weapon* weapon = new Weapon(json);
+
+      QList<QVariant> data;
+
+      data << weapon->Wtyp()
+           << weapon->Range()
+           << weapon->RateOfFire();
+
+      WeaponTreeItem* wti = new WeaponTreeItem(data, parent, weapon);
+
+      return wti;
+    }
+
+    WeaponTreeItem::WeaponTreeItem(QList<QVariant>& data, ObjectTreeItem* parent, Weapon* weapon) //, const QFontMetrics& fontMetrics)
+      : ObjectTreeItem(data, parent), mWeapon(weapon)
+    {}
+
+    WeaponTreeItem::~WeaponTreeItem()
+    {}
+
+    void
+    WeaponTreeItem::Display(Ui::MainWindow* mainWindow)
+    {
+      qDebug() << "WeaponTreeItem::Display(Ui::MainWindow* " << &mainWindow << ")";
+
+      QWidget* wrapper = new QWidget;
+      Ui::WeaponForm* ui = new Ui::WeaponForm;
+      ui->setupUi(wrapper);
+
+      ui->typeLineEdit->setText(mWeapon->Wtyp());
+
+      QVBoxLayout* hbox = new QVBoxLayout;
+      hbox->addWidget(wrapper);
+      // hbox->addStretch(1);
+
+      QGroupBox* widget = mainWindow->objectWidget;
+      QLayout* layout = widget->layout();
+      if(layout != nullptr) {
+        delete layout;
+      }
+
+      widget->setTitle("Weapon: " + mWeapon->Wtyp());
+      widget->setLayout(hbox);
+      widget->update();
+    }
+
+    Object*
+    WeaponTreeItem::GetObject()
+    {
+      return mWeapon;
+    }
+
+    const Object*
+    WeaponTreeItem::GetObject() const
+    {
+      return mWeapon;
+    }
+
+    QDebug&
+    WeaponTreeItem::Debug(QDebug& debug) const
+    {
+      debug.nospace() << "Weapon: ";
+
+      return debug;
+    }
+
+  };
+};

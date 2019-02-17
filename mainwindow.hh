@@ -15,43 +15,53 @@ class QSessionManager;
 
 namespace Ui {
   class MainWindow;
+  class VehicleForm;
+  class WeaponForm;
 }
 
-class MainWindow : public QMainWindow
+namespace GDW
 {
-  Q_OBJECT
+  namespace RPG
+  {
+    class MainWindow : public QMainWindow
+    {
+      Q_OBJECT
 
-public:
-  explicit MainWindow(QWidget *parent = nullptr);
-  ~MainWindow() override;
+    public:
+      explicit MainWindow(QWidget* parent = nullptr);
+      ~MainWindow() override;
 
-  void LoadFile(const QString &fileName);
+      void LoadFile(const QString& fileName);
 
-protected:
-    void closeEvent(QCloseEvent *event) override;
+    protected:
+      void closeEvent(QCloseEvent* event) override;
 
-private slots:
-  void NewFile();
-  void Open();
-  bool Save();
-  bool SaveAs();
-  void About();
-  void DocumentWasModified();
+    private slots:
+      void NewFile();
+      void Open();
+      bool Save();
+      bool SaveAs();
+      void About();
+      void DocumentWasModified();
+      void Display(const QModelIndex&);
 #ifndef QT_NO_SESSIONMANAGER
-  void CommitData(QSessionManager&);
+      void CommitData(QSessionManager&);
 #endif
 
-private:
-  void ReadSettings();
-  void WriteSettings();
-  bool MaybeSave();
-  bool SaveFile(const QString& fileName);
-  void SetCurrentFile(const QString& fileName);
+    private:
+      void ReadSettings();
+      void WriteSettings();
+      bool MaybeSave();
+      bool SaveFile(const QString& fileName);
+      void SetCurrentFile(const QString& fileName);
 
-  QPlainTextEdit *textEdit;
-  QString curFile;
+      QPlainTextEdit* textEdit;
+      QString curFile;
 
-  Ui::MainWindow *ui;
+      Ui::MainWindow* mMainUi;
+      Ui::VehicleForm* mVehicleUi;
+      Ui::WeaponForm* mWeaponUi;
+    };
+  };
 };
-
 #endif // MAINWINDOW_HH

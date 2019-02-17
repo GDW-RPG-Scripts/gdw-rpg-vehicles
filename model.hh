@@ -1,3 +1,9 @@
+/*
+**
+**
+*/
+
+
 #ifndef MODEL_HH
 #define MODEL_HH
 
@@ -5,19 +11,18 @@
 #include <QModelIndex>
 #include <QVariant>
 
-
 namespace GDW
 {
   namespace RPG
   {
-    class Object;
+    class ObjectTreeItem;
 
     class TreeModel : public QAbstractItemModel
     {
       Q_OBJECT
 
     public:
-      TreeModel(QObject* parent = nullptr);
+      TreeModel(const QByteArray&, QObject* parent = nullptr);
       ~TreeModel() override;
 
       QVariant data(const QModelIndex& index, int role) const override;
@@ -31,9 +36,10 @@ namespace GDW
       int columnCount(const QModelIndex& parent = QModelIndex()) const override;
 
   private:
-      void setupModelData(const QStringList &lines, TreeItem *parent);
+      void SetupModelData(ObjectTreeItem* parent,
+                          const QJsonDocument&);
 
-      Object* rootItem;
+      ObjectTreeItem* mRootItem;
     };
   };
 };

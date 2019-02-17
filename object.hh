@@ -12,20 +12,13 @@ namespace GDW
     class Object
     {
     public:
+      Object();
+      Object(const Object&);
       virtual ~Object();
 
-      QString Name() const;
-      void Name(const QString&);
 
-      QString Type() const;
-      void Type(const QString&);
-
-      QString Nationality() const;
-      void Nationality(const QString&);
-
-
-      virtual void Read(const QJsonObject&);
-      virtual void Write(QJsonObject&) const;
+//      virtual void Read(const QJsonObject&);
+//      virtual void Write(QJsonObject&) const;
 
       void Print(int indentation = 0) const;
 
@@ -33,18 +26,20 @@ namespace GDW
     protected:
       Object(const QJsonObject&);
 
-      virtual QString TypeName() const = 0;
-
       QString GetStringFor(const QString&) const;
+      void SetStringFor(const QString&, const QString&);
+      double GetDoubleFor(const QString&) const;
+      void SetDoubleFor(const QString&, double);
+
       QVariant GetVariantFor(const QString&) const;
 
-
     private:
-      void TypeCheck() const;
-
       QJsonObject mJsonObject;
+
     };
   };
 };
+
+// Q_DECLARE_METATYPE(GDW::RPG::Object)
 
 #endif // OBJECT_HH

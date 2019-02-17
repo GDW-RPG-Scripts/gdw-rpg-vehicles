@@ -11,59 +11,103 @@
 #include <QList>
 #include <QVariant>
 
+class QStackedWidget;
+
+namespace Ui {
+  class MainWindow;
+}
+
 namespace GDW
 {
   namespace RPG
   {
+    class Object;
+
     class ObjectTreeItem
     {
-    public:
-      explicit ObjectTreeItem(const QList<QVariant> &data, ObjectTreeItem *parentItem = 0);
-      virtual ~ObjectTreeItem();
-      virtual QVariant data(int column, int role) const;
+      public:
+        static ObjectTreeItem* Unpack(const QJsonValue&,
+                                      ObjectTreeItem* parent);
 
-      const QFontMetrics& FontMetrics() const;
+        explicit ObjectTreeItem(QList<QVariant>&,
+                                ObjectTreeItem* parent = nullptr);
+        virtual ~ObjectTreeItem();
 
-    protected:
-      ObjectTreeItem(Object*, int, const QFontMetrics&);
+        ObjectTreeItem* AppendChild(ObjectTreeItem* child);
 
-      virtual Object& GetObject();
-      virtual const Object& GetObject() const;
+        ObjectTreeItem* Child(int row);
+        int ChildCount() const;
+        int ColumnCount() const;
+        virtual QVariant Data(int column) const;
+        int Row() const;
+        ObjectTreeItem* ParentItem();
 
-    private:
-      Object* mObject;
-      QFontMetrics mFontMetrics;
+        virtual void Display(Ui::MainWindow*);
+
+        virtual QDebug& Debug(QDebug&) const;
+
+      protected:
+        ObjectTreeItem(Object*, ObjectTreeItem* parent = nullptr);
+
+        virtual Object* GetObject();
+        virtual const Object* GetObject() const;
+
+        QList<QVariant>& ItemData();
+        const QList<QVariant>& ItemData() const;
+
+      private:
+        QList<ObjectTreeItem*> mChildItems;
+        QList<QVariant> mItemData;
+        ObjectTreeItem* mParentItem;
     };
 
     class VehicleTreeItem : public ObjectTreeItem
     {
-    public:
-      static void Load(const QJsonDocument&, QTree*);
+      public:
+        static VehicleTreeItem* Unpack(const QJsonObject&,
+                                       ObjectTreeItem* parent);
 
-    protected:
-      VehicleTreeItem(Vehicle*, const QFontMetrics&);
+        void Display(Ui::MainWindow*) override;
 
-      virtual Vehicle& GetObject();
-      virtual const Vehicle& GetObject() const;
+        QDebug& Debug(QDebug&) const override;
 
-    private:
-      static const int TYPE;
+      protected:
+        VehicleTreeItem(QList<QVariant>&,
+                        ObjectTreeItem* parent,
+                        Vehicle*);
+        ~VehicleTreeItem() override;
 
-      static void addVehicle(const QJsonObject&, QTree*);
+        Object* GetObject() override;
+        const Object* GetObject() const override;
+
+      private:
+        Vehicle* mVehicle;
     };
 
     class WeaponTreeItem : public ObjectTreeItem
     {
-    public:
-      WeaponTreeItem(Weapon*, const QFontMetrics&);
+      public:
+        static WeaponTreeItem* Unpack(const QJsonObject&,
+                                      ObjectTreeItem* parent);
 
-    protected:
-      virtual Weapon& GetObject();
-      virtual const Weapon& GetObject() const;
+        WeaponTreeItem(QList<QVariant>&,
+                       ObjectTreeItem* parent,
+                       Weapon*);
+        ~WeaponTreeItem() override;
 
-    private:
-      static const int TYPE;
+        void Display(Ui::MainWindow*) override;
+
+      protected:
+        Object* GetObject() override;
+        const Object* GetObject() const override;
+
+        QDebug& Debug(QDebug&) const override;
+
+      private:
+        Weapon* mWeapon;
     };
+
+    QDebug& operator<<(QDebug&, const ObjectTreeItem&);
   };
 };
 

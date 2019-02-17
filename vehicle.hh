@@ -19,9 +19,21 @@ namespace GDW
     class Vehicle : public Object
     {
     public:
+
+      Vehicle();
+      Vehicle(const Vehicle&);
+      ~Vehicle() override;
+
       Vehicle(const QJsonObject&);
 
-      virtual void Read(const QJsonObject&);
+      QString Name() const;
+      void Name(const QString&);
+
+      QString Type() const;
+      void Type(const QString&);
+
+      QString Nationality() const;
+      void Nationality(const QString&);
 
       /*
   int trmov() const;
@@ -57,7 +69,7 @@ namespace GDW
   int hr() const;
   void hr(int);
   */
-      QList<Weapon*>& Weapons();
+      QList<Weapon*> Weapons();
       void Weapons(QList<Weapon*>&);
       /*
   int weight() const;
@@ -115,15 +127,21 @@ namespace GDW
   void local(const QString&);
   */
 
-    protected:
-      virtual QString TypeName() const;
+      // virtual void Read(const QJsonObject&) override;
 
-    private:
       static const QString JSON_TYPE;
 
-      QList<GDW::RPG::Weapon*> mWeapons;
+    private:
+      static const QString NAME;
+      static const QString TYPE;
+      static const QString NATIONALITY;
+      static const QString WEAPONS;
+
+      QList<Weapon*> mWeapons;
     };
   };
 };
+
+Q_DECLARE_METATYPE(GDW::RPG::Vehicle)
 
 #endif // VEHICLE_HH

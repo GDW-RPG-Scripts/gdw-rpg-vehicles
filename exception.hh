@@ -8,10 +8,16 @@
 
 #include <QException>
 
-class InvalidTypeException : public QException
+namespace GDW
 {
-public:
-  InvalidTypeException();
+  namespace RPG
+  {
+    class InvalidTypeException : public QException
+    {
+    public:
+      InvalidTypeException();
+    };
+  };
 };
 
 #endif // EXCEPTION_HH

@@ -32,7 +32,8 @@ SOURCES += \
     weapon.cc \
     object.cc \
     model.cc \
-    treeitem.cc
+    treeitem.cc \
+    objectform.cc
 
 HEADERS += \
         mainwindow.hh \
@@ -41,10 +42,13 @@ HEADERS += \
     weapon.hh \
     object.hh \
     model.hh \
-    treeitem.hh
+    treeitem.hh \
+    objectform.hh
 
 FORMS += \
-        mainwindow.ui
+        mainwindow.ui \
+    vehicleform.ui \
+    weaponform.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

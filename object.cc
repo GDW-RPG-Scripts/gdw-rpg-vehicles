@@ -3,98 +3,85 @@
 #include "exception.hh"
 
 
-GDW::RPG::Object::~Object()
-{}
-
-GDW::RPG::Object::Object(const QJsonObject& json)
-  : mJsonObject(json)
-{}
-
-void
-GDW::RPG::Object::TypeCheck() const
+namespace GDW
 {
-  QString typeName = TypeName();
-
-  if(!mJsonObject.contains(typeName) ||
-     !mJsonObject[typeName].isBool() ||
-     !mJsonObject[typeName].toBool())
+  namespace RPG
   {
-    throw InvalidTypeException();
-  }
-}
+    Object::Object()
+    {}
 
-void
-GDW::RPG::Object::Read(const QJsonObject& json)
-{
-  mJsonObject = json;
+    Object::Object(const Object& object)
+      : mJsonObject(object.mJsonObject)
+    {}
 
-  TypeCheck();
-}
+    Object::~Object()
+    {}
 
-void
-GDW::RPG::Object::Write(QJsonObject& json) const
-{
-  json = mJsonObject;
-}
+    Object::Object(const QJsonObject& json)
+      : mJsonObject(json)
+    {}
 
-void
-GDW::RPG::Object::Print(int /*indentation*/) const
-{}
+//    void
+//    Object::Read(const QJsonObject& json)
+//    {
+//      mJsonObject = json;
 
-QVariant
-GDW::RPG::Object::GetVariantFor(const QString& index) const
-{
-  if(mJsonObject.contains(index))
-    return mJsonObject[index];
+//      TypeCheck();
+//    }
 
-  return QVariant();
-}
+//    void
+//    Object::Write(QJsonObject& json) const
+//    {
+//      json = mJsonObject;
+//    }
 
-QString
-GDW::RPG::Object::GetStringFor(const QString& index) const
-{
-  if(!mJsonObject.isEmpty() &&
-     mJsonObject.contains(index) &&
-     mJsonObject[index].isString())
-    return mJsonObject[index].toString();
+    void
+    Object::Print(int /*indentation*/) const
+    {}
 
-  return "";
-}
+    QVariant
+    Object::GetVariantFor(const QString& index) const
+    {
+      static const QVariant INVALID;
 
-QString
-GDW::RPG::Object::Name() const
-{
-  return GetStringFor("name");
-}
+      if(mJsonObject.contains(index))
+        return mJsonObject[index];
 
-void
-GDW::RPG::Object::Name(const QString& name)
-{
-  mJsonObject["name"] = name;
-}
+      return INVALID;
+    }
 
-QString
-GDW::RPG::Object::Type() const
-{
-  return GetStringFor("typ");
-}
+    QString
+    Object::GetStringFor(const QString& index) const
+    {
+      if(!mJsonObject.isEmpty() &&
+         mJsonObject.contains(index) &&
+         mJsonObject[index].isString())
+        return mJsonObject[index].toString();
 
-void
-GDW::RPG::Object::Type(const QString& type)
-{
-  mJsonObject["typ"] = type;
-}
+      return "";
+    }
 
-QString
-GDW::RPG::Object::Nationality() const
-{
-  return GetStringFor("nat");
-}
+    void
+    Object::SetStringFor(const QString& index, const QString& value)
+    {
+      mJsonObject[index] = value;
+    }
 
-void
-GDW::RPG::Object::Nationality(const QString& nationality)
-{
-  mJsonObject["nat"] = nationality;
-}
+    double
+    Object::GetDoubleFor(const QString& index) const
+    {
+      if(!mJsonObject.isEmpty() &&
+         mJsonObject.contains(index) &&
+         mJsonObject[index].isDouble())
+        return mJsonObject[index].toDouble();
 
+      return 0.0;
+    }
 
+    void
+    Object::SetDoubleFor(const QString& index, double value)
+    {
+      mJsonObject[index] = value;
+    }
+  };
+};
