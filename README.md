@@ -16,5 +16,6 @@ Building Vehicles from source
 4. Click on one of the green arrows in the the bottom right of the Qt Creator
    window to Run or Debug the application.
 
+---
 The Traveller game in all forms is owned by Far Future Enterprises.
 Copyright 1977 - 2008 Far Future Enterprises.
