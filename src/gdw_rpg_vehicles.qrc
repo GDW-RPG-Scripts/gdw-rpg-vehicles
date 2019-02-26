@@ -2,7 +2,6 @@
     <qresource prefix="/">
         <file>icons/sunburst.png</file>
         <file>images/MBT.svg</file>
-        <file>objects.json</file>
         <file>images/APC.svg</file>
         <file>images/GRT.svg</file>
         <file>images/GTD.svg</file>
