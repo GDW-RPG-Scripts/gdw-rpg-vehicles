@@ -21,19 +21,37 @@ namespace GDW
       : mJsonObject(json)
     {}
 
-//    void
-//    Object::Read(const QJsonObject& json)
-//    {
-//      mJsonObject = json;
+    Object*
+    Object::Copy()
+    {
+      return nullptr;
+    }
 
-//      TypeCheck();
-//    }
+    const Object*
+    Object::Copy() const
+    {
+      return nullptr;
+    }
 
-//    void
-//    Object::Write(QJsonObject& json) const
-//    {
-//      json = mJsonObject;
-//    }
+    Object::operator const QJsonObject&() const
+    {
+      return mJsonObject;
+    }
+
+
+    //    void
+    //    Object::Read(const QJsonObject& json)
+    //    {
+    //      mJsonObject = json;
+
+    //      TypeCheck();
+    //    }
+
+    //    void
+    //    Object::Write(QJsonObject& json) const
+    //    {
+    //      json = mJsonObject;
+    //    }
 
     void
     Object::Print(int /*indentation*/) const

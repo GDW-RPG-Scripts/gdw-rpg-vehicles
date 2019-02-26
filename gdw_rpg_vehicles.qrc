@@ -1,5 +1,20 @@
 <RCC>
-    <qresource prefix="/GDW/RPG/Tools">
-        <file>images/sunburst.gif</file>
+    <qresource prefix="/">
+        <file>icons/sunburst.png</file>
+        <file>images/MBT.svg</file>
+        <file>objects.json</file>
+        <file>images/APC.svg</file>
+        <file>images/GRT.svg</file>
+        <file>images/GTD.svg</file>
+        <file>images/HVT.svg</file>
+        <file>images/IFV.svg</file>
+        <file>images/ISS.svg</file>
+        <file>images/LCV.svg</file>
+        <file>images/RCV.svg</file>
+        <file>images/SPA.svg</file>
+        <file>images/SPD.svg</file>
+        <file>images/SPG.svg</file>
+        <file>images/TLT.svg</file>
+        <file>images/WEP.svg</file>
     </qresource>
 </RCC>

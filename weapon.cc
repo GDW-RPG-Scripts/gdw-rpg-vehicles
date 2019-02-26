@@ -28,61 +28,208 @@ namespace GDW
       : Object(json)
     {}
 
+    Weapon*
+    Weapon::New()
+    {
+      static const QJsonObject weapon
+      {
+        {"__GDW_RPG_Type__", JSON_TYPE},
+        {PROP_WTYP, ""}, {PROP_WQUAL, ""},          {PROP_ROF, QJsonValue(QJsonValue::Double)}, {PROP_RNG,  QJsonValue(QJsonValue::Double)},
+        {PROP_PS,  QJsonValue(QJsonValue::Double)}, {PROP_PM,  QJsonValue(QJsonValue::Double)}, {PROP_PL,   QJsonValue(QJsonValue::Double)}, {PROP_PX, QJsonValue(QJsonValue::Double)}, {PROP_AMMO, QJsonValue(QJsonValue::Double)},
+        {PROP_CON, QJsonValue(QJsonValue::Double)}, {PROP_BUR, QJsonValue(QJsonValue::Double)}, {PROP_PRAN, QJsonValue(QJsonValue::Double)}
+      };
 
-    const QString Weapon::WTYPE = "wtyp";
+      return new Weapon(weapon);
+    }
+
+    Weapon*
+    Weapon::Copy()
+    {
+      return new Weapon(*this);
+    }
+
+    const Weapon*
+    Weapon::Copy() const
+    {
+      return new Weapon(*this);
+    }
+
+
+    const QString Weapon::PROP_WTYP = "wtyp";
 
     QString
     Weapon::Wtyp() const
     {
-      return GetStringFor(WTYPE);
+      return GetStringFor(PROP_WTYP);
     }
 
     void
-    Weapon::Wtyp(const QString& wtyp)
+    Weapon::Wtyp(const QString& value)
     {
-      SetStringFor(WTYPE, wtyp);
+      SetStringFor(PROP_WTYP, value);
     }
 
-    const QString Weapon::WQUAL = "wqual";
+    const QString Weapon::PROP_WQUAL = "wqual";
 
     QString
     Weapon::Wqual() const
     {
-      return GetStringFor(WQUAL);
+      return GetStringFor(PROP_WQUAL);
     }
 
     void
-    Weapon::Wqual(const QString& wqual)
+    Weapon::Wqual(const QString& value)
     {
-      SetStringFor(WQUAL, wqual);
+      SetStringFor(PROP_WQUAL, value);
     }
 
-    const QString Weapon::RATE_OF_FIRE = "rof";
+    const QString Weapon::PROP_ROF = "rof";
 
     double
-    Weapon::RateOfFire() const
+    Weapon::Rof() const
     {
-      return GetDoubleFor(RATE_OF_FIRE);
+      return GetDoubleFor(PROP_ROF);
     }
 
     void
-    Weapon::RateOfFire(double rof)
+    Weapon::Rof(double value)
     {
-      SetDoubleFor(RATE_OF_FIRE, rof);
+      SetDoubleFor(PROP_ROF, value);
     }
 
-    const QString Weapon::RANGE = "rng";
+
+    const QString Weapon::PROP_RNG = "rng";
 
     double
-    Weapon::Range() const
+    Weapon::Rng() const
     {
-      return GetDoubleFor(RANGE);
+      return GetDoubleFor(PROP_RNG);
     }
 
     void
-    Weapon::Range(double rng)
+    Weapon::Rng(double value)
     {
-      SetDoubleFor(RANGE, rng);
+      SetDoubleFor(PROP_RNG, value);
+    }
+
+
+    const QString Weapon::PROP_PS = "ps";
+
+    double
+    Weapon::Ps() const
+    {
+      return GetDoubleFor(PROP_PS);
+    }
+
+    void
+    Weapon::Ps(double value)
+    {
+      SetDoubleFor(PROP_PS, value);
+    }
+
+
+    const QString Weapon::PROP_PM = "pm";
+
+    double
+    Weapon::Pm() const
+    {
+      return GetDoubleFor(PROP_PM);
+    }
+
+    void
+    Weapon::Pm(double value)
+    {
+      SetDoubleFor(PROP_PM, value);
+    }
+
+
+    const QString Weapon::PROP_PL = "pl";
+
+    double
+    Weapon::Pl() const
+    {
+      return GetDoubleFor(PROP_PL);
+    }
+
+    void
+    Weapon::Pl(double value)
+    {
+      SetDoubleFor(PROP_PL, value);
+    }
+
+
+    const QString Weapon::PROP_PX = "px";
+
+    double
+    Weapon::Px() const
+    {
+      return GetDoubleFor(PROP_PX);
+    }
+
+    void
+    Weapon::Px(double value)
+    {
+      SetDoubleFor(PROP_PX, value);
+    }
+
+
+    const QString Weapon::PROP_AMMO = "ammo";
+
+    double
+    Weapon::Ammo() const
+    {
+      return GetDoubleFor(PROP_AMMO);
+    }
+
+    void
+    Weapon::Ammo(double value)
+    {
+      SetDoubleFor(PROP_AMMO, value);
+    }
+
+
+    const QString Weapon::PROP_CON = "con";
+
+    double
+    Weapon::Con() const
+    {
+      return GetDoubleFor(PROP_CON);
+    }
+
+    void
+    Weapon::Con(double value)
+    {
+      SetDoubleFor(PROP_CON, value);
+    }
+
+
+    const QString Weapon::PROP_BUR = "bur";
+
+    double
+    Weapon::Bur() const
+    {
+      return GetDoubleFor(PROP_BUR);
+    }
+
+    void
+    Weapon::Bur(double value)
+    {
+      SetDoubleFor(PROP_BUR, value);
+    }
+
+
+    const QString Weapon::PROP_PRAN = "pran";
+
+    double
+    Weapon::Pran() const
+    {
+      return GetDoubleFor(PROP_PRAN);
+    }
+
+    void
+    Weapon::Pran(double value)
+    {
+      SetDoubleFor(PROP_PRAN, value);
     }
 
 
@@ -91,20 +238,16 @@ namespace GDW
     {
       QList<Weapon*> result;
 
-      if(json.isNull())
-        {
-          return result;
+      if(json.isNull()) {
+        return result;
+      } else if (json.isObject()) {
+        result.append(new Weapon(json.toObject()));
+      } else if (json.isArray()) {
+        QJsonArray ja = json.toArray();
+        for (int i = 0; i < ja.size(); ++i) {
+          result.append(new Weapon(ja[i].toObject()));
         }
-      else if (json.isObject()) {
-          result.append(new Weapon(json.toObject()));
-        }
-      else if (json.isArray()) {
-          QJsonArray ja = json.toArray();
-          for (int i = 0; i < ja.size(); ++i)
-            {
-              result.append(new Weapon(ja[i].toObject()));
-            }
-        }
+      }
 
       return result;
     }

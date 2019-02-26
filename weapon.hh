@@ -14,50 +14,71 @@ namespace GDW
   {
     class Weapon : public Object
     {
-    public:
-      static QList<Weapon*> Load(const QJsonValue&);
+      public:
+        static QList<Weapon*> Load(const QJsonValue&);
 
-      Weapon();
-      Weapon(const Weapon&);
-      ~Weapon() override;
+        Weapon();
+        Weapon(const Weapon&);
+        ~Weapon() override;
 
-      Weapon(const QJsonObject&);
+        Weapon(const QJsonObject&);
+        static Weapon* New();
 
-      QString Wtyp() const;
-      void Wtyp(const QString&);
-
-      QString Wqual() const;
-      void Wqual(const QString&);
-
-      double RateOfFire() const;
-      void RateOfFire(double);
-
-      double Range() const;
-      void Range(double);
+        Weapon* Copy() override;
+        const Weapon* Copy() const override;
 
 
-      /*
-"wtyp": "175 mm HEAT",
-"wqual": "C",
-"rof": 0.333,
-"rng": 400,
-"ps": 110,
-"pm": 110,
-"pl": 110,
-"px": 110,
-"ammo": 3,
-"con": 24,
-"bur": 30,
-"pran": 0
-*/
+        QString Wtyp() const;
+        void Wtyp(const QString&);
 
-      static const QString JSON_TYPE;
+        QString Wqual() const;
+        void Wqual(const QString&);
 
-    private:
-      static const QString WTYPE;
-      static const QString WQUAL;
-      static const QString RATE_OF_FIRE;
-      static const QString RANGE;
+        double Rof() const;
+        void Rof(double);
+
+        double Rng() const;
+        void Rng(double);
+
+        double Ps() const;
+        void Ps(double);
+
+        double Pm() const;
+        void Pm(double);
+
+        double Pl() const;
+        void Pl(double);
+
+        double Px() const;
+        void Px(double);
+
+        double Ammo() const;
+        void Ammo(double);
+
+        double Con() const;
+        void Con(double);
+
+        double Bur() const;
+        void Bur(double);
+
+        double Pran() const;
+        void Pran(double);
+
+        static const QString JSON_TYPE;
+
+      private:
+        static const QString PROP_WTYP;
+        static const QString PROP_WQUAL;
+        static const QString PROP_ROF;
+        static const QString PROP_RNG;
+        static const QString PROP_PS;
+        static const QString PROP_PM;
+        static const QString PROP_PL;
+        static const QString PROP_PX;
+        static const QString PROP_AMMO;
+        static const QString PROP_CON;
+        static const QString PROP_BUR;
+        static const QString PROP_PRAN;
 
     };
   };

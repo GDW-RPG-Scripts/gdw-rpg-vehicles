@@ -4,10 +4,20 @@
 */
 
 #include <QtWidgets>
+#if defined(QT_PRINTSUPPORT_LIB)
+#include <QtPrintSupport/qtprintsupportglobal.h>
+#if QT_CONFIG(printer)
+#if QT_CONFIG(printdialog)
+#include <QPrintDialog>
+#endif // QT_CONFIG(printdialog)
+#include <QPrinter>
+#endif // QT_CONFIG(printer)
+#endif // QT_PRINTSUPPORT_LIB
 
 #include "model.hh"
 #include "mainwindow.hh"
 #include "treeitem.hh"
+#include "undocmds.hh"
 
 #include "ui_mainwindow.h"
 #include "ui_vehicleform.h"
@@ -20,23 +30,29 @@ namespace GDW
   {
     MainWindow::MainWindow(QWidget* parent) :
       QMainWindow(parent),
-      mMainUi(new Ui::MainWindow),
-      mVehicleUi(new Ui::VehicleForm),
-      mWeaponUi(new Ui::WeaponForm)
+      mModel(new TreeModel),
+      mUi(new Ui::MainWindow)
     {
-
       SetCurrentFile(QString());
       setUnifiedTitleAndToolBarOnMac(true);
 
-      mMainUi->setupUi(this);
-//      mVehicleUi->setupUi(mMainUi->vehiclePage);
-//      mWeaponUi->setupUi(mMainUi->weaponsPage);
+      mUi->setupUi(this);
+
+      // Disable menu actions for unavailable features
+#if !QT_CONFIG(printer)
+      mUi->action_Print->setEnabled(false);
+#endif
+
+#if !QT_CONFIG(clipboard)
+      mUi->action_Cut->setEnabled(false);
+      mUi->action_Copy->setEnabled(false);
+      mUi->action_Paste->setEnabled(false);
+#endif
     }
 
     MainWindow::~MainWindow()
     {
-      delete mMainUi;
-      delete mVehicleUi;
+      delete mUi;
     }
 
     //
@@ -56,10 +72,14 @@ namespace GDW
     //
     // Slots
     //
-    void MainWindow::NewFile()
+    void MainWindow::New()
     {
       if (MaybeSave()) {
         // textEdit->clear();
+        mUndoStack.clear();
+        // delete mModel;
+        mUi->vehiclesTreeView->setModel(new TreeModel);
+        mUi->objectForm->hide();
         SetCurrentFile(QString());
       }
     }
@@ -78,27 +98,37 @@ namespace GDW
     bool
     MainWindow::Save()
     {
-      if (curFile.isEmpty()) {
+      if (mCurrentFile.isEmpty()) {
         return SaveAs();
       } else {
-        return SaveFile(curFile);
+        return SaveFile(mCurrentFile);
       }
     }
 
     bool MainWindow::SaveAs()
     {
-      QFileDialog dialog(this);
-      dialog.setWindowModality(Qt::WindowModal);
-      dialog.setAcceptMode(QFileDialog::AcceptSave);
-      if (dialog.exec() != QDialog::Accepted)
+      QString fileName =
+          QFileDialog::getSaveFileName(this, tr("Save File"),
+                                       "Untitled",
+                                       tr("GDW RPG Object files (*.gro);; GDW RPG Vehicles files (*.grv);; JSON Files (*.json)"));
+
+      if(fileName.isEmpty())
         return false;
-      return SaveFile(dialog.selectedFiles().first());
+
+      return SaveFile(fileName);
+
+      //      QFileDialog dialog(this);
+      //      dialog.setWindowModality(Qt::WindowModal);
+      //      dialog.setAcceptMode(QFileDialog::AcceptSave);
+      //      if (dialog.exec() != QDialog::Accepted)
+      //        return false;
+      //      return SaveFile(dialog.selectedFiles().first());
     }
 
     void
     MainWindow::About()
     {
-      qDebug() << "MainWindow::About()";
+      // qDebug() << "MainWindow::About()";
       QMessageBox::about(this, tr("About GDW RPG Vehicles"),
                          tr("<b>GDW RPG Vehicles</b> – Vehicle card printing database for 2d6 "
                             "Sci-fi and other RPGs.\n"
@@ -112,17 +142,81 @@ namespace GDW
     }
 
     void
-    MainWindow::DocumentWasModified()
+    MainWindow::AddItem()
     {
-      setWindowModified(textEdit->document()->isModified());
+      QString type =
+          mUi->tabWidget->tabText(mUi->tabWidget->currentIndex());
+
+      QTreeView* tv =
+          static_cast<QTreeView*>(mUi->tabWidget->currentWidget());
+
+      mModel->AddItem(type, tv->currentIndex());
     }
 
-    void MainWindow::Display(const QModelIndex& index)
+    void
+    MainWindow::EditItem()
     {
-      qDebug() << "Display: " << index;
+      if(mUi->objectForm->IsReadOnly()) {
+        mUi->editButton->setText(tr("Cancel"));
+        mUi->  okButton->setEnabled(true);
+        mUi->objectForm->SetReadOnly(false);
+      } else {
+        mUi->editButton->setText(tr("Edit"));
+        mUi->  okButton->setEnabled(false);
+        mUi->objectForm->SetReadOnly(true);
+        mUi->objectForm->Read();
+      }
+    }
+
+    void
+    MainWindow::PrintItem()
+    {
+      qDebug() << "MainWindow::Print()";
+
+      mModel->Print(this);
+    }
+
+    void
+    MainWindow::Redo()
+    {
+      mUndoStack.redo();
+    }
+
+    void
+    MainWindow::Undo()
+    {
+      mUndoStack.undo();
+    }
+
+    void
+    MainWindow::DocumentWasModified()
+    {
+      setWindowModified(isModified());
+      // setWindowModified(textEdit->document()->isModified());
+    }
+
+    void MainWindow::SelectItem(const QModelIndex& index)
+    {
       ObjectTreeItem* oti =
           static_cast<ObjectTreeItem*>(index.internalPointer());
-      oti->Display(mMainUi);
+
+      oti->Select(mUi);
+
+      mUi->  editButton->setEnabled(true);
+      mUi->  editButton->setText(tr("Edit"));
+      mUi->    okButton->setEnabled(false);
+      mUi-> printButton->setEnabled(true);
+      mUi->deleteButton->setEnabled(true);
+      mUi->action_Print->setEnabled(true);
+    }
+
+    void
+    MainWindow::SaveItem()
+    {
+      mUndoStack.push(new UndoCommitObject());
+      mUi->objectForm->Write();
+      mUi->editButton->setText(tr("Edit"));
+      mUi->  okButton->setEnabled(false);
     }
 
 #ifndef QT_NO_SESSIONMANAGER
@@ -133,7 +227,8 @@ namespace GDW
           manager.cancel();
       } else {
         // Non-interactive: save without asking
-        if (textEdit->document()->isModified())
+        // if (textEdit->document()->isModified())
+        if (isModified())
           Save();
       }
     }
@@ -166,16 +261,25 @@ namespace GDW
     }
 
     bool
+    MainWindow::isModified()
+    {
+      return !mUndoStack.isClean();
+    }
+
+    bool
     MainWindow::MaybeSave()
     {
-      if(/* DISABLES CODE */ (true))
+      if(!isModified())
         return true;
+
+      // if(/* DISABLES CODE */ (true))
+      //  return true;
       //  if (!textEdit->document()->isModified())
       //    return true;
 
       const QMessageBox::StandardButton ret
           = QMessageBox::warning(this, tr("Application"),
-                                 tr("Vehicles have been modified.\n"
+                                 tr("Objects have been modified.\n"
                                     "Do you want to save your changes?"),
                                  QMessageBox::Save | QMessageBox::Discard | QMessageBox::Cancel);
       switch (ret) {
@@ -191,33 +295,34 @@ namespace GDW
     }
 
     void
-    MainWindow::LoadFile(const QString &fileName)
+    MainWindow::LoadFile(const QString& fileName)
     {
       QFile file(fileName);
       if (!file.open(QFile::ReadOnly | QFile::Text)) {
-        QMessageBox::warning(this, tr("Application"),
-                             tr("Cannot read file %1:\n%2.")
-                             .arg(QDir::toNativeSeparators(fileName), file.errorString()));
+        QString message =
+            tr("Cannot read file %1:\n%2.").arg(QDir::toNativeSeparators(fileName),
+                                                file.errorString());
+        QMessageBox::warning(this, tr("Application"), message);
         return;
       }
 
-      // QTextStream in(&file);
 #ifndef QT_NO_CURSOR
       QApplication::setOverrideCursor(Qt::WaitCursor);
 #endif
 
       // textEdit->setPlainText(in.readAll());
-      mMainUi->vehiclesTreeView->setModel(new TreeModel(file.readAll()));
+      mModel->Import(file);
+      mUi->vehiclesTreeView->setModel(mModel);
       file.close();
-
-      // VehicleTreeWidgetItem::Load(jdoc, ui->treeWidget);
 
 #ifndef QT_NO_CURSOR
       QApplication::restoreOverrideCursor();
 #endif
 
       SetCurrentFile(fileName);
-      statusBar()->showMessage(tr("Vehicles loaded"), 2000);
+      mUi->action_Save->setEnabled(true);
+      mUi->action_SaveAs->setEnabled(true);
+      statusBar()->showMessage(tr("Objects loaded"), 2000);
     }
 
     bool
@@ -233,23 +338,27 @@ namespace GDW
       }
 
       QTextStream out(&file);
+
 #ifndef QT_NO_CURSOR
       QApplication::setOverrideCursor(Qt::WaitCursor);
 #endif
-      out << textEdit->toPlainText();
+      out << *mModel;
+      // out << textEdit->toPlainText();
 #ifndef QT_NO_CURSOR
       QApplication::restoreOverrideCursor();
 #endif
 
+      mUndoStack.setClean();
       SetCurrentFile(fileName);
       statusBar()->showMessage(tr("File saved"), 2000);
       return true;
     }
 
     void
-    MainWindow::SetCurrentFile(const QString &fileName)
+    MainWindow::SetCurrentFile(const QString& fileName)
     {
-      curFile = fileName;
+      QFileInfo info(mCurrentFile = fileName);
+      setWindowTitle(info.fileName() + " - GDW RPG Vehicles");
     }
   };
 };

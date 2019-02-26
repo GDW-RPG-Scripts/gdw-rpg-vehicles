@@ -1,6 +1,9 @@
 #ifndef OBJECTFORM_HH
 #define OBJECTFORM_HH
 
+#include "vehicle.hh"
+#include "weapon.hh"
+
 #include <QWidget>
 
 namespace Ui {
@@ -13,13 +16,33 @@ namespace GDW
 {
   namespace RPG
   {
+    class Object;
+    class Vehicle;
+    class Weapon;
+
     class ObjectForm : public QWidget
     {
         Q_OBJECT
 
       public:
         explicit ObjectForm(QWidget* parent = nullptr);
-        ~ObjectForm();
+        virtual ~ObjectForm();
+
+        virtual void Read();
+        virtual void Write();
+        virtual void SetReadOnly(bool);
+        virtual QString Title() const;
+
+        bool IsReadOnly() const;
+
+        virtual Object* GetObject();
+        virtual const Object* GetObject() const;
+
+      protected:
+        void AddSvgFrame(QString, QWidget*);
+
+      private:
+        bool mReadOnly;
     };
 
     class VehicleForm : public ObjectForm
@@ -27,10 +50,19 @@ namespace GDW
         Q_OBJECT
 
       public:
-        explicit VehicleForm(QWidget* parent = nullptr);
-        ~VehicleForm();
+        explicit VehicleForm(Vehicle* = nullptr, QWidget* parent = nullptr);
+        ~VehicleForm() override;
+
+        void Read() override;
+        void Write() override;
+        void SetReadOnly(bool) override;
+        QString Title() const override;
+
+        Vehicle* GetObject() override;
+        const Vehicle* GetObject() const override;
 
       private:
+        Vehicle* mVehicle;
         Ui::VehicleForm* mUi;
     };
 
@@ -39,10 +71,19 @@ namespace GDW
         Q_OBJECT
 
       public:
-        explicit WeaponForm(QWidget* parent = nullptr);
-        ~WeaponForm();
+        explicit WeaponForm(Weapon* = nullptr, QWidget* parent = nullptr);
+        ~WeaponForm() override;
+
+        void Read() override;
+        void Write() override;
+        void SetReadOnly(bool) override;
+        QString Title() const override;
+
+        Weapon* GetObject() override;
+        const Weapon* GetObject() const override;
 
       private:
+        Weapon* mWeapon;
         Ui::WeaponForm* mUi;
     };
   };

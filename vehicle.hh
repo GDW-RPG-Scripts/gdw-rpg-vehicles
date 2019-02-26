@@ -18,126 +18,158 @@ namespace GDW
   {
     class Vehicle : public Object
     {
-    public:
+      public:
 
-      Vehicle();
-      Vehicle(const Vehicle&);
-      ~Vehicle() override;
+        Vehicle();
+        Vehicle(const Vehicle&);
+        ~Vehicle() override;
 
-      Vehicle(const QJsonObject&);
+        Vehicle(const QJsonObject&);
+        static Vehicle* New();
 
-      QString Name() const;
-      void Name(const QString&);
+        Vehicle* Copy() override;
+        const Vehicle* Copy() const override;
 
-      QString Type() const;
-      void Type(const QString&);
 
-      QString Nationality() const;
-      void Nationality(const QString&);
+        QString Name() const;
+        void Name(const QString&);
 
-      /*
-  int trmov() const;
-  void trmov(int);
+        QString Type() const;
+        void Type(const QString&);
 
-  int ccmov() const;
-  void ccmov(int);
+        QString Nationality() const;
+        void Nationality(const QString&);
 
-  int fcap() const;
-  void fcap(int);
+        double Trmov() const;
+        void Trmov(double);
 
-  int fcons() const;
-  void fcons(int);
+        double Ccmov() const;
+        void Ccmov(double);
 
-  QString susp() const;
-  void susp(const QString&);
+        double Fcap() const;
+        void Fcap(double);
 
-  int tf() const;
-  void tf(int);
+        double Fcons() const;
+        void Fcons(double);
 
-  int ts() const;
-  void ts(int);
+        QString Susp() const;
+        void Susp(const QString&);
 
-  int tr() const;
-  void tr(int);
+        double Tf() const;
+        void Tf(double);
 
-  int hf() const;
-  void hf(int);
+        double Ts() const;
+        void Ts(double);
 
-  int hs() const;
-  void hs(int);
+        double Tr() const;
+        void Tr(double);
 
-  int hr() const;
-  void hr(int);
-  */
-      QList<Weapon*> Weapons();
-      void Weapons(QList<Weapon*>&);
-      /*
-  int weight() const;
-  void weight(int);
+        double Hf() const;
+        void Hf(double);
 
-  qreal load() const;
-  void load(qreal);
+        double Hs() const;
+        void Hs(double);
 
-  int crew() const;
-  void crew(int);
+        double Hr() const;
+        void Hr(double);
 
-  int psgr() const;
-  void psgr(int);
+        QList<Weapon*> Weapons();
+        void Weapons(QList<Weapon*>&);
 
-  int mnt() const;
-  void mnt(int);
+        double Weight() const;
+        void Weight(double);
 
-  int price() const;
-  void price(int);
+        double Load() const;
+        void Load(double);
 
-  int rf() const;
-  void rf(int);
+        double Crew() const;
+        void Crew(double);
 
-  int deck() const;
-  void deck(int);
+        double Psgr() const;
+        void Psgr(double);
 
-  int belly() const;
-  void belly(int);
+        double Mnt() const;
+        void Mnt(double);
 
-  QString stab() const;
-  void stab(const QString&);
+        double Price() const;
+        void Price(double);
 
-  QString fuel() const;
-  void fuel(const QString&);
+        double Rf() const;
+        void Rf(double);
 
-  QString night() const;
-  void night(const QString&);
+        double Deck() const;
+        void Deck(double);
 
-  QString rad() const;
-  void rad(const QString&);
+        double Belly() const;
+        void Belly(double);
 
-  QString x5() const;
-  void x5(const QString&);
+        QString Stab() const;
+        void Stab(const QString&);
 
-  QString x6() const;
-  void x6(const QString&);
+        QString Fuel() const;
+        void Fuel(const QString&);
 
-  QString x7() const;
-  void x7(const QString&);
+        QString Night() const;
+        void Night(const QString&);
 
-  QString x8() const;
-  void x8(const QString&);
+        QString Rad() const;
+        void Rad(const QString&);
 
-  QString loca() const;
-  void local(const QString&);
-  */
+        QString X5() const;
+        void X5(const QString&);
 
-      // virtual void Read(const QJsonObject&) override;
+        QString X6() const;
+        void X6(const QString&);
 
-      static const QString JSON_TYPE;
+        QString X7() const;
+        void X7(const QString&);
 
-    private:
-      static const QString NAME;
-      static const QString TYPE;
-      static const QString NATIONALITY;
-      static const QString WEAPONS;
+        QString X8() const;
+        void X8(const QString&);
 
-      QList<Weapon*> mWeapons;
+        QString Loca() const;
+        void Loca(const QString&);
+
+        // virtual void Read(const QJsonObject&) override;
+
+        static const QString JSON_TYPE;
+
+      private:
+        static const QString PROP_NAME;
+        static const QString PROP_TYPE;
+        static const QString PROP_NATIONALITY;
+        static const QString PROP_TRMOV;
+        static const QString PROP_CCMOV;
+        static const QString PROP_FCAP;
+        static const QString PROP_FCONS;
+        static const QString PROP_SUSP;
+        static const QString PROP_TF;
+        static const QString PROP_TS;
+        static const QString PROP_TR;
+        static const QString PROP_HF;
+        static const QString PROP_HS;
+        static const QString PROP_HR;
+        static const QString PROP_WEAPONS;
+        static const QString PROP_WEIGHT;
+        static const QString PROP_LOAD;
+        static const QString PROP_CREW;
+        static const QString PROP_PSGR;
+        static const QString PROP_MNT;
+        static const QString PROP_PRICE;
+        static const QString PROP_RF;
+        static const QString PROP_DECK;
+        static const QString PROP_BELLY;
+        static const QString PROP_STAB;
+        static const QString PROP_FUEL;
+        static const QString PROP_NIGHT;
+        static const QString PROP_RAD;
+        static const QString PROP_X5;
+        static const QString PROP_X6;
+        static const QString PROP_X7;
+        static const QString PROP_X8;
+        static const QString PROP_LOCA;
+
+        QList<Weapon*> mWeapons;
     };
   };
 };

@@ -5,6 +5,8 @@
 #ifndef TREEITEM_HH
 #define TREEITEM_HH
 
+#include "objectform.hh"
+
 #include "vehicle.hh"
 #include "weapon.hh"
 
@@ -12,6 +14,7 @@
 #include <QVariant>
 
 class QStackedWidget;
+class QTextStream;
 
 namespace Ui {
   class MainWindow;
@@ -42,12 +45,15 @@ namespace GDW
         int Row() const;
         ObjectTreeItem* ParentItem();
 
-        virtual void Display(Ui::MainWindow*);
+        void Edit();
+        virtual void Select(Ui::MainWindow*, ObjectForm* = nullptr);
 
         virtual QDebug& Debug(QDebug&) const;
 
+        friend QTextStream& operator<<(QTextStream&, const ObjectTreeItem&);
+
       protected:
-        ObjectTreeItem(Object*, ObjectTreeItem* parent = nullptr);
+        ObjectTreeItem(Object*, ObjectTreeItem*);
 
         virtual Object* GetObject();
         virtual const Object* GetObject() const;
@@ -67,7 +73,7 @@ namespace GDW
         static VehicleTreeItem* Unpack(const QJsonObject&,
                                        ObjectTreeItem* parent);
 
-        void Display(Ui::MainWindow*) override;
+        void Select(Ui::MainWindow*, ObjectForm* = nullptr) override;
 
         QDebug& Debug(QDebug&) const override;
 
@@ -87,6 +93,7 @@ namespace GDW
     class WeaponTreeItem : public ObjectTreeItem
     {
       public:
+        static WeaponTreeItem* New();
         static WeaponTreeItem* Unpack(const QJsonObject&,
                                       ObjectTreeItem* parent);
 
@@ -95,7 +102,7 @@ namespace GDW
                        Weapon*);
         ~WeaponTreeItem() override;
 
-        void Display(Ui::MainWindow*) override;
+        void Select(Ui::MainWindow*, ObjectForm* = nullptr) override;
 
       protected:
         Object* GetObject() override;

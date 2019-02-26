@@ -16,11 +16,16 @@ namespace GDW
       Object(const Object&);
       virtual ~Object();
 
+      virtual Object* Copy();
+      virtual const Object* Copy() const;
+
 
 //      virtual void Read(const QJsonObject&);
 //      virtual void Write(QJsonObject&) const;
 
       void Print(int indentation = 0) const;
+
+      operator const QJsonObject&() const;
 
 
     protected:

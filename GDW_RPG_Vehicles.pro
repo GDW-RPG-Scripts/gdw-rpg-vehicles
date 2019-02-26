@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui
+QT       += core gui printsupport svg
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -33,7 +33,8 @@ SOURCES += \
     object.cc \
     model.cc \
     treeitem.cc \
-    objectform.cc
+    objectform.cc \
+    undocmds.cc
 
 HEADERS += \
         mainwindow.hh \
@@ -43,7 +44,8 @@ HEADERS += \
     object.hh \
     model.hh \
     treeitem.hh \
-    objectform.hh
+    objectform.hh \
+    undocmds.hh
 
 FORMS += \
         mainwindow.ui \
