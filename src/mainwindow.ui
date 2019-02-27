@@ -536,12 +536,23 @@
     <property name="title">
      <string>Edit</string>
     </property>
+    <widget class="QMenu" name="menuPreferences">
+     <property name="title">
+      <string>Preferences</string>
+     </property>
+     <addaction name="actionLoad_Default_Vehicles_on_startup"/>
+     <addaction name="separator"/>
+     <addaction name="actionRuleset"/>
+     <addaction name="actionTNE_and_Twilight_2000_2_2"/>
+    </widget>
     <addaction name="action_Undo"/>
     <addaction name="action_Redo"/>
     <addaction name="separator"/>
     <addaction name="action_Cut"/>
     <addaction name="action_Copy"/>
     <addaction name="action_Paste"/>
+    <addaction name="separator"/>
+    <addaction name="menuPreferences"/>
    </widget>
    <widget class="QMenu" name="menuHelp">
     <property name="title">
@@ -725,6 +736,27 @@
    </property>
    <property name="shortcut">
     <string>Ctrl+I</string>
+   </property>
+  </action>
+  <action name="actionLoad_Default_Vehicles_on_startup">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Load Default Vehicles on startup</string>
+   </property>
+  </action>
+  <action name="actionRuleset">
+   <property name="text">
+    <string>Ruleset:</string>
+   </property>
+  </action>
+  <action name="actionTNE_and_Twilight_2000_2_2">
+   <property name="text">
+    <string>TNE and Twilight 2000 (2.2)</string>
    </property>
   </action>
  </widget>

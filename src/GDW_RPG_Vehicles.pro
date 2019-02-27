@@ -6,7 +6,7 @@
 
 QT       += core gui printsupport svg
 
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+greaterThan(QT_MAJOR_VERSION, 4): QT += core widgets
 
 TARGET = GDW_RPG_Vehicles
 TEMPLATE = app
