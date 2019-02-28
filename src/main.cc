@@ -29,9 +29,11 @@ int main(int argc, char* argv[])
   Q_INIT_RESOURCE(gdw_rpg_vehicles);
 
   QApplication app(argc, argv);
-  QCoreApplication::setOrganizationName("Mike Henry");
-  QCoreApplication::setApplicationName("GDW RPG Vehicles");
-  QCoreApplication::setApplicationVersion("0");
+
+  QCoreApplication::setOrganizationName("GDW RPG");
+  QCoreApplication::setApplicationName("Vehicles");
+  QCoreApplication::setApplicationVersion(QT_VERSION_STR);
+
   QCommandLineParser parser;
   parser.setApplicationDescription(QCoreApplication::applicationName());
   parser.addHelpOption();
@@ -40,8 +42,7 @@ int main(int argc, char* argv[])
   parser.process(app);
 
   QTranslator qtTranslator;
-  qtTranslator.load("qt_" + QLocale::system().name(),
-                    QLibraryInfo::location(QLibraryInfo::TranslationsPath));
+  qtTranslator.load("qt_" + QLocale::system().name(), QLibraryInfo::location(QLibraryInfo::TranslationsPath));
   app.installTranslator(&qtTranslator);
 
   QTranslator myappTranslator;
@@ -52,5 +53,6 @@ int main(int argc, char* argv[])
   if (!parser.positionalArguments().isEmpty())
     mainWin.LoadFile(parser.positionalArguments().first());
   mainWin.show();
+
   return app.exec();
 }

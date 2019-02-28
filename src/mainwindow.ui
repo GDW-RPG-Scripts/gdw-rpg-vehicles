@@ -538,12 +538,17 @@
     </property>
     <widget class="QMenu" name="menuPreferences">
      <property name="title">
-      <string>Preferences</string>
+      <string>Foobar</string>
      </property>
      <addaction name="actionLoad_Default_Vehicles_on_startup"/>
      <addaction name="separator"/>
      <addaction name="actionRuleset"/>
      <addaction name="actionTNE_and_Twilight_2000_2_2"/>
+     <addaction name="actionStriker_I_rules"/>
+     <addaction name="actionActual_armor_value_equivalents_in_cm_steel"/>
+     <addaction name="actionMongoose_2e"/>
+     <addaction name="actionCepheus_vehicle_rules"/>
+     <addaction name="actionArmor_calculator"/>
     </widget>
     <addaction name="action_Undo"/>
     <addaction name="action_Redo"/>
@@ -553,6 +558,7 @@
     <addaction name="action_Paste"/>
     <addaction name="separator"/>
     <addaction name="menuPreferences"/>
+    <addaction name="action_Prefs"/>
    </widget>
    <widget class="QMenu" name="menuHelp">
     <property name="title">
@@ -750,13 +756,88 @@
    </property>
   </action>
   <action name="actionRuleset">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="text">
-    <string>Ruleset:</string>
+    <string>Ruleset</string>
    </property>
   </action>
   <action name="actionTNE_and_Twilight_2000_2_2">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
    <property name="text">
     <string>TNE and Twilight 2000 (2.2)</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+1</string>
+   </property>
+  </action>
+  <action name="actionStriker_I_rules">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Striker I rules</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+2</string>
+   </property>
+  </action>
+  <action name="actionActual_armor_value_equivalents_in_cm_steel">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Actual armor equivalent in centimeters of steel (cm)</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+3</string>
+   </property>
+  </action>
+  <action name="actionMongoose_2e">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Mongoose T2E vehicle rules</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+4</string>
+   </property>
+  </action>
+  <action name="actionCepheus_vehicle_rules">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Cepheus vehicle rules</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+5</string>
+   </property>
+  </action>
+  <action name="actionArmor_calculator">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Armor calculator</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+6</string>
+   </property>
+  </action>
+  <action name="action_Prefs">
+   <property name="text">
+    <string>Preferences...</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::PreferencesRole</enum>
    </property>
   </action>
  </widget>
@@ -984,6 +1065,22 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>action_Prefs</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>Prefs()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>449</x>
+     <y>277</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>About()</slot>
@@ -998,5 +1095,6 @@
   <slot>Redo()</slot>
   <slot>SaveItem()</slot>
   <slot>New()</slot>
+  <slot>Prefs()</slot>
  </slots>
 </ui>

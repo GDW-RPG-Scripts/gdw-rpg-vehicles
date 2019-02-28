@@ -29,6 +29,7 @@
 
 #include "model.hh"
 #include "mainwindow.hh"
+#include "prefsdialog.hh"
 #include "treeitem.hh"
 #include "undocmds.hh"
 
@@ -43,9 +44,19 @@ namespace GDW
   {
     MainWindow::MainWindow(QWidget* parent) :
       QMainWindow(parent),
+      mRuleSet(0),
+      mLoadOnStart(true),
       mModel(new TreeModel),
       mUi(new Ui::MainWindow)
     {
+      ReadSettings();
+
+#ifndef QT_NO_SESSIONMANAGER
+      QGuiApplication::setFallbackSessionManagementEnabled(false);
+      connect(qApp, &QGuiApplication::commitDataRequest,
+              this, &MainWindow::CommitData);
+#endif
+
       SetCurrentFile(QString());
       setUnifiedTitleAndToolBarOnMac(true);
 
@@ -85,6 +96,12 @@ namespace GDW
     //
     // Slots
     //
+    void
+    MainWindow::loadOnStart(int state)
+    {
+      mLoadOnStart = state;
+    }
+
     void MainWindow::New()
     {
       if (MaybeSave()) {
@@ -106,6 +123,13 @@ namespace GDW
         if (!fileName.isEmpty())
           LoadFile(fileName);
       }
+    }
+
+    void
+    MainWindow::Prefs()
+    {
+      PrefsDialog dialog(this);
+      dialog.exec();
     }
 
     bool
@@ -254,7 +278,11 @@ namespace GDW
     void
     MainWindow::ReadSettings()
     {
-      QSettings settings(QCoreApplication::organizationName(), QCoreApplication::applicationName());
+      QSettings settings;
+
+      mLoadOnStart = settings.value("loadOnStart", mLoadOnStart).toBool();
+      mRuleSet = settings.value("ruleset", mRuleSet).toInt();
+
       const QByteArray geometry = settings.value("geometry", QByteArray()).toByteArray();
       if (geometry.isEmpty()) {
         const QRect availableGeometry = QApplication::desktop()->availableGeometry(this);
@@ -269,8 +297,10 @@ namespace GDW
     void
     MainWindow::WriteSettings()
     {
-      QSettings settings(QCoreApplication::organizationName(), QCoreApplication::applicationName());
+      QSettings settings;
       settings.setValue("geometry", saveGeometry());
+      settings.setValue("loadOnStart", mLoadOnStart);
+      settings.setValue("ruleSet", mRuleSet);
     }
 
     bool
@@ -371,7 +401,9 @@ namespace GDW
     MainWindow::SetCurrentFile(const QString& fileName)
     {
       QFileInfo info(mCurrentFile = fileName);
-      setWindowTitle(info.fileName() + " - GDW RPG Vehicles");
+      setWindowTitle(info.fileName() + " - " +
+                     QCoreApplication::organizationName() + " " +
+                     QCoreApplication::applicationName());
     }
   };
 };

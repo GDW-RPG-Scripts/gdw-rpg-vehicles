@@ -6,7 +6,7 @@
 
 QT       += core gui printsupport svg
 
-greaterThan(QT_MAJOR_VERSION, 4): QT += core widgets
+greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TARGET = GDW_RPG_Vehicles
 TEMPLATE = app
@@ -25,8 +25,8 @@ DEFINES += QT_DEPRECATED_WARNINGS
 CONFIG += c++11
 
 SOURCES += \
-        main.cc \
-        mainwindow.cc \
+    main.cc \
+    mainwindow.cc \
     vehicle.cc \
     exception.cc \
     weapon.cc \
@@ -34,10 +34,11 @@ SOURCES += \
     model.cc \
     treeitem.cc \
     objectform.cc \
-    undocmds.cc
+    undocmds.cc \
+    prefsdialog.cc
 
 HEADERS += \
-        mainwindow.hh \
+    mainwindow.hh \
     vehicle.hh \
     exception.hh \
     weapon.hh \
@@ -45,10 +46,11 @@ HEADERS += \
     model.hh \
     treeitem.hh \
     objectform.hh \
-    undocmds.hh
+    undocmds.hh \
+    prefsdialog.hh
 
 FORMS += \
-        mainwindow.ui \
+    mainwindow.ui \
     vehicleform.ui \
     weaponform.ui
 

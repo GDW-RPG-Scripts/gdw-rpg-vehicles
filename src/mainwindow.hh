@@ -55,13 +55,16 @@ namespace GDW
       private slots:
         void New();
         void Open();
+        void Prefs();
         bool Save();
         bool SaveAs();
         void Redo();
         void Undo();
-
         void About();
-        void DocumentWasModified();
+        void DocumentWasModified();        
+#ifndef QT_NO_SESSIONMANAGER
+        void CommitData(QSessionManager&);
+#endif
 
         void AddItem();
         void EditItem();
@@ -69,9 +72,7 @@ namespace GDW
         void SelectItem(const QModelIndex&);
         void SaveItem();
 
-#ifndef QT_NO_SESSIONMANAGER
-        void CommitData(QSessionManager&);
-#endif
+        void loadOnStart(int);
 
       private:
         void ReadSettings();
@@ -80,6 +81,9 @@ namespace GDW
         bool MaybeSave();
         bool SaveFile(const QString& fileName);
         void SetCurrentFile(const QString& fileName);
+
+        int mRuleSet;
+        bool mLoadOnStart;
 
         TreeModel* mModel;
 
