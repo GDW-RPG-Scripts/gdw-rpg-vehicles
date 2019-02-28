@@ -220,6 +220,12 @@
              <verstretch>0</verstretch>
             </sizepolicy>
            </property>
+           <property name="minimumSize">
+            <size>
+             <width>200</width>
+             <height>0</height>
+            </size>
+           </property>
            <attribute name="title">
             <string>Weapons</string>
            </attribute>
@@ -253,7 +259,7 @@
            </property>
            <property name="minimumSize">
             <size>
-             <width>4</width>
+             <width>200</width>
              <height>0</height>
             </size>
            </property>
@@ -275,7 +281,7 @@
            <number>0</number>
           </property>
           <item>
-           <widget class="QPushButton" name="addButton">
+           <widget class="QPushButton" name="insertItemButton">
             <property name="enabled">
              <bool>true</bool>
             </property>
@@ -312,7 +318,7 @@
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="deleteButton">
+           <widget class="QPushButton" name="removeItemButton">
             <property name="enabled">
              <bool>false</bool>
             </property>
@@ -451,7 +457,7 @@
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="editButton">
+           <widget class="QPushButton" name="editItemButton">
             <property name="enabled">
              <bool>false</bool>
             </property>
@@ -536,20 +542,6 @@
     <property name="title">
      <string>Edit</string>
     </property>
-    <widget class="QMenu" name="menuPreferences">
-     <property name="title">
-      <string>Foobar</string>
-     </property>
-     <addaction name="actionLoad_Default_Vehicles_on_startup"/>
-     <addaction name="separator"/>
-     <addaction name="actionRuleset"/>
-     <addaction name="actionTNE_and_Twilight_2000_2_2"/>
-     <addaction name="actionStriker_I_rules"/>
-     <addaction name="actionActual_armor_value_equivalents_in_cm_steel"/>
-     <addaction name="actionMongoose_2e"/>
-     <addaction name="actionCepheus_vehicle_rules"/>
-     <addaction name="actionArmor_calculator"/>
-    </widget>
     <addaction name="action_Undo"/>
     <addaction name="action_Redo"/>
     <addaction name="separator"/>
@@ -557,7 +549,6 @@
     <addaction name="action_Copy"/>
     <addaction name="action_Paste"/>
     <addaction name="separator"/>
-    <addaction name="menuPreferences"/>
     <addaction name="action_Prefs"/>
    </widget>
    <widget class="QMenu" name="menuHelp">
@@ -906,22 +897,6 @@
    </hints>
   </connection>
   <connection>
-   <sender>action_Quit</sender>
-   <signal>triggered()</signal>
-   <receiver>MainWindow</receiver>
-   <slot>close()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>-1</x>
-     <y>-1</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>449</x>
-     <y>277</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
    <sender>action_Print</sender>
    <signal>triggered()</signal>
    <receiver>MainWindow</receiver>
@@ -938,7 +913,7 @@
    </hints>
   </connection>
   <connection>
-   <sender>editButton</sender>
+   <sender>editItemButton</sender>
    <signal>clicked()</signal>
    <receiver>MainWindow</receiver>
    <slot>EditItem()</slot>
@@ -986,7 +961,7 @@
    </hints>
   </connection>
   <connection>
-   <sender>addButton</sender>
+   <sender>insertItemButton</sender>
    <signal>clicked()</signal>
    <receiver>MainWindow</receiver>
    <slot>AddItem()</slot>
@@ -1081,6 +1056,38 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>action_Quit</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>449</x>
+     <y>277</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>removeItemButton</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>RemoveItem()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>38</x>
+     <y>509</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>449</x>
+     <y>277</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>About()</slot>
@@ -1096,5 +1103,6 @@
   <slot>SaveItem()</slot>
   <slot>New()</slot>
   <slot>Prefs()</slot>
+  <slot>RemoveItem()</slot>
  </slots>
 </ui>

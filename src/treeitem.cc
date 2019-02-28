@@ -36,13 +36,20 @@ namespace GDW
 {
   namespace RPG
   {
+    ObjectTreeItem::ObjectTreeItem(Object* object, ObjectTreeItem* parent)
+      : mObject(object), mItemData(object->ItemData()), mParentItem(parent)
+    {}
+
     ObjectTreeItem::ObjectTreeItem(QList<QVariant>& data, ObjectTreeItem* parent)
-      : mItemData(data), mParentItem(parent)
+      : mObject(nullptr), mItemData(data), mParentItem(parent)
     {}
 
     ObjectTreeItem::~ObjectTreeItem()
     {
       qDeleteAll(mChildItems);
+
+      if(mObject != nullptr)
+        delete mObject;
     }
 
     ObjectTreeItem*
@@ -77,6 +84,43 @@ namespace GDW
       return mItemData.value(column);
     }
 
+    bool
+    ObjectTreeItem::SetData(int column, const QVariant& value)
+    {
+      if (column < 0 || column >= mItemData.size())
+        return false;
+
+      mItemData[column] = value;
+      return true;
+    }
+
+    bool ObjectTreeItem::InsertChildren(int position, int count, int columns)
+    {
+        if (position < 0 || position > mChildItems.size())
+            return false;
+
+        for (int row = 0; row < count; ++row) {
+            QList<QVariant> data;
+            data << columns;
+            ObjectTreeItem *item = new ObjectTreeItem(data, this);
+            mChildItems.insert(position, item);
+        }
+
+        return true;
+    }
+
+    bool
+    ObjectTreeItem::RemoveChildren(int position, int count)
+    {
+      if (position < 0 || position + count > mChildItems.size())
+        return false;
+
+      for (int row = 0; row < count; ++row)
+        delete mChildItems.takeAt(position);
+
+      return true;
+    }
+
     ObjectTreeItem*
     ObjectTreeItem::ParentItem()
     {
@@ -90,6 +134,22 @@ namespace GDW
         return mParentItem->mChildItems.indexOf(const_cast<ObjectTreeItem*>(this));
 
       return 0;
+    }
+
+    typedef std::function<ObjectTreeItem*(ObjectTreeItem*)> ObjectTreeCreateFunction;
+
+    ObjectTreeItem*
+    ObjectTreeItem::Create(int type, ObjectTreeItem* parent)
+    {
+      static const ObjectTreeCreateFunction OBJECT_TREE_NEW[] =
+      {
+        VehicleTreeItem::Create,
+        WeaponTreeItem::Create
+      };
+
+      ObjectTreeCreateFunction create = OBJECT_TREE_NEW[type];
+      ObjectTreeItem* item = create(parent);
+      return parent->AppendChild(item);
     }
 
     typedef std::function<ObjectTreeItem*(const QJsonObject&, ObjectTreeItem*)> ObjectTreeUnpackFunction;
@@ -177,13 +237,13 @@ namespace GDW
     Object*
     ObjectTreeItem::GetObject()
     {
-      return nullptr;
+      return mObject;
     }
 
     const Object*
     ObjectTreeItem::GetObject() const
     {
-      return nullptr;
+      return mObject;
     }
 
     QDebug&
@@ -202,36 +262,28 @@ namespace GDW
     /*
      * Vehicle
      */
+
+    VehicleTreeItem*
+    VehicleTreeItem::Create(ObjectTreeItem* parent)
+    {
+
+      return new VehicleTreeItem(Vehicle::New(), parent);
+    }
+
     VehicleTreeItem*
     VehicleTreeItem::Unpack(const QJsonObject& json, ObjectTreeItem* parent)
     {
       Vehicle* vehicle = new Vehicle(json);
+      VehicleTreeItem* vti = new VehicleTreeItem(vehicle, parent);
 
-      QList<QVariant> vehicleData;
-
-      vehicleData << vehicle->Name()
-                  << vehicle->Type()
-                  << vehicle->Nationality();
-
-      VehicleTreeItem* vti = new VehicleTreeItem(vehicleData, parent, vehicle);
-
-      QList<Weapon*> weapons = vehicle->Weapons();
-      for (int i = 0; i < weapons.size(); ++i)
-      {
-        QList<QVariant> weaponData;
-
-        weaponData << weapons[i]->Wtyp();
-        // << weapons[i]->Range()
-        // << weapons[i]->RateOfFire();
-
-        vti->AppendChild(new WeaponTreeItem(weaponData, vti, weapons[i]));
-      }
+      foreach(Weapon* weapon, vehicle->Weapons())
+        vti->AppendChild(new WeaponTreeItem(weapon, vti));
 
       return vti;
     }
 
-    VehicleTreeItem::VehicleTreeItem(QList<QVariant>& data, ObjectTreeItem* parent, Vehicle* vehicle) //, const QFontMetrics& fontMetrics)
-      : ObjectTreeItem(data, parent), mVehicle(vehicle)
+    VehicleTreeItem::VehicleTreeItem(Vehicle* vehicle, ObjectTreeItem* parent) //, const QFontMetrics& fontMetrics)
+      : ObjectTreeItem(vehicle, parent) //, mVehicle(vehicle)
     {}
 
     VehicleTreeItem::~VehicleTreeItem()
@@ -240,19 +292,19 @@ namespace GDW
     void
     VehicleTreeItem::Select(Ui::MainWindow* mainWindow, ObjectForm*)
     {
-      ObjectTreeItem::Select(mainWindow, new VehicleForm(mVehicle));
+      ObjectTreeItem::Select(mainWindow, new VehicleForm(GetObject()));
     }
 
-    Object*
+    Vehicle*
     VehicleTreeItem::GetObject()
     {
-      return mVehicle;
+      return static_cast<Vehicle*>(ObjectTreeItem::GetObject());
     }
 
-    const Object*
+    const Vehicle*
     VehicleTreeItem::GetObject() const
     {
-      return mVehicle;
+      return static_cast<const Vehicle*>(ObjectTreeItem::GetObject());
     }
 
     QDebug&
@@ -268,23 +320,23 @@ namespace GDW
      * Weapon
      */
     WeaponTreeItem*
+    WeaponTreeItem::Create(ObjectTreeItem* parent)
+    {
+
+      return new WeaponTreeItem(Weapon::New(), parent);
+    }
+
+    WeaponTreeItem*
     WeaponTreeItem::Unpack(const QJsonObject& json, ObjectTreeItem* parent)
     {
       Weapon* weapon = new Weapon(json);
-
-      QList<QVariant> data;
-
-      data << weapon->Wtyp();
-      // << weapon->Range()
-      // << weapon->RateOfFire();
-
-      WeaponTreeItem* wti = new WeaponTreeItem(data, parent, weapon);
+      WeaponTreeItem* wti = new WeaponTreeItem(weapon, parent);
 
       return wti;
     }
 
-    WeaponTreeItem::WeaponTreeItem(QList<QVariant>& data, ObjectTreeItem* parent, Weapon* weapon) //, const QFontMetrics& fontMetrics)
-      : ObjectTreeItem(data, parent), mWeapon(weapon)
+    WeaponTreeItem::WeaponTreeItem(Weapon* weapon, ObjectTreeItem* parent)
+      : ObjectTreeItem(weapon, parent) // , mWeapon(weapon)
     {}
 
     WeaponTreeItem::~WeaponTreeItem()
@@ -293,19 +345,19 @@ namespace GDW
     void
     WeaponTreeItem::Select(Ui::MainWindow* mainWindow, ObjectForm*)
     {
-      ObjectTreeItem::Select(mainWindow, new WeaponForm(mWeapon));
+      ObjectTreeItem::Select(mainWindow, new WeaponForm(GetObject()));
     }
 
-    Object*
+    Weapon*
     WeaponTreeItem::GetObject()
     {
-      return mWeapon;
+      return static_cast<Weapon*>(ObjectTreeItem::GetObject());
     }
 
-    const Object*
+    const Weapon*
     WeaponTreeItem::GetObject() const
     {
-      return mWeapon;
+      return static_cast<const Weapon*>(ObjectTreeItem::GetObject());
     }
 
     QDebug&

@@ -80,24 +80,18 @@ namespace GDW
     }
 
     void
-    TreeModel::AddItem(QString type, const QModelIndex& index)
+    TreeModel::AddItem(int type, const QModelIndex& index)
     {
-      qDebug() << "TreeModel::AddItem(QString"
+      qDebug() << "TreeModel::AddItem(int"
                << type
-               << ", const QModelIndex&"
+               << ", const QModelIndexList&"
                << index;
 
-      ObjectTreeItem* parent;
-
-      if(index.internalPointer() == nullptr) {
-        CreateRootItem();
-        parent = mRootItem;
+      if(!index.isValid()) {
+        ObjectTreeItem::Create(type, mRootItem);
       } else {
-        parent =
-            static_cast<ObjectTreeItem*>(index.internalPointer());
+        ObjectTreeItem::Create(type, getItem(index));
       }
-
-      // ObjectTreeItem::Unpack(jdoc.object(), parent);
     }
 
     void
@@ -114,38 +108,16 @@ namespace GDW
 #endif // QT_CONFIG(printer)
     }
 
-    QVariant
-    TreeModel::headerData(int section,
-                          Qt::Orientation orientation,
-                          int role) const
-    {
-      if (orientation == Qt::Horizontal && role == Qt::DisplayRole)
-        return mRootItem->Data(section);
 
-      return QVariant();
-    }
-
-    int
-    TreeModel::rowCount(const QModelIndex& parent) const
-    {
-      ObjectTreeItem* parentItem;
-      if (parent.column() > 0)
-        return 0;
-
-      if (!parent.isValid())
-        parentItem = mRootItem;
-      else
-        parentItem =
-            static_cast<ObjectTreeItem*>(parent.internalPointer());
-
-      return parentItem->ChildCount();
-    }
-
+    /*
+     * Overrides
+     */
     int
     TreeModel::columnCount(const QModelIndex& parent) const
     {
       if (parent.isValid())
-        return static_cast<ObjectTreeItem*>(parent.internalPointer())->ColumnCount();
+        return
+            static_cast<ObjectTreeItem*>(parent.internalPointer())->ColumnCount();
       else
         return mRootItem->ColumnCount();
     }
@@ -156,13 +128,10 @@ namespace GDW
       if (!index.isValid())
         return QVariant();
 
-      if (role != Qt::DisplayRole)
+      if (role != Qt::DisplayRole && role != Qt::EditRole)
         return QVariant();
 
-      ObjectTreeItem* item =
-          static_cast<ObjectTreeItem*>(index.internalPointer());
-
-      return item->Data(index.column());
+      return getItem(index)->Data(index.column());
     }
 
     Qt::ItemFlags
@@ -172,6 +141,31 @@ namespace GDW
         return nullptr;
 
       return QAbstractItemModel::flags(index);
+      // return Qt::ItemIsEditable | QAbstractItemModel::flags(index);
+    }
+
+    ObjectTreeItem*
+    TreeModel::getItem(const QModelIndex &index) const
+    {
+      if (index.isValid()) {
+        ObjectTreeItem* item =
+            static_cast<ObjectTreeItem*>(index.internalPointer());
+
+        if (item)
+          return item;
+      }
+      return mRootItem;
+    }
+
+    QVariant
+    TreeModel::headerData(int section,
+                          Qt::Orientation orientation,
+                          int role) const
+    {
+      if (orientation == Qt::Horizontal && role == Qt::DisplayRole)
+        return mRootItem->Data(section);
+
+      return QVariant();
     }
 
     QModelIndex
@@ -185,7 +179,7 @@ namespace GDW
       if (!parent.isValid())
         parentItem = mRootItem;
       else
-        parentItem = static_cast<ObjectTreeItem*>(parent.internalPointer());
+        parentItem = getItem(parent); //
 
       ObjectTreeItem* childItem = parentItem->Child(row);
       if (childItem)
@@ -194,20 +188,76 @@ namespace GDW
         return QModelIndex();
     }
 
+    bool
+    TreeModel::insertRows(int position, int rows, const QModelIndex& index)
+    {
+      ObjectTreeItem* parentItem = getItem(index);
+
+      beginInsertRows(index, position, position + rows - 1);
+      bool success =
+          parentItem->InsertChildren(position, rows,
+                                     mRootItem->ColumnCount());
+      endInsertRows();
+
+      return success;
+    }
+
     QModelIndex
     TreeModel::parent(const QModelIndex& index) const
     {
       if (!index.isValid())
         return QModelIndex();
 
-      ObjectTreeItem *childItem =
-          static_cast<ObjectTreeItem*>(index.internalPointer());
-      ObjectTreeItem *parentItem = childItem->ParentItem();
+      ObjectTreeItem* childItem = getItem(index);
+      ObjectTreeItem* parentItem = childItem->ParentItem();
 
       if (parentItem == mRootItem)
         return QModelIndex();
 
       return createIndex(parentItem->Row(), 0, parentItem);
+    }
+
+    bool
+    TreeModel::removeRows(int position, int rows, const QModelIndex &parent)
+    {
+      ObjectTreeItem* parentItem = getItem(parent);
+
+      beginRemoveRows(parent, position, position + rows - 1);
+      bool success = parentItem->RemoveChildren(position, rows);
+      endRemoveRows();
+
+      return success;
+    }
+
+    int
+    TreeModel::rowCount(const QModelIndex& parent) const
+    {
+      ObjectTreeItem* parentItem;
+      if (parent.column() > 0)
+        return 0;
+
+      if (!parent.isValid())
+        parentItem = mRootItem;
+      else
+        parentItem = getItem(parent);
+
+      return parentItem->ChildCount();
+    }
+
+    bool
+    TreeModel::setData(const QModelIndex& index,
+                       const QVariant& value, int role)
+    {
+      if (role != Qt::EditRole)
+        return false;
+
+      ObjectTreeItem* item = getItem(index);
+      bool result = item->SetData(index.column(), value);
+
+      if (result)
+        emit dataChanged(index, index, {role});
+
+      return result;
     }
 
     QTextStream&

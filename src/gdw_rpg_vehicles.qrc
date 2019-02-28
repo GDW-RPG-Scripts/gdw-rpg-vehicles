@@ -15,5 +15,6 @@
         <file>images/SPG.svg</file>
         <file>images/TLT.svg</file>
         <file>images/WEP.svg</file>
+        <file>default.json</file>
     </qresource>
 </RCC>

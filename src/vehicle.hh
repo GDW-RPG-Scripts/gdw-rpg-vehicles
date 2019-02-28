@@ -43,6 +43,8 @@ namespace GDW
         Vehicle* Copy() override;
         const Vehicle* Copy() const override;
 
+        QList<QVariant> ItemData() const override;
+
 
         QString Name() const;
         void Name(const QString&);

@@ -26,6 +26,7 @@ class QAction;
 class QMenu;
 class QPlainTextEdit;
 class QSessionManager;
+class QTreeView;
 
 namespace Ui {
   class MainWindow;
@@ -49,6 +50,11 @@ namespace GDW
 
         void LoadFile(const QString& fileName);
 
+      public slots:
+        void LoadOnStart(int);
+        void RuleSet(int);
+        void UpdateActions();
+
       protected:
         void closeEvent(QCloseEvent* event) override;
 
@@ -68,19 +74,19 @@ namespace GDW
 
         void AddItem();
         void EditItem();
+        void RemoveItem();
         void PrintItem();
         void SelectItem(const QModelIndex&);
         void SaveItem();
 
-        void loadOnStart(int);
-
       private:
         void ReadSettings();
         void WriteSettings();
-        bool isModified();
+        bool IsModified();
         bool MaybeSave();
         bool SaveFile(const QString& fileName);
         void SetCurrentFile(const QString& fileName);
+        QTreeView* GetCurrentTreeView();
 
         int mRuleSet;
         bool mLoadOnStart;

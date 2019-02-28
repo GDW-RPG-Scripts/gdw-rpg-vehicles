@@ -19,15 +19,34 @@
 #ifndef UNDOCOMMANDS_HH
 #define UNDOCOMMANDS_HH
 
+#include <QModelIndex>
 #include <QUndoCommand>
 
-class UndoCommitObject : public QUndoCommand
+namespace GDW
 {
-  public:
-    UndoCommitObject();
+  namespace RPG
+  {
+    class UndoCommitObject : public QUndoCommand
+    {
+      public:
+        UndoCommitObject();
 
-    void undo() override;
-    void redo() override;
+        void undo() override;
+        void redo() override;
+    };
+
+    class UndoRemoveObject : public QUndoCommand
+    {
+      public:
+        UndoRemoveObject(const QModelIndex&, QAbstractItemModel*);
+
+        void undo() override;
+        void redo() override;
+
+      private:
+        QModelIndex mIndex;
+        QAbstractItemModel* mModel;
+    };
+  };
 };
-
 #endif // UNDOCOMMANDS_HH

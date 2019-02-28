@@ -51,7 +51,7 @@
          <property name="verticalSpacing">
           <number>1</number>
          </property>
-         <item row="0" column="0">
+         <item row="1" column="0">
           <widget class="QLabel" name="rngLabel">
            <property name="text">
             <string>Range:</string>
@@ -61,7 +61,7 @@
            </property>
           </widget>
          </item>
-         <item row="0" column="1">
+         <item row="1" column="1">
           <widget class="QLineEdit" name="rngLineEdit">
            <property name="layoutDirection">
             <enum>Qt::RightToLeft</enum>
@@ -74,7 +74,7 @@
            </property>
           </widget>
          </item>
-         <item row="1" column="1">
+         <item row="2" column="1">
           <widget class="QLineEdit" name="rofLineEdit">
            <property name="layoutDirection">
             <enum>Qt::RightToLeft</enum>
@@ -87,7 +87,7 @@
            </property>
           </widget>
          </item>
-         <item row="2" column="0">
+         <item row="3" column="0">
           <widget class="QLabel" name="wqualLabel">
            <property name="text">
             <string>Wqual:</string>
@@ -97,7 +97,7 @@
            </property>
           </widget>
          </item>
-         <item row="2" column="1">
+         <item row="3" column="1">
           <widget class="QLineEdit" name="wqualLineEdit">
            <property name="layoutDirection">
             <enum>Qt::RightToLeft</enum>
@@ -110,13 +110,30 @@
            </property>
           </widget>
          </item>
-         <item row="1" column="0">
+         <item row="2" column="0">
           <widget class="QLabel" name="rofLabel">
            <property name="text">
             <string>Rate of fire:</string>
            </property>
            <property name="buddy">
             <cstring>rofLineEdit</cstring>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="0">
+          <widget class="QLabel" name="techLevelLabel">
+           <property name="text">
+            <string>Tech Level:</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="1">
+          <widget class="QLineEdit" name="techLevelLineEdit">
+           <property name="alignment">
+            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+           </property>
+           <property name="readOnly">
+            <bool>true</bool>
            </property>
           </widget>
          </item>

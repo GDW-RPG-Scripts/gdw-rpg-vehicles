@@ -24,6 +24,8 @@
 
 #include <QWidget>
 
+class QLineEdit;
+
 namespace Ui {
   class ObjectForm;
   class VehicleForm;

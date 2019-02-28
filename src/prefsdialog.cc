@@ -26,25 +26,26 @@ namespace GDW
   namespace RPG
   {
     PrefsDialog::PrefsDialog(MainWindow* parent)
-      : QDialog(parent)
+      : QDialog(parent), mRuleGroup(new QButtonGroup)
     {
       QSettings settings;
       QVBoxLayout* dialogLayout = new QVBoxLayout;
 
       //
-      QGroupBox* startBox = new QGroupBox(tr("Startup behavior"), this);
+      QGroupBox* startBox = new QGroupBox(tr("Startup behavior") + ":", this);
       QVBoxLayout* startBoxLayout = new QVBoxLayout;
 
-      QCheckBox* checkbox = new QCheckBox(tr("Load objects on startup."), this);
+      QCheckBox* checkbox =
+          new QCheckBox(tr("Load default database on startup."), this);
       checkbox->setChecked(settings.value("loadOnStart", true).toBool());
-      connect(checkbox, SIGNAL(stateChanged(int)), parent, SLOT(loadOnStart(int)));
+      connect(checkbox, SIGNAL(stateChanged(int)), parent, SLOT(LoadOnStart(int)));
 
       startBoxLayout->addWidget(checkbox);
       startBox->setLayout(startBoxLayout);
       dialogLayout->addWidget(startBox);
 
       //
-      QGroupBox* ruleBox = new QGroupBox(tr("Ruleset"), this);
+      QGroupBox* ruleBox = new QGroupBox(tr("Ruleset") + ":", this);
       QVBoxLayout* ruleBoxLayout = new QVBoxLayout;
 
       QList<QRadioButton*> ruleSet =
@@ -59,8 +60,11 @@ namespace GDW
 
       ruleSet[settings.value("ruleset", 0).toInt()]->setChecked(true);
 
-      foreach(QRadioButton* rule, ruleSet)
-        ruleBoxLayout->addWidget(rule);
+      for(int i = 0; i < ruleSet.count(); ++i) {
+        ruleBoxLayout->addWidget(ruleSet[i]);
+        mRuleGroup->addButton(ruleSet[i], i);
+      }
+      connect(mRuleGroup, SIGNAL(buttonReleased(int)), parent, SLOT(RuleSet(int)));
 
       ruleBox->setLayout(ruleBoxLayout);
       dialogLayout->addWidget(ruleBox);
@@ -71,6 +75,11 @@ namespace GDW
 
       setWindowTitle(tr("Preferences"));
       setLayout(dialogLayout);
+    }
+
+    PrefsDialog::~PrefsDialog()
+    {
+      delete mRuleGroup;
     }
   };
 };

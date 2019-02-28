@@ -20,23 +20,53 @@
 
 #include <QDebug>
 
-UndoCommitObject::UndoCommitObject()
+namespace GDW
 {
-  //  mUi->objectForm->GetObject()->Copy();
-  //  QModelIndex index = mUi->vehiclesTreeView->currentIndex();
-  //  ObjectTreeItem* item =
-  //      static_cast<ObjectTreeItem*>(index.internalPointer());
-  //  item->Copy();
-}
+  namespace RPG
+  {
+    /*
+ * Undo Commit Object
+ */
+    UndoCommitObject::UndoCommitObject()
+    {
+      //  mUi->objectForm->GetObject()->Copy();
+      //  QModelIndex index = mUi->vehiclesTreeView->currentIndex();
+      //  ObjectTreeItem* item =
+      //      static_cast<ObjectTreeItem*>(index.internalPointer());
+      //  item->Copy();
+    }
 
-void
-UndoCommitObject::undo()
-{
-  qDebug() << "UndoCommitObject::undo()";
-}
+    void
+    UndoCommitObject::undo()
+    {
+      qDebug() << "UndoCommitObject::undo()";
+    }
 
-void
-UndoCommitObject::redo()
-{
-  qDebug() << "UndoCommitObject::redo()";
-}
+    void
+    UndoCommitObject::redo()
+    {
+      qDebug() << "UndoCommitObject::redo()";
+    }
+
+    /*
+ * Undo Commit Object
+ */
+    UndoRemoveObject::UndoRemoveObject(const QModelIndex& index, QAbstractItemModel* model)
+      : mIndex(index), mModel(model)
+    {}
+
+    void
+    UndoRemoveObject::undo()
+    {
+      qDebug() << "UndoRemoveObject::undo()";
+      mModel->insertRow(mIndex.row(), mIndex.parent());
+    }
+
+    void
+    UndoRemoveObject::redo()
+    {
+      qDebug() << "UndoRemoveObject::redo()";
+      mModel->removeRow(mIndex.row(), mIndex.parent());
+    }
+  };
+};

@@ -67,6 +67,18 @@ namespace GDW
       return new Weapon(*this);
     }
 
+    QList<QVariant>
+    Weapon::ItemData() const
+    {
+      QList<QVariant> data;
+
+      data << Wtyp();
+      //   << Range()
+      //   << RateOfFire();
+
+      return data;
+    }
+
 
     const QString Weapon::PROP_WTYP = "wtyp";
 

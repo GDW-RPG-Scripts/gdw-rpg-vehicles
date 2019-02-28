@@ -37,7 +37,29 @@ namespace GDW
 
     Object::Object(const QJsonObject& json)
       : mJsonObject(json)
-    {}
+    {
+      if(mJsonObject.isEmpty() ||
+         !mJsonObject.contains(PROP_TECHLEVEL) ||
+         !mJsonObject[PROP_TECHLEVEL].isDouble())
+        mJsonObject.insert(PROP_TECHLEVEL, 0);
+    }
+
+    /*
+     * Tech-level
+     */
+    const QString Object::PROP_TECHLEVEL = "tl";
+
+    void
+    Object::TechLevel(double value)
+    {
+      SetDoubleFor(PROP_TECHLEVEL, value);
+    }
+
+    double
+    Object::TechLevel() const
+    {
+      return GetDoubleFor(PROP_TECHLEVEL);
+    }
 
     Object*
     Object::Copy()
@@ -49,6 +71,12 @@ namespace GDW
     Object::Copy() const
     {
       return nullptr;
+    }
+
+    QList<QVariant>
+    Object::ItemData() const
+    {
+      return QList<QVariant>();
     }
 
     Object::operator const QJsonObject&() const
@@ -111,7 +139,7 @@ namespace GDW
          mJsonObject[index].isDouble())
         return mJsonObject[index].toDouble();
 
-      return 0.0;
+      return 0;
     }
 
     void

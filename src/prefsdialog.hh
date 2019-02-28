@@ -22,6 +22,7 @@
 
 #include <QDialog>
 
+class QButtonGroup;
 class QCloseEvent;
 
 namespace GDW
@@ -32,13 +33,14 @@ namespace GDW
 
     class PrefsDialog : public QDialog
     {
-        // Q_OBJECT
+        Q_OBJECT
 
       public:
         PrefsDialog(MainWindow* parent);
+        ~PrefsDialog();
 
-      // protected:
-      //   void closeEvent(QCloseEvent*) override;
+      private:
+        QButtonGroup* mRuleGroup;
     };
   };
 };

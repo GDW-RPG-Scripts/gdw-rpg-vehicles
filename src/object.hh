@@ -29,35 +29,37 @@ namespace GDW
   {
     class Object
     {
-    public:
-      Object();
-      Object(const Object&);
-      virtual ~Object();
+      public:
+        Object();
+        Object(const Object&);
+        virtual ~Object();
 
-      virtual Object* Copy();
-      virtual const Object* Copy() const;
+        virtual Object* Copy();
+        virtual const Object* Copy() const;
 
+        void Print(int indentation = 0) const;
 
-//      virtual void Read(const QJsonObject&);
-//      virtual void Write(QJsonObject&) const;
+        void TechLevel(double);
+        double TechLevel() const;
 
-      void Print(int indentation = 0) const;
+        operator const QJsonObject&() const;
 
-      operator const QJsonObject&() const;
+        virtual QList<QVariant> ItemData() const;
 
+      protected:
+        Object(const QJsonObject&);
 
-    protected:
-      Object(const QJsonObject&);
+        QString GetStringFor(const QString&) const;
+        void SetStringFor(const QString&, const QString&);
+        double GetDoubleFor(const QString&) const;
+        void SetDoubleFor(const QString&, double);
 
-      QString GetStringFor(const QString&) const;
-      void SetStringFor(const QString&, const QString&);
-      double GetDoubleFor(const QString&) const;
-      void SetDoubleFor(const QString&, double);
+        QVariant GetVariantFor(const QString&) const;
 
-      QVariant GetVariantFor(const QString&) const;
+      private:
+        static const QString PROP_TECHLEVEL;
 
-    private:
-      QJsonObject mJsonObject;
+        QJsonObject mJsonObject;
 
     };
   };

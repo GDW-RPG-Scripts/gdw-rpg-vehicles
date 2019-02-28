@@ -57,10 +57,10 @@ namespace GDW
               this, &MainWindow::CommitData);
 #endif
 
+      mUi->setupUi(this);
+
       SetCurrentFile(QString());
       setUnifiedTitleAndToolBarOnMac(true);
-
-      mUi->setupUi(this);
 
       // Disable menu actions for unavailable features
 #if !QT_CONFIG(printer)
@@ -72,6 +72,20 @@ namespace GDW
       mUi->action_Copy->setEnabled(false);
       mUi->action_Paste->setEnabled(false);
 #endif
+      if(mLoadOnStart)
+        LoadFile(":/default.json");
+
+      QTreeView* view = GetCurrentTreeView();
+
+      connect(view->selectionModel(), &QItemSelectionModel::selectionChanged,
+              this, &MainWindow::UpdateActions);
+
+      connect(mUi->menuEdit, &QMenu::aboutToShow, this, &MainWindow::UpdateActions);
+      connect(mUi->insertItemButton, &QAbstractButton::clicked, this, &MainWindow::AddItem);
+      // connect(mUi->action_Cut, &QAction::triggered, this, &MainWindow::RemoveItem);
+      // connect(insertChildAction, &QAction::triggered, this, &MainWindow::insertChild);
+
+      UpdateActions();
     }
 
     MainWindow::~MainWindow()
@@ -97,9 +111,16 @@ namespace GDW
     // Slots
     //
     void
-    MainWindow::loadOnStart(int state)
+    MainWindow::LoadOnStart(int state)
     {
       mLoadOnStart = state;
+    }
+
+    void
+    MainWindow::RuleSet(int state)
+    {
+      qDebug() << "MainWindow::RuleSet(int" << state << ")";
+      mRuleSet = state;
     }
 
     void MainWindow::New()
@@ -166,43 +187,70 @@ namespace GDW
     MainWindow::About()
     {
       // qDebug() << "MainWindow::About()";
-      QMessageBox::about(this, tr("About GDW RPG Vehicles"),
-                         tr("<b>GDW RPG Vehicles</b> – Vehicle card printing database for 2d6 "
-                            "Sci-fi and other RPGs.\n"
-                            "Copyright (C) 2018-2019 by Michael N. Henry\n\n"
-                            "This program is free software: you can redistribute it and/or modify "
-                            "it under the terms of the GNU General Public License as published by "
-                            "the Free Software Foundation, either version 3 of the License, or"
-                            "(at your option) any later version.\n\n"
-                            "The Traveller game in all forms is owned by Far Future Enterprises. "
-                            "Copyright 1977 - 2008 Far Future Enterprises."));
+      const char* text =
+          "GDW RPG Vehicles – Vehicle database and card printing software "
+          "for 2d6 Sci-fi and other RPGs.\n\n"
+          "Copyright © 2018-2019 by Michael N. Henry\n\n"
+          "This program is free software: you can redistribute it and/or "
+          "modify it under the terms of the GNU General Public License as "
+          "published by the Free Software Foundation, either version 3 of "
+          "the License, or (at your option) any later version.\n\n"
+          "Based on the original GDW RPG Vehicles QBasic software written "
+          "by Peter Kreft.\n\n"
+          "Artwork by Ian Stead and others.\n\n"
+          "The Traveller game in all forms is owned by Far Future "
+          "Enterprises. Copyright 1977 - 2008 Far Future Enterprises.";
+
+      QMessageBox::about(this, tr("About GDW RPG Vehicles"), tr(text));
     }
 
     void
     MainWindow::AddItem()
     {
-      QString type =
-          mUi->tabWidget->tabText(mUi->tabWidget->currentIndex());
+      QTreeView* view = GetCurrentTreeView();
+      bool hasSelection = !view->selectionModel()->selection().isEmpty();
+      int typeIndex = mUi->tabWidget->currentIndex();
 
-      QTreeView* tv =
-          static_cast<QTreeView*>(mUi->tabWidget->currentWidget());
+      if(hasSelection) {
+        QString type = mUi->tabWidget->tabText(typeIndex);
 
-      mModel->AddItem(type, tv->currentIndex());
+        QTreeView* tv =
+            static_cast<QTreeView*>(mUi->tabWidget->currentWidget());
+
+        //mModel->insertRow(, tv->currentIndex());
+        //mModel->AddItem(mUi->tabWidget->currentIndex(), tv->currentIndex());
+      } else {
+        //mModel->insertRow(object);
+        // mModel->AddItem(object);
+      }
     }
 
     void
     MainWindow::EditItem()
     {
       if(mUi->objectForm->IsReadOnly()) {
-        mUi->editButton->setText(tr("Cancel"));
+        mUi->editItemButton->setText(tr("Cancel"));
         mUi->  okButton->setEnabled(true);
         mUi->objectForm->SetReadOnly(false);
       } else {
-        mUi->editButton->setText(tr("Edit"));
+        mUi->editItemButton->setText(tr("Edit"));
         mUi->  okButton->setEnabled(false);
         mUi->objectForm->SetReadOnly(true);
         mUi->objectForm->Read();
       }
+    }
+
+    void MainWindow::RemoveItem()
+    {
+      QTreeView* view = GetCurrentTreeView();
+      QModelIndexList indexList = view->selectionModel()->selectedRows();
+      QAbstractItemModel* model = view->model();
+
+      foreach(QModelIndex index, indexList)
+        if (model->removeRow(index.row(), index.parent())) {
+          mUndoStack.push(new UndoRemoveObject(index, model));
+          UpdateActions();
+        }
     }
 
     void
@@ -228,7 +276,7 @@ namespace GDW
     void
     MainWindow::DocumentWasModified()
     {
-      setWindowModified(isModified());
+      setWindowModified(IsModified());
       // setWindowModified(textEdit->document()->isModified());
     }
 
@@ -239,21 +287,21 @@ namespace GDW
 
       oti->Select(mUi);
 
-      mUi->  editButton->setEnabled(true);
-      mUi->  editButton->setText(tr("Edit"));
-      mUi->    okButton->setEnabled(false);
-      mUi-> printButton->setEnabled(true);
-      mUi->deleteButton->setEnabled(true);
-      mUi->action_Print->setEnabled(true);
+      mUi->  editItemButton->setEnabled(true);
+      mUi->  editItemButton->setText(tr("Edit"));
+      mUi->        okButton->setEnabled(false);
+      mUi->     printButton->setEnabled(true);
+      mUi->removeItemButton->setEnabled(true);
+      mUi->    action_Print->setEnabled(true);
     }
 
     void
     MainWindow::SaveItem()
     {
       mUndoStack.push(new UndoCommitObject());
-      mUi->objectForm->Write();
-      mUi->editButton->setText(tr("Edit"));
-      mUi->  okButton->setEnabled(false);
+      mUi->    objectForm->Write();
+      mUi->editItemButton->setText(tr("Edit"));
+      mUi->      okButton->setEnabled(false);
     }
 
 #ifndef QT_NO_SESSIONMANAGER
@@ -265,7 +313,7 @@ namespace GDW
       } else {
         // Non-interactive: save without asking
         // if (textEdit->document()->isModified())
-        if (isModified())
+        if (IsModified())
           Save();
       }
     }
@@ -300,11 +348,11 @@ namespace GDW
       QSettings settings;
       settings.setValue("geometry", saveGeometry());
       settings.setValue("loadOnStart", mLoadOnStart);
-      settings.setValue("ruleSet", mRuleSet);
+      settings.setValue("ruleset", mRuleSet);
     }
 
     bool
-    MainWindow::isModified()
+    MainWindow::IsModified()
     {
       return !mUndoStack.isClean();
     }
@@ -312,7 +360,7 @@ namespace GDW
     bool
     MainWindow::MaybeSave()
     {
-      if(!isModified())
+      if(!IsModified())
         return true;
 
       // if(/* DISABLES CODE */ (true))
@@ -356,6 +404,8 @@ namespace GDW
       // textEdit->setPlainText(in.readAll());
       mModel->Import(file);
       mUi->vehiclesTreeView->setModel(mModel);
+      for (int column = 0; column < mModel->columnCount(); ++column)
+        mUi->vehiclesTreeView->resizeColumnToContents(column);
       file.close();
 
 #ifndef QT_NO_CURSOR
@@ -363,6 +413,7 @@ namespace GDW
 #endif
 
       SetCurrentFile(fileName);
+      UpdateActions();
       mUi->action_Save->setEnabled(true);
       mUi->action_SaveAs->setEnabled(true);
       statusBar()->showMessage(tr("Objects loaded"), 2000);
@@ -401,9 +452,44 @@ namespace GDW
     MainWindow::SetCurrentFile(const QString& fileName)
     {
       QFileInfo info(mCurrentFile = fileName);
-      setWindowTitle(info.fileName() + " - " +
+      QString title(info.fileName());
+      title += info.fileName().isEmpty() ? "" : " - ";
+      setWindowTitle(title +
                      QCoreApplication::organizationName() + " " +
                      QCoreApplication::applicationName());
+    }
+
+    void
+    MainWindow::UpdateActions()
+    {
+      QTreeView* view = GetCurrentTreeView();
+
+      bool hasSelection = !view->selectionModel()->selection().isEmpty();
+      mUi->removeItemButton->setEnabled(hasSelection);
+
+      bool hasCurrent = true; //view->selectionModel()->currentIndex().isValid();
+      mUi->insertItemButton->setEnabled(hasCurrent);
+
+      if (hasCurrent) {
+        view->closePersistentEditor(view->selectionModel()->currentIndex());
+
+        int row = view->selectionModel()->currentIndex().row();
+        int column = view->selectionModel()->currentIndex().column();
+        if (view->selectionModel()->currentIndex().parent().isValid())
+          statusBar()->showMessage(tr("Position: (%1,%2)").arg(row).arg(column));
+        else
+          statusBar()->showMessage(tr("Position: (%1,%2) in top level").arg(row).arg(column));
+      }
+    }
+
+    QTreeView*
+    MainWindow::GetCurrentTreeView()
+    {
+      QTreeView* objectView[] =
+      {
+        mUi->vehiclesTreeView, mUi->weaponsTreeView
+      };
+      return objectView[mUi->tabWidget->currentIndex()];
     }
   };
 };

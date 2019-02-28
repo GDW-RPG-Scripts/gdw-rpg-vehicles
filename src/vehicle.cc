@@ -37,7 +37,7 @@ namespace GDW
 
     Vehicle::~Vehicle()
     {
-      qDeleteAll(mWeapons);
+      // qDeleteAll(mWeapons);
     }
 
     Vehicle::Vehicle(const QJsonObject& json)
@@ -80,6 +80,16 @@ namespace GDW
     Vehicle::Copy() const
     {
       return new Vehicle(*this);
+    }
+
+    QList<QVariant>
+    Vehicle::ItemData() const
+    {
+      QList<QVariant> data;
+
+      data << Name() << Type() << Nationality();
+
+      return data;
     }
 
     /*
