@@ -29,7 +29,6 @@ deal with Vehicles and Weapons with equal ease.
 
 Defining the application in this way makes it easier to extend. By sub-classing
 the Object class and adding a specialized Form and TreeItem class for the new
-
 model object. These new objects can also build on existing objects, extending
 and aggregating them. For example, a Unit object can be envisioned representing
 a fireteam that would add a class representing a small number of soldiers, but
@@ -45,7 +44,7 @@ support. In particular, Qt5, which this application is built on, has fast
 native encoder/decoders as part of its framework, so we chose this as our
 serialization medium. Since JSON code is actually also valid YAML, the storage
 model can be upgraded and extended down the line.
--------------------------------------------------------------------------------
+
 ---
 The Traveller game in all forms is owned by Far Future Enterprises.
 Copyright 1977 - 2008 Far Future Enterprises.
