@@ -94,19 +94,18 @@ namespace GDW
       return true;
     }
 
-    bool ObjectTreeItem::InsertChildren(int position, int count, int columns)
+    bool
+    ObjectTreeItem::InsertChildren(int position, int count, int type)
     {
-        if (position < 0 || position > mChildItems.size())
-            return false;
+      if (position < 0 || position > mChildItems.size())
+        return false;
 
-        for (int row = 0; row < count; ++row) {
-            QList<QVariant> data;
-            data << columns;
-            ObjectTreeItem *item = new ObjectTreeItem(data, this);
-            mChildItems.insert(position, item);
-        }
+      for (int row = 0; row < count; ++row) {
+        ObjectTreeItem* item = ObjectTreeItem::Create(type, this);
+        mChildItems.insert(position, item);
+      }
 
-        return true;
+      return true;
     }
 
     bool
@@ -201,10 +200,9 @@ namespace GDW
     }
 
     void
-    ObjectTreeItem::Select(Ui::MainWindow* mainWindow, ObjectForm* objectForm)
+    ObjectTreeItem::ClearObjectGroupBox(Ui::MainWindow* ui)
     {
-      QGroupBox* objectGroupBox = mainWindow->objectGroupBox;
-      QLayout* layout = objectGroupBox->layout();
+      QLayout* layout = ui->objectGroupBox->layout();
 
       if(layout != nullptr) {
         QLayoutItem* child;
@@ -215,19 +213,50 @@ namespace GDW
         }
         delete layout;
       }
+    }
 
-      mainWindow->objectForm = objectForm;
+    void
+    ObjectTreeItem::Select(Ui::MainWindow* ui, ObjectForm* objectForm)
+    {
+      ClearObjectGroupBox(ui);
 
-      QVBoxLayout* verticalLayout = new QVBoxLayout(objectGroupBox);
+      ui->objectForm = objectForm;
+
+      QGroupBox* objectGroupBox = ui->objectGroupBox;
       objectForm->setParent(objectGroupBox);
       objectForm->setObjectName(QString::fromUtf8("objectWidget"));
 
+      QVBoxLayout* verticalLayout = new QVBoxLayout(objectGroupBox);
       verticalLayout->addWidget(objectForm);
-      verticalLayout->addItem(mainWindow->objectButtonsLayout);
+      verticalLayout->addItem(ui->objectButtonsLayout);
 
-      objectGroupBox->setTitle(objectForm->Title() + ": "); // + mWeapon->Wtyp());
       objectGroupBox->setLayout(verticalLayout);
+      objectGroupBox->setTitle(objectForm->Title() + ": "); // + mWeapon->Wtyp());
       objectGroupBox->update();
+
+      ui->     action_Copy->setEnabled(true);
+      ui->      action_Cut->setEnabled(true);
+      ui->    action_Print->setEnabled(true);
+      ui->  editItemButton->setEnabled(true);
+      ui->  editItemButton->setText(QObject::tr("Edit"));
+      ui->        okButton->setEnabled(false);
+      ui->     printButton->setEnabled(true);
+      ui->removeItemButton->setEnabled(true);
+    }
+
+    void
+    ObjectTreeItem::Unselect(Ui::MainWindow* ui, ObjectForm* objectForm)
+    {
+      ClearObjectGroupBox(ui);
+
+      ui->     action_Copy->setEnabled(false);
+      ui->      action_Cut->setEnabled(false);
+      ui->    action_Print->setEnabled(false);
+      ui->  editItemButton->setEnabled(false);
+      ui->  editItemButton->setText(QObject::tr("Edit"));
+      ui->        okButton->setEnabled(false);
+      ui->     printButton->setEnabled(false);
+      ui->removeItemButton->setEnabled(false);
     }
 
     void

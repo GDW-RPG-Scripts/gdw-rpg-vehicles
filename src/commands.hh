@@ -16,8 +16,8 @@
  * General Public License along with GDW RPG Vehicles. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef UNDOCOMMANDS_HH
-#define UNDOCOMMANDS_HH
+#ifndef COMMANDS_HH
+#define COMMANDS_HH
 
 #include <QModelIndex>
 #include <QUndoCommand>
@@ -26,27 +26,40 @@ namespace GDW
 {
   namespace RPG
   {
-    class UndoCommitObject : public QUndoCommand
+    class TreeModel;
+
+    class InsertItemCommand : public QUndoCommand
     {
       public:
-        UndoCommitObject();
-
-        void undo() override;
-        void redo() override;
-    };
-
-    class UndoRemoveObject : public QUndoCommand
-    {
-      public:
-        UndoRemoveObject(const QModelIndex&, QAbstractItemModel*);
+        InsertItemCommand(int objectType, const QModelIndex&,
+                          TreeModel*, QUndoCommand* parent = nullptr);
 
         void undo() override;
         void redo() override;
 
       private:
-        QModelIndex mIndex;
-        QAbstractItemModel* mModel;
+        int mRow;
+        int mType;
+        bool mInserted;
+        TreeModel* mModel;
+        QModelIndex mParent;
+    };
+
+    class RemoveItemCommand : public QUndoCommand
+    {
+      public:
+        RemoveItemCommand(const QModelIndex&, TreeModel*,
+                          QUndoCommand* parent = nullptr);
+
+        void undo() override;
+        void redo() override;
+
+      private:
+        int mRow;
+        bool mRemoved;
+        TreeModel* mModel;
+        QModelIndex mParent;
     };
   };
 };
-#endif // UNDOCOMMANDS_HH
+#endif // COMMANDS_HH

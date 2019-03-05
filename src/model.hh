@@ -45,10 +45,6 @@ namespace GDW
         TreeModel(QObject* parent = nullptr);
         ~TreeModel() override;
 
-        void AddItem(int, const QModelIndex& = QModelIndex());
-        void Import(QFile&);
-        void Print(QWidget* = nullptr) const;
-
         QVariant data(const QModelIndex& index, int role) const override;
         QVariant headerData(int section, Qt::Orientation orientation,
                             int role = Qt::DisplayRole) const override;
@@ -69,13 +65,19 @@ namespace GDW
         bool removeRows(int position, int rows,
                         const QModelIndex& parent = QModelIndex()) override;
 
+        // bool AddItem(int, const QModelIndex& = QModelIndex());
+        void CurrentType(int);
+        ObjectTreeItem* GetItem(const QModelIndex& index) const;
+        void Import(QFile&);
+        void Print(QWidget* = nullptr) const;
+
         friend QTextStream& operator<<(QTextStream&, const TreeModel&);
 
       private:
         void CreateRootItem();
-        void SetupModelData(ObjectTreeItem* parent, const QJsonDocument&);
-        ObjectTreeItem* getItem(const QModelIndex& index) const;
+        void SetupModelData(const QJsonDocument&, ObjectTreeItem* parent = nullptr);
 
+        int mCurrentType;
         ObjectTreeItem* mRootItem;
     };
   };

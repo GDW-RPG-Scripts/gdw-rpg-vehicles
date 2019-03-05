@@ -53,7 +53,7 @@ namespace GDW
         virtual ~ObjectTreeItem();
 
         ObjectTreeItem* AppendChild(ObjectTreeItem* child);
-        bool InsertChildren(int, int, int);
+        bool InsertChildren(int, int, int type);
         bool RemoveChildren(int, int);
 
         ObjectTreeItem* Child(int row);
@@ -66,6 +66,7 @@ namespace GDW
 
         void Edit();
         virtual void Select(Ui::MainWindow*, ObjectForm* = nullptr);
+        virtual void Unselect(Ui::MainWindow*, ObjectForm* = nullptr);
 
         virtual QDebug& Debug(QDebug&) const;
 
@@ -76,6 +77,8 @@ namespace GDW
         virtual const Object* GetObject() const;
 
       private:
+        void ClearObjectGroupBox(Ui::MainWindow*);
+
         Object* mObject;
         QList<ObjectTreeItem*> mChildItems;
         QList<QVariant> mItemData;

@@ -27,6 +27,7 @@ class QMenu;
 class QPlainTextEdit;
 class QSessionManager;
 class QTreeView;
+class QUndoCommand;
 
 namespace Ui {
   class MainWindow;
@@ -67,17 +68,21 @@ namespace GDW
         void Redo();
         void Undo();
         void About();
-        void DocumentWasModified();        
+        void DocumentWasModified();
 #ifndef QT_NO_SESSIONMANAGER
         void CommitData(QSessionManager&);
 #endif
 
         void AddItem();
+        void CurrentType(int);
         void EditItem();
-        void RemoveItem();
+        void ItemClicked(const QModelIndex&);
         void PrintItem();
-        void SelectItem(const QModelIndex&);
+        void RemoveSelectedItems();
         void SaveItem();
+
+        void ShowVehiclesMenu(const QPoint&);
+        void ShowWeaponsMenu(const QPoint&);
 
       private:
         void ReadSettings();
@@ -93,10 +98,11 @@ namespace GDW
 
         TreeModel* mModel;
 
-        QString mCurrentFile;        
+        QString mCurrentFile;
         QUndoStack mUndoStack;
         Ui::MainWindow* mUi;
 
+        static const QString APP_NAME;
         // QPlainTextEdit* textEdit;
     };
   };

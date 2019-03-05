@@ -19,6 +19,7 @@
 #include <QApplication>
 #include <QCommandLineParser>
 #include <QCommandLineOption>
+#include <QDebug>
 #include <QLibraryInfo>
 #include <QTranslator>
 
@@ -42,11 +43,13 @@ int main(int argc, char* argv[])
   parser.process(app);
 
   QTranslator qtTranslator;
-  qtTranslator.load("qt_" + QLocale::system().name(), QLibraryInfo::location(QLibraryInfo::TranslationsPath));
+  qtTranslator.load("qt_" + QLocale::system().name(),
+                    QLibraryInfo::location(QLibraryInfo::TranslationsPath));
   app.installTranslator(&qtTranslator);
 
   QTranslator myappTranslator;
-  myappTranslator.load("grv_" + QLocale::system().name());
+  myappTranslator.load(QLocale(), QLatin1String("gdw_rpg_vehicles"),
+                       QLatin1String("_"), QLatin1String(":/translations"));
   app.installTranslator(&myappTranslator);
 
   GDW::RPG::MainWindow mainWin;

@@ -23,6 +23,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 CONFIG += c++11
+CONFIG += lrelease embed_translations
 
 SOURCES += \
     main.cc \
@@ -34,8 +35,8 @@ SOURCES += \
     model.cc \
     treeitem.cc \
     objectform.cc \
-    undocmds.cc \
-    prefsdialog.cc
+    prefsdialog.cc \
+    commands.cc
 
 HEADERS += \
     mainwindow.hh \
@@ -46,13 +47,19 @@ HEADERS += \
     model.hh \
     treeitem.hh \
     objectform.hh \
-    undocmds.hh \
-    prefsdialog.hh
+    prefsdialog.hh \
+    commands.hh
 
 FORMS += \
     mainwindow.ui \
     vehicleform.ui \
     weaponform.ui
+
+# TRANSLATIONS += \
+#    $$PWD/translations/gdw_rpg_vehicles_sv.ts
+
+TRANSLATIONS = \
+    gdw_rpg_vehicles_sv.ts
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

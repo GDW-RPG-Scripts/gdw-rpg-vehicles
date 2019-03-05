@@ -36,7 +36,7 @@ namespace GDW
       QVBoxLayout* startBoxLayout = new QVBoxLayout;
 
       QCheckBox* checkbox =
-          new QCheckBox(tr("Load default database on startup."), this);
+          new QCheckBox(tr("Load default database on startup") + ".", this);
       checkbox->setChecked(settings.value("loadOnStart", true).toBool());
       connect(checkbox, SIGNAL(stateChanged(int)), parent, SLOT(LoadOnStart(int)));
 
@@ -50,12 +50,12 @@ namespace GDW
 
       QList<QRadioButton*> ruleSet =
       {
-        new QRadioButton(tr("Twilight 2000 (2.2) and TNE rules"), this),
-        new QRadioButton(tr("Striker I rules"), this),
-        new QRadioButton(tr("Actual armor equivalent in centimeters of steel (cm)"), this),
-        new QRadioButton(tr("Mongoose T2E vehicle rules"), this),
-        new QRadioButton(tr("Cepheus vehicle rules"), this),
-        new QRadioButton(tr("Armor calculator"), this)
+        new QRadioButton(tr("Twilight 2000 (2.2) and TNE rules") + ".", this),
+        new QRadioButton(tr("Striker I rules") + ".", this),
+        new QRadioButton(tr("Actual armor equivalent in centimeters of steel (cm)") + ".", this),
+        new QRadioButton(tr("Mongoose T2E vehicle rules") + ".", this),
+        new QRadioButton(tr("Cepheus vehicle rules") + ".", this),
+        new QRadioButton(tr("Armor calculator") + ".", this)
       };
 
       ruleSet[settings.value("ruleset", 0).toInt()]->setChecked(true);

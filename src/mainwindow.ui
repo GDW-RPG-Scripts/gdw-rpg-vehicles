@@ -109,6 +109,9 @@
             <height>0</height>
            </size>
           </property>
+          <property name="contextMenuPolicy">
+           <enum>Qt::CustomContextMenu</enum>
+          </property>
           <property name="tabPosition">
            <enum>QTabWidget::North</enum>
           </property>
@@ -175,6 +178,9 @@
              <widget class="QTreeView" name="vehiclesTreeView">
               <property name="enabled">
                <bool>true</bool>
+              </property>
+              <property name="contextMenuPolicy">
+               <enum>Qt::CustomContextMenu</enum>
               </property>
               <property name="editTriggers">
                <set>QAbstractItemView::DoubleClicked|QAbstractItemView::EditKeyPressed</set>
@@ -246,7 +252,11 @@
              <number>0</number>
             </property>
             <item>
-             <widget class="QTreeView" name="weaponsTreeView"/>
+             <widget class="QTreeView" name="weaponsTreeView">
+              <property name="contextMenuPolicy">
+               <enum>Qt::CustomContextMenu</enum>
+              </property>
+             </widget>
             </item>
            </layout>
           </widget>
@@ -392,7 +402,7 @@
        </property>
        <layout class="QVBoxLayout" name="verticalLayout" stretch="0,0">
         <property name="spacing">
-         <number>-1</number>
+         <number>6</number>
         </property>
         <property name="leftMargin">
          <number>0</number>
@@ -419,7 +429,7 @@
         <item>
          <layout class="QHBoxLayout" name="objectButtonsLayout">
           <property name="spacing">
-           <number>-1</number>
+           <number>6</number>
           </property>
           <property name="leftMargin">
            <number>0</number>
@@ -523,7 +533,7 @@
      <height>22</height>
     </rect>
    </property>
-   <widget class="QMenu" name="fileMenu">
+   <widget class="QMenu" name="menuFile">
     <property name="title">
      <string>&amp;File</string>
     </property>
@@ -542,8 +552,7 @@
     <property name="title">
      <string>Edit</string>
     </property>
-    <addaction name="action_Undo"/>
-    <addaction name="action_Redo"/>
+    <addaction name="action_Placeholder"/>
     <addaction name="separator"/>
     <addaction name="action_Cut"/>
     <addaction name="action_Copy"/>
@@ -558,7 +567,7 @@
     <addaction name="action_About"/>
     <addaction name="action_AboutQt"/>
    </widget>
-   <addaction name="fileMenu"/>
+   <addaction name="menuFile"/>
    <addaction name="menuEdit"/>
    <addaction name="menuHelp"/>
   </widget>
@@ -677,7 +686,7 @@
     <string>Quit</string>
    </property>
    <property name="shortcut">
-    <string>Ctrl+Q</string>
+    <string/>
    </property>
    <property name="menuRole">
     <enum>QAction::TextHeuristicRole</enum>
@@ -696,21 +705,18 @@
     <bool>false</bool>
    </property>
    <property name="text">
-    <string>Undo</string>
+    <string>&amp;Undo</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+Z</string>
    </property>
   </action>
-  <action name="action_Redo">
+  <action name="action_Placeholder">
    <property name="enabled">
     <bool>false</bool>
    </property>
    <property name="text">
-    <string>Redo</string>
-   </property>
-   <property name="shortcut">
-    <string>Ctrl+Shift+Z</string>
+    <string/>
    </property>
   </action>
   <action name="action_Print">
@@ -884,7 +890,7 @@
    <sender>vehiclesTreeView</sender>
    <signal>clicked(QModelIndex)</signal>
    <receiver>MainWindow</receiver>
-   <slot>SelectItem(QModelIndex)</slot>
+   <slot>ItemClicked(QModelIndex)</slot>
    <hints>
     <hint type="sourcelabel">
      <x>133</x>
@@ -977,38 +983,6 @@
    </hints>
   </connection>
   <connection>
-   <sender>action_Undo</sender>
-   <signal>triggered()</signal>
-   <receiver>MainWindow</receiver>
-   <slot>Undo()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>-1</x>
-     <y>-1</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>449</x>
-     <y>277</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>action_Redo</sender>
-   <signal>triggered()</signal>
-   <receiver>MainWindow</receiver>
-   <slot>Redo()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>-1</x>
-     <y>-1</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>449</x>
-     <y>277</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
    <sender>okButton</sender>
    <signal>clicked()</signal>
    <receiver>MainWindow</receiver>
@@ -1076,11 +1050,75 @@
    <sender>removeItemButton</sender>
    <signal>clicked()</signal>
    <receiver>MainWindow</receiver>
-   <slot>RemoveItem()</slot>
+   <slot>RemoveSelectedItems()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>38</x>
      <y>509</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>449</x>
+     <y>277</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>action_Cut</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>RemoveSelectedItems()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>449</x>
+     <y>277</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>tabWidget</sender>
+   <signal>currentChanged(int)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>CurrentType(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>119</x>
+     <y>273</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>449</x>
+     <y>277</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>weaponsTreeView</sender>
+   <signal>customContextMenuRequested(QPoint)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>ShowWeaponsMenu(QPoint)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>119</x>
+     <y>286</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>449</x>
+     <y>277</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>vehiclesTreeView</sender>
+   <signal>customContextMenuRequested(QPoint)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>ShowVehiclesMenu(QPoint)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>119</x>
+     <y>286</y>
     </hint>
     <hint type="destinationlabel">
      <x>449</x>
@@ -1094,7 +1132,7 @@
   <slot>Open()</slot>
   <slot>Save()</slot>
   <slot>SaveAs()</slot>
-  <slot>SelectItem(QModelIndex)</slot>
+  <slot>ItemClicked(QModelIndex)</slot>
   <slot>PrintItem()</slot>
   <slot>EditItem()</slot>
   <slot>AddItem()</slot>
@@ -1103,6 +1141,8 @@
   <slot>SaveItem()</slot>
   <slot>New()</slot>
   <slot>Prefs()</slot>
-  <slot>RemoveItem()</slot>
+  <slot>CurrentType(int)</slot>
+  <slot>ShowVehiclesMenu(QPoint)</slot>
+  <slot>ShowWeaponsMenu(QPoint)</slot>
  </slots>
 </ui>
