@@ -31,15 +31,14 @@ namespace GDW
     class InsertItemCommand : public QUndoCommand
     {
       public:
-        InsertItemCommand(int objectType, const QModelIndex&,
-                          TreeModel*, QUndoCommand* parent = nullptr);
+        InsertItemCommand(const QModelIndex&, TreeModel*,
+                          QUndoCommand* parent = nullptr);
 
         void undo() override;
         void redo() override;
 
       private:
         int mRow;
-        int mType;
         bool mInserted;
         TreeModel* mModel;
         QModelIndex mParent;

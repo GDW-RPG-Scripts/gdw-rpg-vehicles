@@ -73,7 +73,7 @@ namespace GDW
         void CommitData(QSessionManager&);
 #endif
 
-        void AddItem();
+        void InsertItem();
         void CurrentType(int);
         void EditItem();
         void ItemClicked(const QModelIndex&);
@@ -81,6 +81,7 @@ namespace GDW
         void RemoveSelectedItems();
         void SaveItem();
 
+        void AddWeapon();
         void ShowVehiclesMenu(const QPoint&);
         void ShowWeaponsMenu(const QPoint&);
 

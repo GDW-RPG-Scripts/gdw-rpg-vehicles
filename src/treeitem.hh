@@ -64,7 +64,7 @@ namespace GDW
         int Row() const;
         ObjectTreeItem* ParentItem();
 
-        void Edit();
+        void RefreshItemData();
         virtual void Select(Ui::MainWindow*, ObjectForm* = nullptr);
         virtual void Unselect(Ui::MainWindow*, ObjectForm* = nullptr);
 

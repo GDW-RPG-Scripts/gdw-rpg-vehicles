@@ -213,26 +213,27 @@ namespace GDW
     }
 
     void
-    MainWindow::AddItem()
+    MainWindow::InsertItem()
     {
-      QModelIndex index;
-      QTreeView* view = GetCurrentTreeView();
+      QTreeView* treeView = GetCurrentTreeView();
 
-      bool hasSelection =
-          view->selectionModel() &&
-          !view->selectionModel()->selection().isEmpty();
+      if(treeView->model() == nullptr)
+        treeView->setModel(mModel);
 
-      if(hasSelection) {
-        index =
-            view->selectionModel()->selectedRows().takeAt(0);
-      }
+      QItemSelectionModel* itemSelectionModel = treeView->selectionModel();
+      QModelIndex index = itemSelectionModel->currentIndex();
 
-      int type = mUi->tabWidget->currentIndex();
-      // QString type = mUi->tabWidget->tabText(typeIndex);
-
-      mUndoStack.push(new InsertItemCommand(type, index, mModel));
+      mUndoStack.push(new InsertItemCommand(index, mModel));
 
       UpdateActions();
+
+      treeView->update();
+
+      //      for (int column = mModel->columnCount(index.parent())-1; column >= 0 ; --column) {
+      //        QModelIndex child =
+      //            mModel->index(index.row()+1, column, index.parent());
+      //        mModel->setData(child, QVariant("[No data]"), Qt::EditRole);
+      //      }
     }
 
     void
@@ -330,6 +331,16 @@ namespace GDW
       mUi->    objectForm->Write();
       mUi->editItemButton->setText(tr("Edit"));
       mUi->      okButton->setEnabled(false);
+
+      QTreeView* view = GetCurrentTreeView();
+      QModelIndex index = view->currentIndex();
+      ObjectTreeItem* oti =
+          static_cast<ObjectTreeItem*>(index.internalPointer());
+      oti->RefreshItemData();
+      view->selectionModel()->select(index,
+                                     QItemSelectionModel::SelectCurrent |
+                                     QItemSelectionModel::Rows);
+      view->activateWindow();
     }
 
 #ifndef QT_NO_SESSIONMANAGER
@@ -348,9 +359,33 @@ namespace GDW
 #endif
 
     void
+    MainWindow::AddWeapon()
+    {
+      qDebug() << "MainWindow::AddWeapon";
+      QModelIndex index =
+          mUi->vehiclesTreeView->selectionModel()->currentIndex();
+
+      ObjectTreeItem* oti =
+          static_cast<ObjectTreeItem*>(index.internalPointer());
+
+      WeaponTreeItem* weaponItem = WeaponTreeItem::Create(oti);
+
+      oti->AppendChild(weaponItem);
+      mModel->
+    }
+
+    void
     MainWindow::ShowVehiclesMenu(const QPoint& position)
     {
-      qDebug() << "MainWindow::ShowVehiclesMenu(const QPoint& " << position << ")";
+      QAction action(tr("Add weapon"), this);
+      QFontMetrics fontMetric(action.font());
+      QPoint offset(0, fontMetric.height());
+
+      connect(&action, &QAction::triggered, this, &MainWindow::AddWeapon);
+
+      QMenu menu(this);
+      menu.addAction(&action);
+      menu.exec(mUi->vehiclesTreeView->mapToGlobal(position + offset));
     }
 
     void
@@ -503,31 +538,27 @@ namespace GDW
     MainWindow::UpdateActions()
     {
       QTreeView* view = GetCurrentTreeView();
+      QItemSelectionModel* selectionModel = view->selectionModel();
 
-      if(view->selectionModel() == nullptr)
+      if(selectionModel == nullptr)
         return;
 
-      bool hasSelection = !view->selectionModel()->selection().isEmpty();
+      mUi->action_Save->setEnabled(!mUndoStack.isClean());
+      mUi->action_SaveAs->setEnabled(true);
+
+      bool hasSelection = !selectionModel->selection().isEmpty();
       mUi->action_Cut->setEnabled(hasSelection);
       mUi->action_Copy->setEnabled(hasSelection);
       mUi->removeItemButton->setEnabled(hasSelection);
       if(hasSelection) {
-        connect(view->selectionModel(), &QItemSelectionModel::selectionChanged,
+        connect(selectionModel, &QItemSelectionModel::selectionChanged,
                 this, &MainWindow::UpdateActions);
       }
 
-      bool hasCurrent = view->selectionModel()->currentIndex().isValid();
+      bool hasCurrent = selectionModel->currentIndex().isValid();
       mUi->insertItemButton->setEnabled(true); // hasCurrent);
-
       if (hasCurrent) {
-        view->closePersistentEditor(view->selectionModel()->currentIndex());
-
-        int row = view->selectionModel()->currentIndex().row();
-        int column = view->selectionModel()->currentIndex().column();
-        if (view->selectionModel()->currentIndex().parent().isValid())
-          statusBar()->showMessage(tr("Position: (%1,%2)").arg(row).arg(column));
-        else
-          statusBar()->showMessage(tr("Position: (%1,%2) in top level").arg(row).arg(column));
+        view->closePersistentEditor(selectionModel->currentIndex());
       }
     }
 

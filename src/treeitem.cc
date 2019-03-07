@@ -147,8 +147,7 @@ namespace GDW
       };
 
       ObjectTreeCreateFunction create = OBJECT_TREE_NEW[type];
-      ObjectTreeItem* item = create(parent);
-      return parent->AppendChild(item);
+      return create(parent);
     }
 
     typedef std::function<ObjectTreeItem*(const QJsonObject&, ObjectTreeItem*)> ObjectTreeUnpackFunction;
@@ -260,8 +259,11 @@ namespace GDW
     }
 
     void
-    ObjectTreeItem::Edit()
-    {}
+    ObjectTreeItem::RefreshItemData()
+    {
+      if(mObject)
+        mItemData = mObject->ItemData();
+    }
 
     Object*
     ObjectTreeItem::GetObject()

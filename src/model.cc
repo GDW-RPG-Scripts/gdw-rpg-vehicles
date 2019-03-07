@@ -180,7 +180,6 @@ namespace GDW
         return QModelIndex();
 
       ObjectTreeItem* parentItem = GetItem(parent);
-
       ObjectTreeItem* childItem = parentItem->Child(row);
       if (childItem)
         return createIndex(row, column, childItem);

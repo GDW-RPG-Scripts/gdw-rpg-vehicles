@@ -970,7 +970,7 @@
    <sender>insertItemButton</sender>
    <signal>clicked()</signal>
    <receiver>MainWindow</receiver>
-   <slot>AddItem()</slot>
+   <slot>InsertItem()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>18</x>
@@ -1135,7 +1135,7 @@
   <slot>ItemClicked(QModelIndex)</slot>
   <slot>PrintItem()</slot>
   <slot>EditItem()</slot>
-  <slot>AddItem()</slot>
+  <slot>InsertItem()</slot>
   <slot>Undo()</slot>
   <slot>Redo()</slot>
   <slot>SaveItem()</slot>

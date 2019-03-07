@@ -31,13 +31,11 @@ namespace GDW
     //
     // Insert Item Command
     //
-    InsertItemCommand::InsertItemCommand(int objectType,
-                                         const QModelIndex& index,
+    InsertItemCommand::InsertItemCommand(const QModelIndex& index,
                                          TreeModel* model,
                                          QUndoCommand* parent)
       : QUndoCommand(parent),
-        mRow(index.row() < 0 ? 0 : index.row()),
-        mType(objectType),
+        mRow(index.row()+1),
         mInserted(false),
         mModel(model),
         mParent(index.parent())
