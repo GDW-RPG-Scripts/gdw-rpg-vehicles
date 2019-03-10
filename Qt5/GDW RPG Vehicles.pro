@@ -1,8 +1,8 @@
 TEMPLATE = subdirs
 
 SUBDIRS += \
-    Ironmongery \
-    Ships \
-    Units \
-    Vehicles \
-    Weapons
+    Ironmongery
+#    Ships \
+#    Units \
+#    Vehicles \
+#    Weapons

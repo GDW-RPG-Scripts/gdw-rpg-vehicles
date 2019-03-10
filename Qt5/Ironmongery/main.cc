@@ -27,12 +27,12 @@
 
 int main(int argc, char* argv[])
 {
-  Q_INIT_RESOURCE(gdw_rpg_vehicles);
+  Q_INIT_RESOURCE(Ironmongery);
 
   QApplication application(argc, argv);
 
-  QCoreApplication::setOrganizationName("GDW RPG");
-  QCoreApplication::setApplicationName("Vehicles");
+  QCoreApplication::setOrganizationName("");
+  QCoreApplication::setApplicationName("Ironmongery");
   QCoreApplication::setApplicationVersion("0");
 
   QCommandLineParser parser;
@@ -48,7 +48,7 @@ int main(int argc, char* argv[])
   application.installTranslator(&qtTranslator);
 
   QTranslator appTranslator;
-  appTranslator.load(QLocale(), QLatin1String("gdw_rpg_vehicles"),
+  appTranslator.load(QLocale(), QLatin1String("Ironmongery"),
                        QLatin1String("_"), QLatin1String(":/translations"));
   application.installTranslator(&appTranslator);
 
