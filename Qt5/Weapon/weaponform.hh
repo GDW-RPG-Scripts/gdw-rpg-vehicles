@@ -16,49 +16,45 @@
  * General Public License along with GDW RPG Vehicles. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef COMMANDS_HH
-#define COMMANDS_HH
+#ifndef WEAPONFORM_HH
+#define WEAPONFORM_HH
 
-#include <QModelIndex>
-#include <QUndoCommand>
+#include "weapon_global.hh"
+
+#include "objectform.hh"
+
+#include "weapon.hh"
+
+namespace Ui {
+  class WeaponForm;
+}
 
 namespace GDW
 {
   namespace RPG
   {
-    class VehicleModel;
+    class Weapon;
 
-    class InsertItemCommand : public QUndoCommand
+    class WEAPONSSHARED_EXPORT WeaponForm : public ObjectForm
     {
-      public:
-        InsertItemCommand(const QModelIndex&, VehicleModel&,
-                          QUndoCommand* parent = nullptr);
+        Q_OBJECT
 
-        void undo() override;
-        void redo() override;
+      public:
+        explicit WeaponForm(Weapon* = nullptr, QWidget* parent = nullptr);
+        ~WeaponForm() override;
+
+        void Read() override;
+        void Write() override;
+        void SetReadOnly(bool) override;
+        QString Title() const override;
+
+        Weapon* GetObject() override;
+        const Weapon* GetObject() const override;
 
       private:
-        int mRow;
-        bool mInserted;
-        QModelIndex mParent;
-        VehicleModel& mVehicleModel;
-    };
-
-    class RemoveItemCommand : public QUndoCommand
-    {
-      public:
-        RemoveItemCommand(const QModelIndex&, VehicleModel&,
-                          QUndoCommand* parent = nullptr);
-
-        void undo() override;
-        void redo() override;
-
-      private:
-        int mRow;
-        bool mRemoved;
-        QModelIndex mParent;
-        VehicleModel& mVehicleModel;
+        Weapon* mWeapon;
+        Ui::WeaponForm* mUi;
     };
   };
 };
-#endif // COMMANDS_HH
+#endif // WEAPONFORM_HH

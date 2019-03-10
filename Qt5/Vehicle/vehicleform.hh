@@ -16,49 +16,46 @@
  * General Public License along with GDW RPG Vehicles. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef COMMANDS_HH
-#define COMMANDS_HH
+#ifndef VEHICLEFORM_HH
+#define VEHICLEFORM_HH
 
-#include <QModelIndex>
-#include <QUndoCommand>
+#include "vehicle_global.hh"
+
+#include "objectform.hh"
+
+#include "vehicle.hh"
+
+namespace Ui {
+  class VehicleForm;
+}
 
 namespace GDW
 {
   namespace RPG
   {
-    class VehicleModel;
+    class Vehicle;
 
-    class InsertItemCommand : public QUndoCommand
+    class VEHICLESHARED_EXPORT VehicleForm : public ObjectForm
     {
-      public:
-        InsertItemCommand(const QModelIndex&, VehicleModel&,
-                          QUndoCommand* parent = nullptr);
+        Q_OBJECT
 
-        void undo() override;
-        void redo() override;
+      public:
+        explicit VehicleForm(Vehicle* = nullptr, QWidget* parent = nullptr);
+        ~VehicleForm() override;
+
+        void Read() override;
+        void Write() override;
+        void SetReadOnly(bool) override;
+        QString Title() const override;
+
+        Vehicle* GetObject() override;
+        const Vehicle* GetObject() const override;
 
       private:
-        int mRow;
-        bool mInserted;
-        QModelIndex mParent;
-        VehicleModel& mVehicleModel;
-    };
-
-    class RemoveItemCommand : public QUndoCommand
-    {
-      public:
-        RemoveItemCommand(const QModelIndex&, VehicleModel&,
-                          QUndoCommand* parent = nullptr);
-
-        void undo() override;
-        void redo() override;
-
-      private:
-        int mRow;
-        bool mRemoved;
-        QModelIndex mParent;
-        VehicleModel& mVehicleModel;
+        Vehicle* mVehicle;
+        Ui::VehicleForm* mUi;
     };
   };
 };
-#endif // COMMANDS_HH
+
+#endif // VEHICLEFORM_HH

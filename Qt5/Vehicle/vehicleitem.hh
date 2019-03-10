@@ -16,43 +16,51 @@
  * General Public License along with GDW RPG Vehicles. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef OBJECTFORM_HH
-#define OBJECTFORM_HH
+#ifndef VEHICLETREEITEM_HH
+#define VEHICLETREEITEM_HH
 
-#include "object_global.hh"
+#include "vehicle_global.hh"
 
-#include <QWidget>
+#include "objectitem.hh"
+
+#include "vehicle.hh"
+
+#include <QList>
+#include <QVariant>
+
+class QStackedWidget;
+class QTextStream;
+
+namespace Ui {
+  class MainWindow;
+}
 
 namespace GDW
 {
   namespace RPG
   {
-    class Object;
-
-    class OBJECTSHARED_EXPORT ObjectForm : public QWidget
+    class VEHICLESHARED_EXPORT VehicleTreeItem : public ObjectTreeItem
     {
-        Q_OBJECT
-
       public:
-        explicit ObjectForm(QWidget* parent = nullptr);
-        virtual ~ObjectForm();
+        static VehicleTreeItem* Create(ObjectTreeItem* parent = nullptr);
+        static VehicleTreeItem* Unpack(const QJsonObject&,
+                                       ObjectTreeItem* parent);
 
-        virtual void Read();
-        virtual void Write();
-        virtual void SetReadOnly(bool);
-        virtual QString Title() const;
+        void Select(Ui::MainWindow&, ObjectForm* = nullptr) override;
 
-        bool IsReadOnly() const;
-
-        virtual Object* GetObject();
-        virtual const Object* GetObject() const;
+        QDebug& Debug(QDebug&) const override;
 
       protected:
-        void AddSvgFrame(QString, QWidget*);
+        VehicleTreeItem(Vehicle*, ObjectTreeItem* parent);
+        ~VehicleTreeItem() override;
 
-      private:
-        bool mReadOnly;
+        Vehicle* GetObject() override;
+        const Vehicle* GetObject() const override;
+
+        //      private:
+        //        Vehicle* mVehicle;
     };
   };
 };
-#endif // OBJECTFORM_HH
+
+#endif // VEHICLETREEITEM_HH

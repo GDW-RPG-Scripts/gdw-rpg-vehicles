@@ -16,13 +16,10 @@
  * General Public License along with GDW RPG Vehicles. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef TREEITEM_HH
-#define TREEITEM_HH
+#ifndef OBJECTTREEITEM_HH
+#define OBJECTTREEITEM_HH
 
-#include "objectform.hh"
-
-#include "vehicle.hh"
-#include "weapon.hh"
+#include "object_global.hh"
 
 #include <QList>
 #include <QVariant>
@@ -39,21 +36,18 @@ namespace GDW
   namespace RPG
   {
     class Object;
+    class ObjectForm;
 
-    class ObjectTreeItem
+    class OBJECTSHARED_EXPORT ObjectTreeItem
     {
       public:
-        static ObjectTreeItem* Create(int type, ObjectTreeItem* parent);
-        static ObjectTreeItem* Unpack(const QJsonValue&,
-                                      ObjectTreeItem* parent);
-
         ObjectTreeItem(Object*, ObjectTreeItem* parent = nullptr);
         ObjectTreeItem(QList<QVariant>&,
                        ObjectTreeItem* parent = nullptr);
         virtual ~ObjectTreeItem();
 
         ObjectTreeItem* AppendChild(ObjectTreeItem* child);
-        bool InsertChildren(int, int, int type);
+        bool InsertChild(int, int, int type, ObjectTreeItem*);
         bool RemoveChildren(int, int);
 
         ObjectTreeItem* Child(int row);
@@ -85,52 +79,8 @@ namespace GDW
         ObjectTreeItem* mParentItem;
     };
 
-    class VehicleTreeItem : public ObjectTreeItem
-    {
-      public:
-        static VehicleTreeItem* Create(ObjectTreeItem* parent = nullptr);
-        static VehicleTreeItem* Unpack(const QJsonObject&,
-                                       ObjectTreeItem* parent);
-
-        void Select(Ui::MainWindow&, ObjectForm* = nullptr) override;
-
-        QDebug& Debug(QDebug&) const override;
-
-      protected:
-        VehicleTreeItem(Vehicle*, ObjectTreeItem* parent);
-        ~VehicleTreeItem() override;
-
-        Vehicle* GetObject() override;
-        const Vehicle* GetObject() const override;
-
-        //      private:
-        //        Vehicle* mVehicle;
-    };
-
-    class WeaponTreeItem : public ObjectTreeItem
-    {
-      public:
-        static WeaponTreeItem* Create(ObjectTreeItem* parent = nullptr);
-        static WeaponTreeItem* Unpack(const QJsonObject&,
-                                      ObjectTreeItem* parent);
-
-        WeaponTreeItem(Weapon*, ObjectTreeItem* parent);
-        ~WeaponTreeItem() override;
-
-        void Select(Ui::MainWindow&, ObjectForm* = nullptr) override;
-
-      protected:
-        Weapon* GetObject() override;
-        const Weapon* GetObject() const override;
-
-        QDebug& Debug(QDebug&) const override;
-
-        //      private:
-        //        Weapon* mWeapon;
-    };
-
     QDebug& operator<<(QDebug&, const ObjectTreeItem&);
   };
 };
 
-#endif // TREEITEM_HH
+#endif // OBJECTTREEITEM_HH

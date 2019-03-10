@@ -16,49 +16,48 @@
  * General Public License along with GDW RPG Vehicles. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef COMMANDS_HH
-#define COMMANDS_HH
+#ifndef TREEITEM_HH
+#define TREEITEM_HH
 
-#include <QModelIndex>
-#include <QUndoCommand>
+#include "weapon_global.hh"
+
+#include "objectitem.hh"
+
+#include "weapon.hh"
+
+#include <QList>
+#include <QVariant>
+
+namespace Ui {
+  class VehicleForm;
+}
 
 namespace GDW
 {
   namespace RPG
   {
-    class VehicleModel;
-
-    class InsertItemCommand : public QUndoCommand
+    class WEAPONSSHARED_EXPORT WeaponTreeItem : public ObjectTreeItem
     {
       public:
-        InsertItemCommand(const QModelIndex&, VehicleModel&,
-                          QUndoCommand* parent = nullptr);
+        static WeaponTreeItem* Create(ObjectTreeItem* parent = nullptr);
+        static WeaponTreeItem* Unpack(const QJsonObject&,
+                                      ObjectTreeItem* parent);
 
-        void undo() override;
-        void redo() override;
+        WeaponTreeItem(Weapon*, ObjectTreeItem* parent);
+        ~WeaponTreeItem() override;
 
-      private:
-        int mRow;
-        bool mInserted;
-        QModelIndex mParent;
-        VehicleModel& mVehicleModel;
-    };
+        void Select(Ui::MainWindow&, ObjectForm* = nullptr) override;
 
-    class RemoveItemCommand : public QUndoCommand
-    {
-      public:
-        RemoveItemCommand(const QModelIndex&, VehicleModel&,
-                          QUndoCommand* parent = nullptr);
+      protected:
+        Weapon* GetObject() override;
+        const Weapon* GetObject() const override;
 
-        void undo() override;
-        void redo() override;
+        QDebug& Debug(QDebug&) const override;
 
-      private:
-        int mRow;
-        bool mRemoved;
-        QModelIndex mParent;
-        VehicleModel& mVehicleModel;
+        //      private:
+        //        Weapon* mWeapon;
     };
   };
 };
-#endif // COMMANDS_HH
+
+#endif // TREEITEM_HH

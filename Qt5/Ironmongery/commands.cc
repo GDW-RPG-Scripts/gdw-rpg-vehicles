@@ -18,8 +18,8 @@
 
 #include "commands.hh"
 
-#include "model.hh"
-#include "treeitem.hh"
+#include "vehiclemodel.hh"
+#include "objectitem.hh"
 
 
 #include <QDebug>
@@ -37,8 +37,8 @@ namespace GDW
       : QUndoCommand(parent),
         mRow(index.row()+1),
         mInserted(false),
-        mModel(model),
-        mParent(index.parent())
+        mParent(index.parent()),
+        mVehicleModel(model)
     {
       setText(QObject::tr("insert"));
     }
@@ -48,7 +48,7 @@ namespace GDW
     {
       qDebug() << "InsertItemCommand::undo()";
       if(mInserted)
-        mModel.removeRow(mRow, mParent);
+        mVehicleModel.removeRow(mRow, mParent);
     }
 
     void
@@ -56,7 +56,7 @@ namespace GDW
     {
       qDebug() << "InsertItemCommand::redo()";
 
-      mInserted = mModel.insertRow(mRow, mParent);
+      mInserted = mVehicleModel.insertRow(mRow, mParent);
 
 //      bool isSet = true;
 //      for (int col = 0; col < mModel.columnCount(); ++col) {
@@ -76,8 +76,8 @@ namespace GDW
       : QUndoCommand(parent),
         mRow(index.row()),
         mRemoved(false),
-        mModel(model),
-        mParent(index.parent())
+        mParent(index.parent()),
+        mVehicleModel(model)
     {
       setText(QObject::tr("remove"));
     }
@@ -87,14 +87,14 @@ namespace GDW
     {
       qDebug() << "RemoveItemCommand::undo()";
       if(mRemoved)
-        mModel.insertRow(mRow, mParent);
+        mVehicleModel.insertRow(mRow, mParent);
     }
 
     void
     RemoveItemCommand::redo()
     {
       qDebug() << "RemoveItemCommand::redo()";
-      mRemoved = mModel.removeRow(mRow, mParent);
+      mRemoved = mVehicleModel.removeRow(mRow, mParent);
     }
   };
 };

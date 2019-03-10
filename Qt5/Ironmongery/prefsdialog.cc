@@ -17,7 +17,7 @@
  */
 
 #include "prefsdialog.hh"
-#include "mainwindow.hh"
+#include "workspace.hh"
 
 #include <QtWidgets>
 
@@ -25,7 +25,7 @@ namespace GDW
 {
   namespace RPG
   {
-    PrefsDialog::PrefsDialog(MainWindow* parent)
+    PrefsDialog::PrefsDialog(Workspace* parent)
       : QDialog(parent), mRuleGroup(new QButtonGroup)
     {
       QSettings settings;

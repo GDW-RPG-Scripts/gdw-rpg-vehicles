@@ -27,33 +27,16 @@ CONFIG += lrelease embed_translations
 
 SOURCES += \
     main.cc \
-    mainwindow.cc \
-    vehicle.cc \
-    exception.cc \
-    weapon.cc \
-    object.cc \
-    model.cc \
-    treeitem.cc \
-    objectform.cc \
     prefsdialog.cc \
-    commands.cc
+    commands.cc \
+    workspace.cc \
+    factory.cc
 
 HEADERS += \
-    mainwindow.hh \
-    vehicle.hh \
-    exception.hh \
-    weapon.hh \
-    object.hh \
-    model.hh \
-    treeitem.hh \
-    objectform.hh \
     prefsdialog.hh \
-    commands.hh
-
-FORMS += \
-    mainwindow.ui \
-    vehicleform.ui \
-    weaponform.ui
+    commands.hh \
+    workspace.hh \
+    factory.hh
 
 # TRANSLATIONS += \
 #    $$PWD/translations/gdw_rpg_vehicles_sv.ts
@@ -66,5 +49,28 @@ qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
+FORMS +=
+
 RESOURCES += \
     Ironmongery.qrc
+
+win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../Object/release/ -lObject
+else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../Object/debug/ -lObject
+else:unix: LIBS += -L$$OUT_PWD/../Object/ -lObject
+
+INCLUDEPATH += $$PWD/../Object
+DEPENDPATH += $$PWD/../Object
+
+win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../Vehicle/release/ -lVehicle
+else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../Vehicle/debug/ -lVehicle
+else:unix: LIBS += -L$$OUT_PWD/../Vehicle/ -lVehicle
+
+INCLUDEPATH += $$PWD/../Vehicle
+DEPENDPATH += $$PWD/../Vehicle
+
+win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../Weapon/release/ -lWeapon
+else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../Weapon/debug/ -lWeapon
+else:unix: LIBS += -L$$OUT_PWD/../Weapon/ -lWeapon
+
+INCLUDEPATH += $$PWD/../Weapon
+DEPENDPATH += $$PWD/../Weapon

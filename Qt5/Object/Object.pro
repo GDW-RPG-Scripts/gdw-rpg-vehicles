@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += widgets svg
+QT       += core widgets svg
 
 QT       -= gui
 
@@ -27,13 +27,25 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-        object.cc
+    object.cc \
+    objectform.cc \
+    exception.cc \
+    objectitem.cc
 
 HEADERS += \
-        object.hh \
-        object_global.hh 
+    object.hh \
+    object_global.hh \
+    objectform.hh \
+    exception.hh \
+    objectitem.hh
 
 unix {
     target.path = /usr/lib
     INSTALLS += target
 }
+
+FORMS += \
+    workspace.ui
+
+RESOURCES += \
+    object.qrc

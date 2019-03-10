@@ -16,14 +16,11 @@
  * General Public License along with GDW RPG Vehicles. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "treeitem.hh"
-
+#include "objectitem.hh"
+#include "object.hh"
 #include "objectform.hh"
 
-#include "vehicle.hh"
-#include "weapon.hh"
-
-#include "ui_mainwindow.h"
+// #include "ui_mainwindow.h"
 
 #include <QDebug>
 #include <QGroupBox>
@@ -95,15 +92,16 @@ namespace GDW
     }
 
     bool
-    ObjectTreeItem::InsertChildren(int position, int count, int type)
+    ObjectTreeItem::InsertChild(int position, int count, int type,
+                                ObjectTreeItem* item)
     {
       if (position < 0 || position > mChildItems.size())
         return false;
 
-      for (int row = 0; row < count; ++row) {
-        ObjectTreeItem* item = ObjectTreeItem::Create(type, this);
+      // for (int row = 0; row < count; ++row) {
+      //  ObjectTreeItem* item = Factory::Create(type, this);
         mChildItems.insert(position, item);
-      }
+      // }
 
       return true;
     }
@@ -135,53 +133,6 @@ namespace GDW
       return 0;
     }
 
-    typedef std::function<ObjectTreeItem*(ObjectTreeItem*)> ObjectTreeCreateFunction;
-
-    ObjectTreeItem*
-    ObjectTreeItem::Create(int type, ObjectTreeItem* parent)
-    {
-      static const ObjectTreeCreateFunction OBJECT_TREE_NEW[] =
-      {
-        VehicleTreeItem::Create,
-        WeaponTreeItem::Create
-      };
-
-      ObjectTreeCreateFunction create = OBJECT_TREE_NEW[type];
-      return create(parent);
-    }
-
-    typedef std::function<ObjectTreeItem*(const QJsonObject&, ObjectTreeItem*)> ObjectTreeUnpackFunction;
-    typedef QHash<const QString, ObjectTreeUnpackFunction> ObjectTreeUnpackMap;
-
-    ObjectTreeItem*
-    ObjectTreeItem::Unpack(const QJsonValue& json, ObjectTreeItem* parent)
-    {
-      static const QString GDW_RPG_TYPE = "__GDW_RPG_Type__";
-      static const ObjectTreeUnpackMap OBJECT_TREE_UNPACK_MAP =
-      {
-        { Vehicle::JSON_TYPE, VehicleTreeItem::Unpack },
-        {  Weapon::JSON_TYPE,  WeaponTreeItem::Unpack }
-      };
-
-      if(json.isObject())
-      {
-        QJsonObject obj = json.toObject();
-        if (obj.contains(GDW_RPG_TYPE) && obj[GDW_RPG_TYPE].isString())
-        {
-          const QString type = obj[GDW_RPG_TYPE].toString();
-
-          if(OBJECT_TREE_UNPACK_MAP.contains(type))
-          {
-            ObjectTreeUnpackFunction unpack = OBJECT_TREE_UNPACK_MAP[type];
-            ObjectTreeItem* item = unpack(obj, parent);
-
-            return parent->AppendChild(item);
-          }
-        }
-      }
-
-      return nullptr;
-    }
 
     QTextStream&
     operator<<(QTextStream& ots, const ObjectTreeItem& item)
@@ -286,116 +237,6 @@ namespace GDW
     QDebug&
     ObjectTreeItem::Debug(QDebug& debug) const
     {
-      return debug;
-    }
-
-
-    /*
-     * Vehicle
-     */
-
-    VehicleTreeItem*
-    VehicleTreeItem::Create(ObjectTreeItem* parent)
-    {
-
-      return new VehicleTreeItem(Vehicle::New(), parent);
-    }
-
-    VehicleTreeItem*
-    VehicleTreeItem::Unpack(const QJsonObject& json, ObjectTreeItem* parent)
-    {
-      Vehicle* vehicle = new Vehicle(json);
-      VehicleTreeItem* vti = new VehicleTreeItem(vehicle, parent);
-
-      foreach(Weapon* weapon, vehicle->Weapons())
-        vti->AppendChild(new WeaponTreeItem(weapon, vti));
-
-      return vti;
-    }
-
-    VehicleTreeItem::VehicleTreeItem(Vehicle* vehicle, ObjectTreeItem* parent) //, const QFontMetrics& fontMetrics)
-      : ObjectTreeItem(vehicle, parent) //, mVehicle(vehicle)
-    {}
-
-    VehicleTreeItem::~VehicleTreeItem()
-    {}
-
-    void
-    VehicleTreeItem::Select(Ui::MainWindow& ui, ObjectForm*)
-    {
-      ObjectTreeItem::Select(ui, new VehicleForm(GetObject()));
-    }
-
-    Vehicle*
-    VehicleTreeItem::GetObject()
-    {
-      return static_cast<Vehicle*>(ObjectTreeItem::GetObject());
-    }
-
-    const Vehicle*
-    VehicleTreeItem::GetObject() const
-    {
-      return static_cast<const Vehicle*>(ObjectTreeItem::GetObject());
-    }
-
-    QDebug&
-    VehicleTreeItem::Debug(QDebug& debug) const
-    {
-      debug.nospace() << "Vehicle: ";
-
-      return debug;
-    }
-
-
-    /*
-     * Weapon
-     */
-    WeaponTreeItem*
-    WeaponTreeItem::Create(ObjectTreeItem* parent)
-    {
-
-      return new WeaponTreeItem(Weapon::New(), parent);
-    }
-
-    WeaponTreeItem*
-    WeaponTreeItem::Unpack(const QJsonObject& json, ObjectTreeItem* parent)
-    {
-      Weapon* weapon = new Weapon(json);
-      WeaponTreeItem* wti = new WeaponTreeItem(weapon, parent);
-
-      return wti;
-    }
-
-    WeaponTreeItem::WeaponTreeItem(Weapon* weapon, ObjectTreeItem* parent)
-      : ObjectTreeItem(weapon, parent) // , mWeapon(weapon)
-    {}
-
-    WeaponTreeItem::~WeaponTreeItem()
-    {}
-
-    void
-    WeaponTreeItem::Select(Ui::MainWindow& ui, ObjectForm*)
-    {
-      ObjectTreeItem::Select(ui, new WeaponForm(GetObject()));
-    }
-
-    Weapon*
-    WeaponTreeItem::GetObject()
-    {
-      return static_cast<Weapon*>(ObjectTreeItem::GetObject());
-    }
-
-    const Weapon*
-    WeaponTreeItem::GetObject() const
-    {
-      return static_cast<const Weapon*>(ObjectTreeItem::GetObject());
-    }
-
-    QDebug&
-    WeaponTreeItem::Debug(QDebug& debug) const
-    {
-      debug.nospace() << "Weapon: ";
-
       return debug;
     }
   };

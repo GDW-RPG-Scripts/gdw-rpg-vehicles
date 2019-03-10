@@ -16,8 +16,10 @@
  * General Public License along with GDW RPG Vehicles. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef MODEL_HH
-#define MODEL_HH
+#ifndef VEHICLEMODEL_HH
+#define VEHICLEMODEL_HH
+
+#include "vehicle_global.hh"
 
 #include <QAbstractItemModel>
 #include <QModelIndex>
@@ -37,7 +39,7 @@ namespace GDW
   {
     class ObjectTreeItem;
 
-    class VehicleModel : public QAbstractItemModel
+    class VEHICLESHARED_EXPORT VehicleModel : public QAbstractItemModel
     {
         Q_OBJECT
 
@@ -83,4 +85,4 @@ namespace GDW
   };
 };
 
-#endif // MODEL_HH
+#endif // VEHICLEMODEL_HH

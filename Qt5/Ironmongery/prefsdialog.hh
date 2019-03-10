@@ -29,14 +29,14 @@ namespace GDW
 {
   namespace RPG
   {
-    class MainWindow;
+    class Workspace;
 
     class PrefsDialog : public QDialog
     {
         Q_OBJECT
 
       public:
-        PrefsDialog(MainWindow* parent);
+        PrefsDialog(Workspace* parent);
         ~PrefsDialog();
 
       private:

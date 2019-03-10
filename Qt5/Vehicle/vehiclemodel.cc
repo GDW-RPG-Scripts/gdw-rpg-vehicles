@@ -16,13 +16,12 @@
  * General Public License along with GDW RPG Vehicles. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "model.hh"
-
-#include "treeitem.hh"
+#include "vehiclemodel.hh"
+#include "vehicleitem.hh"
 
 #include "objectform.hh"
 
-#include "ui_mainwindow.h"
+// #include "ui_mainwindow.h"
 
 #include <QDebug>
 #include <QJsonArray>

@@ -23,7 +23,7 @@
 #include <QLibraryInfo>
 #include <QTranslator>
 
-#include "mainwindow.hh"
+#include "workspace.hh"
 
 int main(int argc, char* argv[])
 {
@@ -52,10 +52,10 @@ int main(int argc, char* argv[])
                        QLatin1String("_")); //, QLatin1String(":/translations"));
   application.installTranslator(&appTranslator);
 
-  GDW::RPG::MainWindow mainWindow;
+  GDW::RPG::Workspace workspace;
   if (!parser.positionalArguments().isEmpty())
-    mainWindow.LoadFile(parser.positionalArguments().first());
-  mainWindow.show();
+    workspace.LoadFile(parser.positionalArguments().first());
+  workspace.show();
 
   return application.exec();
 }

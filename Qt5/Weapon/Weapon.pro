@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += widgets svg
+QT       += core widgets svg
 
 QT       -= gui
 
@@ -27,13 +27,30 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-        weapon.cc
+    weapon.cc \
+    weaponform.cc \
+    weaponitem.cc
 
 HEADERS += \
-        weapon.hh \
-        weapon_global.hh 
+    weapon.hh \
+    weapon_global.hh \
+    weaponform.hh \
+    weaponitem.hh
+
+FORMS += \
+    weaponform.ui
 
 unix {
     target.path = /usr/lib
     INSTALLS += target
 }
+
+win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../Object/release/ -lObject
+else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../Object/debug/ -lObject
+else:unix: LIBS += -L$$OUT_PWD/../Object/ -lObject
+
+INCLUDEPATH += $$PWD/../Object
+DEPENDPATH += $$PWD/../Object
+
+RESOURCES += \
+    weapon.qrc

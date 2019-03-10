@@ -19,7 +19,7 @@
 #ifndef MAINWINDOW_HH
 #define MAINWINDOW_HH
 
-#include "model.hh"
+#include "vehiclemodel.hh"
 
 #include "ui_mainwindow.h"
 
@@ -46,13 +46,13 @@ namespace GDW
   {
     class VehicleModel;
 
-    class MainWindow : public QMainWindow
+    class Workspace : public QMainWindow
     {
         Q_OBJECT
 
       public:
-        explicit MainWindow(QWidget* parent = nullptr);
-        ~MainWindow() override;
+        explicit Workspace(QWidget* parent = nullptr);
+        ~Workspace() override;
 
         void LoadFile(const QString& fileName);
 

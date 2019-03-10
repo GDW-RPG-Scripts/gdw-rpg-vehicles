@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>MainWindow</class>
- <widget class="QMainWindow" name="MainWindow">
+ <class>Workspace</class>
+ <widget class="QMainWindow" name="Workspace">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -20,7 +20,7 @@
    <string>GDW RPG Vehicles</string>
   </property>
   <property name="windowIcon">
-   <iconset resource="gdw_rpg_vehicles.qrc">
+   <iconset resource="object.qrc">
     <normaloff>:/icons/sunburst.png</normaloff>:/icons/sunburst.png</iconset>
   </property>
   <widget class="QWidget" name="centralWidget">
@@ -891,13 +891,13 @@
   </customwidget>
  </customwidgets>
  <resources>
-  <include location="gdw_rpg_vehicles.qrc"/>
+  <include location="object.qrc"/>
  </resources>
  <connections>
   <connection>
    <sender>action_About</sender>
    <signal>triggered()</signal>
-   <receiver>MainWindow</receiver>
+   <receiver>Workspace</receiver>
    <slot>About()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -913,7 +913,7 @@
   <connection>
    <sender>action_Open</sender>
    <signal>triggered()</signal>
-   <receiver>MainWindow</receiver>
+   <receiver>Workspace</receiver>
    <slot>Open()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -929,7 +929,7 @@
   <connection>
    <sender>vehiclesTreeView</sender>
    <signal>clicked(QModelIndex)</signal>
-   <receiver>MainWindow</receiver>
+   <receiver>Workspace</receiver>
    <slot>ItemClicked(QModelIndex)</slot>
    <hints>
     <hint type="sourcelabel">
@@ -945,7 +945,7 @@
   <connection>
    <sender>action_Print</sender>
    <signal>triggered()</signal>
-   <receiver>MainWindow</receiver>
+   <receiver>Workspace</receiver>
    <slot>PrintItem()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -961,7 +961,7 @@
   <connection>
    <sender>editItemButton</sender>
    <signal>clicked()</signal>
-   <receiver>MainWindow</receiver>
+   <receiver>Workspace</receiver>
    <slot>EditItem()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -977,7 +977,7 @@
   <connection>
    <sender>action_Save</sender>
    <signal>triggered()</signal>
-   <receiver>MainWindow</receiver>
+   <receiver>Workspace</receiver>
    <slot>Save()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -993,7 +993,7 @@
   <connection>
    <sender>action_SaveAs</sender>
    <signal>triggered()</signal>
-   <receiver>MainWindow</receiver>
+   <receiver>Workspace</receiver>
    <slot>SaveAs()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -1009,7 +1009,7 @@
   <connection>
    <sender>insertItemButton</sender>
    <signal>clicked()</signal>
-   <receiver>MainWindow</receiver>
+   <receiver>Workspace</receiver>
    <slot>InsertItem()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -1025,7 +1025,7 @@
   <connection>
    <sender>okButton</sender>
    <signal>clicked()</signal>
-   <receiver>MainWindow</receiver>
+   <receiver>Workspace</receiver>
    <slot>SaveItem()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -1041,7 +1041,7 @@
   <connection>
    <sender>action_New</sender>
    <signal>triggered()</signal>
-   <receiver>MainWindow</receiver>
+   <receiver>Workspace</receiver>
    <slot>New()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -1057,7 +1057,7 @@
   <connection>
    <sender>action_Prefs</sender>
    <signal>triggered()</signal>
-   <receiver>MainWindow</receiver>
+   <receiver>Workspace</receiver>
    <slot>Prefs()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -1073,7 +1073,7 @@
   <connection>
    <sender>action_Quit</sender>
    <signal>triggered()</signal>
-   <receiver>MainWindow</receiver>
+   <receiver>Workspace</receiver>
    <slot>close()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -1089,7 +1089,7 @@
   <connection>
    <sender>removeItemButton</sender>
    <signal>clicked()</signal>
-   <receiver>MainWindow</receiver>
+   <receiver>Workspace</receiver>
    <slot>RemoveSelectedItems()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -1105,7 +1105,7 @@
   <connection>
    <sender>action_Cut</sender>
    <signal>triggered()</signal>
-   <receiver>MainWindow</receiver>
+   <receiver>Workspace</receiver>
    <slot>RemoveSelectedItems()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -1121,7 +1121,7 @@
   <connection>
    <sender>tabWidget</sender>
    <signal>currentChanged(int)</signal>
-   <receiver>MainWindow</receiver>
+   <receiver>Workspace</receiver>
    <slot>CurrentType(int)</slot>
    <hints>
     <hint type="sourcelabel">
@@ -1137,7 +1137,7 @@
   <connection>
    <sender>weaponsTreeView</sender>
    <signal>customContextMenuRequested(QPoint)</signal>
-   <receiver>MainWindow</receiver>
+   <receiver>Workspace</receiver>
    <slot>ShowWeaponsMenu(QPoint)</slot>
    <hints>
     <hint type="sourcelabel">
@@ -1153,7 +1153,7 @@
   <connection>
    <sender>vehiclesTreeView</sender>
    <signal>customContextMenuRequested(QPoint)</signal>
-   <receiver>MainWindow</receiver>
+   <receiver>Workspace</receiver>
    <slot>ShowVehiclesMenu(QPoint)</slot>
    <hints>
     <hint type="sourcelabel">

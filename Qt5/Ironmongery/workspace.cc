@@ -27,20 +27,22 @@
 #endif // QT_CONFIG(printer)
 #endif // QT_PRINTSUPPORT_LIB
 
-#include "mainwindow.hh"
-#include "prefsdialog.hh"
-#include "treeitem.hh"
 #include "commands.hh"
+#include "workspace.hh"
+#include "prefsdialog.hh"
 
-#include "ui_vehicleform.h"
-#include "ui_weaponform.h"
+#include "objectitem.hh"
+#include "weaponitem.hh"
+
+// #include "ui_vehicleform.h"
+// #include "ui_weaponform.h"
 
 
 namespace GDW
 {
   namespace RPG
   {
-    MainWindow::MainWindow(QWidget* parent) :
+    Workspace::Workspace(QWidget* parent) :
       QMainWindow(parent), mRuleSet(0), mLoadOnStart(true)
     {
       ReadSettings();
@@ -48,7 +50,7 @@ namespace GDW
 #ifndef QT_NO_SESSIONMANAGER
       QGuiApplication::setFallbackSessionManagementEnabled(false);
       connect(qApp, &QGuiApplication::commitDataRequest,
-              this, &MainWindow::CommitData);
+              this, &Workspace::CommitData);
 #endif
 
       mUi.setupUi(this);
@@ -77,8 +79,8 @@ namespace GDW
       mUi.action_Paste->setEnabled(false);
 #endif
 
-      connect(&mVehicleModel, &QAbstractItemModel::rowsRemoved, this, &MainWindow::RemoveSelectedItems);
-      connect(mUi.menuEdit, &QMenu::aboutToShow, this, &MainWindow::UpdateActions);
+      connect(&mVehicleModel, &QAbstractItemModel::rowsRemoved, this, &Workspace::RemoveSelectedItems);
+      connect(mUi.menuEdit, &QMenu::aboutToShow, this, &Workspace::UpdateActions);
       // connect(mUi.insertItemButton, &QAbstractButton::clicked, this, &MainWindow::AddItem);
       // connect(mUi.action_Cut, &QAction::triggered, this, &MainWindow::RemoveItem);
       // connect(insertChildAction, &QAction::triggered, this, &MainWindow::insertChild);
@@ -90,19 +92,19 @@ namespace GDW
     }
 
     VehicleModel&
-    MainWindow::Model()
+    Workspace::Model()
     {
       return mVehicleModel;
     }
 
-    MainWindow::~MainWindow()
+    Workspace::~Workspace()
     {}
 
     //
     // Events
     //
 
-    void MainWindow::closeEvent(QCloseEvent* event)
+    void Workspace::closeEvent(QCloseEvent* event)
     {
       if (MaybeSave()) {
         WriteSettings();
@@ -116,18 +118,18 @@ namespace GDW
     // Slots
     //
     void
-    MainWindow::LoadOnStart(int state)
+    Workspace::LoadOnStart(int state)
     {
       mLoadOnStart = state;
     }
 
     void
-    MainWindow::RuleSet(int state)
+    Workspace::RuleSet(int state)
     {
       mRuleSet = state;
     }
 
-    void MainWindow::New()
+    void Workspace::New()
     {
       if (MaybeSave()) {
         // textEdit->clear();
@@ -140,7 +142,7 @@ namespace GDW
     }
 
     void
-    MainWindow::Open()
+    Workspace::Open()
     {
       if (MaybeSave()) {
         QString fileName = QFileDialog::getOpenFileName(this, tr("Load Vehicles"), ".", tr("GDW RPG Object files (*.json *.grv *.gro)"));
@@ -150,14 +152,14 @@ namespace GDW
     }
 
     void
-    MainWindow::Prefs()
+    Workspace::Prefs()
     {
       PrefsDialog dialog(this);
       dialog.exec();
     }
 
     bool
-    MainWindow::Save()
+    Workspace::Save()
     {
       if (mCurrentFile.isEmpty()) {
         return SaveAs();
@@ -166,7 +168,7 @@ namespace GDW
       }
     }
 
-    bool MainWindow::SaveAs()
+    bool Workspace::SaveAs()
     {
       QString fileName =
           QFileDialog::getSaveFileName(this, tr("Save File"),
@@ -187,7 +189,7 @@ namespace GDW
     }
 
     void
-    MainWindow::About()
+    Workspace::About()
     {
       // qDebug() << "MainWindow::About()";
       const QString text =
@@ -211,7 +213,7 @@ namespace GDW
     }
 
     void
-    MainWindow::InsertItem()
+    Workspace::InsertItem()
     {
       QTreeView& treeView = GetCurrentTreeView();
 
@@ -235,7 +237,7 @@ namespace GDW
     }
 
     void
-    MainWindow::CurrentType(int type)
+    Workspace::CurrentType(int type)
     {
       // mCurrentType = type;
       // mModel.CurrentType(type);
@@ -243,7 +245,7 @@ namespace GDW
     }
 
     void
-    MainWindow::EditItem()
+    Workspace::EditItem()
     {
       if(mUi.objectForm->IsReadOnly()) {
         mUi.editItemButton->setText(tr("&Cancel"));
@@ -258,7 +260,7 @@ namespace GDW
     }
 
     void
-    MainWindow::RemoveSelectedItems()
+    Workspace::RemoveSelectedItems()
     {
       QTreeView& view = GetCurrentTreeView();
 
@@ -275,25 +277,25 @@ namespace GDW
     }
 
     void
-    MainWindow::PrintItem()
+    Workspace::PrintItem()
     {
       mVehicleModel.Print(this);
     }
 
     void
-    MainWindow::Redo()
+    Workspace::Redo()
     {
       mUndoStack.redo();
     }
 
     void
-    MainWindow::Undo()
+    Workspace::Undo()
     {
       mUndoStack.undo();
     }
 
     void
-    MainWindow::DocumentWasModified()
+    Workspace::DocumentWasModified()
     {
       setWindowModified(IsModified());
       // setWindowModified(textEdit->document()->isModified());
@@ -303,7 +305,7 @@ namespace GDW
     ObjectTreeSelector;
 
     void
-    MainWindow::ItemClicked(const QModelIndex& index)
+    Workspace::ItemClicked(const QModelIndex& index)
     {
       static const ObjectTreeSelector SELECTION[] =
       {
@@ -323,7 +325,7 @@ namespace GDW
     }
 
     void
-    MainWindow::SaveItem()
+    Workspace::SaveItem()
     {
       // mUndoStack.push(new InsertItemCommand());
       mUi.    objectForm->Write();
@@ -342,7 +344,7 @@ namespace GDW
     }
 
 #ifndef QT_NO_SESSIONMANAGER
-    void MainWindow::CommitData(QSessionManager& manager)
+    void Workspace::CommitData(QSessionManager& manager)
     {
       if (manager.allowsInteraction()) {
         if (!MaybeSave())
@@ -357,7 +359,7 @@ namespace GDW
 #endif
 
     void
-    MainWindow::AddWeapon()
+    Workspace::AddWeapon()
     {
       qDebug() << "MainWindow::AddWeapon";
       QModelIndex index =
@@ -373,13 +375,13 @@ namespace GDW
     }
 
     void
-    MainWindow::ShowVehiclesMenu(const QPoint& position)
+    Workspace::ShowVehiclesMenu(const QPoint& position)
     {
       QAction action(tr("Add weapon"), this);
       QFontMetrics fontMetric(action.font());
       QPoint offset(0, fontMetric.height());
 
-      connect(&action, &QAction::triggered, this, &MainWindow::AddWeapon);
+      connect(&action, &QAction::triggered, this, &Workspace::AddWeapon);
 
       QMenu menu(this);
       menu.addAction(&action);
@@ -387,7 +389,7 @@ namespace GDW
     }
 
     void
-    MainWindow::ShowWeaponsMenu(const QPoint& position)
+    Workspace::ShowWeaponsMenu(const QPoint& position)
     {
       qDebug() << "MainWindow::ShowWeaponsMenu(const QPoint& " << position << ")";
     }
@@ -397,7 +399,7 @@ namespace GDW
     //
 
     void
-    MainWindow::ReadSettings()
+    Workspace::ReadSettings()
     {
       QSettings settings;
 
@@ -416,7 +418,7 @@ namespace GDW
     }
 
     void
-    MainWindow::WriteSettings()
+    Workspace::WriteSettings()
     {
       QSettings settings;
       settings.setValue("geometry", saveGeometry());
@@ -425,13 +427,13 @@ namespace GDW
     }
 
     bool
-    MainWindow::IsModified()
+    Workspace::IsModified()
     {
       return !mUndoStack.isClean();
     }
 
     bool
-    MainWindow::MaybeSave()
+    Workspace::MaybeSave()
     {
       if(!IsModified())
         return true;
@@ -461,7 +463,7 @@ namespace GDW
     }
 
     void
-    MainWindow::LoadFile(const QString& fileName)
+    Workspace::LoadFile(const QString& fileName)
     {
       QFile file(fileName);
       if (!file.open(QFile::ReadOnly | QFile::Text)) {
@@ -498,7 +500,7 @@ namespace GDW
     }
 
     bool
-    MainWindow::SaveFile(const QString& fileName)
+    Workspace::SaveFile(const QString& fileName)
     {
       QFile file(fileName);
       if (!file.open(QFile::WriteOnly | QFile::Text)) {
@@ -529,7 +531,7 @@ namespace GDW
     }
 
     void
-    MainWindow::SetCurrentFile(const QString& fileName)
+    Workspace::SetCurrentFile(const QString& fileName)
     {
       QFileInfo info(mCurrentFile = fileName);
       QString title(info.fileName());
@@ -540,7 +542,7 @@ namespace GDW
     }
 
     void
-    MainWindow::UpdateActions()
+    Workspace::UpdateActions()
     {
       QTreeView& view = GetCurrentTreeView();
       QItemSelectionModel* selectionModel = view.selectionModel();
@@ -560,7 +562,7 @@ namespace GDW
 
       if(hasSelection) {
         connect(selectionModel, &QItemSelectionModel::selectionChanged,
-                this, &MainWindow::UpdateActions);
+                this, &Workspace::UpdateActions);
       }
 
       bool hasCurrent =
@@ -572,7 +574,7 @@ namespace GDW
     }
 
     QTreeView&
-    MainWindow::GetCurrentTreeView()
+    Workspace::GetCurrentTreeView()
     {
       static QTreeView* objectView[] =
       {
