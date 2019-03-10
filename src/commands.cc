@@ -32,7 +32,7 @@ namespace GDW
     // Insert Item Command
     //
     InsertItemCommand::InsertItemCommand(const QModelIndex& index,
-                                         TreeModel* model,
+                                         VehicleModel& model,
                                          QUndoCommand* parent)
       : QUndoCommand(parent),
         mRow(index.row()+1),
@@ -48,7 +48,7 @@ namespace GDW
     {
       qDebug() << "InsertItemCommand::undo()";
       if(mInserted)
-        mModel->removeRow(mRow, mParent);
+        mModel.removeRow(mRow, mParent);
     }
 
     void
@@ -56,13 +56,13 @@ namespace GDW
     {
       qDebug() << "InsertItemCommand::redo()";
 
-      mInserted = mModel->insertRow(mRow, mParent);
+      mInserted = mModel.insertRow(mRow, mParent);
 
 //      bool isSet = true;
-//      for (int col = 0; col < mModel->columnCount(); ++col) {
-//        QModelIndex index = mModel->index(mRow, col, mParent);
-//        ObjectTreeItem* item = mModel->GetItem(index);
-//        isSet = isSet && mModel->setData(index, item->Data(col));
+//      for (int col = 0; col < mModel.columnCount(); ++col) {
+//        QModelIndex index = mModel.index(mRow, col, mParent);
+//        ObjectTreeItem* item = mModel.GetItem(index);
+//        isSet = isSet && mModel.setData(index, item->Data(col));
 //      }
 //      mInserted = isSet;
     }
@@ -71,7 +71,7 @@ namespace GDW
     // Remove Item Command
     //
     RemoveItemCommand::RemoveItemCommand(const QModelIndex& index,
-                                         TreeModel* model,
+                                         VehicleModel& model,
                                          QUndoCommand* parent)
       : QUndoCommand(parent),
         mRow(index.row()),
@@ -87,14 +87,14 @@ namespace GDW
     {
       qDebug() << "RemoveItemCommand::undo()";
       if(mRemoved)
-        mModel->insertRow(mRow, mParent);
+        mModel.insertRow(mRow, mParent);
     }
 
     void
     RemoveItemCommand::redo()
     {
       qDebug() << "RemoveItemCommand::redo()";
-      mRemoved = mModel->removeRow(mRow, mParent);
+      mRemoved = mModel.removeRow(mRow, mParent);
     }
   };
 };

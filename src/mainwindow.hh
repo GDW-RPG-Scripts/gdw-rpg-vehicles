@@ -19,6 +19,11 @@
 #ifndef MAINWINDOW_HH
 #define MAINWINDOW_HH
 
+#include "model.hh"
+
+#include "ui_mainwindow.h"
+
+
 #include <QMainWindow>
 #include <QUndoStack>
 
@@ -39,7 +44,7 @@ namespace GDW
 {
   namespace RPG
   {
-    class TreeModel;
+    class VehicleModel;
 
     class MainWindow : public QMainWindow
     {
@@ -92,18 +97,19 @@ namespace GDW
         bool MaybeSave();
         bool SaveFile(const QString& fileName);
         void SetCurrentFile(const QString& fileName);
-        QTreeView* GetCurrentTreeView();
+        VehicleModel& Model();
+        QTreeView& GetCurrentTreeView();
 
         int mRuleSet;
         bool mLoadOnStart;
 
-        TreeModel* mModel;
+        // int mCurrentType;
+        VehicleModel mVehicleModel;
 
         QString mCurrentFile;
         QUndoStack mUndoStack;
-        Ui::MainWindow* mUi;
+        Ui::MainWindow mUi;
 
-        static const QString APP_NAME;
         // QPlainTextEdit* textEdit;
     };
   };

@@ -37,13 +37,13 @@ namespace GDW
   {
     class ObjectTreeItem;
 
-    class TreeModel : public QAbstractItemModel
+    class VehicleModel : public QAbstractItemModel
     {
         Q_OBJECT
 
       public:
-        TreeModel(QObject* parent = nullptr);
-        ~TreeModel() override;
+        VehicleModel(QObject* parent = nullptr);
+        ~VehicleModel() override;
 
         QVariant data(const QModelIndex& index, int role) const override;
         QVariant headerData(int section, Qt::Orientation orientation,
@@ -71,7 +71,7 @@ namespace GDW
         void Import(QFile&);
         void Print(QWidget* = nullptr) const;
 
-        friend QTextStream& operator<<(QTextStream&, const TreeModel&);
+        friend QTextStream& operator<<(QTextStream&, const VehicleModel&);
 
       private:
         void CreateRootItem();

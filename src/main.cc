@@ -29,33 +29,33 @@ int main(int argc, char* argv[])
 {
   Q_INIT_RESOURCE(gdw_rpg_vehicles);
 
-  QApplication app(argc, argv);
+  QApplication application(argc, argv);
 
   QCoreApplication::setOrganizationName("GDW RPG");
   QCoreApplication::setApplicationName("Vehicles");
-  QCoreApplication::setApplicationVersion(QT_VERSION_STR);
+  QCoreApplication::setApplicationVersion("0");
 
   QCommandLineParser parser;
   parser.setApplicationDescription(QCoreApplication::applicationName());
   parser.addHelpOption();
   parser.addVersionOption();
   parser.addPositionalArgument("file", "The file to open.");
-  parser.process(app);
+  parser.process(application);
 
   QTranslator qtTranslator;
   qtTranslator.load("qt_" + QLocale::system().name(),
                     QLibraryInfo::location(QLibraryInfo::TranslationsPath));
-  app.installTranslator(&qtTranslator);
+  application.installTranslator(&qtTranslator);
 
-  QTranslator myappTranslator;
-  myappTranslator.load(QLocale(), QLatin1String("gdw_rpg_vehicles"),
+  QTranslator appTranslator;
+  appTranslator.load(QLocale(), QLatin1String("gdw_rpg_vehicles"),
                        QLatin1String("_"), QLatin1String(":/translations"));
-  app.installTranslator(&myappTranslator);
+  application.installTranslator(&appTranslator);
 
-  GDW::RPG::MainWindow mainWin;
+  GDW::RPG::MainWindow mainWindow;
   if (!parser.positionalArguments().isEmpty())
-    mainWin.LoadFile(parser.positionalArguments().first());
-  mainWin.show();
+    mainWindow.LoadFile(parser.positionalArguments().first());
+  mainWindow.show();
 
-  return app.exec();
+  return application.exec();
 }

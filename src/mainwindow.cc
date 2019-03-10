@@ -27,13 +27,11 @@
 #endif // QT_CONFIG(printer)
 #endif // QT_PRINTSUPPORT_LIB
 
-#include "model.hh"
 #include "mainwindow.hh"
 #include "prefsdialog.hh"
 #include "treeitem.hh"
 #include "commands.hh"
 
-#include "ui_mainwindow.h"
 #include "ui_vehicleform.h"
 #include "ui_weaponform.h"
 
@@ -42,14 +40,8 @@ namespace GDW
 {
   namespace RPG
   {
-    const QString MainWindow::APP_NAME = tr("GDW RPG Vehicles");
-
     MainWindow::MainWindow(QWidget* parent) :
-      QMainWindow(parent),
-      mRuleSet(0),
-      mLoadOnStart(true),
-      mModel(new TreeModel),
-      mUi(new Ui::MainWindow)
+      QMainWindow(parent), mRuleSet(0), mLoadOnStart(true)
     {
       ReadSettings();
 
@@ -59,7 +51,7 @@ namespace GDW
               this, &MainWindow::CommitData);
 #endif
 
-      mUi->setupUi(this);
+      mUi.setupUi(this);
 
       QList<QAction*> actions =
       {
@@ -68,27 +60,27 @@ namespace GDW
       };
       actions[0]->setShortcuts(QKeySequence::Undo);
       actions[1]->setShortcuts(QKeySequence::Redo);
-      mUi->menuEdit->insertActions(mUi->action_Placeholder, actions);
-      mUi->menuEdit->removeAction(mUi->action_Placeholder);
+      mUi.menuEdit->insertActions(mUi.action_Placeholder, actions);
+      mUi.menuEdit->removeAction(mUi.action_Placeholder);
 
       SetCurrentFile(QString());
       setUnifiedTitleAndToolBarOnMac(true);
 
       // Disable menu actions for unavailable features
 #if !QT_CONFIG(printer)
-      mUi->action_Print->setEnabled(false);
+      mUi.action_Print->setEnabled(false);
 #endif
 
 #if !QT_CONFIG(clipboard)
-      mUi->action_Cut->setEnabled(false);
-      mUi->action_Copy->setEnabled(false);
-      mUi->action_Paste->setEnabled(false);
+      mUi.action_Cut->setEnabled(false);
+      mUi.action_Copy->setEnabled(false);
+      mUi.action_Paste->setEnabled(false);
 #endif
 
-      connect(mModel, &QAbstractItemModel::rowsRemoved, this, &MainWindow::RemoveSelectedItems);
-      connect(mUi->menuEdit, &QMenu::aboutToShow, this, &MainWindow::UpdateActions);
-      // connect(mUi->insertItemButton, &QAbstractButton::clicked, this, &MainWindow::AddItem);
-      // connect(mUi->action_Cut, &QAction::triggered, this, &MainWindow::RemoveItem);
+      connect(&mVehicleModel, &QAbstractItemModel::rowsRemoved, this, &MainWindow::RemoveSelectedItems);
+      connect(mUi.menuEdit, &QMenu::aboutToShow, this, &MainWindow::UpdateActions);
+      // connect(mUi.insertItemButton, &QAbstractButton::clicked, this, &MainWindow::AddItem);
+      // connect(mUi.action_Cut, &QAction::triggered, this, &MainWindow::RemoveItem);
       // connect(insertChildAction, &QAction::triggered, this, &MainWindow::insertChild);
 
       if(mLoadOnStart)
@@ -97,10 +89,14 @@ namespace GDW
       UpdateActions();
     }
 
-    MainWindow::~MainWindow()
+    VehicleModel&
+    MainWindow::Model()
     {
-      delete mUi;
+      return mVehicleModel;
     }
+
+    MainWindow::~MainWindow()
+    {}
 
     //
     // Events
@@ -137,8 +133,8 @@ namespace GDW
         // textEdit->clear();
         mUndoStack.clear();
         // delete mModel;
-        mUi->vehiclesTreeView->setModel(new TreeModel);
-        mUi->objectForm->hide();
+        mUi.vehiclesTreeView->setModel(new VehicleModel);
+        mUi.objectForm->hide();
         SetCurrentFile(QString());
       }
     }
@@ -147,8 +143,7 @@ namespace GDW
     MainWindow::Open()
     {
       if (MaybeSave()) {
-        QString fileName =
-            QFileDialog::getOpenFileName(this, tr("Load Vehicles"), ".", tr("GDW RPG Object files (*.json *.grv *.gro)"));
+        QString fileName = QFileDialog::getOpenFileName(this, tr("Load Vehicles"), ".", tr("GDW RPG Object files (*.json *.grv *.gro)"));
         if (!fileName.isEmpty())
           LoadFile(fileName);
       }
@@ -195,82 +190,85 @@ namespace GDW
     MainWindow::About()
     {
       // qDebug() << "MainWindow::About()";
-      const QString text = tr(
-                             "GDW RPG Vehicles – Vehicle database and card printing software "
-                             "for 2d6 Sci-fi and other RPGs.\n\n"
-                             "Copyright © 2018-2019 by Michael N. Henry\n\n"
-                             "This program is free software: you can redistribute it and/or "
-                             "modify it under the terms of the GNU General Public License as "
-                             "published by the Free Software Foundation, either version 3 of "
-                             "the License, or (at your option) any later version.\n\n"
-                             "Based on the original GDW RPG Vehicles QBasic software written "
-                             "by Peter Kreft.\n\n"
-                             "Artwork by Ian Stead and others.\n\n"
-                             "The Traveller game in all forms is owned by Far Future "
-                             "Enterprises. Copyright 1977 - 2008 Far Future Enterprises.");
+      const QString text =
+          tr("GDW RPG Vehicles – Vehicle database and card printing software "
+             "for 2d6 Sci-fi and other RPGs.\n\n"
+             "Copyright © 2018-2019 by Michael N. Henry\n\n"
+             "This program is free software: you can redistribute it and/or "
+             "modify it under the terms of the GNU General Public License as "
+             "published by the Free Software Foundation, either version 3 of "
+             "the License, or (at your option) any later version.\n\n"
+             "Based on the original GDW RPG Vehicles QBasic software written "
+             "by Peter Kreft.\n\n"
+             "Artwork by Ian Stead and others.\n\n"
+             "The Traveller game in all forms is owned by Far Future "
+             "Enterprises. Copyright 1977 - 2008 Far Future Enterprises.");
 
-      QMessageBox::about(this, tr("About") + " " + APP_NAME, text);
+      QMessageBox::about(this,
+                         tr("About") + " " +
+                         QCoreApplication::organizationName() + " " +
+                         QCoreApplication::applicationName(), text);
     }
 
     void
     MainWindow::InsertItem()
     {
-      QTreeView* treeView = GetCurrentTreeView();
+      QTreeView& treeView = GetCurrentTreeView();
 
-      if(treeView->model() == nullptr)
-        treeView->setModel(mModel);
+      if(treeView.model() == nullptr)
+        treeView.setModel(&mVehicleModel);
 
-      QItemSelectionModel* itemSelectionModel = treeView->selectionModel();
+      QItemSelectionModel* itemSelectionModel = treeView.selectionModel();
       QModelIndex index = itemSelectionModel->currentIndex();
 
-      mUndoStack.push(new InsertItemCommand(index, mModel));
+      mUndoStack.push(new InsertItemCommand(index, mVehicleModel));
 
       UpdateActions();
 
-      treeView->update();
+      treeView.update();
 
-      //      for (int column = mModel->columnCount(index.parent())-1; column >= 0 ; --column) {
+      //      for (int column = mModel.columnCount(index.parent())-1; column >= 0 ; --column) {
       //        QModelIndex child =
-      //            mModel->index(index.row()+1, column, index.parent());
-      //        mModel->setData(child, QVariant("[No data]"), Qt::EditRole);
+      //            mModel.index(index.row()+1, column, index.parent());
+      //        mModel.setData(child, QVariant("[No data]"), Qt::EditRole);
       //      }
     }
 
     void
     MainWindow::CurrentType(int type)
     {
-      mModel->CurrentType(type);
+      // mCurrentType = type;
+      // mModel.CurrentType(type);
+      UpdateActions();
     }
 
     void
     MainWindow::EditItem()
     {
-      if(mUi->objectForm->IsReadOnly()) {
-        mUi->editItemButton->setText(tr("&Cancel"));
-        mUi->  okButton->setEnabled(true);
-        mUi->objectForm->SetReadOnly(false);
+      if(mUi.objectForm->IsReadOnly()) {
+        mUi.editItemButton->setText(tr("&Cancel"));
+        mUi.      okButton->setEnabled(true);
+        mUi.    objectForm->SetReadOnly(false);
       } else {
-        mUi->editItemButton->setText(tr("&Edit"));
-        mUi->  okButton->setEnabled(false);
-        mUi->objectForm->SetReadOnly(true);
-        mUi->objectForm->Read();
+        mUi.editItemButton->setText(tr("&Edit"));
+        mUi.      okButton->setEnabled(false);
+        mUi.    objectForm->SetReadOnly(true);
+        mUi.    objectForm->Read();
       }
     }
 
     void
     MainWindow::RemoveSelectedItems()
     {
-      QTreeView* view = GetCurrentTreeView();
+      QTreeView& view = GetCurrentTreeView();
 
-      while(view->selectionModel()->hasSelection()) {
+      while(view.selectionModel()->hasSelection()) {
         QModelIndex index =
-            view->selectionModel()->selectedRows().takeAt(0);
-
+            view.selectionModel()->selectedRows().takeAt(0);
         ObjectTreeItem* oti =
             static_cast<ObjectTreeItem*>(index.internalPointer());
         oti->Unselect(mUi);
-
-        mUndoStack.push(new RemoveItemCommand(index, mModel));
+        mUndoStack.push(new RemoveItemCommand(index, mVehicleModel));
       }
 
       UpdateActions();
@@ -279,7 +277,7 @@ namespace GDW
     void
     MainWindow::PrintItem()
     {
-      mModel->Print(this);
+      mVehicleModel.Print(this);
     }
 
     void
@@ -301,7 +299,7 @@ namespace GDW
       // setWindowModified(textEdit->document()->isModified());
     }
 
-    typedef std::function<void(ObjectTreeItem*, Ui::MainWindow*, ObjectForm*)>
+    typedef std::function<void(ObjectTreeItem*, Ui::MainWindow&, ObjectForm*)>
     ObjectTreeSelector;
 
     void
@@ -313,10 +311,10 @@ namespace GDW
         &ObjectTreeItem::Select
       };
 
-      QTreeView* view = GetCurrentTreeView();
+      QTreeView& view = GetCurrentTreeView();
 
       ObjectTreeSelector selector =
-          SELECTION[view->selectionModel()->isSelected(index)];
+          SELECTION[view.selectionModel()->isSelected(index)];
 
       ObjectTreeItem* oti =
           static_cast<ObjectTreeItem*>(index.internalPointer());
@@ -328,19 +326,19 @@ namespace GDW
     MainWindow::SaveItem()
     {
       // mUndoStack.push(new InsertItemCommand());
-      mUi->    objectForm->Write();
-      mUi->editItemButton->setText(tr("Edit"));
-      mUi->      okButton->setEnabled(false);
+      mUi.    objectForm->Write();
+      mUi.editItemButton->setText(tr("Edit"));
+      mUi.      okButton->setEnabled(false);
 
-      QTreeView* view = GetCurrentTreeView();
-      QModelIndex index = view->currentIndex();
+      QTreeView& view = GetCurrentTreeView();
+      QModelIndex index = view.currentIndex();
       ObjectTreeItem* oti =
           static_cast<ObjectTreeItem*>(index.internalPointer());
       oti->RefreshItemData();
-      view->selectionModel()->select(index,
-                                     QItemSelectionModel::SelectCurrent |
-                                     QItemSelectionModel::Rows);
-      view->activateWindow();
+      view.selectionModel()->select(index,
+                                    QItemSelectionModel::SelectCurrent |
+                                    QItemSelectionModel::Rows);
+      view.activateWindow();
     }
 
 #ifndef QT_NO_SESSIONMANAGER
@@ -363,7 +361,7 @@ namespace GDW
     {
       qDebug() << "MainWindow::AddWeapon";
       QModelIndex index =
-          mUi->vehiclesTreeView->selectionModel()->currentIndex();
+          mUi.vehiclesTreeView->selectionModel()->currentIndex();
 
       ObjectTreeItem* oti =
           static_cast<ObjectTreeItem*>(index.internalPointer());
@@ -371,7 +369,7 @@ namespace GDW
       WeaponTreeItem* weaponItem = WeaponTreeItem::Create(oti);
 
       oti->AppendChild(weaponItem);
-      mModel->
+      // mModel.
     }
 
     void
@@ -385,7 +383,7 @@ namespace GDW
 
       QMenu menu(this);
       menu.addAction(&action);
-      menu.exec(mUi->vehiclesTreeView->mapToGlobal(position + offset));
+      menu.exec(mUi.vehiclesTreeView->mapToGlobal(position + offset));
     }
 
     void
@@ -444,7 +442,9 @@ namespace GDW
       //    return true;
 
       const QMessageBox::StandardButton ret
-          = QMessageBox::warning(this, APP_NAME,
+          = QMessageBox::warning(this,
+                                 QCoreApplication::organizationName() + " " +
+                                 QCoreApplication::applicationName(),
                                  tr("Objects have been modified.\n"
                                     "Do you want to save your changes?"),
                                  QMessageBox::Save | QMessageBox::Discard | QMessageBox::Cancel);
@@ -468,7 +468,10 @@ namespace GDW
         QString message =
             tr("Cannot read file %1:\n%2.").arg(QDir::toNativeSeparators(fileName),
                                                 file.errorString());
-        QMessageBox::warning(this, APP_NAME, message);
+        QMessageBox::warning(this,
+                             QCoreApplication::organizationName() + " " +
+                             QCoreApplication::applicationName(),
+                             message);
         return;
       }
 
@@ -477,10 +480,10 @@ namespace GDW
 #endif
 
       // textEdit->setPlainText(in.readAll());
-      mModel->Import(file);
-      mUi->vehiclesTreeView->setModel(mModel);
-      for (int column = 0; column < mModel->columnCount(); ++column)
-        mUi->vehiclesTreeView->resizeColumnToContents(column);
+      mVehicleModel.Import(file);
+      mUi.vehiclesTreeView->setModel(&mVehicleModel);
+      for (int column = 0; column < mVehicleModel.columnCount(); ++column)
+        mUi.vehiclesTreeView->resizeColumnToContents(column);
       file.close();
 
 #ifndef QT_NO_CURSOR
@@ -489,8 +492,8 @@ namespace GDW
 
       SetCurrentFile(fileName);
       UpdateActions();
-      mUi->action_Save->setEnabled(true);
-      mUi->action_SaveAs->setEnabled(true);
+      mUi.action_Save->setEnabled(true);
+      mUi.action_SaveAs->setEnabled(true);
       statusBar()->showMessage(tr("Objects loaded"), 2000);
     }
 
@@ -499,7 +502,9 @@ namespace GDW
     {
       QFile file(fileName);
       if (!file.open(QFile::WriteOnly | QFile::Text)) {
-        QMessageBox::warning(this, APP_NAME,
+        QMessageBox::warning(this,
+                             QCoreApplication::organizationName() + " " +
+                             QCoreApplication::applicationName(),
                              tr("Cannot write file %1:\n%2.")
                              .arg(QDir::toNativeSeparators(fileName),
                                   file.errorString()));
@@ -511,7 +516,7 @@ namespace GDW
 #ifndef QT_NO_CURSOR
       QApplication::setOverrideCursor(Qt::WaitCursor);
 #endif
-      out << *mModel;
+      out << mVehicleModel;
       // out << textEdit->toPlainText();
 #ifndef QT_NO_CURSOR
       QApplication::restoreOverrideCursor();
@@ -537,40 +542,44 @@ namespace GDW
     void
     MainWindow::UpdateActions()
     {
-      QTreeView* view = GetCurrentTreeView();
-      QItemSelectionModel* selectionModel = view->selectionModel();
+      QTreeView& view = GetCurrentTreeView();
+      QItemSelectionModel* selectionModel = view.selectionModel();
 
-      if(selectionModel == nullptr)
-        return;
+      mUi.action_Save->setEnabled(!mUndoStack.isClean());
+      mUi.action_SaveAs->setEnabled(true);
 
-      mUi->action_Save->setEnabled(!mUndoStack.isClean());
-      mUi->action_SaveAs->setEnabled(true);
+      bool hasSelection =
+          selectionModel != nullptr && !selectionModel->selection().isEmpty();
 
-      bool hasSelection = !selectionModel->selection().isEmpty();
-      mUi->action_Cut->setEnabled(hasSelection);
-      mUi->action_Copy->setEnabled(hasSelection);
-      mUi->removeItemButton->setEnabled(hasSelection);
+      int currentIndex = mUi.tabWidget->currentIndex();
+      mUi.action_AddVehicle->setEnabled(currentIndex == 0);
+      mUi. action_AddWeapon->setEnabled(currentIndex == 1 || hasSelection);
+      mUi.       action_Cut->setEnabled(hasSelection);
+      mUi.      action_Copy->setEnabled(hasSelection);
+      mUi. removeItemButton->setEnabled(hasSelection);
+
       if(hasSelection) {
         connect(selectionModel, &QItemSelectionModel::selectionChanged,
                 this, &MainWindow::UpdateActions);
       }
 
-      bool hasCurrent = selectionModel->currentIndex().isValid();
-      mUi->insertItemButton->setEnabled(true); // hasCurrent);
+      bool hasCurrent =
+          selectionModel != nullptr && selectionModel->currentIndex().isValid();
+      mUi.insertItemButton->setEnabled(true); // hasCurrent);
       if (hasCurrent) {
-        view->closePersistentEditor(selectionModel->currentIndex());
+        view.closePersistentEditor(selectionModel->currentIndex());
       }
     }
 
-    QTreeView*
+    QTreeView&
     MainWindow::GetCurrentTreeView()
     {
       static QTreeView* objectView[] =
       {
-        mUi->vehiclesTreeView, mUi->weaponsTreeView
+        mUi.vehiclesTreeView, mUi.weaponsTreeView
       };
 
-      return objectView[mUi->tabWidget->currentIndex()];
+      return *objectView[mUi.tabWidget->currentIndex()];
     }
   };
 };

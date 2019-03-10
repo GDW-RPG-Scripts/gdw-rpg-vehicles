@@ -65,8 +65,8 @@ namespace GDW
         ObjectTreeItem* ParentItem();
 
         void RefreshItemData();
-        virtual void Select(Ui::MainWindow*, ObjectForm* = nullptr);
-        virtual void Unselect(Ui::MainWindow*, ObjectForm* = nullptr);
+        virtual void Select(Ui::MainWindow&, ObjectForm* = nullptr);
+        virtual void Unselect(Ui::MainWindow&, ObjectForm* = nullptr);
 
         virtual QDebug& Debug(QDebug&) const;
 
@@ -77,7 +77,7 @@ namespace GDW
         virtual const Object* GetObject() const;
 
       private:
-        void ClearObjectGroupBox(Ui::MainWindow*);
+        void ClearObjectGroupBox(Ui::MainWindow&);
 
         Object* mObject;
         QList<ObjectTreeItem*> mChildItems;
@@ -92,7 +92,7 @@ namespace GDW
         static VehicleTreeItem* Unpack(const QJsonObject&,
                                        ObjectTreeItem* parent);
 
-        void Select(Ui::MainWindow*, ObjectForm* = nullptr) override;
+        void Select(Ui::MainWindow&, ObjectForm* = nullptr) override;
 
         QDebug& Debug(QDebug&) const override;
 
@@ -117,7 +117,7 @@ namespace GDW
         WeaponTreeItem(Weapon*, ObjectTreeItem* parent);
         ~WeaponTreeItem() override;
 
-        void Select(Ui::MainWindow*, ObjectForm* = nullptr) override;
+        void Select(Ui::MainWindow&, ObjectForm* = nullptr) override;
 
       protected:
         Weapon* GetObject() override;

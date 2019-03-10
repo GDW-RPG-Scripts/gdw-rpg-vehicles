@@ -125,7 +125,7 @@
            <enum>Qt::ElideLeft</enum>
           </property>
           <property name="usesScrollButtons">
-           <bool>false</bool>
+           <bool>true</bool>
           </property>
           <property name="documentMode">
            <bool>false</bool>
@@ -137,7 +137,7 @@
            <bool>false</bool>
           </property>
           <property name="tabBarAutoHide">
-           <bool>false</bool>
+           <bool>true</bool>
           </property>
           <widget class="QWidget" name="vehicles">
            <property name="enabled">
@@ -260,6 +260,16 @@
             </item>
            </layout>
           </widget>
+          <widget class="QWidget" name="ships">
+           <attribute name="title">
+            <string>Ships</string>
+           </attribute>
+           <layout class="QVBoxLayout" name="verticalLayout_2">
+            <item>
+             <widget class="QTreeView" name="shipTreeView"/>
+            </item>
+           </layout>
+          </widget>
           <widget class="QWidget" name="units">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
@@ -276,6 +286,11 @@
            <attribute name="title">
             <string>Units</string>
            </attribute>
+           <layout class="QVBoxLayout" name="verticalLayout_3">
+            <item>
+             <widget class="QTreeView" name="unitTreeView"/>
+            </item>
+           </layout>
           </widget>
          </widget>
         </item>
@@ -558,6 +573,9 @@
     <addaction name="action_Copy"/>
     <addaction name="action_Paste"/>
     <addaction name="separator"/>
+    <addaction name="separator"/>
+    <addaction name="action_AddVehicle"/>
+    <addaction name="action_AddWeapon"/>
     <addaction name="action_Prefs"/>
    </widget>
    <widget class="QMenu" name="menuHelp">
@@ -835,6 +853,28 @@
    </property>
    <property name="menuRole">
     <enum>QAction::PreferencesRole</enum>
+   </property>
+  </action>
+  <action name="action_AddVehicle">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>Add Vehicle</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Shift+V</string>
+   </property>
+  </action>
+  <action name="action_AddWeapon">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>Add Weapon</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Shift+W</string>
    </property>
   </action>
  </widget>

@@ -42,19 +42,19 @@ namespace GDW
 {
   namespace RPG
   {
-    TreeModel::TreeModel(QObject* parent)
+    VehicleModel::VehicleModel(QObject* parent)
       : QAbstractItemModel(parent), mCurrentType(0)
     {
       CreateRootItem();
     }
 
-    TreeModel::~TreeModel()
+    VehicleModel::~VehicleModel()
     {
       delete mRootItem;
     }
 
     void
-    TreeModel::CreateRootItem()
+    VehicleModel::CreateRootItem()
     {
       QList<QVariant> rootData;
       rootData << tr("Name") << tr("Type") << tr("Nationality");
@@ -62,7 +62,7 @@ namespace GDW
     }
 
     void
-    TreeModel::SetupModelData(const QJsonDocument& jdoc, ObjectTreeItem* parent)
+    VehicleModel::SetupModelData(const QJsonDocument& jdoc, ObjectTreeItem* parent)
     {
       if (jdoc.isObject())
         ObjectTreeItem::Unpack(jdoc.object(), parent);
@@ -87,13 +87,13 @@ namespace GDW
     //    }
 
     void
-    TreeModel::CurrentType(int type)
+    VehicleModel::CurrentType(int type)
     {
       mCurrentType = type;
     }
 
     ObjectTreeItem*
-    TreeModel::GetItem(const QModelIndex& index) const
+    VehicleModel::GetItem(const QModelIndex& index) const
     {
       if (index.isValid()) {
         ObjectTreeItem* item =
@@ -105,7 +105,7 @@ namespace GDW
     }
 
     void
-    TreeModel::Import(QFile& file)
+    VehicleModel::Import(QFile& file)
     {
       const QByteArray& jba = file.readAll();
       QJsonDocument jdoc = QJsonDocument::fromJson(jba);
@@ -113,7 +113,7 @@ namespace GDW
     }
 
     void
-    TreeModel::Print(QWidget* parent) const
+    VehicleModel::Print(QWidget* parent) const
     {
 #if QT_CONFIG(printer)
       QPrinter printDev;
@@ -131,7 +131,7 @@ namespace GDW
     // Overrides
     //
     int
-    TreeModel::columnCount(const QModelIndex& parent) const
+    VehicleModel::columnCount(const QModelIndex& parent) const
     {
       if (parent.isValid())
         return
@@ -141,7 +141,7 @@ namespace GDW
     }
 
     QVariant
-    TreeModel::data(const QModelIndex& index, int role) const
+    VehicleModel::data(const QModelIndex& index, int role) const
     {
       if (!index.isValid())
         return QVariant();
@@ -153,7 +153,7 @@ namespace GDW
     }
 
     Qt::ItemFlags
-    TreeModel::flags(const QModelIndex& index) const
+    VehicleModel::flags(const QModelIndex& index) const
     {
       if (!index.isValid())
         return nullptr;
@@ -163,7 +163,7 @@ namespace GDW
     }
 
     QVariant
-    TreeModel::headerData(int section,
+    VehicleModel::headerData(int section,
                           Qt::Orientation orientation,
                           int role) const
     {
@@ -174,7 +174,7 @@ namespace GDW
     }
 
     QModelIndex
-    TreeModel::index(int row, int column, const QModelIndex& parent) const
+    VehicleModel::index(int row, int column, const QModelIndex& parent) const
     {
       if (!hasIndex(row, column, parent))
         return QModelIndex();
@@ -188,7 +188,7 @@ namespace GDW
     }
 
     bool
-    TreeModel::insertRows(int position, int rows, const QModelIndex& parent)
+    VehicleModel::insertRows(int position, int rows, const QModelIndex& parent)
     {
       ObjectTreeItem* parentItem = GetItem(parent);
 
@@ -200,7 +200,7 @@ namespace GDW
     }
 
     QModelIndex
-    TreeModel::parent(const QModelIndex& index) const
+    VehicleModel::parent(const QModelIndex& index) const
     {
       if (!index.isValid())
         return QModelIndex();
@@ -215,7 +215,7 @@ namespace GDW
     }
 
     bool
-    TreeModel::removeRows(int position, int rows, const QModelIndex& parent)
+    VehicleModel::removeRows(int position, int rows, const QModelIndex& parent)
     {
       ObjectTreeItem* parentItem = GetItem(parent);
 
@@ -227,7 +227,7 @@ namespace GDW
     }
 
     int
-    TreeModel::rowCount(const QModelIndex& parent) const
+    VehicleModel::rowCount(const QModelIndex& parent) const
     {
       ObjectTreeItem* parentItem;
       if (parent.column() > 0)
@@ -242,7 +242,7 @@ namespace GDW
     }
 
     bool
-    TreeModel::setData(const QModelIndex& index,
+    VehicleModel::setData(const QModelIndex& index,
                        const QVariant& value, int role)
     {
       if (!index.isValid() || role != Qt::EditRole)
@@ -258,7 +258,7 @@ namespace GDW
     }
 
     QTextStream&
-    operator<<(QTextStream& ots, const TreeModel& model)
+    operator<<(QTextStream& ots, const VehicleModel& model)
     {
       return ots << *model.mRootItem;
     }

@@ -46,10 +46,10 @@ namespace GDW
 
     ObjectTreeItem::~ObjectTreeItem()
     {
-      qDeleteAll(mChildItems);
-
       if(mObject != nullptr)
         delete mObject;
+
+      qDeleteAll(mChildItems);
     }
 
     ObjectTreeItem*
@@ -199,9 +199,9 @@ namespace GDW
     }
 
     void
-    ObjectTreeItem::ClearObjectGroupBox(Ui::MainWindow* ui)
+    ObjectTreeItem::ClearObjectGroupBox(Ui::MainWindow& ui)
     {
-      QLayout* layout = ui->objectGroupBox->layout();
+      QLayout* layout = ui.objectGroupBox->layout();
 
       if(layout != nullptr) {
         QLayoutItem* child;
@@ -215,47 +215,47 @@ namespace GDW
     }
 
     void
-    ObjectTreeItem::Select(Ui::MainWindow* ui, ObjectForm* objectForm)
+    ObjectTreeItem::Select(Ui::MainWindow& ui, ObjectForm* objectForm)
     {
       ClearObjectGroupBox(ui);
 
-      ui->objectForm = objectForm;
+      ui.objectForm = objectForm;
 
-      QGroupBox* objectGroupBox = ui->objectGroupBox;
+      QGroupBox* objectGroupBox = ui.objectGroupBox;
       objectForm->setParent(objectGroupBox);
       objectForm->setObjectName(QString::fromUtf8("objectWidget"));
 
       QVBoxLayout* verticalLayout = new QVBoxLayout(objectGroupBox);
       verticalLayout->addWidget(objectForm);
-      verticalLayout->addItem(ui->objectButtonsLayout);
+      verticalLayout->addItem(ui.objectButtonsLayout);
 
       objectGroupBox->setLayout(verticalLayout);
       objectGroupBox->setTitle(objectForm->Title() + ": "); // + mWeapon->Wtyp());
       objectGroupBox->update();
 
-      ui->     action_Copy->setEnabled(true);
-      ui->      action_Cut->setEnabled(true);
-      ui->    action_Print->setEnabled(true);
-      ui->  editItemButton->setEnabled(true);
-      ui->  editItemButton->setText(QObject::tr("Edit"));
-      ui->        okButton->setEnabled(false);
-      ui->     printButton->setEnabled(true);
-      ui->removeItemButton->setEnabled(true);
+      ui.     action_Copy->setEnabled(true);
+      ui.      action_Cut->setEnabled(true);
+      ui.    action_Print->setEnabled(true);
+      ui.  editItemButton->setEnabled(true);
+      ui.  editItemButton->setText(QObject::tr("Edit"));
+      ui.        okButton->setEnabled(false);
+      ui.     printButton->setEnabled(true);
+      ui.removeItemButton->setEnabled(true);
     }
 
     void
-    ObjectTreeItem::Unselect(Ui::MainWindow* ui, ObjectForm* objectForm)
+    ObjectTreeItem::Unselect(Ui::MainWindow& ui, ObjectForm* objectForm)
     {
       ClearObjectGroupBox(ui);
 
-      ui->     action_Copy->setEnabled(false);
-      ui->      action_Cut->setEnabled(false);
-      ui->    action_Print->setEnabled(false);
-      ui->  editItemButton->setEnabled(false);
-      ui->  editItemButton->setText(QObject::tr("Edit"));
-      ui->        okButton->setEnabled(false);
-      ui->     printButton->setEnabled(false);
-      ui->removeItemButton->setEnabled(false);
+      ui.     action_Copy->setEnabled(false);
+      ui.      action_Cut->setEnabled(false);
+      ui.    action_Print->setEnabled(false);
+      ui.  editItemButton->setEnabled(false);
+      ui.  editItemButton->setText(QObject::tr("Edit"));
+      ui.        okButton->setEnabled(false);
+      ui.     printButton->setEnabled(false);
+      ui.removeItemButton->setEnabled(false);
     }
 
     void
@@ -321,9 +321,9 @@ namespace GDW
     {}
 
     void
-    VehicleTreeItem::Select(Ui::MainWindow* mainWindow, ObjectForm*)
+    VehicleTreeItem::Select(Ui::MainWindow& ui, ObjectForm*)
     {
-      ObjectTreeItem::Select(mainWindow, new VehicleForm(GetObject()));
+      ObjectTreeItem::Select(ui, new VehicleForm(GetObject()));
     }
 
     Vehicle*
@@ -374,9 +374,9 @@ namespace GDW
     {}
 
     void
-    WeaponTreeItem::Select(Ui::MainWindow* mainWindow, ObjectForm*)
+    WeaponTreeItem::Select(Ui::MainWindow& ui, ObjectForm*)
     {
-      ObjectTreeItem::Select(mainWindow, new WeaponForm(GetObject()));
+      ObjectTreeItem::Select(ui, new WeaponForm(GetObject()));
     }
 
     Weapon*

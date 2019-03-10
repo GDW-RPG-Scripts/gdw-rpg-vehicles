@@ -26,12 +26,12 @@ namespace GDW
 {
   namespace RPG
   {
-    class TreeModel;
+    class VehicleModel;
 
     class InsertItemCommand : public QUndoCommand
     {
       public:
-        InsertItemCommand(const QModelIndex&, TreeModel*,
+        InsertItemCommand(const QModelIndex&, VehicleModel&,
                           QUndoCommand* parent = nullptr);
 
         void undo() override;
@@ -40,14 +40,14 @@ namespace GDW
       private:
         int mRow;
         bool mInserted;
-        TreeModel* mModel;
+        VehicleModel& mModel;
         QModelIndex mParent;
     };
 
     class RemoveItemCommand : public QUndoCommand
     {
       public:
-        RemoveItemCommand(const QModelIndex&, TreeModel*,
+        RemoveItemCommand(const QModelIndex&, VehicleModel&,
                           QUndoCommand* parent = nullptr);
 
         void undo() override;
@@ -56,7 +56,7 @@ namespace GDW
       private:
         int mRow;
         bool mRemoved;
-        TreeModel* mModel;
+        VehicleModel& mModel;
         QModelIndex mParent;
     };
   };
