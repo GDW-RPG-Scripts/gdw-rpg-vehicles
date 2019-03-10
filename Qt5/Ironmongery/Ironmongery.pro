@@ -59,7 +59,7 @@ FORMS += \
 #    $$PWD/translations/gdw_rpg_vehicles_sv.ts
 
 TRANSLATIONS = \
-    gdw_rpg_vehicles_sv.ts
+    translations/Ironmongery_sv.ts
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
@@ -67,4 +67,4 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 RESOURCES += \
-    gdw_rpg_vehicles.qrc
+    Ironmongery.qrc
