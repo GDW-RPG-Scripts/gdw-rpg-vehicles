@@ -1,0 +1,12 @@
+#ifndef VEHICLES_GLOBAL_HH
+#define VEHICLES_GLOBAL_HH
+
+#include <QtCore/qglobal.h>
+
+#if defined(VEHICLES_LIBRARY)
+#  define VEHICLESSHARED_EXPORT Q_DECL_EXPORT
+#else
+#  define VEHICLESSHARED_EXPORT Q_DECL_IMPORT
+#endif
+
+#endif // VEHICLES_GLOBAL_HH

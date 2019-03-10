@@ -49,7 +49,7 @@ int main(int argc, char* argv[])
 
   QTranslator appTranslator;
   appTranslator.load(QLocale(), QLatin1String("Ironmongery"),
-                       QLatin1String("_"), QLatin1String(":/translations"));
+                       QLatin1String("_")); //, QLatin1String(":/translations"));
   application.installTranslator(&appTranslator);
 
   GDW::RPG::MainWindow mainWindow;

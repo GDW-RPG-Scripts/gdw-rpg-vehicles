@@ -19,6 +19,8 @@
 #ifndef VEHICLE_HH
 #define VEHICLE_HH
 
+#include "vehicle_global.hh"
+
 #include "object.hh"
 #include "weapon.hh"
 
@@ -29,7 +31,7 @@ namespace GDW
 {
   namespace RPG
   {
-    class Vehicle : public Object
+    class VEHICLESSHARED_EXPORT Vehicle : public Object
     {
       public:
 

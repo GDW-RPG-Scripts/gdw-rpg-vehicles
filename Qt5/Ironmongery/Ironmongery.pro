@@ -8,7 +8,7 @@ QT       += core gui printsupport svg
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-TARGET = GDW_RPG_Vehicles
+TARGET = Ironmongery
 TEMPLATE = app
 
 # The following define makes your compiler emit warnings if you use
