@@ -19,6 +19,8 @@
 #ifndef OBJECT_HH
 #define OBJECT_HH
 
+#include "object_global.hh"
+
 
 #include <QJsonObject>
 #include <QVariant>
@@ -27,7 +29,7 @@ namespace GDW
 {
   namespace RPG
   {
-    class Object
+    class OBJECTSHARED_EXPORT Object
     {
       public:
         Object();

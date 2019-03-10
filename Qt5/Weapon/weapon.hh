@@ -19,13 +19,15 @@
 #ifndef WEAPON_HH
 #define WEAPON_HH
 
+#include "weapon_global.hh"
+
 #include "object.hh"
 
 namespace GDW
 {
   namespace RPG
   {
-    class Weapon : public Object
+    class WEAPONSSHARED_EXPORT Weapon : public Object
     {
       public:
         static QList<Weapon*> Load(const QJsonValue&);

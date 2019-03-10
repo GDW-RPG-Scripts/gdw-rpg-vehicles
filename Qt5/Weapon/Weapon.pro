@@ -10,10 +10,10 @@ QT       -= gui
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += printsupport
 
-TARGET = Weapons
+TARGET = Weapon
 TEMPLATE = lib
 
-DEFINES += WEAPONS_LIBRARY
+DEFINES += WEAPON_LIBRARY
 
 # The following define makes your compiler emit warnings if you use
 # any feature of Qt which has been marked as deprecated (the exact warnings
@@ -31,7 +31,7 @@ SOURCES += \
 
 HEADERS += \
         weapon.hh \
-        weapons_global.hh 
+        weapon_global.hh 
 
 unix {
     target.path = /usr/lib

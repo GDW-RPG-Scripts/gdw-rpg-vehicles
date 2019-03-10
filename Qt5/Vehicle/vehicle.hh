@@ -31,7 +31,7 @@ namespace GDW
 {
   namespace RPG
   {
-    class VEHICLESSHARED_EXPORT Vehicle : public Object
+    class VEHICLESHARED_EXPORT Vehicle : public Object
     {
       public:
 
