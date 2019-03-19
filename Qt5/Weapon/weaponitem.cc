@@ -50,17 +50,23 @@ namespace GDW
     }
 
     WeaponTreeItem::WeaponTreeItem(Weapon* weapon, ObjectTreeItem* parent)
-      : ObjectTreeItem(weapon, parent) // , mWeapon(weapon)
+      : ObjectTreeItem(weapon, parent)
     {}
 
     WeaponTreeItem::~WeaponTreeItem()
     {}
 
-    void
-    WeaponTreeItem::Select(Ui::MainWindow& ui, ObjectForm*)
+    WeaponForm*
+    WeaponTreeItem::GetForm()
     {
-      ObjectTreeItem::Select(ui, new WeaponForm(GetObject()));
+      return new WeaponForm(GetObject());
     }
+
+//    void
+//    WeaponTreeItem::Select(Ui::Workspace& ui, ObjectForm*)
+//    {
+//      ObjectTreeItem::Select(ui, new WeaponForm(GetObject()));
+//    }
 
     Weapon*
     WeaponTreeItem::GetObject()

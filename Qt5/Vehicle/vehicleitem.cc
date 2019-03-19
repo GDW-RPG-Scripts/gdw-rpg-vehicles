@@ -23,8 +23,6 @@
 #include "vehicle.hh"
 #include "weapon.hh"
 
-// #include "ui_mainwindow.h"
-
 #include <QDebug>
 #include <QGroupBox>
 #include <QJsonArray>
@@ -62,11 +60,17 @@ namespace GDW
     VehicleTreeItem::~VehicleTreeItem()
     {}
 
-    void
-    VehicleTreeItem::Select(Ui::MainWindow& ui, ObjectForm*)
+    VehicleForm*
+    VehicleTreeItem::GetForm()
     {
-      ObjectTreeItem::Select(ui, new VehicleForm(GetObject()));
+      return new VehicleForm(GetObject());
     }
+
+//    void
+//    VehicleTreeItem::Select(Ui::Workspace& ui, ObjectForm*)
+//    {
+//      ObjectTreeItem::Select(ui, new VehicleForm(GetObject()));
+//    }
 
     Vehicle*
     VehicleTreeItem::GetObject()

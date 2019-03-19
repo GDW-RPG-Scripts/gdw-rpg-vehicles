@@ -21,7 +21,7 @@
 
 #include "vehiclemodel.hh"
 
-#include "ui_mainwindow.h"
+#include "ui_workspace.h"
 
 
 #include <QMainWindow>
@@ -35,7 +35,7 @@ class QTreeView;
 class QUndoCommand;
 
 namespace Ui {
-  class MainWindow;
+  class Workspace;
   class VehicleForm;
   class WeaponForm;
 }
@@ -100,6 +100,10 @@ namespace GDW
         VehicleModel& Model();
         QTreeView& GetCurrentTreeView();
 
+        void ClearObjectGroupBox();
+        void Select(ObjectForm*);
+        void Unselect();
+
         int mRuleSet;
         bool mLoadOnStart;
 
@@ -108,7 +112,7 @@ namespace GDW
 
         QString mCurrentFile;
         QUndoStack mUndoStack;
-        Ui::MainWindow mUi;
+        Ui::Workspace mUi;
 
         // QPlainTextEdit* textEdit;
     };

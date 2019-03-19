@@ -19,7 +19,6 @@
 #include <QApplication>
 #include <QCommandLineParser>
 #include <QCommandLineOption>
-#include <QDebug>
 #include <QLibraryInfo>
 #include <QTranslator>
 

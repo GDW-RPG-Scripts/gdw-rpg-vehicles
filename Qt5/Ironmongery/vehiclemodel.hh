@@ -30,7 +30,7 @@ class QFile;
 class QTextStream;
 
 namespace Ui {
-  class MainWindow;
+  class Workspace;
 }
 
 namespace GDW
@@ -39,7 +39,7 @@ namespace GDW
   {
     class ObjectTreeItem;
 
-    class VEHICLESHARED_EXPORT VehicleModel : public QAbstractItemModel
+    class VehicleModel : public QAbstractItemModel
     {
         Q_OBJECT
 

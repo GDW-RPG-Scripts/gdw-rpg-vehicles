@@ -5,7 +5,6 @@
 #-------------------------------------------------
 
 QT       += core widgets svg
-
 QT       -= gui
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += printsupport
@@ -43,9 +42,6 @@ unix {
     target.path = /usr/lib
     INSTALLS += target
 }
-
-FORMS += \
-    workspace.ui
 
 RESOURCES += \
     object.qrc

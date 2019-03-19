@@ -24,6 +24,7 @@
 #include "objectitem.hh"
 
 #include "vehicle.hh"
+#include "vehicleform.hh"
 
 #include <QList>
 #include <QVariant>
@@ -32,7 +33,7 @@ class QStackedWidget;
 class QTextStream;
 
 namespace Ui {
-  class MainWindow;
+  class Workspace;
 }
 
 namespace GDW
@@ -46,7 +47,8 @@ namespace GDW
         static VehicleTreeItem* Unpack(const QJsonObject&,
                                        ObjectTreeItem* parent);
 
-        void Select(Ui::MainWindow&, ObjectForm* = nullptr) override;
+        VehicleForm* GetForm() override;
+        // void Select(Ui::Workspace&, ObjectForm* = nullptr) override;
 
         QDebug& Debug(QDebug&) const override;
 

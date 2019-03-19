@@ -19,6 +19,7 @@
 #include "vehiclemodel.hh"
 #include "vehicleitem.hh"
 
+#include "factory.hh"
 #include "objectform.hh"
 
 // #include "ui_mainwindow.h"
@@ -64,10 +65,10 @@ namespace GDW
     VehicleModel::SetupModelData(const QJsonDocument& jdoc, ObjectTreeItem* parent)
     {
       if (jdoc.isObject())
-        ObjectTreeItem::Unpack(jdoc.object(), parent);
+        Factory::Unpack(jdoc.object(), parent);
       else if (jdoc.isArray())
         for (int index = 0; index < jdoc.array().count(); ++index)
-          ObjectTreeItem::Unpack(jdoc[index].toObject(), parent);
+          Factory::Unpack(jdoc[index].toObject(), parent);
     }
 
     //

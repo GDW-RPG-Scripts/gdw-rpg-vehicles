@@ -29,8 +29,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
     vehicle.cc \
     vehicleform.cc \
-    vehicleitem.cc \
-    vehiclemodel.cc
+    vehicleitem.cc
 
 HEADERS += \
     vehicle.hh \

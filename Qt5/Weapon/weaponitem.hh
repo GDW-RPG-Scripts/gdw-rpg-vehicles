@@ -24,6 +24,7 @@
 #include "objectitem.hh"
 
 #include "weapon.hh"
+#include "weaponform.hh"
 
 #include <QList>
 #include <QVariant>
@@ -46,7 +47,8 @@ namespace GDW
         WeaponTreeItem(Weapon*, ObjectTreeItem* parent);
         ~WeaponTreeItem() override;
 
-        void Select(Ui::MainWindow&, ObjectForm* = nullptr) override;
+        WeaponForm* GetForm() override;
+        // void Select(Ui::Workspace&, ObjectForm* = nullptr) override;
 
       protected:
         Weapon* GetObject() override;

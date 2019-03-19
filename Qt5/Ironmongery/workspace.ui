@@ -20,7 +20,7 @@
    <string>GDW RPG Vehicles</string>
   </property>
   <property name="windowIcon">
-   <iconset resource="object.qrc">
+   <iconset resource="Ironmongery.qrc">
     <normaloff>:/icons/sunburst.png</normaloff>:/icons/sunburst.png</iconset>
   </property>
   <widget class="QWidget" name="centralWidget">
@@ -891,7 +891,7 @@
   </customwidget>
  </customwidgets>
  <resources>
-  <include location="object.qrc"/>
+  <include location="Ironmongery.qrc"/>
  </resources>
  <connections>
   <connection>

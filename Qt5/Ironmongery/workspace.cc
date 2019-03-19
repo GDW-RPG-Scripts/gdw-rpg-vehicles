@@ -106,8 +106,9 @@ namespace GDW
 
     void Workspace::closeEvent(QCloseEvent* event)
     {
+      WriteSettings();
+
       if (MaybeSave()) {
-        WriteSettings();
         event->accept();
       } else {
         event->ignore();
@@ -267,9 +268,10 @@ namespace GDW
       while(view.selectionModel()->hasSelection()) {
         QModelIndex index =
             view.selectionModel()->selectedRows().takeAt(0);
-        ObjectTreeItem* oti =
-            static_cast<ObjectTreeItem*>(index.internalPointer());
-        oti->Unselect(mUi);
+        //ObjectTreeItem* oti =
+        //     static_cast<ObjectTreeItem*>(index.internalPointer());
+        // oti->Unselect(mUi);
+        Unselect();
         mUndoStack.push(new RemoveItemCommand(index, mVehicleModel));
       }
 
@@ -301,27 +303,79 @@ namespace GDW
       // setWindowModified(textEdit->document()->isModified());
     }
 
-    typedef std::function<void(ObjectTreeItem*, Ui::MainWindow&, ObjectForm*)>
-    ObjectTreeSelector;
+    // typedef std::function<void(ObjectTreeItem*, Ui::Workspace&, ObjectForm*)>
+    // ObjectTreeSelector;
 
     void
     Workspace::ItemClicked(const QModelIndex& index)
     {
-      static const ObjectTreeSelector SELECTION[] =
-      {
-        &ObjectTreeItem::Unselect,
-        &ObjectTreeItem::Select
-      };
-
-      QTreeView& view = GetCurrentTreeView();
-
-      ObjectTreeSelector selector =
-          SELECTION[view.selectionModel()->isSelected(index)];
-
       ObjectTreeItem* oti =
           static_cast<ObjectTreeItem*>(index.internalPointer());
 
-      selector(oti, mUi, nullptr);
+      if(GetCurrentTreeView().selectionModel()->isSelected(index))
+        return Select(oti->GetForm());
+
+      Unselect();
+    }
+
+    void
+    Workspace::ClearObjectGroupBox()
+    {
+      QLayout* layout = mUi.objectGroupBox->layout();
+
+      if(layout != nullptr) {
+        QLayoutItem* child;
+        while ((child = layout->takeAt(0)) != nullptr)  {
+          QWidget* widget = child->widget();
+          if(widget != nullptr)
+            widget->hide();
+        }
+        delete layout;
+      }
+    }
+
+    void
+    Workspace::Select(ObjectForm* objectForm)
+    {
+      ClearObjectGroupBox();
+
+      mUi.objectForm = objectForm;
+
+      QGroupBox* objectGroupBox = mUi.objectGroupBox;
+      objectForm->setParent(objectGroupBox);
+      objectForm->setObjectName(QString::fromUtf8("objectWidget"));
+
+      QVBoxLayout* verticalLayout = new QVBoxLayout(objectGroupBox);
+      verticalLayout->addWidget(objectForm);
+      verticalLayout->addItem(mUi.objectButtonsLayout);
+
+      objectGroupBox->setLayout(verticalLayout);
+      objectGroupBox->setTitle(objectForm->Title() + ": "); // + mWeapon->Wtyp());
+      objectGroupBox->update();
+
+      mUi.     action_Copy->setEnabled(true);
+      mUi.      action_Cut->setEnabled(true);
+      mUi.    action_Print->setEnabled(true);
+      mUi.  editItemButton->setEnabled(true);
+      mUi.  editItemButton->setText(QObject::tr("Edit"));
+      mUi.        okButton->setEnabled(false);
+      mUi.     printButton->setEnabled(true);
+      mUi.removeItemButton->setEnabled(true);
+    }
+
+    void
+    Workspace::Unselect()
+    {
+      ClearObjectGroupBox();
+
+      mUi.     action_Copy->setEnabled(false);
+      mUi.      action_Cut->setEnabled(false);
+      mUi.    action_Print->setEnabled(false);
+      mUi.  editItemButton->setEnabled(false);
+      mUi.  editItemButton->setText(QObject::tr("Edit"));
+      mUi.        okButton->setEnabled(false);
+      mUi.     printButton->setEnabled(false);
+      mUi.removeItemButton->setEnabled(false);
     }
 
     void

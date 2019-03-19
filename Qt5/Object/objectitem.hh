@@ -28,7 +28,7 @@ class QStackedWidget;
 class QTextStream;
 
 namespace Ui {
-  class MainWindow;
+  class Workspace;
 }
 
 namespace GDW
@@ -47,7 +47,7 @@ namespace GDW
         virtual ~ObjectTreeItem();
 
         ObjectTreeItem* AppendChild(ObjectTreeItem* child);
-        bool InsertChild(int, int, int type, ObjectTreeItem*);
+        bool InsertChildren(int, int, int type, ObjectTreeItem* = nullptr);
         bool RemoveChildren(int, int);
 
         ObjectTreeItem* Child(int row);
@@ -59,8 +59,10 @@ namespace GDW
         ObjectTreeItem* ParentItem();
 
         void RefreshItemData();
-        virtual void Select(Ui::MainWindow&, ObjectForm* = nullptr);
-        virtual void Unselect(Ui::MainWindow&, ObjectForm* = nullptr);
+
+        virtual ObjectForm* GetForm();
+        // virtual void Select(Ui::Workspace&, ObjectForm* = nullptr);
+        // virtual void Unselect(Ui::Workspace&, ObjectForm* = nullptr);
 
         virtual QDebug& Debug(QDebug&) const;
 
@@ -71,7 +73,7 @@ namespace GDW
         virtual const Object* GetObject() const;
 
       private:
-        void ClearObjectGroupBox(Ui::MainWindow&);
+        // void ClearObjectGroupBox(Ui::Workspace&);
 
         Object* mObject;
         QList<ObjectTreeItem*> mChildItems;

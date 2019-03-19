@@ -29,14 +29,16 @@ SOURCES += \
     main.cc \
     prefsdialog.cc \
     commands.cc \
-    workspace.cc \
-    factory.cc
+    factory.cc \
+    vehiclemodel.cc \
+    workspace.cc
 
 HEADERS += \
     prefsdialog.hh \
     commands.hh \
-    workspace.hh \
-    factory.hh
+    factory.hh \
+    vehiclemodel.hh \
+    workspace.hh
 
 # TRANSLATIONS += \
 #    $$PWD/translations/gdw_rpg_vehicles_sv.ts
@@ -49,7 +51,8 @@ qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
-FORMS +=
+FORMS += \
+    workspace.ui
 
 RESOURCES += \
     Ironmongery.qrc

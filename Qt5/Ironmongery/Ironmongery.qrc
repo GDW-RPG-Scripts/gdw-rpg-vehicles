@@ -15,5 +15,6 @@
         <file>images/TLT.svg</file>
         <file>images/WEP.svg</file>
         <file>Default.gro</file>
+        <file>icons/sunburst.png</file>
     </qresource>
 </RCC>

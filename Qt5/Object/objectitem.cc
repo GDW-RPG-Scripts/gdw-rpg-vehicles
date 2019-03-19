@@ -92,16 +92,15 @@ namespace GDW
     }
 
     bool
-    ObjectTreeItem::InsertChild(int position, int count, int type,
+    ObjectTreeItem::InsertChildren(int position, int count, int type,
                                 ObjectTreeItem* item)
     {
       if (position < 0 || position > mChildItems.size())
         return false;
 
-      // for (int row = 0; row < count; ++row) {
-      //  ObjectTreeItem* item = Factory::Create(type, this);
+      for (int row = 0; row < count; ++row) {
         mChildItems.insert(position, item);
-      // }
+      }
 
       return true;
     }
@@ -149,65 +148,71 @@ namespace GDW
       return ots << jdoc.toJson(QJsonDocument::Compact);
     }
 
-    void
-    ObjectTreeItem::ClearObjectGroupBox(Ui::MainWindow& ui)
+    ObjectForm*
+    ObjectTreeItem::GetForm()
     {
-      QLayout* layout = ui.objectGroupBox->layout();
-
-      if(layout != nullptr) {
-        QLayoutItem* child;
-        while ((child = layout->takeAt(0)) != nullptr)  {
-          QWidget* widget = child->widget();
-          if(widget != nullptr)
-            widget->hide();
-        }
-        delete layout;
-      }
+      return nullptr;
     }
 
-    void
-    ObjectTreeItem::Select(Ui::MainWindow& ui, ObjectForm* objectForm)
-    {
-      ClearObjectGroupBox(ui);
+//    void
+//    ObjectTreeItem::ClearObjectGroupBox(Ui::Workspace& ui)
+//    {
+//      QLayout* layout = ui.objectGroupBox->layout();
 
-      ui.objectForm = objectForm;
+//      if(layout != nullptr) {
+//        QLayoutItem* child;
+//        while ((child = layout->takeAt(0)) != nullptr)  {
+//          QWidget* widget = child->widget();
+//          if(widget != nullptr)
+//            widget->hide();
+//        }
+//        delete layout;
+//      }
+//    }
 
-      QGroupBox* objectGroupBox = ui.objectGroupBox;
-      objectForm->setParent(objectGroupBox);
-      objectForm->setObjectName(QString::fromUtf8("objectWidget"));
+//    void
+//    ObjectTreeItem::Select(Ui::Workspace& ui, ObjectForm* objectForm)
+//    {
+//      ClearObjectGroupBox(ui);
 
-      QVBoxLayout* verticalLayout = new QVBoxLayout(objectGroupBox);
-      verticalLayout->addWidget(objectForm);
-      verticalLayout->addItem(ui.objectButtonsLayout);
+//      ui.objectForm = objectForm;
 
-      objectGroupBox->setLayout(verticalLayout);
-      objectGroupBox->setTitle(objectForm->Title() + ": "); // + mWeapon->Wtyp());
-      objectGroupBox->update();
+//      QGroupBox* objectGroupBox = ui.objectGroupBox;
+//      objectForm->setParent(objectGroupBox);
+//      objectForm->setObjectName(QString::fromUtf8("objectWidget"));
 
-      ui.     action_Copy->setEnabled(true);
-      ui.      action_Cut->setEnabled(true);
-      ui.    action_Print->setEnabled(true);
-      ui.  editItemButton->setEnabled(true);
-      ui.  editItemButton->setText(QObject::tr("Edit"));
-      ui.        okButton->setEnabled(false);
-      ui.     printButton->setEnabled(true);
-      ui.removeItemButton->setEnabled(true);
-    }
+//      QVBoxLayout* verticalLayout = new QVBoxLayout(objectGroupBox);
+//      verticalLayout->addWidget(objectForm);
+//      verticalLayout->addItem(ui.objectButtonsLayout);
 
-    void
-    ObjectTreeItem::Unselect(Ui::MainWindow& ui, ObjectForm* objectForm)
-    {
-      ClearObjectGroupBox(ui);
+//      objectGroupBox->setLayout(verticalLayout);
+//      objectGroupBox->setTitle(objectForm->Title() + ": "); // + mWeapon->Wtyp());
+//      objectGroupBox->update();
 
-      ui.     action_Copy->setEnabled(false);
-      ui.      action_Cut->setEnabled(false);
-      ui.    action_Print->setEnabled(false);
-      ui.  editItemButton->setEnabled(false);
-      ui.  editItemButton->setText(QObject::tr("Edit"));
-      ui.        okButton->setEnabled(false);
-      ui.     printButton->setEnabled(false);
-      ui.removeItemButton->setEnabled(false);
-    }
+//      ui.     action_Copy->setEnabled(true);
+//      ui.      action_Cut->setEnabled(true);
+//      ui.    action_Print->setEnabled(true);
+//      ui.  editItemButton->setEnabled(true);
+//      ui.  editItemButton->setText(QObject::tr("Edit"));
+//      ui.        okButton->setEnabled(false);
+//      ui.     printButton->setEnabled(true);
+//      ui.removeItemButton->setEnabled(true);
+//    }
+
+//    void
+//    ObjectTreeItem::Unselect(Ui::Workspace& ui, ObjectForm* objectForm)
+//    {
+//      ClearObjectGroupBox(ui);
+
+//      ui.     action_Copy->setEnabled(false);
+//      ui.      action_Cut->setEnabled(false);
+//      ui.    action_Print->setEnabled(false);
+//      ui.  editItemButton->setEnabled(false);
+//      ui.  editItemButton->setText(QObject::tr("Edit"));
+//      ui.        okButton->setEnabled(false);
+//      ui.     printButton->setEnabled(false);
+//      ui.removeItemButton->setEnabled(false);
+//    }
 
     void
     ObjectTreeItem::RefreshItemData()
