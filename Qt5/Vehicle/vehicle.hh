@@ -31,6 +31,9 @@ namespace GDW
 {
   namespace RPG
   {
+    class VEHICLESHARED_EXPORT VehicleReference : public ObjectReference
+    {};
+
     class VEHICLESHARED_EXPORT Vehicle : public Object
     {
       public:
@@ -191,6 +194,6 @@ namespace GDW
   };
 };
 
-Q_DECLARE_METATYPE(GDW::RPG::Vehicle)
+// Q_DECLARE_METATYPE(GDW::RPG::Vehicle)
 
 #endif // VEHICLE_HH

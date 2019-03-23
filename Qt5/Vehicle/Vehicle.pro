@@ -5,7 +5,6 @@
 #-------------------------------------------------
 
 QT       += core widgets svg
-
 QT       -= gui
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += printsupport
@@ -29,11 +28,12 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
     vehicle.cc \
     vehicleform.cc \
-    vehicleitem.cc
+    vehicleitem.cc \
+    vehiclemodel.cc
 
 HEADERS += \
-    vehicle.hh \
     vehicle_global.hh \
+    vehicle.hh \
     vehicleform.hh \
     vehicleitem.hh \
     vehiclemodel.hh

@@ -5,7 +5,6 @@
 #-------------------------------------------------
 
 QT       += core widgets svg
-
 QT       -= gui
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += printsupport
@@ -29,13 +28,15 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
     weapon.cc \
     weaponform.cc \
-    weaponitem.cc
+    weaponitem.cc \
+    weaponmodel.cc
 
 HEADERS += \
-    weapon.hh \
     weapon_global.hh \
+    weapon.hh \
     weaponform.hh \
-    weaponitem.hh
+    weaponitem.hh \
+    weaponmodel.hh
 
 FORMS += \
     weaponform.ui

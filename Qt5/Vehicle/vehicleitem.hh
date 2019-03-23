@@ -25,16 +25,7 @@
 
 #include "vehicle.hh"
 #include "vehicleform.hh"
-
-#include <QList>
-#include <QVariant>
-
-class QStackedWidget;
-class QTextStream;
-
-namespace Ui {
-  class Workspace;
-}
+#include "vehiclemodel.hh"
 
 namespace GDW
 {
@@ -43,24 +34,21 @@ namespace GDW
     class VEHICLESHARED_EXPORT VehicleTreeItem : public ObjectTreeItem
     {
       public:
+        static VehicleModel* Model();
         static VehicleTreeItem* Create(ObjectTreeItem* parent = nullptr);
         static VehicleTreeItem* Unpack(const QJsonObject&,
                                        ObjectTreeItem* parent);
 
         VehicleForm* GetForm() override;
-        // void Select(Ui::Workspace&, ObjectForm* = nullptr) override;
-
-        QDebug& Debug(QDebug&) const override;
 
       protected:
-        VehicleTreeItem(Vehicle*, ObjectTreeItem* parent);
-        ~VehicleTreeItem() override;
+        explicit VehicleTreeItem(Vehicle*, ObjectTreeItem* parent);
 
         Vehicle* GetObject() override;
         const Vehicle* GetObject() const override;
 
-        //      private:
-        //        Vehicle* mVehicle;
+      private:
+        static VehicleModel MODEL;
     };
   };
 };

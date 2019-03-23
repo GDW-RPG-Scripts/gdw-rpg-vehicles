@@ -1,18 +1,19 @@
 #-------------------------------------------------
 #
-# Project created by QtCreator 2019-03-10T17:05:36
+# Project created by QtCreator 2019-03-22T23:37:58
 #
 #-------------------------------------------------
 
-QT       += core widgets svg
+QT       += widgets svg
+
 QT       -= gui
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += printsupport
 
-TARGET = Object
+TARGET = Unit
 TEMPLATE = lib
 
-DEFINES += OBJECT_LIBRARY
+DEFINES += UNIT_LIBRARY
 
 # The following define makes your compiler emit warnings if you use
 # any feature of Qt which has been marked as deprecated (the exact warnings
@@ -26,24 +27,29 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    exception.cc \
-    object.cc \
-    objectform.cc \
-    objectitem.cc \
-    objectmodel.cc
+    unit.cc \
+    unititem.cc \
+    unitmodel.cc \
+    unitform.cc
 
 HEADERS += \
-    exception.hh \
-    object_global.hh \
-    object.hh \
-    objectform.hh \
-    objectitem.hh \
-    objectmodel.hh
+    unit.hh \
+    unit_global.hh \
+    unititem.hh \
+    unitmodel.hh \
+    unitform.hh
 
 unix {
     target.path = /usr/lib
     INSTALLS += target
 }
 
-RESOURCES += \
-    object.qrc
+win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../Object/release/ -lObject
+else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../Object/debug/ -lObject
+else:unix: LIBS += -L$$OUT_PWD/../Object/ -lObject
+
+INCLUDEPATH += $$PWD/../Object
+DEPENDPATH += $$PWD/../Object
+
+FORMS += \
+    unitform.ui

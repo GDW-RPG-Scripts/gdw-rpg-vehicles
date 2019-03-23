@@ -27,7 +27,10 @@ namespace GDW
 {
   namespace RPG
   {
-    class WEAPONSSHARED_EXPORT Weapon : public Object
+    class WEAPONSHARED_EXPORT WeaponReference : public ObjectReference
+    {};
+
+    class WEAPONSHARED_EXPORT Weapon : public Object
     {
       public:
         static QList<Weapon*> Load(const QJsonValue&);

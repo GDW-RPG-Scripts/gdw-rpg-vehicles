@@ -42,12 +42,12 @@ namespace GDW
     {
       public:
         ObjectTreeItem(Object*, ObjectTreeItem* parent = nullptr);
-        ObjectTreeItem(QList<QVariant>&,
+        ObjectTreeItem(const QList<QVariant>&,
                        ObjectTreeItem* parent = nullptr);
         virtual ~ObjectTreeItem();
 
         ObjectTreeItem* AppendChild(ObjectTreeItem* child);
-        bool InsertChildren(int, int, int type, ObjectTreeItem* = nullptr);
+        bool InsertChildren(int, int, /*int type,*/ ObjectTreeItem* = nullptr);
         bool RemoveChildren(int, int);
 
         ObjectTreeItem* Child(int row);
@@ -67,6 +67,10 @@ namespace GDW
         virtual QDebug& Debug(QDebug&) const;
 
         friend QTextStream& operator<<(QTextStream&, const ObjectTreeItem&);
+
+      signals:
+
+      public slots:
 
       protected:
         virtual Object* GetObject();

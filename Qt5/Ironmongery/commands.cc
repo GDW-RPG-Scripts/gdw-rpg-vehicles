@@ -32,13 +32,13 @@ namespace GDW
     // Insert Item Command
     //
     InsertItemCommand::InsertItemCommand(const QModelIndex& index,
-                                         VehicleModel& model,
+                                         ObjectModel* model,
                                          QUndoCommand* parent)
       : QUndoCommand(parent),
         mRow(index.row()+1),
         mInserted(false),
         mParent(index.parent()),
-        mVehicleModel(model)
+        mModel(model)
     {
       setText(QObject::tr("insert"));
     }
@@ -48,7 +48,7 @@ namespace GDW
     {
       qDebug() << "InsertItemCommand::undo()";
       if(mInserted)
-        mVehicleModel.removeRow(mRow, mParent);
+        mModel->removeRow(mRow, mParent);
     }
 
     void
@@ -56,7 +56,7 @@ namespace GDW
     {
       qDebug() << "InsertItemCommand::redo()";
 
-      mInserted = mVehicleModel.insertRow(mRow, mParent);
+      mInserted = mModel->insertRow(mRow, mParent);
 
 //      bool isSet = true;
 //      for (int col = 0; col < mModel.columnCount(); ++col) {
@@ -71,13 +71,13 @@ namespace GDW
     // Remove Item Command
     //
     RemoveItemCommand::RemoveItemCommand(const QModelIndex& index,
-                                         VehicleModel& model,
+                                         ObjectModel* model,
                                          QUndoCommand* parent)
       : QUndoCommand(parent),
         mRow(index.row()),
         mRemoved(false),
         mParent(index.parent()),
-        mVehicleModel(model)
+        mModel(model)
     {
       setText(QObject::tr("remove"));
     }
@@ -87,14 +87,14 @@ namespace GDW
     {
       qDebug() << "RemoveItemCommand::undo()";
       if(mRemoved)
-        mVehicleModel.insertRow(mRow, mParent);
+        mModel->insertRow(mRow, mParent);
     }
 
     void
     RemoveItemCommand::redo()
     {
       qDebug() << "RemoveItemCommand::redo()";
-      mRemoved = mVehicleModel.removeRow(mRow, mParent);
+      mRemoved = mModel->removeRow(mRow, mParent);
     }
   };
 };

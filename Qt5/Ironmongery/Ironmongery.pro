@@ -30,14 +30,12 @@ SOURCES += \
     prefsdialog.cc \
     commands.cc \
     factory.cc \
-    vehiclemodel.cc \
     workspace.cc
 
 HEADERS += \
     prefsdialog.hh \
     commands.hh \
     factory.hh \
-    vehiclemodel.hh \
     workspace.hh
 
 # TRANSLATIONS += \
@@ -63,6 +61,20 @@ else:unix: LIBS += -L$$OUT_PWD/../Object/ -lObject
 
 INCLUDEPATH += $$PWD/../Object
 DEPENDPATH += $$PWD/../Object
+
+win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../Ship/release/ -lShip
+else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../Ship/debug/ -lShip
+else:unix: LIBS += -L$$OUT_PWD/../Ship/ -lShip
+
+INCLUDEPATH += $$PWD/../Ship
+DEPENDPATH += $$PWD/../Ship
+
+win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../Unit/release/ -lUnit
+else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../Unit/debug/ -lUnit
+else:unix: LIBS += -L$$OUT_PWD/../Unit/ -lUnit
+
+INCLUDEPATH += $$PWD/../Unit
+DEPENDPATH += $$PWD/../Unit
 
 win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../Vehicle/release/ -lVehicle
 else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../Vehicle/debug/ -lVehicle

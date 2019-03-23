@@ -33,10 +33,17 @@ namespace GDW
 {
   namespace RPG
   {
+    WeaponModel WeaponTreeItem::MODEL;
+
+    WeaponModel*
+    WeaponTreeItem::Model()
+    {
+      return &MODEL;
+    }
+
     WeaponTreeItem*
     WeaponTreeItem::Create(ObjectTreeItem* parent)
     {
-
       return new WeaponTreeItem(Weapon::New(), parent);
     }
 
@@ -50,8 +57,11 @@ namespace GDW
     }
 
     WeaponTreeItem::WeaponTreeItem(Weapon* weapon, ObjectTreeItem* parent)
-      : ObjectTreeItem(weapon, parent)
-    {}
+      : ObjectTreeItem(weapon, parent == nullptr ? MODEL.RootItem() : parent)
+    {
+      if(parent == nullptr)
+        MODEL.RootItem()->AppendChild(this);
+    }
 
     WeaponTreeItem::~WeaponTreeItem()
     {}

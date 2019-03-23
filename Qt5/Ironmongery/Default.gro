@@ -2593,4 +2593,9 @@
     "stab": "", "fuel": "D,A", "night": "Headlights", "rad": "Open",
     "x5": "5", "x6": "6", "x7": "7", "x8": "-/R",
     "loca": "VEH"
+},{
+    "__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
+    "wtyp": "30 mm", "wqual": "C", "rof": 10, "rng": 250,
+    "ps": 5, "pm": 5, "pl": -1, "px": -2, "ammo": 800,
+    "con": 1, "bur": 3, "pran": 2500
 }]

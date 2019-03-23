@@ -19,7 +19,7 @@
 #ifndef MAINWINDOW_HH
 #define MAINWINDOW_HH
 
-#include "vehiclemodel.hh"
+#include "factory.hh"
 
 #include "ui_workspace.h"
 
@@ -97,7 +97,7 @@ namespace GDW
         bool MaybeSave();
         bool SaveFile(const QString& fileName);
         void SetCurrentFile(const QString& fileName);
-        VehicleModel& Model();
+        //QAbstractItemModel* Model();
         QTreeView& GetCurrentTreeView();
 
         void ClearObjectGroupBox();
@@ -108,7 +108,7 @@ namespace GDW
         bool mLoadOnStart;
 
         // int mCurrentType;
-        VehicleModel mVehicleModel;
+        Factory mFactory;
 
         QString mCurrentFile;
         QUndoStack mUndoStack;

@@ -29,6 +29,9 @@ namespace GDW
 {
   namespace RPG
   {
+    class OBJECTSHARED_EXPORT ObjectReference
+    {};
+
     class OBJECTSHARED_EXPORT Object
     {
       public:

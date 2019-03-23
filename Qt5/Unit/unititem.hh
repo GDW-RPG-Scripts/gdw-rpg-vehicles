@@ -16,52 +16,41 @@
  * General Public License along with GDW RPG Vehicles. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef TREEITEM_HH
-#define TREEITEM_HH
+#ifndef UNITITEM_HH
+#define UNITITEM_HH
 
-#include "weapon_global.hh"
+#include "unit_global.hh"
 
 #include "objectitem.hh"
 
-#include "weapon.hh"
-#include "weaponform.hh"
-#include "weaponmodel.hh"
-
-#include <QList>
-#include <QVariant>
-
-namespace Ui {
-  class VehicleForm;
-}
+#include "unit.hh"
+#include "unitform.hh"
+#include "unitmodel.hh"
 
 namespace GDW
 {
   namespace RPG
   {
-    class WEAPONSHARED_EXPORT WeaponTreeItem : public ObjectTreeItem
+    class UNITSHARED_EXPORT UnitTreeItem : public ObjectTreeItem
     {
       public:
-        static WeaponModel* Model();
-        static WeaponTreeItem* Create(ObjectTreeItem* parent = nullptr);
-        static WeaponTreeItem* Unpack(const QJsonObject&,
-                                      ObjectTreeItem* parent);
+        static UnitModel* Model();
+        static UnitTreeItem* Create(ObjectTreeItem* parent = nullptr);
+        static UnitTreeItem* Unpack(const QJsonObject&,
+                                    ObjectTreeItem* parent);
 
-        WeaponTreeItem(Weapon*, ObjectTreeItem* parent);
-        ~WeaponTreeItem() override;
-
-        WeaponForm* GetForm() override;
-        // void Select(Ui::Workspace&, ObjectForm* = nullptr) override;
+        UnitForm* GetForm() override;
 
       protected:
-        Weapon* GetObject() override;
-        const Weapon* GetObject() const override;
+        explicit UnitTreeItem(Unit*, ObjectTreeItem* parent = nullptr);
 
-        QDebug& Debug(QDebug&) const override;
+        Unit* GetObject() override;
+        const Unit* GetObject() const override;
 
       private:
-        static WeaponModel MODEL;
+        static UnitModel MODEL;
     };
   };
 };
 
-#endif // TREEITEM_HH
+#endif // UNITITEM_HH

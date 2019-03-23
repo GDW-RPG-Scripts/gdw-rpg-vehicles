@@ -265,6 +265,21 @@
             <string>Ships</string>
            </attribute>
            <layout class="QVBoxLayout" name="verticalLayout_2">
+            <property name="spacing">
+             <number>0</number>
+            </property>
+            <property name="leftMargin">
+             <number>0</number>
+            </property>
+            <property name="topMargin">
+             <number>0</number>
+            </property>
+            <property name="rightMargin">
+             <number>0</number>
+            </property>
+            <property name="bottomMargin">
+             <number>0</number>
+            </property>
             <item>
              <widget class="QTreeView" name="shipTreeView"/>
             </item>
@@ -287,6 +302,21 @@
             <string>Units</string>
            </attribute>
            <layout class="QVBoxLayout" name="verticalLayout_3">
+            <property name="spacing">
+             <number>0</number>
+            </property>
+            <property name="leftMargin">
+             <number>0</number>
+            </property>
+            <property name="topMargin">
+             <number>0</number>
+            </property>
+            <property name="rightMargin">
+             <number>0</number>
+            </property>
+            <property name="bottomMargin">
+             <number>0</number>
+            </property>
             <item>
              <widget class="QTreeView" name="unitTreeView"/>
             </item>
@@ -1159,6 +1189,22 @@
     <hint type="sourcelabel">
      <x>119</x>
      <y>286</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>449</x>
+     <y>277</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>weaponsTreeView</sender>
+   <signal>clicked(QModelIndex)</signal>
+   <receiver>Workspace</receiver>
+   <slot>ItemClicked(QModelIndex)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>118</x>
+     <y>277</y>
     </hint>
     <hint type="destinationlabel">
      <x>449</x>

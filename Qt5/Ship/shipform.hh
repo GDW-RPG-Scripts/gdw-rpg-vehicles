@@ -16,49 +16,46 @@
  * General Public License along with GDW RPG Vehicles. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef COMMANDS_HH
-#define COMMANDS_HH
+#ifndef SHIPFORM_HH
+#define SHIPFORM_HH
 
-#include <QModelIndex>
-#include <QUndoCommand>
+#include "ship_global.hh"
+
+#include "objectform.hh"
+
+#include "ship.hh"
+
+namespace Ui {
+  class ShipForm;
+}
 
 namespace GDW
 {
   namespace RPG
   {
-    class ObjectModel;
+    class Ship;
 
-    class InsertItemCommand : public QUndoCommand
+    class SHIPSHARED_EXPORT ShipForm : public ObjectForm
     {
-      public:
-        InsertItemCommand(const QModelIndex&, ObjectModel*,
-                          QUndoCommand* parent = nullptr);
+        Q_OBJECT
 
-        void undo() override;
-        void redo() override;
+      public:
+        explicit ShipForm(Ship* = nullptr, QWidget* parent = nullptr);
+        ~ShipForm();
+
+        void Read() override;
+        void Write() override;
+        void SetReadOnly(bool) override;
+        QString Title() const override;
+
+        Ship* GetObject() override;
+        const Ship* GetObject() const override;
 
       private:
-        int mRow;
-        bool mInserted;
-        QModelIndex mParent;
-        ObjectModel* mModel;
-    };
-
-    class RemoveItemCommand : public QUndoCommand
-    {
-      public:
-        RemoveItemCommand(const QModelIndex&, ObjectModel*,
-                          QUndoCommand* parent = nullptr);
-
-        void undo() override;
-        void redo() override;
-
-      private:
-        int mRow;
-        bool mRemoved;
-        QModelIndex mParent;
-        ObjectModel* mModel;
+        Ship* mShip;
+        Ui::ShipForm *mUi;
     };
   };
 };
-#endif // COMMANDS_HH
+
+#endif // SHIPFORM_HH

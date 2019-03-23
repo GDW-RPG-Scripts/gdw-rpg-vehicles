@@ -1,7 +1,9 @@
 TEMPLATE = subdirs
 
 SUBDIRS += \
-    Ironmongery \
     Object \
+    Ship \
+    Unit \
     Vehicle \
-    Weapon
+    Weapon \
+    Ironmongery

@@ -16,49 +16,39 @@
  * General Public License along with GDW RPG Vehicles. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef COMMANDS_HH
-#define COMMANDS_HH
+#ifndef VEHICLEMODEL_HH
+#define VEHICLEMODEL_HH
 
-#include <QModelIndex>
-#include <QUndoCommand>
+#include "vehicle_global.hh"
+
+#include "objectmodel.hh"
+
+// #include <QModelIndex>
+// #include <QVariant>
+
+
+// class QFile;
+// class QTextStream;
+
+// namespace Ui {
+//   class Workspace;
+// }
 
 namespace GDW
 {
   namespace RPG
   {
-    class ObjectModel;
-
-    class InsertItemCommand : public QUndoCommand
+    class VEHICLESHARED_EXPORT VehicleModel : public ObjectModel
     {
+        Q_OBJECT
+
       public:
-        InsertItemCommand(const QModelIndex&, ObjectModel*,
-                          QUndoCommand* parent = nullptr);
+        VehicleModel(QObject* parent = nullptr);
 
-        void undo() override;
-        void redo() override;
-
-      private:
-        int mRow;
-        bool mInserted;
-        QModelIndex mParent;
-        ObjectModel* mModel;
-    };
-
-    class RemoveItemCommand : public QUndoCommand
-    {
-      public:
-        RemoveItemCommand(const QModelIndex&, ObjectModel*,
-                          QUndoCommand* parent = nullptr);
-
-        void undo() override;
-        void redo() override;
-
-      private:
-        int mRow;
-        bool mRemoved;
-        QModelIndex mParent;
-        ObjectModel* mModel;
+      protected:
+        const QList<QVariant>& RootData() const override;
     };
   };
 };
-#endif // COMMANDS_HH
+
+#endif // VEHICLEMODEL_HH

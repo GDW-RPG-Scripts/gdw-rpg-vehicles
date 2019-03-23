@@ -32,6 +32,9 @@
 #include "prefsdialog.hh"
 
 #include "objectitem.hh"
+#include "shipitem.hh"
+#include "unititem.hh"
+#include "vehicleitem.hh"
 #include "weaponitem.hh"
 
 // #include "ui_vehicleform.h"
@@ -65,6 +68,11 @@ namespace GDW
       mUi.menuEdit->insertActions(mUi.action_Placeholder, actions);
       mUi.menuEdit->removeAction(mUi.action_Placeholder);
 
+      mUi.vehiclesTreeView->setModel(VehicleTreeItem ::Model());
+      mUi.weaponsTreeView->setModel(WeaponTreeItem::Model());
+      mUi.shipTreeView->setModel(ShipTreeItem::Model());
+      mUi.unitTreeView->setModel(UnitTreeItem::Model());
+
       SetCurrentFile(QString());
       setUnifiedTitleAndToolBarOnMac(true);
 
@@ -79,8 +87,8 @@ namespace GDW
       mUi.action_Paste->setEnabled(false);
 #endif
 
-      connect(&mVehicleModel, &QAbstractItemModel::rowsRemoved, this, &Workspace::RemoveSelectedItems);
       connect(mUi.menuEdit, &QMenu::aboutToShow, this, &Workspace::UpdateActions);
+      // connect(&mVehicleModel, &QAbstractItemModel::rowsRemoved, this, &Workspace::RemoveSelectedItems);
       // connect(mUi.insertItemButton, &QAbstractButton::clicked, this, &MainWindow::AddItem);
       // connect(mUi.action_Cut, &QAction::triggered, this, &MainWindow::RemoveItem);
       // connect(insertChildAction, &QAction::triggered, this, &MainWindow::insertChild);
@@ -91,11 +99,14 @@ namespace GDW
       UpdateActions();
     }
 
-    VehicleModel&
-    Workspace::Model()
-    {
-      return mVehicleModel;
-    }
+//    QAbstractItemModel*
+//    Workspace::Model()
+//    {
+//      QAbstractItemView* view =
+//          static_cast<QAbstractItemView*>(mUi.tabWidget->currentWidget());
+
+//      return view->model();
+//    }
 
     Workspace::~Workspace()
     {}
@@ -136,7 +147,7 @@ namespace GDW
         // textEdit->clear();
         mUndoStack.clear();
         // delete mModel;
-        mUi.vehiclesTreeView->setModel(new VehicleModel);
+        // mUi.vehiclesTreeView->setModel(new VehicleModel);
         mUi.objectForm->hide();
         SetCurrentFile(QString());
       }
@@ -216,19 +227,21 @@ namespace GDW
     void
     Workspace::InsertItem()
     {
-      QTreeView& treeView = GetCurrentTreeView();
+      QTreeView& view = GetCurrentTreeView();
 
-      if(treeView.model() == nullptr)
-        treeView.setModel(&mVehicleModel);
+      // if(treeView.model() == nullptr)
+      //   treeView.setModel(&mVehicleModel);
 
-      QItemSelectionModel* itemSelectionModel = treeView.selectionModel();
+      QItemSelectionModel* itemSelectionModel = view.selectionModel();
       QModelIndex index = itemSelectionModel->currentIndex();
 
-      mUndoStack.push(new InsertItemCommand(index, mVehicleModel));
+      ObjectModel* model =
+          static_cast<ObjectModel*>(view.model());
+      mUndoStack.push(new InsertItemCommand(index, model));
 
       UpdateActions();
 
-      treeView.update();
+      view.update();
 
       //      for (int column = mModel.columnCount(index.parent())-1; column >= 0 ; --column) {
       //        QModelIndex child =
@@ -272,7 +285,9 @@ namespace GDW
         //     static_cast<ObjectTreeItem*>(index.internalPointer());
         // oti->Unselect(mUi);
         Unselect();
-        mUndoStack.push(new RemoveItemCommand(index, mVehicleModel));
+        ObjectModel* model =
+            static_cast<ObjectModel*>(view.model());
+        mUndoStack.push(new RemoveItemCommand(index, model));
       }
 
       UpdateActions();
@@ -281,7 +296,10 @@ namespace GDW
     void
     Workspace::PrintItem()
     {
-      mVehicleModel.Print(this);
+      QTreeView& view = GetCurrentTreeView();
+      ObjectModel* model =
+          static_cast<ObjectModel*>(view.model());
+      model->Print(this);
     }
 
     void
@@ -536,11 +554,7 @@ namespace GDW
 #endif
 
       // textEdit->setPlainText(in.readAll());
-      mVehicleModel.Import(file);
-      mUi.vehiclesTreeView->setModel(&mVehicleModel);
-      for (int column = 0; column < mVehicleModel.columnCount(); ++column)
-        mUi.vehiclesTreeView->resizeColumnToContents(column);
-      file.close();
+      mFactory.Import(mUi, file);
 
 #ifndef QT_NO_CURSOR
       QApplication::restoreOverrideCursor();
@@ -572,7 +586,8 @@ namespace GDW
 #ifndef QT_NO_CURSOR
       QApplication::setOverrideCursor(Qt::WaitCursor);
 #endif
-      out << mVehicleModel;
+      out << mFactory;
+      // out << mVehicleModel;
       // out << textEdit->toPlainText();
 #ifndef QT_NO_CURSOR
       QApplication::restoreOverrideCursor();
@@ -632,7 +647,8 @@ namespace GDW
     {
       static QTreeView* objectView[] =
       {
-        mUi.vehiclesTreeView, mUi.weaponsTreeView
+        mUi.vehiclesTreeView, mUi.weaponsTreeView,
+        mUi.shipTreeView, mUi.unitTreeView
       };
 
       return *objectView[mUi.tabWidget->currentIndex()];

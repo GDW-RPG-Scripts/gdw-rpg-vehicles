@@ -57,5 +57,4 @@ namespace GDW
     };
   };
 };
-
 #endif // VEHICLEFORM_HH

@@ -1,25 +1,74 @@
+/**
+ * GDW RPG Vehicles, a vehicle database for Traveller and other GDW derived RPGs.
+ *
+ * Copyright (C) 2018-2019 Michael N. Henry
+ *
+ * This file is part of GDW RPG Vehicles.
+ *
+ * GDW RPG Vehicles is free software: you can redistribute it and/or modify it under the terms of the
+ * GNU General Public License as published by the Free Software Foundation, either version 2 of the
+ * License, or (at your option) any later version.
+ *
+ * GDW RPG Vehicles is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ *
+ * See the GNU General Public License for more details. You should have received a copy of the GNU
+ * General Public License along with GDW RPG Vehicles. If not, see <http://www.gnu.org/licenses/>.
+ */
+
 #include "factory.hh"
 
+#include "shipitem.hh"
+#include "unititem.hh"
 #include "vehicleitem.hh"
 #include "weaponitem.hh"
+
+#include "ui_workspace.h"
+
+#include <QFile>
+#include <QJsonArray>
+#include <QJsonDocument>
 
 namespace GDW
 {
   namespace RPG
   {
+    Factory::Factory()
+    {}
+
+    void
+    Factory::Import(Ui::Workspace& ui, QFile& file)
+    {
+      const QByteArray& jba = file.readAll();
+      QJsonDocument jdoc = QJsonDocument::fromJson(jba);
+
+      if (jdoc.isObject())
+        Unpack(jdoc.object());
+      else if (jdoc.isArray())
+        for (int index = 0; index < jdoc.array().count(); ++index)
+          Unpack(jdoc[index].toObject());
+
+      // mVehicleModel.Import(file);
+      // for (int column = 0; column < mVehicleModel.columnCount(); ++column)
+      //   ui.vehiclesTreeView->resizeColumnToContents(column);
+
+      file.close();
+    }
+
     typedef std::function<ObjectTreeItem*(ObjectTreeItem*)> ObjectTreeCreateFunction;
 
     ObjectTreeItem*
     Factory::Create(int type, ObjectTreeItem* parent)
     {
-      static const ObjectTreeCreateFunction OBJECT_TREE_NEW[] =
+      static const ObjectTreeCreateFunction NEW[] =
       {
         VehicleTreeItem::Create,
-        WeaponTreeItem::Create
+         WeaponTreeItem::Create,
+           ShipTreeItem::Create,
+           UnitTreeItem::Create
       };
 
-      ObjectTreeCreateFunction create = OBJECT_TREE_NEW[type];
-      return create(parent);
+      return NEW[type](parent);
     }
 
     typedef std::function<ObjectTreeItem*(const QJsonObject&, ObjectTreeItem*)> ObjectTreeUnpackFunction;
@@ -29,8 +78,10 @@ namespace GDW
     Factory::Unpack(const QJsonValue& json, ObjectTreeItem* parent)
     {
       static const QString GDW_RPG_TYPE = "__GDW_RPG_Type__";
-      static const ObjectTreeUnpackMap OBJECT_TREE_UNPACK_MAP =
+      static const ObjectTreeUnpackMap UNPACK =
       {
+        {    Ship::JSON_TYPE,    ShipTreeItem::Unpack },
+        {    Unit::JSON_TYPE,    UnitTreeItem::Unpack },
         { Vehicle::JSON_TYPE, VehicleTreeItem::Unpack },
         {  Weapon::JSON_TYPE,  WeaponTreeItem::Unpack }
       };
@@ -42,17 +93,20 @@ namespace GDW
         {
           const QString type = obj[GDW_RPG_TYPE].toString();
 
-          if(OBJECT_TREE_UNPACK_MAP.contains(type))
+          if(UNPACK.contains(type))
           {
-            ObjectTreeUnpackFunction unpack = OBJECT_TREE_UNPACK_MAP[type];
-            ObjectTreeItem* item = unpack(obj, parent);
-
-            return parent->AppendChild(item);
+            return UNPACK[type](obj, parent);
           }
         }
       }
 
       return nullptr;
+    }
+
+    QTextStream&
+    operator<<(QTextStream& ots, const Factory& factory)
+    {
+      return ots; // << *factory.mRootItem;
     }
   };
 };

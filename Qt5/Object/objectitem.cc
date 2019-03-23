@@ -37,7 +37,7 @@ namespace GDW
       : mObject(object), mItemData(object->ItemData()), mParentItem(parent)
     {}
 
-    ObjectTreeItem::ObjectTreeItem(QList<QVariant>& data, ObjectTreeItem* parent)
+    ObjectTreeItem::ObjectTreeItem(const QList<QVariant>& data, ObjectTreeItem* parent)
       : mObject(nullptr), mItemData(data), mParentItem(parent)
     {}
 
@@ -92,7 +92,7 @@ namespace GDW
     }
 
     bool
-    ObjectTreeItem::InsertChildren(int position, int count, int type,
+    ObjectTreeItem::InsertChildren(int position, int count, // int type,
                                 ObjectTreeItem* item)
     {
       if (position < 0 || position > mChildItems.size())

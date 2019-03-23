@@ -16,22 +16,14 @@
  * General Public License along with GDW RPG Vehicles. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef VEHICLEMODEL_HH
-#define VEHICLEMODEL_HH
+#ifndef OBJECTMODEL_HH
+#define OBJECTMODEL_HH
 
-#include "vehicle_global.hh"
+#include "object_global.hh"
 
 #include <QAbstractItemModel>
-#include <QModelIndex>
-#include <QVariant>
 
-
-class QFile;
 class QTextStream;
-
-namespace Ui {
-  class Workspace;
-}
 
 namespace GDW
 {
@@ -39,50 +31,55 @@ namespace GDW
   {
     class ObjectTreeItem;
 
-    class VehicleModel : public QAbstractItemModel
+    class OBJECTSHARED_EXPORT ObjectModel : public QAbstractItemModel
     {
         Q_OBJECT
 
       public:
-        VehicleModel(QObject* parent = nullptr);
-        ~VehicleModel() override;
+        ObjectModel(QObject* parent = nullptr);
+        ~ObjectModel() override;
 
-        QVariant data(const QModelIndex& index, int role) const override;
-        QVariant headerData(int section, Qt::Orientation orientation,
-                            int role = Qt::DisplayRole) const override;
+        // Public API
+        void Print(QWidget* = nullptr) const;
 
+        ObjectTreeItem* RootItem() const;
+
+        // Mandatory overrides
         QModelIndex index(int row, int column,
                           const QModelIndex& parent = QModelIndex()) const override;
         QModelIndex parent(const QModelIndex& index) const override;
-
         int rowCount(const QModelIndex& parent = QModelIndex()) const override;
         int columnCount(const QModelIndex& parent = QModelIndex()) const override;
+        QVariant data(const QModelIndex& index, int role) const override;
 
+        // Optional overrides
         Qt::ItemFlags flags(const QModelIndex& index) const override;
-        bool setData(const QModelIndex &index, const QVariant &value,
-                     int role = Qt::EditRole) override;
-
+        QVariant headerData(int section, Qt::Orientation orientation,
+                            int role = Qt::DisplayRole) const override;
         bool insertRows(int position, int rows,
                         const QModelIndex& parent = QModelIndex()) override;
         bool removeRows(int position, int rows,
                         const QModelIndex& parent = QModelIndex()) override;
+        bool setData(const QModelIndex &index, const QVariant &value,
+                     int role = Qt::EditRole) override;
 
-        // bool AddItem(int, const QModelIndex& = QModelIndex());
-        void CurrentType(int);
-        ObjectTreeItem* GetItem(const QModelIndex& index) const;
-        void Import(QFile&);
-        void Print(QWidget* = nullptr) const;
+        // Output function
+        friend QTextStream& operator<<(QTextStream&, const ObjectModel&);
 
-        friend QTextStream& operator<<(QTextStream&, const VehicleModel&);
+      signals:
+
+      public slots:
+
+      protected:
+        // Extension points
+        ObjectTreeItem* ItemFor(const QModelIndex& index) const;
+
+        virtual const QList<QVariant>& RootData() const = 0;
 
       private:
-        void CreateRootItem();
-        void SetupModelData(const QJsonDocument&, ObjectTreeItem* parent = nullptr);
-
-        int mCurrentType;
-        ObjectTreeItem* mRootItem;
+        mutable ObjectTreeItem* mRootItem;
     };
   };
 };
 
-#endif // VEHICLEMODEL_HH
+#endif // OBJECTMODEL_HH

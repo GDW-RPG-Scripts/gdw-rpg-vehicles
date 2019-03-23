@@ -35,7 +35,7 @@ namespace GDW
   {
     class Weapon;
 
-    class WEAPONSSHARED_EXPORT WeaponForm : public ObjectForm
+    class WEAPONSHARED_EXPORT WeaponForm : public ObjectForm
     {
         Q_OBJECT
 

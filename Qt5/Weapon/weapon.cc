@@ -70,11 +70,11 @@ namespace GDW
     QList<QVariant>
     Weapon::ItemData() const
     {
-      QList<QVariant> data;
-
-      data << Wtyp();
-      //   << Range()
-      //   << RateOfFire();
+      QList<QVariant> data = {
+        Wtyp() //,
+        // Rng(),
+        // Rof()
+      };
 
       return data;
     }

@@ -16,40 +16,63 @@
  * General Public License along with GDW RPG Vehicles. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef FACTORY_HH
-#define FACTORY_HH
-
-class QFile;
-class QJsonValue;
-class QJsonDocument;
-class QTextStream;
-
-namespace Ui {
-  class Workspace;
-}
+#include "shipform.hh"
+#include "ui_shipform.h"
 
 namespace GDW
 {
   namespace RPG
   {
-    class ObjectTreeItem;
-
-    class Factory
+    ShipForm::ShipForm(Ship* ship, QWidget *parent)
+      : ObjectForm(parent), mShip(ship), mUi(new Ui::ShipForm)
     {
-      public:
-        Factory();
+      mUi->setupUi(this);
 
-        void Import(Ui::Workspace&, QFile&);
+      Read();
+    }
 
-        ObjectTreeItem* Create(int type, ObjectTreeItem* parent);
-        ObjectTreeItem* Unpack(const QJsonValue&,
-                               ObjectTreeItem* parent = nullptr);
+    ShipForm::~ShipForm()
+    {
+      delete mUi;
+    }
 
-        friend QTextStream& operator<<(QTextStream&, const Factory&);
+    void
+    ShipForm::Read()
+    {
+      ObjectForm::Read();
+    }
 
-      private:
-    };
+    void
+    ShipForm::Write()
+    {
+      ObjectForm::Write();
+
+      SetReadOnly(true);
+    }
+
+    void
+    ShipForm::SetReadOnly(bool value)
+    {
+      ObjectForm::SetReadOnly(value);
+    }
+
+    QString
+    ShipForm::Title() const
+    {
+
+      return tr("Unit");
+    }
+
+    Ship*
+    ShipForm::GetObject()
+    {
+      return mShip;
+    }
+
+    const Ship*
+    ShipForm::GetObject() const
+    {
+      return mShip;
+    }
   };
 };
-
-#endif // FACTORY_HH

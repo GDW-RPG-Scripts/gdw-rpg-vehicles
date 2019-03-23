@@ -16,49 +16,27 @@
  * General Public License along with GDW RPG Vehicles. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef COMMANDS_HH
-#define COMMANDS_HH
+#ifndef WEAPONMODEL_HH
+#define WEAPONMODEL_HH
 
-#include <QModelIndex>
-#include <QUndoCommand>
+#include "weapon_global.hh"
+
+#include "objectmodel.hh"
 
 namespace GDW
 {
   namespace RPG
   {
-    class ObjectModel;
-
-    class InsertItemCommand : public QUndoCommand
+    class WEAPONSHARED_EXPORT WeaponModel : public ObjectModel
     {
+        Q_OBJECT
+
       public:
-        InsertItemCommand(const QModelIndex&, ObjectModel*,
-                          QUndoCommand* parent = nullptr);
+        WeaponModel(QObject* parent = nullptr);
 
-        void undo() override;
-        void redo() override;
-
-      private:
-        int mRow;
-        bool mInserted;
-        QModelIndex mParent;
-        ObjectModel* mModel;
-    };
-
-    class RemoveItemCommand : public QUndoCommand
-    {
-      public:
-        RemoveItemCommand(const QModelIndex&, ObjectModel*,
-                          QUndoCommand* parent = nullptr);
-
-        void undo() override;
-        void redo() override;
-
-      private:
-        int mRow;
-        bool mRemoved;
-        QModelIndex mParent;
-        ObjectModel* mModel;
+      protected:
+        const QList<QVariant>& RootData() const override;
     };
   };
 };
-#endif // COMMANDS_HH
+#endif // WEAPONMODEL_HH

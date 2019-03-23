@@ -34,10 +34,17 @@ namespace GDW
 {
   namespace RPG
   {
+    VehicleModel VehicleTreeItem::MODEL;
+
+    VehicleModel*
+    VehicleTreeItem::Model()
+    {
+      return &MODEL;
+    }
+
     VehicleTreeItem*
     VehicleTreeItem::Create(ObjectTreeItem* parent)
     {
-
       return new VehicleTreeItem(Vehicle::New(), parent);
     }
 
@@ -47,30 +54,25 @@ namespace GDW
       Vehicle* vehicle = new Vehicle(json);
       VehicleTreeItem* vti = new VehicleTreeItem(vehicle, parent);
 
-      foreach(Weapon* weapon, vehicle->Weapons())
+      foreach(Weapon* weapon, vehicle->Weapons()) {
         vti->AppendChild(new WeaponTreeItem(weapon, vti));
+      }
 
       return vti;
     }
 
-    VehicleTreeItem::VehicleTreeItem(Vehicle* vehicle, ObjectTreeItem* parent) //, const QFontMetrics& fontMetrics)
-      : ObjectTreeItem(vehicle, parent) //, mVehicle(vehicle)
-    {}
-
-    VehicleTreeItem::~VehicleTreeItem()
-    {}
+    VehicleTreeItem::VehicleTreeItem(Vehicle* vehicle, ObjectTreeItem* parent)
+      : ObjectTreeItem(vehicle, parent == nullptr ? MODEL.RootItem() : parent)
+    {
+      if(parent == nullptr)
+        MODEL.RootItem()->AppendChild(this);
+    }
 
     VehicleForm*
     VehicleTreeItem::GetForm()
     {
       return new VehicleForm(GetObject());
     }
-
-//    void
-//    VehicleTreeItem::Select(Ui::Workspace& ui, ObjectForm*)
-//    {
-//      ObjectTreeItem::Select(ui, new VehicleForm(GetObject()));
-//    }
 
     Vehicle*
     VehicleTreeItem::GetObject()
@@ -84,12 +86,12 @@ namespace GDW
       return static_cast<const Vehicle*>(ObjectTreeItem::GetObject());
     }
 
-    QDebug&
-    VehicleTreeItem::Debug(QDebug& debug) const
-    {
-      debug.nospace() << "Vehicle: ";
+    //    QDebug&
+    //    VehicleTreeItem::Debug(QDebug& debug) const
+    //    {
+    //      debug.nospace() << "Vehicle: ";
 
-      return debug;
-    }
+    //      return debug;
+    //    }
   };
 };

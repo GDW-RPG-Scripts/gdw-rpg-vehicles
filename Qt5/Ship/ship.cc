@@ -16,49 +16,44 @@
  * General Public License along with GDW RPG Vehicles. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef COMMANDS_HH
-#define COMMANDS_HH
-
-#include <QModelIndex>
-#include <QUndoCommand>
+#include "ship.hh"
 
 namespace GDW
 {
   namespace RPG
   {
-    class ObjectModel;
+    const QString
+    Ship::JSON_TYPE = "__GDW_RPG_Ship__";
 
-    class InsertItemCommand : public QUndoCommand
+    Ship::Ship(const QJsonObject& json)
+      : Object (json)
+    {}
+
+    Ship*
+    Ship::New()
     {
-      public:
-        InsertItemCommand(const QModelIndex&, ObjectModel*,
-                          QUndoCommand* parent = nullptr);
+      static const QJsonObject object
+      {
+        {"__GDW_RPG_Type__", JSON_TYPE},
+        {PROP_NAME, "[Name]"}
+      };
 
-        void undo() override;
-        void redo() override;
+      return new Ship(object);
+    }
 
-      private:
-        int mRow;
-        bool mInserted;
-        QModelIndex mParent;
-        ObjectModel* mModel;
-    };
 
-    class RemoveItemCommand : public QUndoCommand
+    const QString Ship::PROP_NAME = "name";
+
+    QString
+    Ship::Name() const
     {
-      public:
-        RemoveItemCommand(const QModelIndex&, ObjectModel*,
-                          QUndoCommand* parent = nullptr);
+      return GetStringFor(PROP_NAME);
+    }
 
-        void undo() override;
-        void redo() override;
-
-      private:
-        int mRow;
-        bool mRemoved;
-        QModelIndex mParent;
-        ObjectModel* mModel;
-    };
+    void
+    Ship::Name(const QString& value)
+    {
+      SetStringFor(PROP_NAME, value);
+    }
   };
 };
-#endif // COMMANDS_HH
