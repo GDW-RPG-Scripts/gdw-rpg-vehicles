@@ -39,7 +39,7 @@ namespace GDW
       public:
         Factory();
 
-        void Import(Ui::Workspace&, QFile&);
+        void Import(QFile&);
 
         ObjectTreeItem* Create(int type, ObjectTreeItem* parent);
         ObjectTreeItem* Unpack(const QJsonValue&,

@@ -19,15 +19,17 @@
 #include "objectmodel.hh"
 #include "objectitem.hh"
 
+#include <QtWidgets>
 #if defined(QT_PRINTSUPPORT_LIB)
 #include <QtPrintSupport/qtprintsupportglobal.h>
-#if QT_CONFIG(printer)
 #if QT_CONFIG(printdialog)
-#include <QPrintDialog>
-#endif // QT_CONFIG(printdialog)
 #include <QPrinter>
-#endif // QT_CONFIG(printer)
-#endif // QT_PRINTSUPPORT_LIB
+#include <QPrintDialog>
+#if QT_CONFIG(printpreviewdialog)
+#include <QPrintPreviewDialog>
+#endif
+#endif
+#endif
 
 namespace GDW
 {
@@ -47,17 +49,10 @@ namespace GDW
     // Public API
     //
     void
-    ObjectModel::Print(QWidget* parent) const
+    ObjectModel::Print(QModelIndex index, QPrinter& printer) const
     {
-#if QT_CONFIG(printer)
-      QPrinter device;
-#if QT_CONFIG(printdialog)
-      QPrintDialog dialog(&device, parent);
-      if (dialog.exec() == QDialog::Rejected)
-        return;
-#endif // QT_CONFIG(printdialog)
+      ItemFor(index)->RenderPage(printer);
       //ui->textEdit->print(&printDev);
-#endif // QT_CONFIG(printer)
     }
 
     //
@@ -117,28 +112,18 @@ namespace GDW
     }
 
     int
-    ObjectModel::rowCount(const QModelIndex& parent) const
+    ObjectModel::rowCount(const QModelIndex& index) const
     {
-      ObjectTreeItem* parentItem;
-      if (parent.column() > 0)
+      if(index.column() > 0)
         return 0;
 
-      if (!parent.isValid())
-        parentItem = RootItem();
-      else
-        parentItem = ItemFor(parent);
-
-      return parentItem->ChildCount();
+      return ItemFor(index)->ChildCount();
     }
 
     int
-    ObjectModel::columnCount(const QModelIndex& parent) const
+    ObjectModel::columnCount(const QModelIndex& index) const
     {
-      if (parent.isValid())
-        return
-            static_cast<ObjectTreeItem*>(parent.internalPointer())->ColumnCount();
-      else
-        return RootItem()->ColumnCount();
+      return ItemFor(index)->ColumnCount();
     }
 
     QVariant
@@ -168,8 +153,8 @@ namespace GDW
 
     QVariant
     ObjectModel::headerData(int section,
-                             Qt::Orientation orientation,
-                             int role) const
+                            Qt::Orientation orientation,
+                            int role) const
     {
       if (orientation == Qt::Horizontal && role == Qt::DisplayRole)
         return RootItem()->Data(section);
@@ -203,7 +188,7 @@ namespace GDW
 
     bool
     ObjectModel::setData(const QModelIndex& index,
-                          const QVariant& value, int role)
+                         const QVariant& value, int role)
     {
       if (!index.isValid() || role != Qt::EditRole)
         return false;

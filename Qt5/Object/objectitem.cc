@@ -239,6 +239,10 @@ namespace GDW
       return item.Debug(debug);
     }
 
+    void
+    ObjectTreeItem::RenderPage(QPaintDevice&) const
+    {}
+
     QDebug&
     ObjectTreeItem::Debug(QDebug& debug) const
     {

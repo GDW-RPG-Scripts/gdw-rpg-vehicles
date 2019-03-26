@@ -37,7 +37,7 @@ namespace GDW
     {}
 
     void
-    Factory::Import(Ui::Workspace& ui, QFile& file)
+    Factory::Import(QFile& file)
     {
       const QByteArray& jba = file.readAll();
       QJsonDocument jdoc = QJsonDocument::fromJson(jba);
@@ -47,28 +47,21 @@ namespace GDW
       else if (jdoc.isArray())
         for (int index = 0; index < jdoc.array().count(); ++index)
           Unpack(jdoc[index].toObject());
-
-      // mVehicleModel.Import(file);
-      // for (int column = 0; column < mVehicleModel.columnCount(); ++column)
-      //   ui.vehiclesTreeView->resizeColumnToContents(column);
-
-      file.close();
     }
-
-    typedef std::function<ObjectTreeItem*(ObjectTreeItem*)> ObjectTreeCreateFunction;
 
     ObjectTreeItem*
     Factory::Create(int type, ObjectTreeItem* parent)
     {
-      static const ObjectTreeCreateFunction NEW[] =
-      {
+      typedef std::function<ObjectTreeItem*(ObjectTreeItem*)> CreateFunction;
+
+      static const CreateFunction CREATE[] = {
         VehicleTreeItem::Create,
-         WeaponTreeItem::Create,
-           ShipTreeItem::Create,
-           UnitTreeItem::Create
+        WeaponTreeItem::Create,
+        ShipTreeItem::Create,
+        UnitTreeItem::Create
       };
 
-      return NEW[type](parent);
+      return CREATE[type](parent);
     }
 
     typedef std::function<ObjectTreeItem*(const QJsonObject&, ObjectTreeItem*)> ObjectTreeUnpackFunction;
@@ -78,23 +71,19 @@ namespace GDW
     Factory::Unpack(const QJsonValue& json, ObjectTreeItem* parent)
     {
       static const QString GDW_RPG_TYPE = "__GDW_RPG_Type__";
-      static const ObjectTreeUnpackMap UNPACK =
-      {
-        {    Ship::JSON_TYPE,    ShipTreeItem::Unpack },
-        {    Unit::JSON_TYPE,    UnitTreeItem::Unpack },
+      static const ObjectTreeUnpackMap UNPACK = {
         { Vehicle::JSON_TYPE, VehicleTreeItem::Unpack },
-        {  Weapon::JSON_TYPE,  WeaponTreeItem::Unpack }
+        {  Weapon::JSON_TYPE,  WeaponTreeItem::Unpack },
+        {    Ship::JSON_TYPE,    ShipTreeItem::Unpack },
+        {    Unit::JSON_TYPE,    UnitTreeItem::Unpack }
       };
 
-      if(json.isObject())
-      {
+      if(json.isObject()) {
         QJsonObject obj = json.toObject();
-        if (obj.contains(GDW_RPG_TYPE) && obj[GDW_RPG_TYPE].isString())
-        {
+        if (obj.contains(GDW_RPG_TYPE) && obj[GDW_RPG_TYPE].isString()) {
           const QString type = obj[GDW_RPG_TYPE].toString();
 
-          if(UNPACK.contains(type))
-          {
+          if(UNPACK.contains(type)) {
             return UNPACK[type](obj, parent);
           }
         }

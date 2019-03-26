@@ -17,6 +17,7 @@
  */
 
 #include <QtWidgets>
+#include <QProgressDialog>
 #if defined(QT_PRINTSUPPORT_LIB)
 #include <QtPrintSupport/qtprintsupportglobal.h>
 #if QT_CONFIG(printer)
@@ -24,6 +25,9 @@
 #include <QPrintDialog>
 #endif // QT_CONFIG(printdialog)
 #include <QPrinter>
+#if QT_CONFIG(printpreviewdialog)
+#include <QPrintPreviewDialog>
+#endif // QT_CONFIG(printpreviewdialog)
 #endif // QT_CONFIG(printer)
 #endif // QT_PRINTSUPPORT_LIB
 
@@ -36,6 +40,10 @@
 #include "unititem.hh"
 #include "vehicleitem.hh"
 #include "weaponitem.hh"
+
+#include <chrono>
+
+using namespace std::chrono;
 
 // #include "ui_vehicleform.h"
 // #include "ui_weaponform.h"
@@ -99,14 +107,14 @@ namespace GDW
       UpdateActions();
     }
 
-//    QAbstractItemModel*
-//    Workspace::Model()
-//    {
-//      QAbstractItemView* view =
-//          static_cast<QAbstractItemView*>(mUi.tabWidget->currentWidget());
+    //    QAbstractItemModel*
+    //    Workspace::Model()
+    //    {
+    //      QAbstractItemView* view =
+    //          static_cast<QAbstractItemView*>(mUi.tabWidget->currentWidget());
 
-//      return view->model();
-//    }
+    //      return view->model();
+    //    }
 
     Workspace::~Workspace()
     {}
@@ -296,10 +304,40 @@ namespace GDW
     void
     Workspace::PrintItem()
     {
+#if defined(QT_PRINTSUPPORT_LIB) && QT_CONFIG(printdialog)
+      QPrinter printer(QPrinter::HighResolution);
+      QPrintDialog dialog(&printer, this);
+      if (dialog.exec() != QDialog::Accepted)
+        return;
+
+//      int from = printer.fromPage();
+//      int to = printer.toPage();
+//      if(from <= 0 && to <= 0)
+//        printer.setFromTo(1, 1);
+
+//      QProgressDialog progress(tr("Preparing sample..."),
+//                               tr("&Cancel"),
+//                               0, 1, this);
+//      progress.setWindowModality(Qt::ApplicationModal);
+//      progress.setWindowTitle(tr("Ironmongery"));
+//      progress.setMinimum(printer.fromPage() - 1);
+//      progress.setMaximum(printer.toPage());
+
       QTreeView& view = GetCurrentTreeView();
       ObjectModel* model =
           static_cast<ObjectModel*>(view.model());
-      model->Print(this);
+
+//      for (int page = printer.fromPage(); page <= printer.toPage(); ++page) {
+//        qApp->processEvents();
+//        if (progress.wasCanceled())
+//          break;
+
+        model->Print(view.currentIndex(), printer);
+        // PrintPage(page - 1, &painter, printer);
+
+//        progress.setValue(page);
+//      }
+#endif
     }
 
     void
@@ -535,6 +573,28 @@ namespace GDW
     }
 
     void
+    Workspace::ResizeViewColumns()
+    {
+      struct ModelViewMap {
+          std::function<ObjectModel*()> GetModel;
+          QTreeView* View;
+      };
+
+      static const ModelViewMap MODEL_VIEW_MAP[] = {
+        { VehicleTreeItem::Model, mUi.vehiclesTreeView },
+        {  WeaponTreeItem::Model, mUi. weaponsTreeView },
+        {    ShipTreeItem::Model, mUi.    shipTreeView },
+        {    UnitTreeItem::Model, mUi.    unitTreeView }
+      };
+
+      for(ModelViewMap map: MODEL_VIEW_MAP) {
+        ObjectModel* model = map.GetModel();
+        for (int column = 0; column < model->columnCount(); ++column)
+          map.View->resizeColumnToContents(column);
+      }
+    }
+
+    void
     Workspace::LoadFile(const QString& fileName)
     {
       QFile file(fileName);
@@ -553,8 +613,19 @@ namespace GDW
       QApplication::setOverrideCursor(Qt::WaitCursor);
 #endif
 
+      milliseconds start =
+          duration_cast<milliseconds>(system_clock::now().time_since_epoch());
+
       // textEdit->setPlainText(in.readAll());
-      mFactory.Import(mUi, file);
+      mFactory.Import(file);
+      file.close();
+
+      ResizeViewColumns();
+
+      milliseconds stop =
+          duration_cast<milliseconds>(system_clock::now().time_since_epoch());
+
+      milliseconds time = stop - start;
 
 #ifndef QT_NO_CURSOR
       QApplication::restoreOverrideCursor();
@@ -564,7 +635,10 @@ namespace GDW
       UpdateActions();
       mUi.action_Save->setEnabled(true);
       mUi.action_SaveAs->setEnabled(true);
-      statusBar()->showMessage(tr("Objects loaded"), 2000);
+      statusBar()->showMessage(tr("Objects loaded") +
+                               ": " +
+                               QString::number(time.count()) +
+                               " ms.", 5000);
     }
 
     bool
@@ -595,7 +669,7 @@ namespace GDW
 
       mUndoStack.setClean();
       SetCurrentFile(fileName);
-      statusBar()->showMessage(tr("File saved"), 2000);
+      statusBar()->showMessage(tr("File saved") + ".", 2000);
       return true;
     }
 

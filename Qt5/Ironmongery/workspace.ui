@@ -1212,6 +1212,22 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>printButton</sender>
+   <signal>clicked()</signal>
+   <receiver>Workspace</receiver>
+   <slot>PrintItem()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>681</x>
+     <y>506</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>449</x>
+     <y>277</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>About()</slot>

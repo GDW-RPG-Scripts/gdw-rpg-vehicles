@@ -99,6 +99,7 @@ namespace GDW
         void SetCurrentFile(const QString& fileName);
         //QAbstractItemModel* Model();
         QTreeView& GetCurrentTreeView();
+        void ResizeViewColumns();
 
         void ClearObjectGroupBox();
         void Select(ObjectForm*);
@@ -107,7 +108,6 @@ namespace GDW
         int mRuleSet;
         bool mLoadOnStart;
 
-        // int mCurrentType;
         Factory mFactory;
 
         QString mCurrentFile;

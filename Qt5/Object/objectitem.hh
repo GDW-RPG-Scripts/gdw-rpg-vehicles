@@ -46,6 +46,8 @@ namespace GDW
                        ObjectTreeItem* parent = nullptr);
         virtual ~ObjectTreeItem();
 
+        virtual void RenderPage(QPaintDevice&) const;
+
         ObjectTreeItem* AppendChild(ObjectTreeItem* child);
         bool InsertChildren(int, int, /*int type,*/ ObjectTreeItem* = nullptr);
         bool RemoveChildren(int, int);

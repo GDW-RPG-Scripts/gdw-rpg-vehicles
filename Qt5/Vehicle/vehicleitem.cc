@@ -27,8 +27,11 @@
 #include <QGroupBox>
 #include <QJsonArray>
 #include <QJsonDocument>
+#include <QPainter>
 #include <QStackedWidget>
 #include <QVBoxLayout>
+
+class QPaintDevice;
 
 namespace GDW
 {
@@ -84,6 +87,25 @@ namespace GDW
     VehicleTreeItem::GetObject() const
     {
       return static_cast<const Vehicle*>(ObjectTreeItem::GetObject());
+    }
+
+    void
+    VehicleTreeItem::RenderPage(QPaintDevice& device) const
+    {
+      QPainter painter;
+      painter.begin(&device);
+      painter.save();
+      // painter.translate(printer->pageRect().width() / 2.0, printer.pageRect().height() / 2.0);
+      //painter.scale(scale, scale);
+      painter.setBrush(QBrush(Qt::black));
+
+      painter.drawLine(  0,   0, 200,   0);
+      painter.drawLine(200,   0, 200, 200);
+      painter.drawLine(200, 200,   0, 200);
+      painter.drawLine(  0, 200,   0,   0);
+
+      painter.restore();
+      painter.end();
     }
 
     //    QDebug&

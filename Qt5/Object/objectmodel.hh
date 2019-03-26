@@ -23,6 +23,8 @@
 
 #include <QAbstractItemModel>
 
+class QPrinter;
+class QPainter;
 class QTextStream;
 
 namespace GDW
@@ -40,7 +42,7 @@ namespace GDW
         ~ObjectModel() override;
 
         // Public API
-        void Print(QWidget* = nullptr) const;
+        void Print(QModelIndex, QPrinter&) const;
 
         ObjectTreeItem* RootItem() const;
 

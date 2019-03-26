@@ -23,17 +23,6 @@
 
 #include "objectmodel.hh"
 
-// #include <QModelIndex>
-// #include <QVariant>
-
-
-// class QFile;
-// class QTextStream;
-
-// namespace Ui {
-//   class Workspace;
-// }
-
 namespace GDW
 {
   namespace RPG
