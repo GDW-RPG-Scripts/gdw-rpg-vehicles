@@ -29,73 +29,69 @@
 #include <QJsonArray>
 #include <QJsonDocument>
 
-namespace GDW
+using namespace GDW::RPG;
+
+Factory::Factory()
+{}
+
+void
+Factory::Import(QFile& file)
 {
-  namespace RPG
-  {
-    Factory::Factory()
-    {}
+  const QByteArray& jba = file.readAll();
+  QJsonDocument jdoc = QJsonDocument::fromJson(jba);
 
-    void
-    Factory::Import(QFile& file)
-    {
-      const QByteArray& jba = file.readAll();
-      QJsonDocument jdoc = QJsonDocument::fromJson(jba);
+  if (jdoc.isObject())
+    Unpack(jdoc.object());
+  else if (jdoc.isArray())
+    for (int index = 0; index < jdoc.array().count(); ++index)
+      Unpack(jdoc[index].toObject());
+}
 
-      if (jdoc.isObject())
-        Unpack(jdoc.object());
-      else if (jdoc.isArray())
-        for (int index = 0; index < jdoc.array().count(); ++index)
-          Unpack(jdoc[index].toObject());
-    }
+ObjectTreeItem*
+Factory::Create(int type, ObjectTreeItem* parent)
+{
+  typedef std::function<ObjectTreeItem*(ObjectTreeItem*)> CreateFunction;
 
-    ObjectTreeItem*
-    Factory::Create(int type, ObjectTreeItem* parent)
-    {
-      typedef std::function<ObjectTreeItem*(ObjectTreeItem*)> CreateFunction;
-
-      static const CreateFunction CREATE[] = {
-        VehicleTreeItem::Create,
-        WeaponTreeItem::Create,
-        ShipTreeItem::Create,
-        UnitTreeItem::Create
-      };
-
-      return CREATE[type](parent);
-    }
-
-    typedef std::function<ObjectTreeItem*(const QJsonObject&, ObjectTreeItem*)> ObjectTreeUnpackFunction;
-    typedef QHash<const QString, ObjectTreeUnpackFunction> ObjectTreeUnpackMap;
-
-    ObjectTreeItem*
-    Factory::Unpack(const QJsonValue& json, ObjectTreeItem* parent)
-    {
-      static const QString GDW_RPG_TYPE = "__GDW_RPG_Type__";
-      static const ObjectTreeUnpackMap UNPACK = {
-        { Vehicle::JSON_TYPE, VehicleTreeItem::Unpack },
-        {  Weapon::JSON_TYPE,  WeaponTreeItem::Unpack },
-        {    Ship::JSON_TYPE,    ShipTreeItem::Unpack },
-        {    Unit::JSON_TYPE,    UnitTreeItem::Unpack }
-      };
-
-      if(json.isObject()) {
-        QJsonObject obj = json.toObject();
-        if (obj.contains(GDW_RPG_TYPE) && obj[GDW_RPG_TYPE].isString()) {
-          const QString type = obj[GDW_RPG_TYPE].toString();
-
-          if(UNPACK.contains(type)) {
-            return UNPACK[type](obj, parent);
-          }
-        }
-      }
-
-      return nullptr;
-    }
-
-    QTextStream&
-    operator<<(QTextStream& ots, const Factory& factory)
-    {
-      return ots; // << *factory.mRootItem;
-    }
+  static const CreateFunction CREATE[] = {
+    VehicleTreeItem::Create,
+    WeaponTreeItem::Create,
+    ShipTreeItem::Create,
+    UnitTreeItem::Create
   };
-};
+
+  return CREATE[type](parent);
+}
+
+typedef std::function<ObjectTreeItem*(const QJsonObject&, ObjectTreeItem*)> ObjectTreeUnpackFunction;
+typedef QHash<const QString, ObjectTreeUnpackFunction> ObjectTreeUnpackMap;
+
+ObjectTreeItem*
+Factory::Unpack(const QJsonValue& json, ObjectTreeItem* parent)
+{
+  static const QString GDW_RPG_TYPE = "__GDW_RPG_Type__";
+  static const ObjectTreeUnpackMap UNPACK = {
+    { Vehicle::JSON_TYPE, VehicleTreeItem::Unpack },
+    {  Weapon::JSON_TYPE,  WeaponTreeItem::Unpack },
+    {    Ship::JSON_TYPE,    ShipTreeItem::Unpack },
+    {    Unit::JSON_TYPE,    UnitTreeItem::Unpack }
+  };
+
+  if(json.isObject()) {
+    QJsonObject obj = json.toObject();
+    if (obj.contains(GDW_RPG_TYPE) && obj[GDW_RPG_TYPE].isString()) {
+      const QString type = obj[GDW_RPG_TYPE].toString();
+
+      if(UNPACK.contains(type)) {
+        return UNPACK[type](obj, parent);
+      }
+    }
+  }
+
+  return nullptr;
+}
+
+QTextStream&
+GDW::RPG::operator<<(QTextStream& ots, const Factory& factory)
+{
+  return ots; // << *factory.mRootItem;
+}

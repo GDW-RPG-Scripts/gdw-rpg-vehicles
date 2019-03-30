@@ -47,7 +47,8 @@ SOURCES += \
     object.cc \
     objectform.cc \
     objectitem.cc \
-    objectmodel.cc
+    objectmodel.cc \
+    mustache.cc
 
 HEADERS += \
     exception.hh \
@@ -55,7 +56,8 @@ HEADERS += \
     object.hh \
     objectform.hh \
     objectitem.hh \
-    objectmodel.hh
+    objectmodel.hh \
+    mustache.hh
 
 unix {
     target.path = /usr/lib

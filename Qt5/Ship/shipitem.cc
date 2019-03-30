@@ -19,56 +19,52 @@
 #include "shipitem.hh"
 #include "ship.hh"
 
-namespace GDW
+using namespace GDW::RPG;
+
+ShipModel ShipTreeItem::MODEL;
+
+ShipModel*
+ShipTreeItem::Model()
 {
-  namespace RPG
-  {
-    ShipModel ShipTreeItem::MODEL;
+  return &MODEL;
+}
 
-    ShipModel*
-    ShipTreeItem::Model()
-    {
-      return &MODEL;
-    }
+ShipTreeItem*
+ShipTreeItem::Create(ObjectTreeItem* parent)
+{
+  return new ShipTreeItem(Ship::New(), parent);
+}
 
-    ShipTreeItem*
-    ShipTreeItem::Create(ObjectTreeItem* parent)
-    {
-      return new ShipTreeItem(Ship::New(), parent);
-    }
+ShipTreeItem*
+ShipTreeItem::Unpack(const QJsonObject& json, ObjectTreeItem* parent)
+{
+  Ship* unit = new Ship(json);
+  ShipTreeItem* item = new ShipTreeItem(unit, parent);
 
-    ShipTreeItem*
-    ShipTreeItem::Unpack(const QJsonObject& json, ObjectTreeItem* parent)
-    {
-      Ship* unit = new Ship(json);
-      ShipTreeItem* item = new ShipTreeItem(unit, parent);
+  return item;
+}
 
-      return item;
-    }
+ShipTreeItem::ShipTreeItem(Ship* ship, ObjectTreeItem* parent)
+  : ObjectTreeItem(ship, parent == nullptr ? MODEL.RootItem() : parent)
+{
+  if(parent == nullptr)
+    MODEL.RootItem()->AppendChild(this);
+}
 
-    ShipTreeItem::ShipTreeItem(Ship* ship, ObjectTreeItem* parent)
-      : ObjectTreeItem(ship, parent == nullptr ? MODEL.RootItem() : parent)
-    {
-      if(parent == nullptr)
-        MODEL.RootItem()->AppendChild(this);
-    }
+ShipForm*
+ShipTreeItem::GetForm()
+{
+  return new ShipForm(GetObject());
+}
 
-    ShipForm*
-    ShipTreeItem::GetForm()
-    {
-      return new ShipForm(GetObject());
-    }
+Ship*
+ShipTreeItem::GetObject()
+{
+  return static_cast<Ship*>(ObjectTreeItem::GetObject());
+}
 
-    Ship*
-    ShipTreeItem::GetObject()
-    {
-      return static_cast<Ship*>(ObjectTreeItem::GetObject());
-    }
-
-    const Ship*
-    ShipTreeItem::GetObject() const
-    {
-      return static_cast<const Ship*>(ObjectTreeItem::GetObject());
-    }
-  };
-};
+const Ship*
+ShipTreeItem::GetObject() const
+{
+  return static_cast<const Ship*>(ObjectTreeItem::GetObject());
+}

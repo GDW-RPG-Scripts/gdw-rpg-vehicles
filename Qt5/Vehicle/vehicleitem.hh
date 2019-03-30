@@ -39,9 +39,8 @@ namespace GDW
         static VehicleTreeItem* Unpack(const QJsonObject&,
                                        ObjectTreeItem* parent);
 
-        void RenderPage(QPaintDevice&) const override;
-
         VehicleForm* GetForm() override;
+        QByteArray Template() const override;
 
       protected:
         explicit VehicleTreeItem(Vehicle*, ObjectTreeItem* parent);

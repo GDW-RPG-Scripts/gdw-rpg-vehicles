@@ -21,131 +21,115 @@
 #include "exception.hh"
 
 
-namespace GDW
+using namespace GDW::RPG;
+
+Object::Object()
+{}
+
+Object::Object(const Object& object)
+  : mJsonObject(object.mJsonObject)
+{}
+
+Object::~Object()
+{}
+
+Object::Object(const QJsonObject& json)
+  : mJsonObject(json)
 {
-  namespace RPG
-  {
-    Object::Object()
-    {}
+  if(mJsonObject.isEmpty() ||
+     !mJsonObject.contains(PROP_TECHLEVEL) ||
+     !mJsonObject[PROP_TECHLEVEL].isDouble())
+    mJsonObject.insert(PROP_TECHLEVEL, 0);
+}
 
-    Object::Object(const Object& object)
-      : mJsonObject(object.mJsonObject)
-    {}
-
-    Object::~Object()
-    {}
-
-    Object::Object(const QJsonObject& json)
-      : mJsonObject(json)
-    {
-      if(mJsonObject.isEmpty() ||
-         !mJsonObject.contains(PROP_TECHLEVEL) ||
-         !mJsonObject[PROP_TECHLEVEL].isDouble())
-        mJsonObject.insert(PROP_TECHLEVEL, 0);
-    }
-
-    /*
+/*
      * Tech-level
      */
-    const QString Object::PROP_TECHLEVEL = "tl";
+const QString Object::PROP_TECHLEVEL = "tl";
 
-    void
-    Object::TechLevel(double value)
-    {
-      SetDoubleFor(PROP_TECHLEVEL, value);
-    }
+void
+Object::TechLevel(double value)
+{
+  SetDoubleFor(PROP_TECHLEVEL, value);
+}
 
-    double
-    Object::TechLevel() const
-    {
-      return GetDoubleFor(PROP_TECHLEVEL);
-    }
+double
+Object::TechLevel() const
+{
+  return GetDoubleFor(PROP_TECHLEVEL);
+}
 
-    Object*
-    Object::Copy()
-    {
-      return nullptr;
-    }
+Object*
+Object::Copy()
+{
+  return nullptr;
+}
 
-    const Object*
-    Object::Copy() const
-    {
-      return nullptr;
-    }
+const Object*
+Object::Copy() const
+{
+  return nullptr;
+}
 
-    QList<QVariant>
-    Object::ItemData() const
-    {
-      return QList<QVariant>();
-    }
+QList<QVariant>
+Object::ItemData() const
+{
+  return QList<QVariant>();
+}
 
-    Object::operator const QJsonObject&() const
-    {
-      return mJsonObject;
-    }
+Object::operator const QJsonObject&() const
+{
+  return mJsonObject;
+}
+
+QVariantHash
+Object::ToVariantHash() const
+{
+  return mJsonObject.toVariantHash();
+}
 
 
-    //    void
-    //    Object::Read(const QJsonObject& json)
-    //    {
-    //      mJsonObject = json;
+QVariant
+Object::GetVariantFor(const QString& index) const
+{
+  static const QVariant INVALID;
 
-    //      TypeCheck();
-    //    }
+  if(mJsonObject.contains(index))
+    return mJsonObject[index];
 
-    //    void
-    //    Object::Write(QJsonObject& json) const
-    //    {
-    //      json = mJsonObject;
-    //    }
+  return INVALID;
+}
 
-    void
-    Object::Print(int /*indentation*/) const
-    {}
+QString
+Object::GetStringFor(const QString& index) const
+{
+  if(!mJsonObject.isEmpty() &&
+     mJsonObject.contains(index) &&
+     mJsonObject[index].isString())
+    return mJsonObject[index].toString();
 
-    QVariant
-    Object::GetVariantFor(const QString& index) const
-    {
-      static const QVariant INVALID;
+  return "";
+}
 
-      if(mJsonObject.contains(index))
-        return mJsonObject[index];
+void
+Object::SetStringFor(const QString& index, const QString& value)
+{
+  mJsonObject[index] = value;
+}
 
-      return INVALID;
-    }
+double
+Object::GetDoubleFor(const QString& index) const
+{
+  if(!mJsonObject.isEmpty() &&
+     mJsonObject.contains(index) &&
+     mJsonObject[index].isDouble())
+    return mJsonObject[index].toDouble();
 
-    QString
-    Object::GetStringFor(const QString& index) const
-    {
-      if(!mJsonObject.isEmpty() &&
-         mJsonObject.contains(index) &&
-         mJsonObject[index].isString())
-        return mJsonObject[index].toString();
+  return 0;
+}
 
-      return "";
-    }
-
-    void
-    Object::SetStringFor(const QString& index, const QString& value)
-    {
-      mJsonObject[index] = value;
-    }
-
-    double
-    Object::GetDoubleFor(const QString& index) const
-    {
-      if(!mJsonObject.isEmpty() &&
-         mJsonObject.contains(index) &&
-         mJsonObject[index].isDouble())
-        return mJsonObject[index].toDouble();
-
-      return 0;
-    }
-
-    void
-    Object::SetDoubleFor(const QString& index, double value)
-    {
-      mJsonObject[index] = value;
-    }
-  };
-};
+void
+Object::SetDoubleFor(const QString& index, double value)
+{
+  mJsonObject[index] = value;
+}

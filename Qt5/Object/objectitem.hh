@@ -46,7 +46,8 @@ namespace GDW
                        ObjectTreeItem* parent = nullptr);
         virtual ~ObjectTreeItem();
 
-        virtual void RenderPage(QPaintDevice&) const;
+        void RenderPage(QPaintDevice&) const;
+        virtual QByteArray Template() const;
 
         ObjectTreeItem* AppendChild(ObjectTreeItem* child);
         bool InsertChildren(int, int, /*int type,*/ ObjectTreeItem* = nullptr);
@@ -63,12 +64,8 @@ namespace GDW
         void RefreshItemData();
 
         virtual ObjectForm* GetForm();
-        // virtual void Select(Ui::Workspace&, ObjectForm* = nullptr);
-        // virtual void Unselect(Ui::Workspace&, ObjectForm* = nullptr);
 
         virtual QDebug& Debug(QDebug&) const;
-
-        friend QTextStream& operator<<(QTextStream&, const ObjectTreeItem&);
 
       signals:
 
@@ -79,15 +76,13 @@ namespace GDW
         virtual const Object* GetObject() const;
 
       private:
-        // void ClearObjectGroupBox(Ui::Workspace&);
+        friend QTextStream& operator<<(QTextStream&, const ObjectTreeItem&);
 
         Object* mObject;
         QList<ObjectTreeItem*> mChildItems;
         QList<QVariant> mItemData;
         ObjectTreeItem* mParentItem;
     };
-
-    QDebug& operator<<(QDebug&, const ObjectTreeItem&);
   };
 };
 

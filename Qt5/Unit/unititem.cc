@@ -18,56 +18,52 @@
 
 #include "unititem.hh"
 
-namespace GDW
+using namespace GDW::RPG;
+
+UnitModel UnitTreeItem::MODEL;
+
+UnitModel*
+UnitTreeItem::Model()
 {
-  namespace RPG
-  {
-    UnitModel UnitTreeItem::MODEL;
+  return &MODEL;
+}
 
-    UnitModel*
-    UnitTreeItem::Model()
-    {
-      return &MODEL;
-    }
+UnitTreeItem*
+UnitTreeItem::Create(ObjectTreeItem* parent)
+{
+  return new UnitTreeItem(Unit::New(), parent);
+}
 
-    UnitTreeItem*
-    UnitTreeItem::Create(ObjectTreeItem* parent)
-    {
-      return new UnitTreeItem(Unit::New(), parent);
-    }
+UnitTreeItem*
+UnitTreeItem::Unpack(const QJsonObject& json, ObjectTreeItem* parent)
+{
+  Unit* unit = new Unit(json);
+  UnitTreeItem* item = new UnitTreeItem(unit, parent);
 
-    UnitTreeItem*
-    UnitTreeItem::Unpack(const QJsonObject& json, ObjectTreeItem* parent)
-    {
-      Unit* unit = new Unit(json);
-      UnitTreeItem* item = new UnitTreeItem(unit, parent);
+  return item;
+}
 
-      return item;
-    }
+UnitTreeItem::UnitTreeItem(Unit* unit, ObjectTreeItem* parent)
+  : ObjectTreeItem(unit, parent == nullptr ? MODEL.RootItem() : parent)
+{
+  if(parent == nullptr)
+    MODEL.RootItem()->AppendChild(this);
+}
 
-    UnitTreeItem::UnitTreeItem(Unit* unit, ObjectTreeItem* parent)
-      : ObjectTreeItem(unit, parent == nullptr ? MODEL.RootItem() : parent)
-    {
-      if(parent == nullptr)
-        MODEL.RootItem()->AppendChild(this);
-    }
+UnitForm*
+UnitTreeItem::GetForm()
+{
+  return new UnitForm(GetObject());
+}
 
-    UnitForm*
-    UnitTreeItem::GetForm()
-    {
-      return new UnitForm(GetObject());
-    }
+Unit*
+UnitTreeItem::GetObject()
+{
+  return static_cast<Unit*>(ObjectTreeItem::GetObject());
+}
 
-    Unit*
-    UnitTreeItem::GetObject()
-    {
-      return static_cast<Unit*>(ObjectTreeItem::GetObject());
-    }
-
-    const Unit*
-    UnitTreeItem::GetObject() const
-    {
-      return static_cast<const Unit*>(ObjectTreeItem::GetObject());
-    }
-  };
-};
+const Unit*
+UnitTreeItem::GetObject() const
+{
+  return static_cast<const Unit*>(ObjectTreeItem::GetObject());
+}

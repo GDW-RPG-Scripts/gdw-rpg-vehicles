@@ -17,8 +17,8 @@
  */
 
 #include "vehicleitem.hh"
-#include "weaponitem.hh"
 #include "vehicleform.hh"
+#include "weaponitem.hh"
 
 #include "vehicle.hh"
 #include "weapon.hh"
@@ -27,93 +27,72 @@
 #include <QGroupBox>
 #include <QJsonArray>
 #include <QJsonDocument>
-#include <QPainter>
 #include <QStackedWidget>
 #include <QVBoxLayout>
 
+using namespace GDW::RPG;
+
 class QPaintDevice;
 
-namespace GDW
+VehicleModel VehicleTreeItem::MODEL;
+
+VehicleModel*
+VehicleTreeItem::Model()
 {
-  namespace RPG
-  {
-    VehicleModel VehicleTreeItem::MODEL;
+  return &MODEL;
+}
 
-    VehicleModel*
-    VehicleTreeItem::Model()
-    {
-      return &MODEL;
-    }
+VehicleTreeItem*
+VehicleTreeItem::Create(ObjectTreeItem* parent)
+{
+  return new VehicleTreeItem(Vehicle::New(), parent);
+}
 
-    VehicleTreeItem*
-    VehicleTreeItem::Create(ObjectTreeItem* parent)
-    {
-      return new VehicleTreeItem(Vehicle::New(), parent);
-    }
+VehicleTreeItem*
+VehicleTreeItem::Unpack(const QJsonObject& json, ObjectTreeItem* parent)
+{
+  Vehicle* vehicle = new Vehicle(json);
+  VehicleTreeItem* vti = new VehicleTreeItem(vehicle, parent);
 
-    VehicleTreeItem*
-    VehicleTreeItem::Unpack(const QJsonObject& json, ObjectTreeItem* parent)
-    {
-      Vehicle* vehicle = new Vehicle(json);
-      VehicleTreeItem* vti = new VehicleTreeItem(vehicle, parent);
+  foreach(Weapon* weapon, vehicle->Weapons()) {
+    vti->AppendChild(new WeaponTreeItem(weapon, vti));
+  }
 
-      foreach(Weapon* weapon, vehicle->Weapons()) {
-        vti->AppendChild(new WeaponTreeItem(weapon, vti));
-      }
+  return vti;
+}
 
-      return vti;
-    }
+VehicleTreeItem::VehicleTreeItem(Vehicle* vehicle, ObjectTreeItem* parent)
+  : ObjectTreeItem(vehicle, parent == nullptr ? MODEL.RootItem() : parent)
+{
+  if(parent == nullptr)
+    MODEL.RootItem()->AppendChild(this);
+}
 
-    VehicleTreeItem::VehicleTreeItem(Vehicle* vehicle, ObjectTreeItem* parent)
-      : ObjectTreeItem(vehicle, parent == nullptr ? MODEL.RootItem() : parent)
-    {
-      if(parent == nullptr)
-        MODEL.RootItem()->AppendChild(this);
-    }
+VehicleForm*
+VehicleTreeItem::GetForm()
+{
+  return new VehicleForm(GetObject());
+}
 
-    VehicleForm*
-    VehicleTreeItem::GetForm()
-    {
-      return new VehicleForm(GetObject());
-    }
+Vehicle*
+VehicleTreeItem::GetObject()
+{
+  return static_cast<Vehicle*>(ObjectTreeItem::GetObject());
+}
 
-    Vehicle*
-    VehicleTreeItem::GetObject()
-    {
-      return static_cast<Vehicle*>(ObjectTreeItem::GetObject());
-    }
+const Vehicle*
+VehicleTreeItem::GetObject() const
+{
+  return static_cast<const Vehicle*>(ObjectTreeItem::GetObject());
+}
 
-    const Vehicle*
-    VehicleTreeItem::GetObject() const
-    {
-      return static_cast<const Vehicle*>(ObjectTreeItem::GetObject());
-    }
+QByteArray
+VehicleTreeItem::Template() const
+{
+  QFile file(":/vehicle.svg");
 
-    void
-    VehicleTreeItem::RenderPage(QPaintDevice& device) const
-    {
-      QPainter painter;
-      painter.begin(&device);
-      painter.save();
-      // painter.translate(printer->pageRect().width() / 2.0, printer.pageRect().height() / 2.0);
-      //painter.scale(scale, scale);
-      painter.setBrush(QBrush(Qt::black));
+  if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
+    return "";
 
-      painter.drawLine(  0,   0, 200,   0);
-      painter.drawLine(200,   0, 200, 200);
-      painter.drawLine(200, 200,   0, 200);
-      painter.drawLine(  0, 200,   0,   0);
-
-      painter.restore();
-      painter.end();
-    }
-
-    //    QDebug&
-    //    VehicleTreeItem::Debug(QDebug& debug) const
-    //    {
-    //      debug.nospace() << "Vehicle: ";
-
-    //      return debug;
-    //    }
-  };
-};
+  return file.readAll();
+}

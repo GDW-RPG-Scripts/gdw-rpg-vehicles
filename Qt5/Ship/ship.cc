@@ -18,42 +18,38 @@
 
 #include "ship.hh"
 
-namespace GDW
+using namespace GDW::RPG;
+
+const QString
+Ship::JSON_TYPE = "__GDW_RPG_Ship__";
+
+Ship::Ship(const QJsonObject& json)
+  : Object (json)
+{}
+
+Ship*
+Ship::New()
 {
-  namespace RPG
+  static const QJsonObject object
   {
-    const QString
-    Ship::JSON_TYPE = "__GDW_RPG_Ship__";
-
-    Ship::Ship(const QJsonObject& json)
-      : Object (json)
-    {}
-
-    Ship*
-    Ship::New()
-    {
-      static const QJsonObject object
-      {
-        {"__GDW_RPG_Type__", JSON_TYPE},
-        {PROP_NAME, "[Name]"}
-      };
-
-      return new Ship(object);
-    }
-
-
-    const QString Ship::PROP_NAME = "name";
-
-    QString
-    Ship::Name() const
-    {
-      return GetStringFor(PROP_NAME);
-    }
-
-    void
-    Ship::Name(const QString& value)
-    {
-      SetStringFor(PROP_NAME, value);
-    }
+    {"__GDW_RPG_Type__", JSON_TYPE},
+    {PROP_NAME, "[Name]"}
   };
-};
+
+  return new Ship(object);
+}
+
+
+const QString Ship::PROP_NAME = "name";
+
+QString
+Ship::Name() const
+{
+  return GetStringFor(PROP_NAME);
+}
+
+void
+Ship::Name(const QString& value)
+{
+  SetStringFor(PROP_NAME, value);
+}

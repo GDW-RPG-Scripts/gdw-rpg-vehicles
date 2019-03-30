@@ -18,11 +18,7 @@
 
 #include "exception.hh"
 
-namespace GDW
-{
-  namespace RPG
-  {
-    InvalidTypeException::InvalidTypeException()
-    {}
-  };
-};
+using namespace GDW::RPG;
+
+InvalidTypeException::InvalidTypeException()
+{}

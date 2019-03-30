@@ -21,65 +21,61 @@
 
 #include <QtWidgets>
 
-namespace GDW
+using namespace GDW::RPG;
+
+PrefsDialog::PrefsDialog(Workspace* parent)
+  : QDialog(parent), mRuleGroup(new QButtonGroup)
 {
-  namespace RPG
+  QSettings settings;
+  QVBoxLayout* dialogLayout = new QVBoxLayout;
+
+  //
+  QGroupBox* startBox = new QGroupBox(tr("Startup behavior") + ":", this);
+  QVBoxLayout* startBoxLayout = new QVBoxLayout;
+
+  QCheckBox* checkbox =
+      new QCheckBox(tr("Load default database on startup") + ".", this);
+  checkbox->setChecked(settings.value("loadOnStart", true).toBool());
+  connect(checkbox, SIGNAL(stateChanged(int)), parent, SLOT(LoadOnStart(int)));
+
+  startBoxLayout->addWidget(checkbox);
+  startBox->setLayout(startBoxLayout);
+  dialogLayout->addWidget(startBox);
+
+  //
+  QGroupBox* ruleBox = new QGroupBox(tr("Ruleset") + ":", this);
+  QVBoxLayout* ruleBoxLayout = new QVBoxLayout;
+
+  QList<QRadioButton*> ruleSet =
   {
-    PrefsDialog::PrefsDialog(Workspace* parent)
-      : QDialog(parent), mRuleGroup(new QButtonGroup)
-    {
-      QSettings settings;
-      QVBoxLayout* dialogLayout = new QVBoxLayout;
-
-      //
-      QGroupBox* startBox = new QGroupBox(tr("Startup behavior") + ":", this);
-      QVBoxLayout* startBoxLayout = new QVBoxLayout;
-
-      QCheckBox* checkbox =
-          new QCheckBox(tr("Load default database on startup") + ".", this);
-      checkbox->setChecked(settings.value("loadOnStart", true).toBool());
-      connect(checkbox, SIGNAL(stateChanged(int)), parent, SLOT(LoadOnStart(int)));
-
-      startBoxLayout->addWidget(checkbox);
-      startBox->setLayout(startBoxLayout);
-      dialogLayout->addWidget(startBox);
-
-      //
-      QGroupBox* ruleBox = new QGroupBox(tr("Ruleset") + ":", this);
-      QVBoxLayout* ruleBoxLayout = new QVBoxLayout;
-
-      QList<QRadioButton*> ruleSet =
-      {
-        new QRadioButton(tr("Twilight 2000 (2.2) and TNE rules") + ".", this),
-        new QRadioButton(tr("Striker I rules") + ".", this),
-        new QRadioButton(tr("Actual armor equivalent in centimeters of steel (cm)") + ".", this),
-        new QRadioButton(tr("Mongoose T2E vehicle rules") + ".", this),
-        new QRadioButton(tr("Cepheus vehicle rules") + ".", this),
-        new QRadioButton(tr("Armor calculator") + ".", this)
-      };
-
-      ruleSet[settings.value("ruleset", 0).toInt()]->setChecked(true);
-
-      for(int i = 0; i < ruleSet.count(); ++i) {
-        ruleBoxLayout->addWidget(ruleSet[i]);
-        mRuleGroup->addButton(ruleSet[i], i);
-      }
-      connect(mRuleGroup, SIGNAL(buttonReleased(int)), parent, SLOT(RuleSet(int)));
-
-      ruleBox->setLayout(ruleBoxLayout);
-      dialogLayout->addWidget(ruleBox);
-
-      QDialogButtonBox* buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok, this);
-      connect(buttonBox, &QDialogButtonBox::accepted, this, &QDialog::accept);
-      dialogLayout->addWidget(buttonBox);
-
-      setWindowTitle(tr("Preferences"));
-      setLayout(dialogLayout);
-    }
-
-    PrefsDialog::~PrefsDialog()
-    {
-      delete mRuleGroup;
-    }
+    new QRadioButton(tr("Twilight 2000 (2.2) and TNE rules") + ".", this),
+    new QRadioButton(tr("Striker I rules") + ".", this),
+    new QRadioButton(tr("Actual armor equivalent in centimeters of steel (cm)") + ".", this),
+    new QRadioButton(tr("Mongoose T2E vehicle rules") + ".", this),
+    new QRadioButton(tr("Cepheus vehicle rules") + ".", this),
+    new QRadioButton(tr("Armor calculator") + ".", this)
   };
-};
+
+  ruleSet[settings.value("ruleset", 0).toInt()]->setChecked(true);
+
+  for(int i = 0; i < ruleSet.count(); ++i) {
+    ruleBoxLayout->addWidget(ruleSet[i]);
+    mRuleGroup->addButton(ruleSet[i], i);
+  }
+  connect(mRuleGroup, SIGNAL(buttonReleased(int)), parent, SLOT(RuleSet(int)));
+
+  ruleBox->setLayout(ruleBoxLayout);
+  dialogLayout->addWidget(ruleBox);
+
+  QDialogButtonBox* buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok, this);
+  connect(buttonBox, &QDialogButtonBox::accepted, this, &QDialog::accept);
+  dialogLayout->addWidget(buttonBox);
+
+  setWindowTitle(tr("Preferences"));
+  setLayout(dialogLayout);
+}
+
+PrefsDialog::~PrefsDialog()
+{
+  delete mRuleGroup;
+}

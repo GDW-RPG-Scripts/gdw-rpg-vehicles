@@ -18,22 +18,18 @@
 
 #include "unitmodel.hh"
 
-namespace GDW
-{
-  namespace RPG
-  {
-    UnitModel::UnitModel(QObject* parent)
-      : ObjectModel(parent)
-    {}
+using namespace GDW::RPG;
 
-    const QList<QVariant>&
-    UnitModel::RootData() const
-    {
-      static QList<QVariant> rootData =
-      {
-        tr("Name")
-      };
-      return rootData;
-    }
+UnitModel::UnitModel(QObject* parent)
+  : ObjectModel(parent)
+{}
+
+const QList<QVariant>&
+UnitModel::RootData() const
+{
+  static QList<QVariant> rootData =
+  {
+    tr("Name")
   };
-};
+  return rootData;
+}

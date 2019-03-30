@@ -20,105 +20,101 @@
 #include "weapon.hh"
 #include "ui_weaponform.h"
 
-namespace GDW
+using namespace GDW::RPG;
+
+WeaponForm::WeaponForm(Weapon* weapon, QWidget* parent) :
+  ObjectForm(parent), mWeapon(weapon), mUi(new Ui::WeaponForm)
 {
-  namespace RPG
-  {
-    WeaponForm::WeaponForm(Weapon* weapon, QWidget* parent) :
-      ObjectForm(parent), mWeapon(weapon), mUi(new Ui::WeaponForm)
-    {
-      mUi->setupUi(this);
+  mUi->setupUi(this);
 
-      AddSvgFrame("WEP", mUi->svgFrame);
-      Read();
-    }
+  AddSvgFrame("WEP", mUi->svgFrame);
+  Read();
+}
 
-    WeaponForm::~WeaponForm()
-    {
-      delete mUi;
-    }
+WeaponForm::~WeaponForm()
+{
+  delete mUi;
+}
 
 
-    void WeaponForm::Read()
-    {
-      ObjectForm::Read();
+void WeaponForm::Read()
+{
+  ObjectForm::Read();
 
-      mUi->techLevelLineEdit->setText(QString::number(mWeapon->TechLevel()));
+  mUi->techLevelLineEdit->setText(QString::number(mWeapon->TechLevel()));
 
-      mUi->     wtypLineEdit->setText(                mWeapon->     Wtyp());
-      mUi->    wqualLineEdit->setText(                mWeapon->    Wqual());
-      mUi->      rofLineEdit->setText(QString::number(mWeapon->      Rof()));
-      mUi->      rngLineEdit->setText(QString::number(mWeapon->      Rng()));
-      mUi->       psLineEdit->setText(QString::number(mWeapon->       Ps()));
-      mUi->       pmLineEdit->setText(QString::number(mWeapon->       Pm()));
-      mUi->       plLineEdit->setText(QString::number(mWeapon->       Pl()));
-      mUi->       pxLineEdit->setText(QString::number(mWeapon->       Px()));
-      mUi->     ammoLineEdit->setText(QString::number(mWeapon->     Ammo()));
-      mUi->      conLineEdit->setText(QString::number(mWeapon->      Con()));
-      mUi->      burLineEdit->setText(QString::number(mWeapon->      Bur()));
-      mUi->     pranLineEdit->setText(QString::number(mWeapon->     Pran()));
-    }
+  mUi->     wtypLineEdit->setText(                mWeapon->     Wtyp());
+  mUi->    wqualLineEdit->setText(                mWeapon->    Wqual());
+  mUi->      rofLineEdit->setText(QString::number(mWeapon->      Rof()));
+  mUi->      rngLineEdit->setText(QString::number(mWeapon->      Rng()));
+  mUi->       psLineEdit->setText(QString::number(mWeapon->       Ps()));
+  mUi->       pmLineEdit->setText(QString::number(mWeapon->       Pm()));
+  mUi->       plLineEdit->setText(QString::number(mWeapon->       Pl()));
+  mUi->       pxLineEdit->setText(QString::number(mWeapon->       Px()));
+  mUi->     ammoLineEdit->setText(QString::number(mWeapon->     Ammo()));
+  mUi->      conLineEdit->setText(QString::number(mWeapon->      Con()));
+  mUi->      burLineEdit->setText(QString::number(mWeapon->      Bur()));
+  mUi->     pranLineEdit->setText(QString::number(mWeapon->     Pran()));
+}
 
-    void
-    WeaponForm::Write()
-    {
-      ObjectForm::Write();
+void
+WeaponForm::Write()
+{
+  ObjectForm::Write();
 
-      mWeapon->TechLevel(mUi->  techLevelLineEdit->text().toDouble());
+  mWeapon->TechLevel(mUi->  techLevelLineEdit->text().toDouble());
 
-      mWeapon->     Wtyp(mUi->       wtypLineEdit->text()           );
-      mWeapon->    Wqual(mUi->      wqualLineEdit->text()           );
-      mWeapon->      Rof(mUi->        rofLineEdit->text().toDouble());
-      mWeapon->      Rng(mUi->        rngLineEdit->text().toDouble());
-      mWeapon->       Ps(mUi->         psLineEdit->text().toDouble());
-      mWeapon->       Pm(mUi->         pmLineEdit->text().toDouble());
-      mWeapon->       Pl(mUi->         plLineEdit->text().toDouble());
-      mWeapon->       Px(mUi->         pxLineEdit->text().toDouble());
-      mWeapon->     Ammo(mUi->       ammoLineEdit->text().toDouble());
-      mWeapon->      Con(mUi->        conLineEdit->text().toDouble());
-      mWeapon->      Bur(mUi->        burLineEdit->text().toDouble());
-      mWeapon->     Pran(mUi->       pranLineEdit->text().toDouble());
+  mWeapon->     Wtyp(mUi->       wtypLineEdit->text()           );
+  mWeapon->    Wqual(mUi->      wqualLineEdit->text()           );
+  mWeapon->      Rof(mUi->        rofLineEdit->text().toDouble());
+  mWeapon->      Rng(mUi->        rngLineEdit->text().toDouble());
+  mWeapon->       Ps(mUi->         psLineEdit->text().toDouble());
+  mWeapon->       Pm(mUi->         pmLineEdit->text().toDouble());
+  mWeapon->       Pl(mUi->         plLineEdit->text().toDouble());
+  mWeapon->       Px(mUi->         pxLineEdit->text().toDouble());
+  mWeapon->     Ammo(mUi->       ammoLineEdit->text().toDouble());
+  mWeapon->      Con(mUi->        conLineEdit->text().toDouble());
+  mWeapon->      Bur(mUi->        burLineEdit->text().toDouble());
+  mWeapon->     Pran(mUi->       pranLineEdit->text().toDouble());
 
-      SetReadOnly(true);
-    }
+  SetReadOnly(true);
+}
 
-    void
-    WeaponForm::SetReadOnly(bool value)
-    {
-      ObjectForm::SetReadOnly(value);
+void
+WeaponForm::SetReadOnly(bool value)
+{
+  ObjectForm::SetReadOnly(value);
 
-      mUi->  techLevelLineEdit->setReadOnly(value);
+  mUi->  techLevelLineEdit->setReadOnly(value);
 
-      mUi->       wtypLineEdit->setReadOnly(value);
-      mUi->      wqualLineEdit->setReadOnly(value);
-      mUi->        rofLineEdit->setReadOnly(value);
-      mUi->        rngLineEdit->setReadOnly(value);
-      mUi->         psLineEdit->setReadOnly(value);
-      mUi->         pmLineEdit->setReadOnly(value);
-      mUi->         plLineEdit->setReadOnly(value);
-      mUi->         pxLineEdit->setReadOnly(value);
-      mUi->       ammoLineEdit->setReadOnly(value);
-      mUi->        conLineEdit->setReadOnly(value);
-      mUi->        burLineEdit->setReadOnly(value);
-      mUi->       pranLineEdit->setReadOnly(value);
-    }
+  mUi->       wtypLineEdit->setReadOnly(value);
+  mUi->      wqualLineEdit->setReadOnly(value);
+  mUi->        rofLineEdit->setReadOnly(value);
+  mUi->        rngLineEdit->setReadOnly(value);
+  mUi->         psLineEdit->setReadOnly(value);
+  mUi->         pmLineEdit->setReadOnly(value);
+  mUi->         plLineEdit->setReadOnly(value);
+  mUi->         pxLineEdit->setReadOnly(value);
+  mUi->       ammoLineEdit->setReadOnly(value);
+  mUi->        conLineEdit->setReadOnly(value);
+  mUi->        burLineEdit->setReadOnly(value);
+  mUi->       pranLineEdit->setReadOnly(value);
+}
 
-    QString
-    WeaponForm::Title() const
-    {
-      return tr("Weapon");
-    }
+QString
+WeaponForm::Title() const
+{
+  return tr("Weapon");
+}
 
-    Weapon*
-    WeaponForm::GetObject()
-    {
-      return mWeapon;
-    }
+Weapon*
+WeaponForm::GetObject()
+{
+  return mWeapon;
+}
 
-    const Weapon*
-    WeaponForm::GetObject() const
-    {
-      return mWeapon;
-    }
-  };
-};
+const Weapon*
+WeaponForm::GetObject() const
+{
+  return mWeapon;
+}

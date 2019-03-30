@@ -19,60 +19,56 @@
 #include "unitform.hh"
 #include "ui_unitform.h"
 
-namespace GDW
+using namespace GDW::RPG;
+
+UnitForm::UnitForm(Unit* unit, QWidget* parent)
+  : ObjectForm(parent), mUnit(unit), mUi(new Ui::UnitForm)
 {
-  namespace RPG
-  {
-    UnitForm::UnitForm(Unit* unit, QWidget* parent)
-      : ObjectForm(parent), mUnit(unit), mUi(new Ui::UnitForm)
-    {
-      mUi->setupUi(this);
+  mUi->setupUi(this);
 
-      Read();
-    }
+  Read();
+}
 
-    UnitForm::~UnitForm()
-    {
-      delete mUi;
-    }
+UnitForm::~UnitForm()
+{
+  delete mUi;
+}
 
-    void
-    UnitForm::Read()
-    {
-      ObjectForm::Read();
-    }
+void
+UnitForm::Read()
+{
+  ObjectForm::Read();
+}
 
-    void
-    UnitForm::Write()
-    {
-      ObjectForm::Write();
+void
+UnitForm::Write()
+{
+  ObjectForm::Write();
 
-      SetReadOnly(true);
-    }
+  SetReadOnly(true);
+}
 
-    void
-    UnitForm::SetReadOnly(bool value)
-    {
-      ObjectForm::SetReadOnly(value);
-    }
+void
+UnitForm::SetReadOnly(bool value)
+{
+  ObjectForm::SetReadOnly(value);
+}
 
-    QString
-    UnitForm::Title() const
-    {
+QString
+UnitForm::Title() const
+{
 
-      return tr("Unit");
-    }
+  return tr("Unit");
+}
 
-    Unit*
-    UnitForm::GetObject()
-    {
-      return mUnit;
-    }
+Unit*
+UnitForm::GetObject()
+{
+  return mUnit;
+}
 
-    const Unit*
-    UnitForm::GetObject() const
-    {
-      return mUnit;
-    }
-  };
-};
+const Unit*
+UnitForm::GetObject() const
+{
+  return mUnit;
+}

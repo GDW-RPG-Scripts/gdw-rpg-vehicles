@@ -18,22 +18,18 @@
 
 #include "shipmodel.hh"
 
-namespace GDW
-{
-  namespace RPG
-  {
-    ShipModel::ShipModel(QObject* parent)
-      : ObjectModel(parent)
-    {}
+using namespace GDW::RPG;
 
-    const QList<QVariant>&
-    ShipModel::RootData() const
-    {
-      static QList<QVariant> rootData =
-      {
-        tr("Name")
-      };
-      return rootData;
-    }
+ShipModel::ShipModel(QObject* parent)
+  : ObjectModel(parent)
+{}
+
+const QList<QVariant>&
+ShipModel::RootData() const
+{
+  static QList<QVariant> rootData =
+  {
+    tr("Name")
   };
-};
+  return rootData;
+}

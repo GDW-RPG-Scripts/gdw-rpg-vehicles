@@ -31,184 +31,180 @@
 #endif
 #endif
 
-namespace GDW
+using namespace GDW::RPG;
+
+ObjectModel::ObjectModel(QObject* parent)
+  : QAbstractItemModel(parent), mRootItem(nullptr)
+{}
+
+ObjectModel::~ObjectModel()
 {
-  namespace RPG
-  {
-    ObjectModel::ObjectModel(QObject* parent)
-      : QAbstractItemModel(parent), mRootItem(nullptr)
-    {}
+  if(mRootItem != nullptr)
+    delete mRootItem;
+}
 
-    ObjectModel::~ObjectModel()
-    {
-      if(mRootItem != nullptr)
-        delete mRootItem;
-    }
+//
+// Public API
+//
+void
+ObjectModel::Print(QModelIndex index, QPrinter& printer) const
+{
+  ItemFor(index)->RenderPage(printer);
+  //ui->textEdit->print(&printDev);
+}
 
-    //
-    // Public API
-    //
-    void
-    ObjectModel::Print(QModelIndex index, QPrinter& printer) const
-    {
-      ItemFor(index)->RenderPage(printer);
-      //ui->textEdit->print(&printDev);
-    }
+//
+// Extension points
+//
+ObjectTreeItem*
+ObjectModel::RootItem() const
+{
+  if(mRootItem == nullptr)
+    mRootItem = new ObjectTreeItem(RootData());
 
-    //
-    // Extension points
-    //
-    ObjectTreeItem*
-    ObjectModel::RootItem() const
-    {
-      if(mRootItem == nullptr)
-        mRootItem = new ObjectTreeItem(RootData());
+  return mRootItem;
+}
 
-      return mRootItem;
-    }
+ObjectTreeItem*
+ObjectModel::ItemFor(const QModelIndex& index) const
+{
+  if (index.isValid()) {
+    ObjectTreeItem* item =
+        static_cast<ObjectTreeItem*>(index.internalPointer());
+    if (item)
+      return item;
+  }
+  return RootItem();
+}
 
-    ObjectTreeItem*
-    ObjectModel::ItemFor(const QModelIndex& index) const
-    {
-      if (index.isValid()) {
-        ObjectTreeItem* item =
-            static_cast<ObjectTreeItem*>(index.internalPointer());
-        if (item)
-          return item;
-      }
-      return RootItem();
-    }
+//
+// Mandatory overrides
+//
+QModelIndex
+ObjectModel::index(int row, int column, const QModelIndex& parent) const
+{
+  if (!hasIndex(row, column, parent))
+    return QModelIndex();
 
-    //
-    // Mandatory overrides
-    //
-    QModelIndex
-    ObjectModel::index(int row, int column, const QModelIndex& parent) const
-    {
-      if (!hasIndex(row, column, parent))
-        return QModelIndex();
+  ObjectTreeItem* parentItem = ItemFor(parent);
+  ObjectTreeItem* childItem = parentItem->Child(row);
+  if (childItem)
+    return createIndex(row, column, childItem);
+  else
+    return QModelIndex();
+}
 
-      ObjectTreeItem* parentItem = ItemFor(parent);
-      ObjectTreeItem* childItem = parentItem->Child(row);
-      if (childItem)
-        return createIndex(row, column, childItem);
-      else
-        return QModelIndex();
-    }
+QModelIndex
+ObjectModel::parent(const QModelIndex& index) const
+{
+  if (!index.isValid())
+    return QModelIndex();
 
-    QModelIndex
-    ObjectModel::parent(const QModelIndex& index) const
-    {
-      if (!index.isValid())
-        return QModelIndex();
+  ObjectTreeItem* childItem = ItemFor(index);
+  ObjectTreeItem* parentItem = childItem->ParentItem();
 
-      ObjectTreeItem* childItem = ItemFor(index);
-      ObjectTreeItem* parentItem = childItem->ParentItem();
+  if (parentItem == RootItem())
+    return QModelIndex();
 
-      if (parentItem == RootItem())
-        return QModelIndex();
+  return createIndex(parentItem->Row(), 0, parentItem);
+}
 
-      return createIndex(parentItem->Row(), 0, parentItem);
-    }
+int
+ObjectModel::rowCount(const QModelIndex& index) const
+{
+  if(index.column() > 0)
+    return 0;
 
-    int
-    ObjectModel::rowCount(const QModelIndex& index) const
-    {
-      if(index.column() > 0)
-        return 0;
+  return ItemFor(index)->ChildCount();
+}
 
-      return ItemFor(index)->ChildCount();
-    }
+int
+ObjectModel::columnCount(const QModelIndex& index) const
+{
+  return ItemFor(index)->ColumnCount();
+}
 
-    int
-    ObjectModel::columnCount(const QModelIndex& index) const
-    {
-      return ItemFor(index)->ColumnCount();
-    }
+QVariant
+ObjectModel::data(const QModelIndex& index, int role) const
+{
+  if (!index.isValid())
+    return QVariant();
 
-    QVariant
-    ObjectModel::data(const QModelIndex& index, int role) const
-    {
-      if (!index.isValid())
-        return QVariant();
+  if (role != Qt::DisplayRole && role != Qt::EditRole)
+    return QVariant();
 
-      if (role != Qt::DisplayRole && role != Qt::EditRole)
-        return QVariant();
+  return ItemFor(index)->Data(index.column());
+}
 
-      return ItemFor(index)->Data(index.column());
-    }
+//
+// Optional overrides
+//
+Qt::ItemFlags
+ObjectModel::flags(const QModelIndex& index) const
+{
+  if (!index.isValid())
+    return Qt::NoItemFlags;
 
-    //
-    // Optional overrides
-    //
-    Qt::ItemFlags
-    ObjectModel::flags(const QModelIndex& index) const
-    {
-      if (!index.isValid())
-        return Qt::NoItemFlags;
+  return QAbstractItemModel::flags(index);
+  // return Qt::ItemIsEditable | QAbstractItemModel::flags(index);
+}
 
-      return QAbstractItemModel::flags(index);
-      // return Qt::ItemIsEditable | QAbstractItemModel::flags(index);
-    }
+QVariant
+ObjectModel::headerData(int section,
+                        Qt::Orientation orientation,
+                        int role) const
+{
+  if (orientation == Qt::Horizontal && role == Qt::DisplayRole)
+    return RootItem()->Data(section);
 
-    QVariant
-    ObjectModel::headerData(int section,
-                            Qt::Orientation orientation,
-                            int role) const
-    {
-      if (orientation == Qt::Horizontal && role == Qt::DisplayRole)
-        return RootItem()->Data(section);
+  return QVariant();
+}
 
-      return QVariant();
-    }
+bool
+ObjectModel::insertRows(int position, int rows, const QModelIndex& parent)
+{
+  ObjectTreeItem* parentItem = ItemFor(parent);
 
-    bool
-    ObjectModel::insertRows(int position, int rows, const QModelIndex& parent)
-    {
-      ObjectTreeItem* parentItem = ItemFor(parent);
+  beginInsertRows(parent, position, position + rows - 1);
+  bool success = parentItem->InsertChildren(position, rows);
+  endInsertRows();
 
-      beginInsertRows(parent, position, position + rows - 1);
-      bool success = parentItem->InsertChildren(position, rows);
-      endInsertRows();
+  return success;
+}
 
-      return success;
-    }
+bool
+ObjectModel::removeRows(int position, int rows, const QModelIndex& parent)
+{
+  ObjectTreeItem* parentItem = ItemFor(parent);
 
-    bool
-    ObjectModel::removeRows(int position, int rows, const QModelIndex& parent)
-    {
-      ObjectTreeItem* parentItem = ItemFor(parent);
+  beginRemoveRows(parent, position, position + rows - 1);
+  bool success = parentItem->RemoveChildren(position, rows);
+  endRemoveRows();
 
-      beginRemoveRows(parent, position, position + rows - 1);
-      bool success = parentItem->RemoveChildren(position, rows);
-      endRemoveRows();
+  return success;
+}
 
-      return success;
-    }
+bool
+ObjectModel::setData(const QModelIndex& index,
+                     const QVariant& value, int role)
+{
+  if (!index.isValid() || role != Qt::EditRole)
+    return false;
 
-    bool
-    ObjectModel::setData(const QModelIndex& index,
-                         const QVariant& value, int role)
-    {
-      if (!index.isValid() || role != Qt::EditRole)
-        return false;
+  ObjectTreeItem* item = ItemFor(index);
+  bool result = item->SetData(index.column(), value);
 
-      ObjectTreeItem* item = ItemFor(index);
-      bool result = item->SetData(index.column(), value);
+  if (result)
+    emit dataChanged(index, index, {role});
 
-      if (result)
-        emit dataChanged(index, index, {role});
+  return result;
+}
 
-      return result;
-    }
-
-    //
-    // Output
-    //
-    QTextStream&
-    operator<<(QTextStream& out, const ObjectModel& model)
-    {
-      return out << *model.RootItem();
-    }
-  };
-};
+//
+// Output
+//
+QTextStream&
+operator<<(QTextStream& out, const ObjectModel& model)
+{
+  return out << *model.RootItem();
+}

@@ -42,12 +42,11 @@ namespace GDW
         virtual Object* Copy();
         virtual const Object* Copy() const;
 
-        void Print(int indentation = 0) const;
-
         void TechLevel(double);
         double TechLevel() const;
 
         operator const QJsonObject&() const;
+        QVariantHash ToVariantHash() const;
 
         virtual QList<QVariant> ItemData() const;
 

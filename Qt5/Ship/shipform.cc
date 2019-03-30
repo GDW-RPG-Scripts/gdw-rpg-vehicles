@@ -19,60 +19,56 @@
 #include "shipform.hh"
 #include "ui_shipform.h"
 
-namespace GDW
+using namespace GDW::RPG;
+
+ShipForm::ShipForm(Ship* ship, QWidget *parent)
+  : ObjectForm(parent), mShip(ship), mUi(new Ui::ShipForm)
 {
-  namespace RPG
-  {
-    ShipForm::ShipForm(Ship* ship, QWidget *parent)
-      : ObjectForm(parent), mShip(ship), mUi(new Ui::ShipForm)
-    {
-      mUi->setupUi(this);
+  mUi->setupUi(this);
 
-      Read();
-    }
+  Read();
+}
 
-    ShipForm::~ShipForm()
-    {
-      delete mUi;
-    }
+ShipForm::~ShipForm()
+{
+  delete mUi;
+}
 
-    void
-    ShipForm::Read()
-    {
-      ObjectForm::Read();
-    }
+void
+ShipForm::Read()
+{
+  ObjectForm::Read();
+}
 
-    void
-    ShipForm::Write()
-    {
-      ObjectForm::Write();
+void
+ShipForm::Write()
+{
+  ObjectForm::Write();
 
-      SetReadOnly(true);
-    }
+  SetReadOnly(true);
+}
 
-    void
-    ShipForm::SetReadOnly(bool value)
-    {
-      ObjectForm::SetReadOnly(value);
-    }
+void
+ShipForm::SetReadOnly(bool value)
+{
+  ObjectForm::SetReadOnly(value);
+}
 
-    QString
-    ShipForm::Title() const
-    {
+QString
+ShipForm::Title() const
+{
 
-      return tr("Unit");
-    }
+  return tr("Unit");
+}
 
-    Ship*
-    ShipForm::GetObject()
-    {
-      return mShip;
-    }
+Ship*
+ShipForm::GetObject()
+{
+  return mShip;
+}
 
-    const Ship*
-    ShipForm::GetObject() const
-    {
-      return mShip;
-    }
-  };
-};
+const Ship*
+ShipForm::GetObject() const
+{
+  return mShip;
+}

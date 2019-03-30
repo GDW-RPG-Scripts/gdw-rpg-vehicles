@@ -18,24 +18,20 @@
 
 #include "vehiclemodel.hh"
 
-namespace GDW
-{
-  namespace RPG
-  {
-    VehicleModel::VehicleModel(QObject* parent)
-      : ObjectModel(parent)
-    {}
+using namespace GDW::RPG;
 
-    const QList<QVariant>&
-    VehicleModel::RootData() const
-    {
-      static const QList<QVariant> rootData =
-      {
-        tr("Name"),
-        tr("Type"),
-        tr("Nationality")
-      };
-      return rootData;
-    }
+VehicleModel::VehicleModel(QObject* parent)
+  : ObjectModel(parent)
+{}
+
+const QList<QVariant>&
+VehicleModel::RootData() const
+{
+  static const QList<QVariant> rootData =
+  {
+    tr("Name"),
+    tr("Type"),
+    tr("Nationality")
   };
-};
+  return rootData;
+}

@@ -18,22 +18,18 @@
 
 #include "weaponmodel.hh"
 
-namespace GDW
-{
-  namespace RPG
-  {
-    WeaponModel::WeaponModel(QObject* parent)
-      : ObjectModel(parent)
-    {}
+using namespace GDW::RPG;
 
-    const QList<QVariant>&
-    WeaponModel::RootData() const
-    {
-      static const QList<QVariant> rootData =
-      {
-        tr("Name")
-      };
-      return rootData;
-    }
+WeaponModel::WeaponModel(QObject* parent)
+  : ObjectModel(parent)
+{}
+
+const QList<QVariant>&
+WeaponModel::RootData() const
+{
+  static const QList<QVariant> rootData =
+  {
+    tr("Name")
   };
-};
+  return rootData;
+}

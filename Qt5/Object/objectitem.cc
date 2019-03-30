@@ -20,233 +20,188 @@
 #include "object.hh"
 #include "objectform.hh"
 
-// #include "ui_mainwindow.h"
+#include "mustache.hh"
 
 #include <QDebug>
 #include <QGroupBox>
 #include <QJsonArray>
 #include <QJsonDocument>
+#include <QPainter>
 #include <QStackedWidget>
+#include <QSvgRenderer>
 #include <QVBoxLayout>
 
-namespace GDW
+using namespace GDW::RPG;
+
+ObjectTreeItem::ObjectTreeItem(Object* object, ObjectTreeItem* parent)
+  : mObject(object), mItemData(object->ItemData()), mParentItem(parent)
+{}
+
+ObjectTreeItem::ObjectTreeItem(const QList<QVariant>& data, ObjectTreeItem* parent)
+  : mObject(nullptr), mItemData(data), mParentItem(parent)
+{}
+
+ObjectTreeItem::~ObjectTreeItem()
 {
-  namespace RPG
-  {
-    ObjectTreeItem::ObjectTreeItem(Object* object, ObjectTreeItem* parent)
-      : mObject(object), mItemData(object->ItemData()), mParentItem(parent)
-    {}
+  if(mObject != nullptr)
+    delete mObject;
 
-    ObjectTreeItem::ObjectTreeItem(const QList<QVariant>& data, ObjectTreeItem* parent)
-      : mObject(nullptr), mItemData(data), mParentItem(parent)
-    {}
+  qDeleteAll(mChildItems);
+}
 
-    ObjectTreeItem::~ObjectTreeItem()
-    {
-      if(mObject != nullptr)
-        delete mObject;
+ObjectTreeItem*
+ObjectTreeItem::AppendChild(ObjectTreeItem* item)
+{
+  mChildItems.append(item);
 
-      qDeleteAll(mChildItems);
-    }
+  return item;
+}
 
-    ObjectTreeItem*
-    ObjectTreeItem::AppendChild(ObjectTreeItem* item)
-    {
-      mChildItems.append(item);
+ObjectTreeItem*
+ObjectTreeItem::Child(int row)
+{
+  return mChildItems.value(row);
+}
 
-      return item;
-    }
+int
+ObjectTreeItem::ChildCount() const
+{
+  return mChildItems.count();
+}
 
-    ObjectTreeItem*
-    ObjectTreeItem::Child(int row)
-    {
-      return mChildItems.value(row);
-    }
+int
+ObjectTreeItem::ColumnCount() const
+{
+  return mItemData.count();
+}
 
-    int
-    ObjectTreeItem::ChildCount() const
-    {
-      return mChildItems.count();
-    }
+QVariant
+ObjectTreeItem::Data(int column) const
+{
+  return mItemData.value(column);
+}
 
-    int
-    ObjectTreeItem::ColumnCount() const
-    {
-      return mItemData.count();
-    }
+bool
+ObjectTreeItem::SetData(int column, const QVariant& value)
+{
+  if (column < 0 || column >= mItemData.size())
+    return false;
 
-    QVariant
-    ObjectTreeItem::Data(int column) const
-    {
-      return mItemData.value(column);
-    }
+  mItemData[column] = value;
+  return true;
+}
 
-    bool
-    ObjectTreeItem::SetData(int column, const QVariant& value)
-    {
-      if (column < 0 || column >= mItemData.size())
-        return false;
+bool
+ObjectTreeItem::InsertChildren(int position, int count, // int type,
+                               ObjectTreeItem* item)
+{
+  if (position < 0 || position > mChildItems.size())
+    return false;
 
-      mItemData[column] = value;
-      return true;
-    }
+  for (int row = 0; row < count; ++row) {
+    mChildItems.insert(position, item);
+  }
 
-    bool
-    ObjectTreeItem::InsertChildren(int position, int count, // int type,
-                                ObjectTreeItem* item)
-    {
-      if (position < 0 || position > mChildItems.size())
-        return false;
+  return true;
+}
 
-      for (int row = 0; row < count; ++row) {
-        mChildItems.insert(position, item);
-      }
+bool
+ObjectTreeItem::RemoveChildren(int position, int count)
+{
+  if (position < 0 || position + count > mChildItems.size())
+    return false;
 
-      return true;
-    }
+  for (int row = 0; row < count; ++row)
+    delete mChildItems.takeAt(position);
 
-    bool
-    ObjectTreeItem::RemoveChildren(int position, int count)
-    {
-      if (position < 0 || position + count > mChildItems.size())
-        return false;
+  return true;
+}
 
-      for (int row = 0; row < count; ++row)
-        delete mChildItems.takeAt(position);
+ObjectTreeItem*
+ObjectTreeItem::ParentItem()
+{
+  return mParentItem;
+}
 
-      return true;
-    }
+int
+ObjectTreeItem::Row() const
+{
+  if (mParentItem)
+    return mParentItem->mChildItems.indexOf(const_cast<ObjectTreeItem*>(this));
 
-    ObjectTreeItem*
-    ObjectTreeItem::ParentItem()
-    {
-      return mParentItem;
-    }
-
-    int
-    ObjectTreeItem::Row() const
-    {
-      if (mParentItem)
-        return mParentItem->mChildItems.indexOf(const_cast<ObjectTreeItem*>(this));
-
-      return 0;
-    }
+  return 0;
+}
 
 
-    QTextStream&
-    operator<<(QTextStream& ots, const ObjectTreeItem& item)
-    {
-      QJsonArray jarr;
+QTextStream&
+GDW::RPG::operator<<(QTextStream& ots, const ObjectTreeItem& item)
+{
+  QJsonArray jarr;
 
-      for (int i = 0; i < item.mChildItems.size(); ++i) {
-        Object* obj = item.mChildItems.at(i)->GetObject();
-        QJsonValue jv(*obj);
-        jarr.append(jv);
-      }
+  for (int i = 0; i < item.mChildItems.size(); ++i) {
+    Object* obj = item.mChildItems.at(i)->GetObject();
+    QJsonValue jv(*obj);
+    jarr.append(jv);
+  }
 
-      QJsonDocument jdoc(jarr);
-      return ots << jdoc.toJson(QJsonDocument::Compact);
-    }
+  QJsonDocument jdoc(jarr);
+  return ots << jdoc.toJson(QJsonDocument::Compact);
+}
 
-    ObjectForm*
-    ObjectTreeItem::GetForm()
-    {
-      return nullptr;
-    }
+ObjectForm*
+ObjectTreeItem::GetForm()
+{
+  return nullptr;
+}
 
-//    void
-//    ObjectTreeItem::ClearObjectGroupBox(Ui::Workspace& ui)
-//    {
-//      QLayout* layout = ui.objectGroupBox->layout();
+void
+ObjectTreeItem::RefreshItemData()
+{
+  if(mObject)
+    mItemData = mObject->ItemData();
+}
 
-//      if(layout != nullptr) {
-//        QLayoutItem* child;
-//        while ((child = layout->takeAt(0)) != nullptr)  {
-//          QWidget* widget = child->widget();
-//          if(widget != nullptr)
-//            widget->hide();
-//        }
-//        delete layout;
-//      }
-//    }
+Object*
+ObjectTreeItem::GetObject()
+{
+  return mObject;
+}
 
-//    void
-//    ObjectTreeItem::Select(Ui::Workspace& ui, ObjectForm* objectForm)
-//    {
-//      ClearObjectGroupBox(ui);
+const Object*
+ObjectTreeItem::GetObject() const
+{
+  return mObject;
+}
 
-//      ui.objectForm = objectForm;
+QDebug&
+operator<<(QDebug& debug, const ObjectTreeItem& item)
+{
+  return item.Debug(debug);
+}
 
-//      QGroupBox* objectGroupBox = ui.objectGroupBox;
-//      objectForm->setParent(objectGroupBox);
-//      objectForm->setObjectName(QString::fromUtf8("objectWidget"));
+QDebug&
+ObjectTreeItem::Debug(QDebug& debug) const
+{
+  return debug;
+}
 
-//      QVBoxLayout* verticalLayout = new QVBoxLayout(objectGroupBox);
-//      verticalLayout->addWidget(objectForm);
-//      verticalLayout->addItem(ui.objectButtonsLayout);
+QByteArray
+ObjectTreeItem::Template() const
+{
+  return "";
+}
 
-//      objectGroupBox->setLayout(verticalLayout);
-//      objectGroupBox->setTitle(objectForm->Title() + ": "); // + mWeapon->Wtyp());
-//      objectGroupBox->update();
+void
+ObjectTreeItem::RenderPage(QPaintDevice& device) const
+{
+  QVariantHash map = GetObject()->ToVariantHash();
 
-//      ui.     action_Copy->setEnabled(true);
-//      ui.      action_Cut->setEnabled(true);
-//      ui.    action_Print->setEnabled(true);
-//      ui.  editItemButton->setEnabled(true);
-//      ui.  editItemButton->setText(QObject::tr("Edit"));
-//      ui.        okButton->setEnabled(false);
-//      ui.     printButton->setEnabled(true);
-//      ui.removeItemButton->setEnabled(true);
-//    }
+  Mustache::Renderer renderer;
+  Mustache::QtVariantContext context(map);
 
-//    void
-//    ObjectTreeItem::Unselect(Ui::Workspace& ui, ObjectForm* objectForm)
-//    {
-//      ClearObjectGroupBox(ui);
+  QXmlStreamReader reader(renderer.render(Template(), &context));
+  QSvgRenderer svg(&reader);
+  QPainter painter(&device);
 
-//      ui.     action_Copy->setEnabled(false);
-//      ui.      action_Cut->setEnabled(false);
-//      ui.    action_Print->setEnabled(false);
-//      ui.  editItemButton->setEnabled(false);
-//      ui.  editItemButton->setText(QObject::tr("Edit"));
-//      ui.        okButton->setEnabled(false);
-//      ui.     printButton->setEnabled(false);
-//      ui.removeItemButton->setEnabled(false);
-//    }
-
-    void
-    ObjectTreeItem::RefreshItemData()
-    {
-      if(mObject)
-        mItemData = mObject->ItemData();
-    }
-
-    Object*
-    ObjectTreeItem::GetObject()
-    {
-      return mObject;
-    }
-
-    const Object*
-    ObjectTreeItem::GetObject() const
-    {
-      return mObject;
-    }
-
-    QDebug&
-    operator<<(QDebug& debug, const ObjectTreeItem& item)
-    {
-      return item.Debug(debug);
-    }
-
-    void
-    ObjectTreeItem::RenderPage(QPaintDevice&) const
-    {}
-
-    QDebug&
-    ObjectTreeItem::Debug(QDebug& debug) const
-    {
-      return debug;
-    }
-  };
-};
+  svg.render(&painter);
+}

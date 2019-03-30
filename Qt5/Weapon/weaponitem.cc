@@ -29,48 +29,46 @@
 #include <QStackedWidget>
 #include <QVBoxLayout>
 
-namespace GDW
+using namespace GDW::RPG;
+
+WeaponModel WeaponTreeItem::MODEL;
+
+WeaponModel*
+WeaponTreeItem::Model()
 {
-  namespace RPG
-  {
-    WeaponModel WeaponTreeItem::MODEL;
+  return &MODEL;
+}
 
-    WeaponModel*
-    WeaponTreeItem::Model()
-    {
-      return &MODEL;
-    }
+WeaponTreeItem*
+WeaponTreeItem::Create(ObjectTreeItem* parent)
+{
+  return new WeaponTreeItem(Weapon::New(), parent);
+}
 
-    WeaponTreeItem*
-    WeaponTreeItem::Create(ObjectTreeItem* parent)
-    {
-      return new WeaponTreeItem(Weapon::New(), parent);
-    }
+WeaponTreeItem*
+WeaponTreeItem::Unpack(const QJsonObject& json, ObjectTreeItem* parent)
+{
+  Weapon* weapon = new Weapon(json);
+  WeaponTreeItem* wti = new WeaponTreeItem(weapon, parent);
 
-    WeaponTreeItem*
-    WeaponTreeItem::Unpack(const QJsonObject& json, ObjectTreeItem* parent)
-    {
-      Weapon* weapon = new Weapon(json);
-      WeaponTreeItem* wti = new WeaponTreeItem(weapon, parent);
+  return wti;
+}
 
-      return wti;
-    }
+WeaponTreeItem::WeaponTreeItem(Weapon* weapon, ObjectTreeItem* parent)
+  : ObjectTreeItem(weapon, parent == nullptr ? MODEL.RootItem() : parent)
+{
+  if(parent == nullptr)
+    MODEL.RootItem()->AppendChild(this);
+}
 
-    WeaponTreeItem::WeaponTreeItem(Weapon* weapon, ObjectTreeItem* parent)
-      : ObjectTreeItem(weapon, parent == nullptr ? MODEL.RootItem() : parent)
-    {
-      if(parent == nullptr)
-        MODEL.RootItem()->AppendChild(this);
-    }
+WeaponTreeItem::~WeaponTreeItem()
+{}
 
-    WeaponTreeItem::~WeaponTreeItem()
-    {}
-
-    WeaponForm*
-    WeaponTreeItem::GetForm()
-    {
-      return new WeaponForm(GetObject());
-    }
+WeaponForm*
+WeaponTreeItem::GetForm()
+{
+  return new WeaponForm(GetObject());
+}
 
 //    void
 //    WeaponTreeItem::Select(Ui::Workspace& ui, ObjectForm*)
@@ -78,24 +76,22 @@ namespace GDW
 //      ObjectTreeItem::Select(ui, new WeaponForm(GetObject()));
 //    }
 
-    Weapon*
-    WeaponTreeItem::GetObject()
-    {
-      return static_cast<Weapon*>(ObjectTreeItem::GetObject());
-    }
+Weapon*
+WeaponTreeItem::GetObject()
+{
+  return static_cast<Weapon*>(ObjectTreeItem::GetObject());
+}
 
-    const Weapon*
-    WeaponTreeItem::GetObject() const
-    {
-      return static_cast<const Weapon*>(ObjectTreeItem::GetObject());
-    }
+const Weapon*
+WeaponTreeItem::GetObject() const
+{
+  return static_cast<const Weapon*>(ObjectTreeItem::GetObject());
+}
 
-    QDebug&
-    WeaponTreeItem::Debug(QDebug& debug) const
-    {
-      debug.nospace() << "Weapon: ";
+QDebug&
+WeaponTreeItem::Debug(QDebug& debug) const
+{
+  debug.nospace() << "Weapon: ";
 
-      return debug;
-    }
-  };
-};
+  return debug;
+}

@@ -24,64 +24,59 @@
 // #include <QIntValidator>
 #include <QSvgWidget>
 
+using namespace GDW::RPG;
 
-namespace GDW
+ObjectForm::ObjectForm(QWidget* parent) :
+  QWidget(parent), mReadOnly(true)
+{}
+
+ObjectForm::~ObjectForm()
+{}
+
+void
+ObjectForm::Read()
+{}
+
+void
+ObjectForm::Write()
+{}
+
+bool
+ObjectForm::IsReadOnly() const
 {
-  namespace RPG
-  {
-    ObjectForm::ObjectForm(QWidget* parent) :
-      QWidget(parent), mReadOnly(true)
-    {}
+  return mReadOnly;
+}
 
-    ObjectForm::~ObjectForm()
-    {}
+void
+ObjectForm::SetReadOnly(bool value)
+{
+  mReadOnly = value;
+}
 
-    void
-    ObjectForm::Read()
-    {}
+QString
+ObjectForm::Title() const
+{
+  return "";
+}
 
-    void
-    ObjectForm::Write()
-    {}
+Object*
+ObjectForm::GetObject()
+{
+  return nullptr;
+}
 
-    bool
-    ObjectForm::IsReadOnly() const
-    {
-      return mReadOnly;
-    }
+const Object*
+ObjectForm::GetObject() const
+{
+  return nullptr;
+}
 
-    void
-    ObjectForm::SetReadOnly(bool value)
-    {
-      mReadOnly = value;
-    }
-
-    QString
-    ObjectForm::Title() const
-    {
-      return "";
-    }
-
-    Object*
-    ObjectForm::GetObject()
-    {
-      return nullptr;
-    }
-
-    const Object*
-    ObjectForm::GetObject() const
-    {
-      return nullptr;
-    }
-
-    void
-    ObjectForm::AddSvgFrame(QString name, QWidget* parent)
-    {
-      QHBoxLayout* hbox = new QHBoxLayout(parent);
-      hbox->setContentsMargins(2,2,2,2);
-      QSvgWidget* svg = new QSvgWidget(":/images/" + name +".svg", parent); // + mWeapon->Wtyp() +
-      hbox->addWidget(svg);
-      parent->setLayout(hbox);
-    }
-  };
-};
+void
+ObjectForm::AddSvgFrame(QString name, QWidget* parent)
+{
+  QHBoxLayout* hbox = new QHBoxLayout(parent);
+  hbox->setContentsMargins(2,2,2,2);
+  QSvgWidget* svg = new QSvgWidget(":/images/" + name +".svg", parent); // + mWeapon->Wtyp() +
+  hbox->addWidget(svg);
+  parent->setLayout(hbox);
+}

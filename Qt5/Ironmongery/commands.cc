@@ -21,80 +21,75 @@
 #include "vehiclemodel.hh"
 #include "objectitem.hh"
 
-
 #include <QDebug>
 
-namespace GDW
+using namespace GDW::RPG;
+
+//
+// Insert Item Command
+//
+InsertItemCommand::InsertItemCommand(const QModelIndex& index,
+                                     ObjectModel* model,
+                                     QUndoCommand* parent)
+  : QUndoCommand(parent),
+    mRow(index.row()+1),
+    mInserted(false),
+    mParent(index.parent()),
+    mModel(model)
 {
-  namespace RPG
-  {
-    //
-    // Insert Item Command
-    //
-    InsertItemCommand::InsertItemCommand(const QModelIndex& index,
-                                         ObjectModel* model,
-                                         QUndoCommand* parent)
-      : QUndoCommand(parent),
-        mRow(index.row()+1),
-        mInserted(false),
-        mParent(index.parent()),
-        mModel(model)
-    {
-      setText(QObject::tr("insert"));
-    }
+  setText(QObject::tr("insert"));
+}
 
-    void
-    InsertItemCommand::undo()
-    {
-      qDebug() << "InsertItemCommand::undo()";
-      if(mInserted)
-        mModel->removeRow(mRow, mParent);
-    }
+void
+InsertItemCommand::undo()
+{
+  qDebug() << "InsertItemCommand::undo()";
+  if(mInserted)
+    mModel->removeRow(mRow, mParent);
+}
 
-    void
-    InsertItemCommand::redo()
-    {
-      qDebug() << "InsertItemCommand::redo()";
+void
+InsertItemCommand::redo()
+{
+  qDebug() << "InsertItemCommand::redo()";
 
-      mInserted = mModel->insertRow(mRow, mParent);
+  mInserted = mModel->insertRow(mRow, mParent);
 
-//      bool isSet = true;
-//      for (int col = 0; col < mModel.columnCount(); ++col) {
-//        QModelIndex index = mModel.index(mRow, col, mParent);
-//        ObjectTreeItem* item = mModel.GetItem(index);
-//        isSet = isSet && mModel.setData(index, item->Data(col));
-//      }
-//      mInserted = isSet;
-    }
+  //      bool isSet = true;
+  //      for (int col = 0; col < mModel.columnCount(); ++col) {
+  //        QModelIndex index = mModel.index(mRow, col, mParent);
+  //        ObjectTreeItem* item = mModel.GetItem(index);
+  //        isSet = isSet && mModel.setData(index, item->Data(col));
+  //      }
+  //      mInserted = isSet;
+}
 
-    //
-    // Remove Item Command
-    //
-    RemoveItemCommand::RemoveItemCommand(const QModelIndex& index,
-                                         ObjectModel* model,
-                                         QUndoCommand* parent)
-      : QUndoCommand(parent),
-        mRow(index.row()),
-        mRemoved(false),
-        mParent(index.parent()),
-        mModel(model)
-    {
-      setText(QObject::tr("remove"));
-    }
+//
+// Remove Item Command
+//
+RemoveItemCommand::RemoveItemCommand(const QModelIndex& index,
+                                     ObjectModel* model,
+                                     QUndoCommand* parent)
+  : QUndoCommand(parent),
+    mRow(index.row()),
+    mRemoved(false),
+    mParent(index.parent()),
+    mModel(model)
+{
+  setText(QObject::tr("remove"));
+}
 
-    void
-    RemoveItemCommand::undo()
-    {
-      qDebug() << "RemoveItemCommand::undo()";
-      if(mRemoved)
-        mModel->insertRow(mRow, mParent);
-    }
+void
+RemoveItemCommand::undo()
+{
+  qDebug() << "RemoveItemCommand::undo()";
+  if(mRemoved)
+    mModel->insertRow(mRow, mParent);
+}
 
-    void
-    RemoveItemCommand::redo()
-    {
-      qDebug() << "RemoveItemCommand::redo()";
-      mRemoved = mModel->removeRow(mRow, mParent);
-    }
-  };
-};
+void
+RemoveItemCommand::redo()
+{
+  qDebug() << "RemoveItemCommand::redo()";
+  mRemoved = mModel->removeRow(mRow, mParent);
+}
