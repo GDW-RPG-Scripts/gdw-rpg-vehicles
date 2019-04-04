@@ -75,7 +75,7 @@ Workspace::Workspace(QWidget* parent) :
   mUi.shipTreeView->setModel(ShipTreeItem::Model());
   mUi.unitTreeView->setModel(UnitTreeItem::Model());
 
-  SetCurrentFile(QString());
+  CurrentFile(QString());
   setUnifiedTitleAndToolBarOnMac(true);
 
   // Disable menu actions for unavailable features
@@ -151,7 +151,7 @@ void Workspace::New()
     // delete mModel;
     // mUi.vehiclesTreeView->setModel(new VehicleModel);
     mUi.objectForm->hide();
-    SetCurrentFile(QString());
+    CurrentFile(QString());
   }
 }
 
@@ -300,6 +300,9 @@ Workspace::PrintItem()
 {
 #if defined(QT_PRINTSUPPORT_LIB) && QT_CONFIG(printdialog)
   QPrinter printer(QPrinter::HighResolution);
+  QFileInfo fileInfo(CurrentFile());
+  printer.setDocName(fileInfo.baseName());
+
   QPrintDialog dialog(&printer, this);
   if (dialog.exec() != QDialog::Accepted)
     return;
@@ -625,7 +628,7 @@ Workspace::LoadFile(const QString& fileName)
   QApplication::restoreOverrideCursor();
 #endif
 
-  SetCurrentFile(fileName);
+  CurrentFile(fileName);
   UpdateActions();
   mUi.action_Save->setEnabled(true);
   mUi.action_SaveAs->setEnabled(true);
@@ -662,13 +665,19 @@ Workspace::SaveFile(const QString& fileName)
 #endif
 
   mUndoStack.setClean();
-  SetCurrentFile(fileName);
+  CurrentFile(fileName);
   statusBar()->showMessage(tr("File saved") + ".", 2000);
   return true;
 }
 
+const QString&
+Workspace::CurrentFile() const
+{
+  return mCurrentFile;
+}
+
 void
-Workspace::SetCurrentFile(const QString& fileName)
+Workspace::CurrentFile(const QString& fileName)
 {
   QFileInfo info(mCurrentFile = fileName);
   QString title(info.fileName());

@@ -96,7 +96,8 @@ namespace GDW
         bool IsModified();
         bool MaybeSave();
         bool SaveFile(const QString& fileName);
-        void SetCurrentFile(const QString& fileName);
+        const QString& CurrentFile() const;
+        void CurrentFile(const QString& fileName);
         //QAbstractItemModel* Model();
         QTreeView& GetCurrentTreeView();
         void ResizeViewColumns();

@@ -27,8 +27,8 @@ SUBDIRS += \
     Object \
     Ship \
     Unit \
-    Vehicle \
     Weapon \
+    Vehicle \
     Ironmongery
 
 CONFIG += ordered
