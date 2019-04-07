@@ -35,6 +35,7 @@ namespace GDW
         ShipModel(QObject* parent = nullptr);
 
       protected:
+        ObjectTreeItem* Create(ObjectTreeItem*) const override;
         const QList<QVariant>& RootData() const override;
     };
   };

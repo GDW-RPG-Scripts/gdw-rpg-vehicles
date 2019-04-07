@@ -17,6 +17,7 @@
  */
 
 #include "unitmodel.hh"
+#include "unititem.hh"
 
 using namespace GDW::RPG;
 
@@ -32,4 +33,10 @@ UnitModel::RootData() const
     tr("Name")
   };
   return rootData;
+}
+
+ObjectTreeItem*
+UnitModel::Create(ObjectTreeItem* parent) const
+{
+  return UnitTreeItem::Create(parent);
 }

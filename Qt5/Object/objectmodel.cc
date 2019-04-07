@@ -47,6 +47,23 @@ ObjectModel::~ObjectModel()
 // Public API
 //
 void
+ObjectModel::Export(QJsonArray& jarr) const
+{
+  mRootItem->Export(jarr);
+}
+
+void
+ObjectModel::Reset()
+{
+  beginResetModel();
+
+  delete mRootItem;
+  mRootItem = nullptr;
+
+  endResetModel();
+}
+
+void
 ObjectModel::Print(QModelIndex index, QPrinter& printer) const
 {
   ItemFor(index)->RenderPage(printer);
@@ -166,7 +183,8 @@ ObjectModel::insertRows(int position, int rows, const QModelIndex& parent)
   ObjectTreeItem* parentItem = ItemFor(parent);
 
   beginInsertRows(parent, position, position + rows - 1);
-  bool success = parentItem->InsertChildren(position, rows);
+  bool success =
+      parentItem->InsertChildren(position, rows, Create(parentItem));
   endInsertRows();
 
   return success;
@@ -204,7 +222,7 @@ ObjectModel::setData(const QModelIndex& index,
 // Output
 //
 QTextStream&
-operator<<(QTextStream& out, const ObjectModel& model)
+GDW::RPG::operator<<(QTextStream& out, const ObjectModel& model)
 {
   return out << *model.RootItem();
 }

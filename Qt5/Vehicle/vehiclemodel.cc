@@ -17,6 +17,7 @@
  */
 
 #include "vehiclemodel.hh"
+#include "vehicleitem.hh"
 
 using namespace GDW::RPG;
 
@@ -34,4 +35,10 @@ VehicleModel::RootData() const
     tr("Nationality")
   };
   return rootData;
+}
+
+ObjectTreeItem*
+VehicleModel::Create(ObjectTreeItem* parent) const
+{
+  return VehicleTreeItem::Create(parent);
 }

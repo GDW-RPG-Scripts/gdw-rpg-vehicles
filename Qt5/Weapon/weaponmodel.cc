@@ -17,6 +17,7 @@
  */
 
 #include "weaponmodel.hh"
+#include "weaponitem.hh"
 
 using namespace GDW::RPG;
 
@@ -32,4 +33,10 @@ WeaponModel::RootData() const
     tr("Name")
   };
   return rootData;
+}
+
+ObjectTreeItem*
+WeaponModel::Create(ObjectTreeItem* parent) const
+{
+  return WeaponTreeItem::Create(parent);
 }

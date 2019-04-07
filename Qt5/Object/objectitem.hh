@@ -24,6 +24,7 @@
 #include <QList>
 #include <QVariant>
 
+class QJsonArray;
 class QStackedWidget;
 class QTextStream;
 
@@ -46,6 +47,7 @@ namespace GDW
                        ObjectTreeItem* parent = nullptr);
         virtual ~ObjectTreeItem();
 
+        void Export(QJsonArray&) const;
         void RenderPage(QPaintDevice&) const;
         virtual QByteArray Template() const;
 

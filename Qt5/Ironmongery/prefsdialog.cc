@@ -23,10 +23,10 @@
 
 using namespace GDW::RPG;
 
-PrefsDialog::PrefsDialog(Workspace* parent)
-  : QDialog(parent), mRuleGroup(new QButtonGroup)
+PrefsDialog::PrefsDialog(bool loadOnStart, int ruleset, Workspace* parent)
+  : QDialog(parent), mLoadOnStart(loadOnStart), mRuleset(ruleset),
+    mRuleGroup(new QButtonGroup)
 {
-  QSettings settings;
   QVBoxLayout* dialogLayout = new QVBoxLayout;
 
   //
@@ -35,8 +35,9 @@ PrefsDialog::PrefsDialog(Workspace* parent)
 
   QCheckBox* checkbox =
       new QCheckBox(tr("Load default database on startup") + ".", this);
-  checkbox->setChecked(settings.value("loadOnStart", true).toBool());
-  connect(checkbox, SIGNAL(stateChanged(int)), parent, SLOT(LoadOnStart(int)));
+  checkbox->setChecked(mLoadOnStart);
+  connect(checkbox, QOverload<int>::of(&QCheckBox::stateChanged),
+          this, QOverload<bool>::of(&PrefsDialog::LoadOnStart));
 
   startBoxLayout->addWidget(checkbox);
   startBox->setLayout(startBoxLayout);
@@ -56,19 +57,22 @@ PrefsDialog::PrefsDialog(Workspace* parent)
     new QRadioButton(tr("Armor calculator") + ".", this)
   };
 
-  ruleSet[settings.value("ruleset", 0).toInt()]->setChecked(true);
+  ruleSet[mRuleset]->setChecked(true);
 
   for(int i = 0; i < ruleSet.count(); ++i) {
     ruleBoxLayout->addWidget(ruleSet[i]);
     mRuleGroup->addButton(ruleSet[i], i);
   }
-  connect(mRuleGroup, SIGNAL(buttonReleased(int)), parent, SLOT(RuleSet(int)));
+  connect(mRuleGroup, QOverload<int>::of(&QButtonGroup::buttonClicked),
+          this, QOverload<int>::of(&PrefsDialog::Ruleset));
 
   ruleBox->setLayout(ruleBoxLayout);
   dialogLayout->addWidget(ruleBox);
 
-  QDialogButtonBox* buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok, this);
+  QDialogButtonBox* buttonBox =
+      new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel, this);
   connect(buttonBox, &QDialogButtonBox::accepted, this, &QDialog::accept);
+  connect(buttonBox, &QDialogButtonBox::rejected, this, &QDialog::reject);
   dialogLayout->addWidget(buttonBox);
 
   setWindowTitle(tr("Preferences"));
@@ -78,4 +82,28 @@ PrefsDialog::PrefsDialog(Workspace* parent)
 PrefsDialog::~PrefsDialog()
 {
   delete mRuleGroup;
+}
+
+int
+PrefsDialog::Ruleset() const
+{
+  return mRuleset;
+}
+
+void
+PrefsDialog::Ruleset(int ruleset)
+{
+  mRuleset = ruleset;
+}
+
+bool
+PrefsDialog::LoadOnStart() const
+{
+  return mLoadOnStart;
+}
+
+void
+PrefsDialog::LoadOnStart(bool loadOnStart)
+{
+  mLoadOnStart = loadOnStart;
 }

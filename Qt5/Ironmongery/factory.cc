@@ -22,12 +22,14 @@
 #include "unititem.hh"
 #include "vehicleitem.hh"
 #include "weaponitem.hh"
+#include "objectmodel.hh"
 
 #include "ui_workspace.h"
 
 #include <QFile>
 #include <QJsonArray>
 #include <QJsonDocument>
+#include <QTextStream>
 
 using namespace GDW::RPG;
 
@@ -54,9 +56,9 @@ Factory::Create(int type, ObjectTreeItem* parent)
 
   static const CreateFunction CREATE[] = {
     VehicleTreeItem::Create,
-    WeaponTreeItem::Create,
-    ShipTreeItem::Create,
-    UnitTreeItem::Create
+    WeaponTreeItem ::Create,
+    ShipTreeItem   ::Create,
+    UnitTreeItem   ::Create
   };
 
   return CREATE[type](parent);
@@ -71,9 +73,9 @@ Factory::Unpack(const QJsonValue& json, ObjectTreeItem* parent)
   static const QString GDW_RPG_TYPE = "__GDW_RPG_Type__";
   static const ObjectTreeUnpackMap UNPACK = {
     { Vehicle::JSON_TYPE, VehicleTreeItem::Unpack },
-    {  Weapon::JSON_TYPE,  WeaponTreeItem::Unpack },
-    {    Ship::JSON_TYPE,    ShipTreeItem::Unpack },
-    {    Unit::JSON_TYPE,    UnitTreeItem::Unpack }
+    { Weapon ::JSON_TYPE, WeaponTreeItem ::Unpack },
+    { Ship   ::JSON_TYPE, ShipTreeItem   ::Unpack },
+    { Unit   ::JSON_TYPE, UnitTreeItem   ::Unpack }
   };
 
   if(json.isObject()) {
@@ -93,5 +95,20 @@ Factory::Unpack(const QJsonValue& json, ObjectTreeItem* parent)
 QTextStream&
 GDW::RPG::operator<<(QTextStream& ots, const Factory& factory)
 {
-  return ots; // << *factory.mRootItem;
+  typedef std::function<ObjectModel*()> ModelFunction;
+
+  static const ModelFunction MODEL[] = {
+    VehicleTreeItem::Model,
+    WeaponTreeItem ::Model,
+    ShipTreeItem   ::Model,
+    UnitTreeItem   ::Model
+  };
+
+  QJsonArray jarr;
+
+  for(ModelFunction model: MODEL) {
+    model()->Export(jarr);
+  }
+
+  return ots << QJsonDocument(jarr).toJson(QJsonDocument::Compact);
 }

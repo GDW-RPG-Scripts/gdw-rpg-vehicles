@@ -27,6 +27,7 @@
 #include <QJsonArray>
 #include <QJsonDocument>
 #include <QPainter>
+#include <QSettings>
 #include <QStackedWidget>
 #include <QSvgRenderer>
 #include <QVBoxLayout>
@@ -132,20 +133,23 @@ ObjectTreeItem::Row() const
   return 0;
 }
 
+void
+ObjectTreeItem::Export(QJsonArray& jarr) const
+{
+  for (int i = 0; i < mChildItems.size(); ++i) {
+    Object* obj = mChildItems.at(i)->GetObject();
+    QJsonValue jv(*obj);
+    jarr.append(jv);
+  }
+}
 
 QTextStream&
 GDW::RPG::operator<<(QTextStream& ots, const ObjectTreeItem& item)
 {
   QJsonArray jarr;
 
-  for (int i = 0; i < item.mChildItems.size(); ++i) {
-    Object* obj = item.mChildItems.at(i)->GetObject();
-    QJsonValue jv(*obj);
-    jarr.append(jv);
-  }
-
-  QJsonDocument jdoc(jarr);
-  return ots << jdoc.toJson(QJsonDocument::Compact);
+  item.Export(jarr);
+  return ots << QJsonDocument(jarr).toJson(QJsonDocument::Compact);
 }
 
 ObjectForm*

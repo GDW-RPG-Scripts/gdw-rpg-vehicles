@@ -71,9 +71,9 @@ Workspace::Workspace(QWidget* parent) :
   mUi.menuEdit->removeAction(mUi.action_Placeholder);
 
   mUi.vehiclesTreeView->setModel(VehicleTreeItem ::Model());
-  mUi.weaponsTreeView->setModel(WeaponTreeItem::Model());
-  mUi.shipTreeView->setModel(ShipTreeItem::Model());
-  mUi.unitTreeView->setModel(UnitTreeItem::Model());
+  mUi.weaponsTreeView ->setModel(WeaponTreeItem::Model());
+  mUi.shipTreeView    ->setModel(ShipTreeItem::Model());
+  mUi.unitTreeView    ->setModel(UnitTreeItem::Model());
 
   CurrentFile(QString());
   setUnifiedTitleAndToolBarOnMac(true);
@@ -131,26 +131,25 @@ void Workspace::closeEvent(QCloseEvent* event)
 //
 // Slots
 //
-void
-Workspace::LoadOnStart(int state)
-{
-  mLoadOnStart = state;
-}
-
-void
-Workspace::RuleSet(int state)
-{
-  mRuleSet = state;
-}
-
 void Workspace::New()
 {
   if (MaybeSave()) {
+    Unselect();
+    GetCurrentTreeView().selectionModel()->clearSelection();
     // textEdit->clear();
-    mUndoStack.clear();
-    // delete mModel;
-    // mUi.vehiclesTreeView->setModel(new VehicleModel);
+    mUndoStack.setClean();
     mUi.objectForm->hide();
+
+    for (int i = 0; i < mUi.tabWidget->count(); ++i) {
+      QTreeView* view =
+          static_cast<QTreeView*>(mUi.tabWidget->widget(i)->layout()->itemAt(0)->widget());
+
+      ObjectModel* model =
+          static_cast<ObjectModel*>(view->model());
+
+      model->Reset();
+    }
+
     CurrentFile(QString());
   }
 }
@@ -159,7 +158,9 @@ void
 Workspace::Open()
 {
   if (MaybeSave()) {
-    QString fileName = QFileDialog::getOpenFileName(this, tr("Load Vehicles"), ".", tr("GDW RPG Object files (*.json *.grv *.gro)"));
+    QString fileName =
+        QFileDialog::getOpenFileName(this, tr("Load Vehicles"), ".",
+                                     tr("GDW RPG Object files (*.json *.grv *.gro)"));
     if (!fileName.isEmpty())
       LoadFile(fileName);
   }
@@ -168,8 +169,28 @@ Workspace::Open()
 void
 Workspace::Prefs()
 {
-  PrefsDialog dialog(this);
-  dialog.exec();
+  PrefsDialog dialog(mLoadOnStart, mRuleSet, this);
+
+  if(dialog.exec() != PrefsDialog::Accepted) {
+    return;
+  }
+
+  QSettings settings;
+
+  int dialogRuleset = dialog.Ruleset();
+  if(mRuleSet != dialogRuleset) {
+    mRuleSet = dialogRuleset;
+    settings.setValue("ruleset", dialogRuleset);
+
+    ClearObjectGroupBox();
+    ItemClicked(GetCurrentTreeView().currentIndex());
+  }
+
+  bool dialogLoadOnStart = dialog.LoadOnStart();
+  if(dialogLoadOnStart != mLoadOnStart) {
+    mLoadOnStart = dialogLoadOnStart;
+    settings.setValue("loadOnStart", dialogRuleset);
+  }
 }
 
 bool
@@ -187,19 +208,14 @@ bool Workspace::SaveAs()
   QString fileName =
       QFileDialog::getSaveFileName(this, tr("Save File"),
                                    tr("Untitled"),
-                                   tr("GDW RPG Object files (*.gro);; GDW RPG Vehicles files (*.grv);; JSON Files (*.json)"));
+                                   tr("GDW RPG Object files (*.gro);; "
+                                      "GDW RPG Vehicles files (*.grv);; "
+                                      "JSON Files (*.json)"));
 
   if(fileName.isEmpty())
     return false;
 
   return SaveFile(fileName);
-
-  //      QFileDialog dialog(this);
-  //      dialog.setWindowModality(Qt::WindowModal);
-  //      dialog.setAcceptMode(QFileDialog::AcceptSave);
-  //      if (dialog.exec() != QDialog::Accepted)
-  //        return false;
-  //      return SaveFile(dialog.selectedFiles().first());
 }
 
 void
@@ -230,10 +246,6 @@ void
 Workspace::InsertItem()
 {
   QTreeView& view = GetCurrentTreeView();
-
-  // if(treeView.model() == nullptr)
-  //   treeView.setModel(&mVehicleModel);
-
   QItemSelectionModel* itemSelectionModel = view.selectionModel();
   QModelIndex index = itemSelectionModel->currentIndex();
 
@@ -244,19 +256,11 @@ Workspace::InsertItem()
   UpdateActions();
 
   view.update();
-
-  //      for (int column = mModel.columnCount(index.parent())-1; column >= 0 ; --column) {
-  //        QModelIndex child =
-  //            mModel.index(index.row()+1, column, index.parent());
-  //        mModel.setData(child, QVariant("[No data]"), Qt::EditRole);
-  //      }
 }
 
 void
 Workspace::CurrentType(int type)
 {
-  // mCurrentType = type;
-  // mModel.CurrentType(type);
   UpdateActions();
 }
 
@@ -307,33 +311,11 @@ Workspace::PrintItem()
   if (dialog.exec() != QDialog::Accepted)
     return;
 
-  //      int from = printer.fromPage();
-  //      int to = printer.toPage();
-  //      if(from <= 0 && to <= 0)
-  //        printer.setFromTo(1, 1);
-
-  //      QProgressDialog progress(tr("Preparing sample..."),
-  //                               tr("&Cancel"),
-  //                               0, 1, this);
-  //      progress.setWindowModality(Qt::ApplicationModal);
-  //      progress.setWindowTitle(tr("Ironmongery"));
-  //      progress.setMinimum(printer.fromPage() - 1);
-  //      progress.setMaximum(printer.toPage());
-
   QTreeView& view = GetCurrentTreeView();
   ObjectModel* model =
       static_cast<ObjectModel*>(view.model());
 
-  //      for (int page = printer.fromPage(); page <= printer.toPage(); ++page) {
-  //        qApp->processEvents();
-  //        if (progress.wasCanceled())
-  //          break;
-
   model->Print(view.currentIndex(), printer);
-  // PrintPage(page - 1, &painter, printer);
-
-  //        progress.setValue(page);
-  //      }
 #endif
 }
 
@@ -355,9 +337,6 @@ Workspace::DocumentWasModified()
   setWindowModified(IsModified());
   // setWindowModified(textEdit->document()->isModified());
 }
-
-// typedef std::function<void(ObjectTreeItem*, Ui::Workspace&, ObjectForm*)>
-// ObjectTreeSelector;
 
 void
 Workspace::ItemClicked(const QModelIndex& index)
@@ -478,7 +457,6 @@ Workspace::AddWeapon()
   WeaponTreeItem* weaponItem = WeaponTreeItem::Create(oti);
 
   oti->AppendChild(weaponItem);
-  // mModel.
 }
 
 void
@@ -600,8 +578,9 @@ Workspace::LoadFile(const QString& fileName)
         tr("Cannot read file %1:\n%2.").arg(QDir::toNativeSeparators(fileName),
                                             file.errorString());
     QMessageBox::warning(this,
-                         QCoreApplication::organizationName() + " " +
-                         QCoreApplication::applicationName(),
+                         QCoreApplication::organizationName()
+                         + " "
+                         + QCoreApplication::applicationName(),
                          message);
     return;
   }

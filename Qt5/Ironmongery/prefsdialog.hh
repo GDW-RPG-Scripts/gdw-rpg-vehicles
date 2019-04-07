@@ -36,10 +36,20 @@ namespace GDW
         Q_OBJECT
 
       public:
-        PrefsDialog(Workspace* parent);
+        PrefsDialog(bool, int, Workspace* parent);
         ~PrefsDialog();
 
+        bool LoadOnStart() const;
+        int Ruleset() const;
+
+      private slots:
+        void LoadOnStart(bool);
+        void Ruleset(int);
+
       private:
+        bool mLoadOnStart;
+        int mRuleset;
+
         QButtonGroup* mRuleGroup;
     };
   };

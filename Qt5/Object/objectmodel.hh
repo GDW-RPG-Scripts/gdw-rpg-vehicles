@@ -42,6 +42,8 @@ namespace GDW
         ~ObjectModel() override;
 
         // Public API
+        void Export(QJsonArray&) const;
+        void Reset();
         void Print(QModelIndex, QPrinter&) const;
 
         ObjectTreeItem* RootItem() const;
@@ -76,6 +78,7 @@ namespace GDW
         // Extension points
         ObjectTreeItem* ItemFor(const QModelIndex& index) const;
 
+        virtual ObjectTreeItem* Create(ObjectTreeItem*) const = 0;
         virtual const QList<QVariant>& RootData() const = 0;
 
       private:

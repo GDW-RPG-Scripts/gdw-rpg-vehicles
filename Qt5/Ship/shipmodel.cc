@@ -17,6 +17,7 @@
  */
 
 #include "shipmodel.hh"
+#include "shipitem.hh"
 
 using namespace GDW::RPG;
 
@@ -32,4 +33,10 @@ ShipModel::RootData() const
     tr("Name")
   };
   return rootData;
+}
+
+ObjectTreeItem*
+ShipModel::Create(ObjectTreeItem* parent) const
+{
+  return ShipTreeItem::Create(parent);
 }

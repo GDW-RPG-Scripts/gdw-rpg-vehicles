@@ -20,6 +20,7 @@
 
 #include <QJsonArray>
 #include <QJsonDocument>
+#include <QSettings>
 
 using namespace GDW::RPG;
 
@@ -53,7 +54,7 @@ Vehicle::New()
   static const QJsonObject vehicle
   {
     {"__GDW_RPG_Type__", JSON_TYPE},
-    {PROP_NAME, "[Name]"}, {PROP_TYPE, "[Type]"}, {PROP_NATIONALITY, "[NAtionality]"},
+    {PROP_NAME, "[Name]"}, {PROP_TYPE, "[Type]"}, {PROP_NATIONALITY, "[Nationality]"},
     {PROP_TRMOV,   QJsonValue(QJsonValue::Double)}, {PROP_CCMOV, QJsonValue(QJsonValue::Double)}, {PROP_FCAP, QJsonValue(QJsonValue::Double)}, {PROP_FCONS, QJsonValue(QJsonValue::Double)}, {PROP_SUSP, ""},
     {PROP_TF,      QJsonValue(QJsonValue::Double)}, {PROP_TS,    QJsonValue(QJsonValue::Double)}, {PROP_TR,   QJsonValue(QJsonValue::Double)}, {PROP_HF,    QJsonValue(QJsonValue::Double)}, {PROP_HS,  QJsonValue(QJsonValue::Double)}, {PROP_HR, QJsonValue(QJsonValue::Double)},
     {PROP_WEAPONS, QJsonArray()},
@@ -90,9 +91,64 @@ Vehicle::ItemData() const
   return data;
 }
 
+QVariantHash
+Vehicle::ToVariantHash() const
+{
+  QVariantHash hash;
+
+  hash[PROP_NAME]        = Name();
+  hash[PROP_TYPE]        = Type();
+  hash[PROP_NATIONALITY] = Nationality();
+  hash[PROP_TRMOV]       = Trmov();
+  hash[PROP_CCMOV]       = Ccmov();
+  hash[PROP_FCAP]        = Fcap();
+  hash[PROP_FCONS]       = Fcons();
+  hash[PROP_SUSP]        = Susp();
+  hash[PROP_TF]          = Tf();
+  hash[PROP_TS]          = Ts();
+  hash[PROP_TR]          = Tr();
+  hash[PROP_HF]          = Hf();
+  hash[PROP_HS]          = Hs();
+  hash[PROP_HR]          = Hr();
+  // hash[PROP_WEAPONS]     = Weapons();
+  hash[PROP_WEIGHT]      = Weight();
+  hash[PROP_LOAD]        = Load();
+  hash[PROP_CREW]        = Crew();
+  hash[PROP_PSGR]        = Psgr();
+  hash[PROP_MNT]         = Mnt();
+  hash[PROP_PRICE]       = Price();
+  hash[PROP_RF]          = Rf();
+  hash[PROP_DECK]        = Deck();
+  hash[PROP_BELLY]       = Belly();
+  hash[PROP_STAB]        = Stab();
+  hash[PROP_FUEL]        = Fuel();
+  hash[PROP_NIGHT]       = Night();
+  hash[PROP_RAD]         = Rad();
+  hash[PROP_X5]          = X5();
+  hash[PROP_X6]          = X6();
+  hash[PROP_X7]          = X7();
+  hash[PROP_X8]          = X8();
+  hash[PROP_LOCA]        = Loca();
+
+  return hash;
+}
+
+qreal
+Vehicle::Divisor() const
+{
+  static const qreal FACTOR[] = {
+    1.0, 2.0, 2.0, 2.16666, 5.4
+  };
+
+  QSettings settings;
+  int ruleset = settings.value("ruleset", 0).toInt();
+
+  return FACTOR[ruleset];
+}
+
 /*
-     * Name
-     */
+ * Name
+ */
 const QString Vehicle::PROP_NAME = "name";
 
 QString
@@ -109,8 +165,8 @@ Vehicle::Name(const QString& value)
 
 
 /*
-     * Type
-     */
+ * Type
+ */
 const QString Vehicle::PROP_TYPE = "typ";
 
 QString
@@ -127,8 +183,8 @@ Vehicle::Type(const QString& value)
 
 
 /*
-     * Nationality
-     */
+ * Nationality
+ */
 const QString Vehicle::PROP_NATIONALITY = "nat";
 
 QString
@@ -145,8 +201,8 @@ Vehicle::Nationality(const QString& value)
 
 
 /*
-     * Trmov
-     */
+ * Trmov
+ */
 const QString Vehicle::PROP_TRMOV = "trmov";
 
 double
@@ -163,8 +219,8 @@ Vehicle::Trmov(double value)
 
 
 /*
-     * Ccmov
-     */
+ * Ccmov
+ */
 const QString Vehicle::PROP_CCMOV = "ccmov";
 
 double
@@ -181,8 +237,8 @@ Vehicle::Ccmov(double value)
 
 
 /*
-     * Fcap
-     */
+ * Fcap
+ */
 const QString Vehicle::PROP_FCAP = "fcap";
 
 double
@@ -199,8 +255,8 @@ Vehicle::Fcap(double value)
 
 
 /*
-     * Fcons
-     */
+ * Fcons
+ */
 const QString Vehicle::PROP_FCONS = "fcons";
 
 double
@@ -217,8 +273,8 @@ Vehicle::Fcons(double value)
 
 
 /*
-     * Susp
-     */
+ * Susp
+ */
 const QString Vehicle::PROP_SUSP = "susp";
 
 QString
@@ -235,32 +291,32 @@ Vehicle::Susp(const QString& value)
 
 
 /*
-     * Tf
-     */
+ * Tf
+ */
 const QString Vehicle::PROP_TF = "tf";
 
 double
 Vehicle::Tf() const
 {
-  return GetDoubleFor(PROP_TF);
+  return Round(GetDoubleFor(PROP_TF) / Divisor());
 }
 
 void
 Vehicle::Tf(double value)
 {
-  SetDoubleFor(PROP_TF, value);
+  SetDoubleFor(PROP_TF, ConvertFrom(value));
 }
 
 
 /*
-     * Ts
-     */
+ * Ts
+ */
 const QString Vehicle::PROP_TS = "ts";
 
 double
 Vehicle::Ts() const
 {
-  return GetDoubleFor(PROP_TS);
+  return Round(GetDoubleFor(PROP_TS) / Divisor());
 }
 
 void
@@ -278,7 +334,7 @@ const QString Vehicle::PROP_TR = "tr";
 double
 Vehicle::Tr() const
 {
-  return GetDoubleFor(PROP_TR);
+  return Round(GetDoubleFor(PROP_TR) / Divisor());
 }
 
 void
@@ -296,25 +352,25 @@ const QString Vehicle::PROP_HF = "hf";
 double
 Vehicle::Hf() const
 {
-  return GetDoubleFor(PROP_HF);
+  return Round(GetDoubleFor(PROP_HF) / Divisor());
 }
 
 void
 Vehicle::Hf(double value)
 {
-  SetDoubleFor(PROP_HF, value);
+  SetDoubleFor(PROP_HF, value * Divisor());
 }
 
 
 /*
-     * Hs
-     */
+ * Hs
+ */
 const QString Vehicle::PROP_HS = "hs";
 
 double
 Vehicle::Hs() const
 {
-  return GetDoubleFor(PROP_HS);
+  return Round(GetDoubleFor(PROP_HS) / Divisor());
 }
 
 void
@@ -325,14 +381,14 @@ Vehicle::Hs(double value)
 
 
 /*
-     * Hr
-     */
+ * Hr
+ */
 const QString Vehicle::PROP_HR = "hr";
 
 double
 Vehicle::Hr() const
 {
-  return GetDoubleFor(PROP_HR);
+  return Round(GetDoubleFor(PROP_HR) / Divisor());
 }
 
 void
@@ -343,8 +399,8 @@ Vehicle::Hr(double value)
 
 
 /*
-     * Weapons
-     */
+ * Weapons
+ */
 const QString Vehicle::PROP_WEAPONS = "weap";
 
 QList<Weapon*>
@@ -361,8 +417,8 @@ Vehicle::Weapons(QList<Weapon*>& weapons)
 
 
 /*
-     * Weight
-     */
+ * Weight
+ */
 const QString Vehicle::PROP_WEIGHT = "weight";
 
 double
@@ -379,8 +435,8 @@ Vehicle::Weight(double value)
 
 
 /*
-     * Load
-     */
+ * Load
+ */
 const QString Vehicle::PROP_LOAD = "load";
 
 double
@@ -397,8 +453,8 @@ Vehicle::Load(double value)
 
 
 /*
-     * Crew
-     */
+ * Crew
+ */
 const QString Vehicle::PROP_CREW = "crew";
 
 double
@@ -487,38 +543,50 @@ Vehicle::Rf(double value)
 
 
 /*
-     * Deck
-     */
+ * Deck
+ */
 const QString Vehicle::PROP_DECK = "deck";
 
 double
 Vehicle::Deck() const
 {
-  return GetDoubleFor(PROP_DECK);
+  double value = GetDoubleFor(PROP_DECK);
+
+  if(value == 0) {
+    value = GetDoubleFor(PROP_HR) / 2;
+  }
+
+  return Round(value / Divisor());
 }
 
 void
 Vehicle::Deck(double value)
 {
-  SetDoubleFor(PROP_DECK, value);
+  SetDoubleFor(PROP_DECK, value * Divisor());
 }
 
 
 /*
-     * Belly
-     */
+ * Belly
+ */
 const QString Vehicle::PROP_BELLY = "belly";
 
 double
 Vehicle::Belly() const
 {
-  return GetDoubleFor(PROP_BELLY);
+  double value = GetDoubleFor(PROP_BELLY);
+
+  if(value == 0) {
+    value = GetDoubleFor(PROP_HR) / 2;
+  }
+
+  return Round(value / Divisor());
 }
 
 void
 Vehicle::Belly(double value)
 {
-  SetDoubleFor(PROP_BELLY, value);
+  SetDoubleFor(PROP_BELLY, value * Divisor());
 }
 
 

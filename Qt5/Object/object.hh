@@ -46,7 +46,7 @@ namespace GDW
         double TechLevel() const;
 
         operator const QJsonObject&() const;
-        QVariantHash ToVariantHash() const;
+        virtual QVariantHash ToVariantHash() const;
 
         virtual QList<QVariant> ItemData() const;
 
@@ -60,8 +60,14 @@ namespace GDW
 
         QVariant GetVariantFor(const QString&) const;
 
+        double ConvertFrom(double) const;
+        double Round(double) const;
+
       private:
         static const QString PROP_TECHLEVEL;
+
+        static const int RANGE;
+        static const double STRIKER[];
 
         QJsonObject mJsonObject;
 

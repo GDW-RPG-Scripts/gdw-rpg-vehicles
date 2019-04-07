@@ -49,6 +49,7 @@ namespace GDW
         const Vehicle* Copy() const override;
 
         QList<QVariant> ItemData() const override;
+        QVariantHash ToVariantHash() const override;
 
 
         QString Name() const;
@@ -188,6 +189,8 @@ namespace GDW
         static const QString PROP_X7;
         static const QString PROP_X8;
         static const QString PROP_LOCA;
+
+        qreal Divisor() const;
 
         QList<Weapon*> mWeapons;
     };

@@ -57,8 +57,6 @@ namespace GDW
         void LoadFile(const QString& fileName);
 
       public slots:
-        void LoadOnStart(int);
-        void RuleSet(int);
         void UpdateActions();
 
       protected:
