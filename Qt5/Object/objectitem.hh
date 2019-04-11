@@ -39,9 +39,11 @@ namespace GDW
     class Object;
     class ObjectForm;
 
-    class OBJECTSHARED_EXPORT ObjectTreeItem
+    class OBJECTSHARED_EXPORT ObjectTreeItem : public QObject
     {
       public:
+        ObjectTreeItem();
+        ObjectTreeItem(const ObjectTreeItem&);
         ObjectTreeItem(Object*, ObjectTreeItem* parent = nullptr);
         ObjectTreeItem(const QList<QVariant>&,
                        ObjectTreeItem* parent = nullptr);
@@ -87,5 +89,7 @@ namespace GDW
     };
   };
 };
+
+Q_DECLARE_METATYPE(GDW::RPG::ObjectTreeItem)
 
 #endif // OBJECTTREEITEM_HH

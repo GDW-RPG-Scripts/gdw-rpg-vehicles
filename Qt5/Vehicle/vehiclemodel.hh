@@ -27,16 +27,26 @@ namespace GDW
 {
   namespace RPG
   {
+    class VehicleTreeItem;
+
     class VEHICLESHARED_EXPORT VehicleModel : public ObjectModel
     {
         Q_OBJECT
 
       public:
-        VehicleModel(QObject* parent = nullptr);
+        static VehicleModel* Model();
+
+        ObjectTreeItem* Unpack(const QJsonObject& json,
+                               ObjectTreeItem* parent) override;
 
       protected:
         ObjectTreeItem* Create(ObjectTreeItem*) const override;
         const QList<QVariant>& RootData() const override;
+
+      private:
+        VehicleModel(QObject* parent = nullptr);
+
+        static VehicleModel MODEL;
     };
   };
 };

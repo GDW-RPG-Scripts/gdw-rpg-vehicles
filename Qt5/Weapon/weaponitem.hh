@@ -41,7 +41,6 @@ namespace GDW
     class WEAPONSHARED_EXPORT WeaponTreeItem : public ObjectTreeItem
     {
       public:
-        static WeaponModel* Model();
         static WeaponTreeItem* Create(ObjectTreeItem* parent = nullptr);
         static WeaponTreeItem* Unpack(const QJsonObject&,
                                       ObjectTreeItem* parent);
@@ -57,9 +56,6 @@ namespace GDW
         const Weapon* GetObject() const override;
 
         QDebug& Debug(QDebug&) const override;
-
-      private:
-        static WeaponModel MODEL;
     };
   };
 };

@@ -201,9 +201,9 @@ ObjectTreeItem::RenderPage(QPaintDevice& device) const
   QVariantHash map = GetObject()->ToVariantHash();
 
   Mustache::Renderer renderer;
-  Mustache::QtVariantContext context(map);
+  Mustache::QtVariantContext* context = GetObject()->Context(map);
 
-  QXmlStreamReader reader(renderer.render(Template(), &context));
+  QXmlStreamReader reader(renderer.render(Template(), context));
   QSvgRenderer svg(&reader);
   QPainter painter(&device);
 

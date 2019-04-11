@@ -46,6 +46,7 @@ namespace GDW
         const Weapon* Copy() const override;
 
         QList<QVariant> ItemData() const override;
+        QVariantHash ToVariantHash() const override;
 
 
         QString Wtyp() const;

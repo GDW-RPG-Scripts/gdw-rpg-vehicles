@@ -27,6 +27,11 @@
 #include <QList>
 #include <QString>
 
+namespace Mustache
+{
+  class QtVariantContext;
+};
+
 namespace GDW
 {
   namespace RPG
@@ -50,6 +55,7 @@ namespace GDW
 
         QList<QVariant> ItemData() const override;
         QVariantHash ToVariantHash() const override;
+        Mustache::QtVariantContext* Context(const QVariantHash&) const override;
 
 
         QString Name() const;
@@ -94,7 +100,7 @@ namespace GDW
         double Hr() const;
         void Hr(double);
 
-        QList<Weapon*> Weapons();
+        QList<Weapon*> Weapons() const;
         void Weapons(QList<Weapon*>&);
 
         double Weight() const;

@@ -18,6 +18,8 @@
 
 #include "vehicle.hh"
 
+#include "mustache.hh"
+
 #include <QJsonArray>
 #include <QJsonDocument>
 #include <QSettings>
@@ -51,7 +53,7 @@ Vehicle::Vehicle(const QJsonObject& json)
 Vehicle*
 Vehicle::New()
 {
-  static const QJsonObject vehicle
+  static const QJsonObject exemplar
   {
     {"__GDW_RPG_Type__", JSON_TYPE},
     {PROP_NAME, "[Name]"}, {PROP_TYPE, "[Type]"}, {PROP_NATIONALITY, "[Nationality]"},
@@ -66,7 +68,7 @@ Vehicle::New()
     {PROP_LOCA, ""}
   };
 
-  return new Vehicle(vehicle);
+  return new Vehicle(exemplar);
 }
 
 Vehicle*
@@ -110,7 +112,13 @@ Vehicle::ToVariantHash() const
   hash[PROP_HF]          = Hf();
   hash[PROP_HS]          = Hs();
   hash[PROP_HR]          = Hr();
-  // hash[PROP_WEAPONS]     = Weapons();
+
+  QVariantList list;
+  for(Weapon* weapon: Weapons()) {
+    list << weapon->ToVariantHash();
+  }
+
+  hash[PROP_WEAPONS]     = list;
   hash[PROP_WEIGHT]      = Weight();
   hash[PROP_LOAD]        = Load();
   hash[PROP_CREW]        = Crew();
@@ -132,6 +140,48 @@ Vehicle::ToVariantHash() const
 
   return hash;
 }
+
+Mustache::QtVariantContext*
+Vehicle::Context(const QVariantHash& hash) const
+{
+  class CounterContext : public Mustache::QtVariantContext
+  {
+    public:
+      int mNumber;
+      int mYCoord;
+      int mIncrement;
+
+      CounterContext(int start, int increment, const QVariantHash& map)
+        : Mustache::QtVariantContext(map),
+          mNumber(1), mYCoord(start), mIncrement(increment)
+      {}
+
+      virtual bool canEval(const QString& key) const {
+        return key == "counter";
+      }
+
+      virtual QString eval(const QString& key, const QString& _template, Mustache::Renderer* renderer) {
+        if (key == "counter") {
+          mNumber += 1;
+          mYCoord += mIncrement;
+        }
+        return renderer->render(_template, this);
+      }
+
+      virtual QString stringValue(const QString& key) const {
+        if (key == "number") {
+          return QString::number(mNumber);
+        } else if (key == "y_coord") {
+          return QString::number(mYCoord);
+        } else {
+          return Mustache::QtVariantContext::stringValue(key);
+        }
+      }
+  };
+
+  return new CounterContext(63, 11, hash);
+}
+
 
 qreal
 Vehicle::Divisor() const
@@ -404,7 +454,7 @@ Vehicle::Hr(double value)
 const QString Vehicle::PROP_WEAPONS = "weap";
 
 QList<Weapon*>
-Vehicle::Weapons()
+Vehicle::Weapons() const
 {
   return mWeapons;
 }
@@ -562,7 +612,7 @@ Vehicle::Deck() const
 void
 Vehicle::Deck(double value)
 {
-  SetDoubleFor(PROP_DECK, value * Divisor());
+  SetDoubleFor(PROP_DECK, ConvertFrom(value * Divisor()));
 }
 
 
@@ -586,7 +636,7 @@ Vehicle::Belly() const
 void
 Vehicle::Belly(double value)
 {
-  SetDoubleFor(PROP_BELLY, value * Divisor());
+  SetDoubleFor(PROP_BELLY, ConvertFrom(value * Divisor()));
 }
 
 

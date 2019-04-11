@@ -77,6 +77,31 @@ Weapon::ItemData() const
   return data;
 }
 
+QVariantHash
+Weapon::ToVariantHash() const
+{
+  QVariantHash hash;
+
+  hash[PROP_WTYP]  = Wtyp();
+  hash[PROP_WQUAL] = Wqual();
+  hash[PROP_ROF]   = Rof();
+  hash[PROP_RNG]   = Rng();
+  hash[PROP_PS]    = Ps();
+  hash[PROP_PM]    = Pl();
+  hash[PROP_PL]    = Pm();
+  hash[PROP_PX]    = Px();
+  hash[PROP_AMMO]  = Ammo();
+  hash[PROP_CON]   = Con();
+  hash[PROP_BUR]   = Bur();
+  hash[PROP_PRAN]  = Pran();
+
+  hash["short"]    = Rng() / 2;
+  hash["long"]     = Rng() * 2;
+  hash["extreme"]  = Rng() * 4;
+
+  return hash;
+}
+
 
 const QString Weapon::PROP_WTYP = "wtyp";
 

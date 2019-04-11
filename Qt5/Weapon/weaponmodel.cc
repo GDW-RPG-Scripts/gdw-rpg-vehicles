@@ -21,6 +21,14 @@
 
 using namespace GDW::RPG;
 
+WeaponModel WeaponModel::MODEL;
+
+WeaponModel*
+WeaponModel::Model()
+{
+  return &MODEL;
+}
+
 WeaponModel::WeaponModel(QObject* parent)
   : ObjectModel(parent)
 {}
@@ -39,4 +47,11 @@ ObjectTreeItem*
 WeaponModel::Create(ObjectTreeItem* parent) const
 {
   return WeaponTreeItem::Create(parent);
+}
+
+ObjectTreeItem*
+WeaponModel::Unpack(const QJsonObject& json, ObjectTreeItem* parent)
+{
+  WeaponTreeItem* item = WeaponTreeItem::Unpack(json, parent);
+  return item;
 }

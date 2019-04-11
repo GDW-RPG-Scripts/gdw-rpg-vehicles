@@ -21,14 +21,6 @@
 
 using namespace GDW::RPG;
 
-ShipModel ShipTreeItem::MODEL;
-
-ShipModel*
-ShipTreeItem::Model()
-{
-  return &MODEL;
-}
-
 ShipTreeItem*
 ShipTreeItem::Create(ObjectTreeItem* parent)
 {
@@ -45,10 +37,12 @@ ShipTreeItem::Unpack(const QJsonObject& json, ObjectTreeItem* parent)
 }
 
 ShipTreeItem::ShipTreeItem(Ship* ship, ObjectTreeItem* parent)
-  : ObjectTreeItem(ship, parent == nullptr ? MODEL.RootItem() : parent)
+  : ObjectTreeItem(ship,
+                   parent == nullptr ? ShipModel::Model()->RootItem()
+                                     : parent)
 {
   if(parent == nullptr)
-    MODEL.RootItem()->AppendChild(this);
+    ShipModel::Model()->RootItem()->AppendChild(this);
 }
 
 ShipForm*

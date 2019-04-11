@@ -21,6 +21,14 @@
 
 using namespace GDW::RPG;
 
+ShipModel ShipModel::MODEL;
+
+ShipModel*
+ShipModel::Model()
+{
+  return &MODEL;
+}
+
 ShipModel::ShipModel(QObject* parent)
   : ObjectModel(parent)
 {}
@@ -39,4 +47,11 @@ ObjectTreeItem*
 ShipModel::Create(ObjectTreeItem* parent) const
 {
   return ShipTreeItem::Create(parent);
+}
+
+ObjectTreeItem*
+ShipModel::Unpack(const QJsonObject& json, ObjectTreeItem* parent)
+{
+  ShipTreeItem* item = ShipTreeItem::Unpack(json, parent);
+  return item;
 }

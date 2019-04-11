@@ -25,6 +25,11 @@
 #include <QJsonObject>
 #include <QVariant>
 
+namespace Mustache
+{
+  class QtVariantContext;
+};
+
 namespace GDW
 {
   namespace RPG
@@ -47,6 +52,7 @@ namespace GDW
 
         operator const QJsonObject&() const;
         virtual QVariantHash ToVariantHash() const;
+        virtual Mustache::QtVariantContext* Context(const QVariantHash&) const;
 
         virtual QList<QVariant> ItemData() const;
 

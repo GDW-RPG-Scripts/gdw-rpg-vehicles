@@ -34,21 +34,19 @@ namespace GDW
     class SHIPSHARED_EXPORT ShipTreeItem : public ObjectTreeItem
     {
       public:
-        static ShipModel* Model();
         static ShipTreeItem* Create(ObjectTreeItem* parent = nullptr);
         static ShipTreeItem* Unpack(const QJsonObject&,
                                     ObjectTreeItem* parent);
 
         ShipForm* GetForm() override;
 
+        ShipTreeItem();
+
       protected:
         explicit ShipTreeItem(Ship*, ObjectTreeItem* parent = nullptr);
 
         Ship* GetObject() override;
         const Ship* GetObject() const override;
-
-      private:
-        static ShipModel MODEL;
     };
   };
 };

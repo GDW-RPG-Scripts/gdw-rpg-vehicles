@@ -70,10 +70,10 @@ Workspace::Workspace(QWidget* parent) :
   mUi.menuEdit->insertActions(mUi.action_Placeholder, actions);
   mUi.menuEdit->removeAction(mUi.action_Placeholder);
 
-  mUi.vehiclesTreeView->setModel(VehicleTreeItem ::Model());
-  mUi.weaponsTreeView ->setModel(WeaponTreeItem::Model());
-  mUi.shipTreeView    ->setModel(ShipTreeItem::Model());
-  mUi.unitTreeView    ->setModel(UnitTreeItem::Model());
+  mUi.vehiclesTreeView->setModel(VehicleModel::Model());
+  mUi.weaponsTreeView ->setModel(WeaponModel ::Model());
+  mUi.shipTreeView    ->setModel(ShipModel   ::Model());
+  mUi.unitTreeView    ->setModel(UnitModel   ::Model());
 
   CurrentFile(QString());
   setUnifiedTitleAndToolBarOnMac(true);
@@ -161,8 +161,21 @@ Workspace::Open()
     QString fileName =
         QFileDialog::getOpenFileName(this, tr("Load Vehicles"), ".",
                                      tr("GDW RPG Object files (*.json *.grv *.gro)"));
-    if (!fileName.isEmpty())
+    if (!fileName.isEmpty()) {
+      New();
       LoadFile(fileName);
+    }
+  }
+}
+
+void
+Workspace::Import()
+{
+  QString fileName =
+      QFileDialog::getOpenFileName(this, tr("Import Vehicles"), ".",
+                                   tr("GDW RPG Object files (*.json *.grv *.gro)"));
+  if (!fileName.isEmpty()) {
+    LoadFile(fileName);
   }
 }
 
@@ -556,16 +569,18 @@ Workspace::ResizeViewColumns()
   };
 
   static const ModelViewMap MODEL_VIEW_MAP[] = {
-    { VehicleTreeItem::Model, mUi.vehiclesTreeView },
-    {  WeaponTreeItem::Model, mUi. weaponsTreeView },
-    {    ShipTreeItem::Model, mUi.    shipTreeView },
-    {    UnitTreeItem::Model, mUi.    unitTreeView }
+    { VehicleModel::Model, mUi.vehiclesTreeView },
+    { WeaponModel ::Model, mUi. weaponsTreeView },
+    { ShipModel   ::Model, mUi.    shipTreeView },
+    { UnitModel   ::Model, mUi.    unitTreeView }
   };
 
   for(ModelViewMap map: MODEL_VIEW_MAP) {
     ObjectModel* model = map.GetModel();
-    for (int column = 0; column < model->columnCount(); ++column)
+    for (int column = 0; column < model->columnCount(); ++column) {
       map.View->resizeColumnToContents(column);
+      //map.View->;
+    }
   }
 }
 
@@ -679,11 +694,11 @@ Workspace::UpdateActions()
       selectionModel != nullptr && !selectionModel->selection().isEmpty();
 
   int currentIndex = mUi.tabWidget->currentIndex();
-  mUi.action_AddVehicle->setEnabled(currentIndex == 0);
-  mUi. action_AddWeapon->setEnabled(currentIndex == 1 || hasSelection);
-  mUi.       action_Cut->setEnabled(hasSelection);
-  mUi.      action_Copy->setEnabled(hasSelection);
-  mUi. removeItemButton->setEnabled(hasSelection);
+  mUi.action_AddObject->setEnabled(currentIndex == 0);
+  mUi.action_AddWeapon->setEnabled(currentIndex == 1 || hasSelection);
+  mUi.      action_Cut->setEnabled(hasSelection);
+  mUi.     action_Copy->setEnabled(hasSelection);
+  mUi.removeItemButton->setEnabled(hasSelection);
 
   if(hasSelection) {
     connect(selectionModel, &QItemSelectionModel::selectionChanged,

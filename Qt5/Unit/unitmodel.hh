@@ -27,16 +27,26 @@ namespace GDW
 {
   namespace RPG
   {
+    class UnitTreeItem;
+
     class UNITSHARED_EXPORT UnitModel : public ObjectModel
     {
         Q_OBJECT
 
       public:
+        static UnitModel* Model();
+
+        ObjectTreeItem* Unpack(const QJsonObject&,
+                               ObjectTreeItem* parent) override;
+
         UnitModel(QObject* parent = nullptr);
 
       protected:
         ObjectTreeItem* Create(ObjectTreeItem*) const override;
         const QList<QVariant>& RootData() const override;
+
+      private:
+        static UnitModel MODEL;
     };
   };
 };

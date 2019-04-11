@@ -21,6 +21,14 @@
 
 using namespace GDW::RPG;
 
+UnitModel UnitModel::MODEL;
+
+UnitModel*
+UnitModel::Model()
+{
+  return &MODEL;
+}
+
 UnitModel::UnitModel(QObject* parent)
   : ObjectModel(parent)
 {}
@@ -39,4 +47,11 @@ ObjectTreeItem*
 UnitModel::Create(ObjectTreeItem* parent) const
 {
   return UnitTreeItem::Create(parent);
+}
+
+ObjectTreeItem*
+UnitModel::Unpack(const QJsonObject& json, ObjectTreeItem* parent)
+{
+  UnitTreeItem* item = UnitTreeItem::Unpack(json, parent);
+  return item;
 }

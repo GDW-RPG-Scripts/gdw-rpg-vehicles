@@ -34,7 +34,6 @@ namespace GDW
     class VEHICLESHARED_EXPORT VehicleTreeItem : public ObjectTreeItem
     {
       public:
-        static VehicleModel* Model();
         static VehicleTreeItem* Create(ObjectTreeItem* parent = nullptr);
         static VehicleTreeItem* Unpack(const QJsonObject&,
                                        ObjectTreeItem* parent);
@@ -47,9 +46,6 @@ namespace GDW
 
         Vehicle* GetObject() override;
         const Vehicle* GetObject() const override;
-
-      private:
-        static VehicleModel MODEL;
     };
   };
 };

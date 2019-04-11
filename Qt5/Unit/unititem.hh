@@ -34,23 +34,23 @@ namespace GDW
     class UNITSHARED_EXPORT UnitTreeItem : public ObjectTreeItem
     {
       public:
-        static UnitModel* Model();
         static UnitTreeItem* Create(ObjectTreeItem* parent = nullptr);
         static UnitTreeItem* Unpack(const QJsonObject&,
                                     ObjectTreeItem* parent);
 
         UnitForm* GetForm() override;
 
+        UnitTreeItem();
+
       protected:
         explicit UnitTreeItem(Unit*, ObjectTreeItem* parent = nullptr);
 
         Unit* GetObject() override;
         const Unit* GetObject() const override;
-
-      private:
-        static UnitModel MODEL;
     };
   };
 };
+
+Q_DECLARE_METATYPE(GDW::RPG::UnitTreeItem)
 
 #endif // UNITITEM_HH

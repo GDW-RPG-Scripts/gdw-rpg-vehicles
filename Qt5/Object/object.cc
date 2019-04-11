@@ -20,6 +20,8 @@
 
 #include "exception.hh"
 
+#include "mustache.hh"
+
 #include <QtMath>
 #include <QSettings>
 
@@ -67,10 +69,10 @@ Object::~Object()
 Object::Object(const QJsonObject& json)
   : mJsonObject(json)
 {
-  if(mJsonObject.isEmpty() ||
-     !mJsonObject.contains(PROP_TECHLEVEL) ||
-     !mJsonObject[PROP_TECHLEVEL].isDouble())
-    mJsonObject.insert(PROP_TECHLEVEL, 0);
+  //  if(mJsonObject.isEmpty() ||
+  //     !mJsonObject.contains(PROP_TECHLEVEL) ||
+  //     !mJsonObject[PROP_TECHLEVEL].isDouble())
+  //    mJsonObject.insert(PROP_TECHLEVEL, 0);
 }
 
 /*
@@ -117,6 +119,12 @@ QVariantHash
 Object::ToVariantHash() const
 {
   return QVariantHash();
+}
+
+Mustache::QtVariantContext*
+Object::Context(const QVariantHash& hash) const
+{
+  return new Mustache::QtVariantContext(hash);
 }
 
 
@@ -171,7 +179,7 @@ Object::ConvertFrom(double value) const
   QSettings settings;
 
   if(settings.value("ruleset", 0).toInt() == 1) {
-    return STRIKER[qFloor(value)];
+    return STRIKER[qFloor(value)-1];
   }
 
   return value;
@@ -186,7 +194,7 @@ Object::Round(double value) const
 
     for(int i = 0; i < RANGE; ++i) {
       if(STRIKER[i] > value) {
-        value = STRIKER[i-1];
+        value = i;
         break;
       }
     }

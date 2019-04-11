@@ -20,14 +20,6 @@
 
 using namespace GDW::RPG;
 
-UnitModel UnitTreeItem::MODEL;
-
-UnitModel*
-UnitTreeItem::Model()
-{
-  return &MODEL;
-}
-
 UnitTreeItem*
 UnitTreeItem::Create(ObjectTreeItem* parent)
 {
@@ -44,10 +36,12 @@ UnitTreeItem::Unpack(const QJsonObject& json, ObjectTreeItem* parent)
 }
 
 UnitTreeItem::UnitTreeItem(Unit* unit, ObjectTreeItem* parent)
-  : ObjectTreeItem(unit, parent == nullptr ? MODEL.RootItem() : parent)
+  : ObjectTreeItem(unit,
+                   parent == nullptr ? UnitModel::Model()->RootItem()
+                                     : parent)
 {
   if(parent == nullptr)
-    MODEL.RootItem()->AppendChild(this);
+    UnitModel::Model()->RootItem()->AppendChild(this);
 }
 
 UnitForm*

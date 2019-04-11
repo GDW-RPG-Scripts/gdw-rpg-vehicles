@@ -27,16 +27,26 @@ namespace GDW
 {
   namespace RPG
   {
+    class ShipTreeItem;
+
     class SHIPSHARED_EXPORT ShipModel : public ObjectModel
     {
         Q_OBJECT
 
       public:
-        ShipModel(QObject* parent = nullptr);
+        static ShipModel* Model();
+
+        ObjectTreeItem* Unpack(const QJsonObject&,
+                               ObjectTreeItem* parent) override;
 
       protected:
         ObjectTreeItem* Create(ObjectTreeItem*) const override;
         const QList<QVariant>& RootData() const override;
+
+      private:
+        ShipModel(QObject* parent = nullptr);
+
+        static ShipModel MODEL;
     };
   };
 };

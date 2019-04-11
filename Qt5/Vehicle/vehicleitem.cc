@@ -34,14 +34,6 @@ using namespace GDW::RPG;
 
 class QPaintDevice;
 
-VehicleModel VehicleTreeItem::MODEL;
-
-VehicleModel*
-VehicleTreeItem::Model()
-{
-  return &MODEL;
-}
-
 VehicleTreeItem*
 VehicleTreeItem::Create(ObjectTreeItem* parent)
 {
@@ -62,11 +54,10 @@ VehicleTreeItem::Unpack(const QJsonObject& json, ObjectTreeItem* parent)
 }
 
 VehicleTreeItem::VehicleTreeItem(Vehicle* vehicle, ObjectTreeItem* parent)
-  : ObjectTreeItem(vehicle, parent == nullptr ? MODEL.RootItem() : parent)
-{
-  if(parent == nullptr)
-    MODEL.RootItem()->AppendChild(this);
-}
+  : ObjectTreeItem(vehicle,
+                   parent == nullptr ? VehicleModel::Model()->RootItem()
+                                     : parent)
+{}
 
 VehicleForm*
 VehicleTreeItem::GetForm()

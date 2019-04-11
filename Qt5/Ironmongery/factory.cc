@@ -64,18 +64,21 @@ Factory::Create(int type, ObjectTreeItem* parent)
   return CREATE[type](parent);
 }
 
-typedef std::function<ObjectTreeItem*(const QJsonObject&, ObjectTreeItem*)> ObjectTreeUnpackFunction;
-typedef QHash<const QString, ObjectTreeUnpackFunction> ObjectTreeUnpackMap;
+// typedef std::function<ObjectTreeItem*(const QJsonObject&, ObjectTreeItem*)> ObjectTreeUnpackFunction;
+// typedef QHash<const QString, UnpackFunction> UnpackMap;
+
+typedef std::function<ObjectModel*()> ModelFunction;
+typedef QHash<const QString, ModelFunction> ModelMap;
 
 ObjectTreeItem*
 Factory::Unpack(const QJsonValue& json, ObjectTreeItem* parent)
 {
   static const QString GDW_RPG_TYPE = "__GDW_RPG_Type__";
-  static const ObjectTreeUnpackMap UNPACK = {
-    { Vehicle::JSON_TYPE, VehicleTreeItem::Unpack },
-    { Weapon ::JSON_TYPE, WeaponTreeItem ::Unpack },
-    { Ship   ::JSON_TYPE, ShipTreeItem   ::Unpack },
-    { Unit   ::JSON_TYPE, UnitTreeItem   ::Unpack }
+  static const ModelMap MODEL = {
+    { Vehicle::JSON_TYPE, VehicleModel::Model },
+    { Weapon ::JSON_TYPE, WeaponModel ::Model },
+    { Ship   ::JSON_TYPE, ShipModel   ::Model },
+    { Unit   ::JSON_TYPE, UnitModel   ::Model }
   };
 
   if(json.isObject()) {
@@ -83,8 +86,8 @@ Factory::Unpack(const QJsonValue& json, ObjectTreeItem* parent)
     if (obj.contains(GDW_RPG_TYPE) && obj[GDW_RPG_TYPE].isString()) {
       const QString type = obj[GDW_RPG_TYPE].toString();
 
-      if(UNPACK.contains(type)) {
-        return UNPACK[type](obj, parent);
+      if(MODEL.contains(type)) {
+        return MODEL[type]()->Unpack(obj, parent);
       }
     }
   }
@@ -95,13 +98,11 @@ Factory::Unpack(const QJsonValue& json, ObjectTreeItem* parent)
 QTextStream&
 GDW::RPG::operator<<(QTextStream& ots, const Factory& factory)
 {
-  typedef std::function<ObjectModel*()> ModelFunction;
-
   static const ModelFunction MODEL[] = {
-    VehicleTreeItem::Model,
-    WeaponTreeItem ::Model,
-    ShipTreeItem   ::Model,
-    UnitTreeItem   ::Model
+    VehicleModel::Model,
+    WeaponModel ::Model,
+    ShipModel   ::Model,
+    UnitModel   ::Model
   };
 
   QJsonArray jarr;

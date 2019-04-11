@@ -604,8 +604,7 @@
     <addaction name="action_Paste"/>
     <addaction name="separator"/>
     <addaction name="separator"/>
-    <addaction name="action_AddVehicle"/>
-    <addaction name="action_AddWeapon"/>
+    <addaction name="action_AddObject"/>
     <addaction name="action_Prefs"/>
    </widget>
    <widget class="QMenu" name="menuHelp">
@@ -780,7 +779,7 @@
   </action>
   <action name="action_Import">
    <property name="enabled">
-    <bool>false</bool>
+    <bool>true</bool>
    </property>
    <property name="text">
     <string>Import</string>
@@ -885,15 +884,15 @@
     <enum>QAction::PreferencesRole</enum>
    </property>
   </action>
-  <action name="action_AddVehicle">
+  <action name="action_AddObject">
    <property name="enabled">
     <bool>false</bool>
    </property>
    <property name="text">
-    <string>Add Vehicle</string>
+    <string>Add Object</string>
    </property>
    <property name="shortcut">
-    <string>Ctrl+Shift+V</string>
+    <string>Ctrl+Shift+A</string>
    </property>
   </action>
   <action name="action_AddWeapon">
@@ -1228,6 +1227,38 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>action_Import</sender>
+   <signal>triggered()</signal>
+   <receiver>Workspace</receiver>
+   <slot>Import()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>449</x>
+     <y>277</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>action_AddObject</sender>
+   <signal>triggered()</signal>
+   <receiver>Workspace</receiver>
+   <slot>InsertItem()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>449</x>
+     <y>277</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>About()</slot>
@@ -1246,5 +1277,6 @@
   <slot>CurrentType(int)</slot>
   <slot>ShowVehiclesMenu(QPoint)</slot>
   <slot>ShowWeaponsMenu(QPoint)</slot>
+  <slot>Import()</slot>
  </slots>
 </ui>

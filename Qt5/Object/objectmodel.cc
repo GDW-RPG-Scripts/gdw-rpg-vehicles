@@ -76,8 +76,9 @@ ObjectModel::Print(QModelIndex index, QPrinter& printer) const
 ObjectTreeItem*
 ObjectModel::RootItem() const
 {
-  if(mRootItem == nullptr)
+  if(mRootItem == nullptr) {
     mRootItem = new ObjectTreeItem(RootData());
+  }
 
   return mRootItem;
 }
@@ -216,6 +217,12 @@ ObjectModel::setData(const QModelIndex& index,
     emit dataChanged(index, index, {role});
 
   return result;
+}
+
+ObjectTreeItem*
+ObjectModel::Unpack(const QJsonObject&, ObjectTreeItem*)
+{
+  return nullptr;
 }
 
 //

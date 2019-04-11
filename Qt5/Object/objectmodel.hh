@@ -43,8 +43,9 @@ namespace GDW
 
         // Public API
         void Export(QJsonArray&) const;
-        void Reset();
         void Print(QModelIndex, QPrinter&) const;
+        void Reset();
+        virtual ObjectTreeItem* Unpack(const QJsonObject&, ObjectTreeItem*);
 
         ObjectTreeItem* RootItem() const;
 

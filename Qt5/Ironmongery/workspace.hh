@@ -65,6 +65,7 @@ namespace GDW
       private slots:
         void New();
         void Open();
+        void Import();
         void Prefs();
         bool Save();
         bool SaveAs();

@@ -240,13 +240,16 @@
        </item>
        <item row="1" column="2">
         <layout class="QFormLayout" name="pLayout">
+         <property name="labelAlignment">
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+         </property>
          <property name="verticalSpacing">
           <number>1</number>
          </property>
          <item row="0" column="0">
           <widget class="QLabel" name="psLabel">
            <property name="text">
-            <string>Ps:</string>
+            <string>Pen. Short:</string>
            </property>
            <property name="buddy">
             <cstring>psLineEdit</cstring>
@@ -269,7 +272,7 @@
          <item row="1" column="0">
           <widget class="QLabel" name="pmLabel">
            <property name="text">
-            <string>Pm:</string>
+            <string>Pen. Medium:</string>
            </property>
            <property name="buddy">
             <cstring>pmLineEdit</cstring>
@@ -292,7 +295,7 @@
          <item row="2" column="0">
           <widget class="QLabel" name="plLabel">
            <property name="text">
-            <string>Pl:</string>
+            <string>Pen. Long:</string>
            </property>
            <property name="buddy">
             <cstring>plLineEdit</cstring>
@@ -315,7 +318,7 @@
          <item row="3" column="0">
           <widget class="QLabel" name="pxLabel">
            <property name="text">
-            <string>Px:</string>
+            <string>Pen. Extreme:</string>
            </property>
            <property name="buddy">
             <cstring>pxLineEdit</cstring>
@@ -357,7 +360,7 @@
          <item row="0" column="0">
           <widget class="QLabel" name="wtypLabel">
            <property name="text">
-            <string>Type:</string>
+            <string>Weapon Type:</string>
            </property>
            <property name="buddy">
             <cstring>wtypLineEdit</cstring>
