@@ -47,6 +47,8 @@ namespace GDW
 
         Unit* GetObject() override;
         const Unit* GetObject() const override;
+
+        UnitModel* Model() const override;
     };
   };
 };

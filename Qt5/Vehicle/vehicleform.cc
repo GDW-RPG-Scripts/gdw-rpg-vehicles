@@ -19,7 +19,8 @@
 #include "vehicleform.hh"
 #include "ui_vehicleform.h"
 
-#include <QIntValidator>
+#include <QDoubleValidator>
+#include <QRegExpValidator>
 
 using namespace GDW::RPG;
 
@@ -31,7 +32,9 @@ VehicleForm::VehicleForm(Vehicle* vehicle, QWidget* parent) :
   AddSvgFrame(mVehicle->Type(), mUi->svgFrame);
   Read();
 
-  mUi->      trmovLineEdit->setValidator(new QIntValidator(0, 1000000, this));
+  // mUi-> travelMoveLineEdit->setValidator(new QIntValidator(0, 1000000, this));
+  // mUi->  techLevelLineEdit->setValidator(new QDoubleValidator(1, 33, 1, mUi->techLevelLineEdit));
+  mUi-> suspensionLineEdit->setValidator(new QRegExpValidator(QRegExp("[AGTW]\\d+"), mUi->suspensionLineEdit));
 }
 
 VehicleForm::~VehicleForm()
@@ -39,88 +42,100 @@ VehicleForm::~VehicleForm()
   delete mUi;
 }
 
-void
-VehicleForm::Read()
+Vehicle*
+VehicleForm::Read(Mode mode, Object* object)
 {
+  Vehicle* original = mVehicle;
+
+  if(object) {
+    mVehicle = static_cast<Vehicle*>(object);
+  }
+
   ObjectForm::Read();
 
-  mUi->  techLevelLineEdit->setText(QString::number(mVehicle->TechLevel()));
+  mUi->  techLevelLineEdit->setText(mVehicle->TechLevel()      .toString());
 
-  mUi->       nameLineEdit->setText(                mVehicle->Name());
-  mUi->       typeLineEdit->setText(                mVehicle->Type());
-  mUi->nationalityLineEdit->setText(                mVehicle->Nationality());
-  mUi->      trmovLineEdit->setText(QString::number(mVehicle->Trmov()));
-  mUi->      ccmovLineEdit->setText(QString::number(mVehicle->Ccmov()));
-  mUi->       fcapLineEdit->setText(QString::number(mVehicle->Fcap()));
-  mUi->      fconsLineEdit->setText(QString::number(mVehicle->Fcons()));
-  mUi->       suspLineEdit->setText(                mVehicle->Susp());
-  mUi->         tfLineEdit->setText(QString::number(mVehicle->Tf()));
-  mUi->         tsLineEdit->setText(QString::number(mVehicle->Ts()));
-  mUi->         trLineEdit->setText(QString::number(mVehicle->Tr()));
-  mUi->         hfLineEdit->setText(QString::number(mVehicle->Hf()));
-  mUi->         hsLineEdit->setText(QString::number(mVehicle->Hs()));
-  mUi->         hrLineEdit->setText(QString::number(mVehicle->Hr()));
-  mUi->     weightLineEdit->setText(QString::number(mVehicle->Weight()));
-  mUi->       loadLineEdit->setText(QString::number(mVehicle->Load()));
-  mUi->       crewLineEdit->setText(QString::number(mVehicle->Crew()));
-  mUi->  passengerLineEdit->setText(QString::number(mVehicle->Psgr()));
-  mUi->    mountedLineEdit->setText(QString::number(mVehicle->Mnt()));
-  mUi->      priceLineEdit->setText(QString::number(mVehicle->Price()));
-  mUi->         rFLineEdit->setText(QString::number(mVehicle->Rf()));
-  mUi->       deckLineEdit->setText(QString::number(mVehicle->Deck()));
-  mUi->      bellyLineEdit->setText(QString::number(mVehicle->Belly()));
-  mUi->       stabLineEdit->setText(                mVehicle->Stab());
-  mUi->       fuelLineEdit->setText(                mVehicle->Fuel());
-  mUi->      nightLineEdit->setText(                mVehicle->Night());
-  mUi->        radLineEdit->setText(                mVehicle->Rad());
-  mUi->         x5LineEdit->setText(                mVehicle->X5());
-  mUi->         x6LineEdit->setText(                mVehicle->X6());
-  mUi->         x7LineEdit->setText(                mVehicle->X7());
-  mUi->         x8TextEdit->setPlainText(           mVehicle->X8());
-  mUi->       locaLineEdit->setText(                mVehicle->Loca());
+  mUi->       nameLineEdit->setText(mVehicle->Name()           .toString());
+  mUi->       typeLineEdit->setText(mVehicle->Type()           .toString());
+  mUi->nationalityLineEdit->setText(mVehicle->Nationality()    .toString());
+  mUi-> travelMoveLineEdit->setText(mVehicle->TravelMove()     .toString());
+  mUi-> combatMoveLineEdit->setText(mVehicle->CombatMove()     .toString());
+  mUi->       fcapLineEdit->setText(mVehicle->FuelCapacity()   .toString());
+  mUi->      fconsLineEdit->setText(mVehicle->FuelConsumption().toString());
+  mUi-> suspensionLineEdit->setText(mVehicle->Suspension()     .toString());
+  mUi->         tfLineEdit->setText(mVehicle->TurretFront()    .toString());
+  mUi->         tsLineEdit->setText(mVehicle->TurretSides()    .toString());
+  mUi->         trLineEdit->setText(mVehicle->TurretRear()     .toString());
+  mUi->         hfLineEdit->setText(mVehicle->HullFront()      .toString());
+  mUi->         hsLineEdit->setText(mVehicle->HullSides()      .toString());
+  mUi->         hrLineEdit->setText(mVehicle->HullRear()       .toString());
+  mUi->     weightLineEdit->setText(mVehicle->Weight()         .toString());
+  mUi->       loadLineEdit->setText(mVehicle->Load()           .toString());
+  mUi->       crewLineEdit->setText(mVehicle->Crew()           .toString());
+  mUi->  passengerLineEdit->setText(mVehicle->Passengers()     .toString());
+  mUi->maintenanceLineEdit->setText(mVehicle->Maintenance()    .toString());
+  mUi->      priceLineEdit->setText(mVehicle->Price()          .toString());
+  mUi->         rFLineEdit->setText(mVehicle->Rf()             .toString());
+  mUi->       deckLineEdit->setText(mVehicle->Deck(mode)        .toString());
+  mUi->      bellyLineEdit->setText(mVehicle->Belly(mode)       .toString());
+  mUi->       stabLineEdit->setText(mVehicle->Stabilization()  .toString());
+  mUi->   fuelTypeLineEdit->setText(mVehicle->FuelTypes()      .toString());
+  mUi->      nightLineEdit->setText(mVehicle->NightVision()    .toString());
+  mUi->        radLineEdit->setText(mVehicle->NBC()            .toString());
+  mUi->         x5LineEdit->setText(mVehicle->X5()             .toString());
+  mUi->         x6LineEdit->setText(mVehicle->X6()             .toString());
+  mUi->         x7LineEdit->setText(mVehicle->X7()             .toString());
+  mUi->         x8TextEdit->setPlainText(mVehicle->X8()        .toString());
+  mUi->       locaLineEdit->setText(mVehicle->HitLocations()   .toString());
+
+  return original;
 }
 
-void
+Vehicle*
 VehicleForm::Write()
 {
+  Vehicle* original = mVehicle->Copy();
+
   ObjectForm::Write();
 
-  mVehicle->  TechLevel(mUi->  techLevelLineEdit->text().toDouble());
+  mVehicle->      TechLevel(mUi->  techLevelLineEdit->text());
 
-  mVehicle->       Name(mUi->       nameLineEdit->text());
-  mVehicle->       Type(mUi->       typeLineEdit->text());
-  mVehicle->Nationality(mUi->nationalityLineEdit->text());
-  mVehicle->      Trmov(mUi->      trmovLineEdit->text().toDouble());
-  mVehicle->      Ccmov(mUi->      ccmovLineEdit->text().toDouble());
-  mVehicle->       Fcap(mUi->       fcapLineEdit->text().toDouble());
-  mVehicle->      Fcons(mUi->      fconsLineEdit->text().toDouble());
-  mVehicle->       Susp(mUi->       suspLineEdit->text());
-  mVehicle->         Tf(mUi->         tfLineEdit->text().toDouble());
-  mVehicle->         Ts(mUi->         tsLineEdit->text().toDouble());
-  mVehicle->         Tr(mUi->         trLineEdit->text().toDouble());
-  mVehicle->         Hf(mUi->         hfLineEdit->text().toDouble());
-  mVehicle->         Hs(mUi->         hsLineEdit->text().toDouble());
-  mVehicle->         Hr(mUi->         hrLineEdit->text().toDouble());
-  mVehicle->     Weight(mUi->     weightLineEdit->text().toDouble());
-  mVehicle->       Load(mUi->       loadLineEdit->text().toDouble());
-  mVehicle->       Crew(mUi->       crewLineEdit->text().toDouble());
-  mVehicle->       Psgr(mUi->  passengerLineEdit->text().toDouble());
-  mVehicle->        Mnt(mUi->    mountedLineEdit->text().toDouble());
-  mVehicle->      Price(mUi->      priceLineEdit->text().toDouble());
-  mVehicle->         Rf(mUi->         rFLineEdit->text().toDouble());
-  mVehicle->       Deck(mUi->       deckLineEdit->text().toDouble());
-  mVehicle->      Belly(mUi->      bellyLineEdit->text().toDouble());
-  mVehicle->       Stab(mUi->       stabLineEdit->text());
-  mVehicle->       Fuel(mUi->       fuelLineEdit->text());
-  mVehicle->      Night(mUi->      nightLineEdit->text());
-  mVehicle->        Rad(mUi->        radLineEdit->text());
-  mVehicle->         X5(mUi->         x5LineEdit->text());
-  mVehicle->         X6(mUi->         x6LineEdit->text());
-  mVehicle->         X7(mUi->         x7LineEdit->text());
-  mVehicle->          X8(mUi->        x8TextEdit->toPlainText());
-  mVehicle->       Loca(mUi->       locaLineEdit->text());
+  mVehicle->           Name(mUi->       nameLineEdit->text());
+  mVehicle->           Type(mUi->       typeLineEdit->text());
+  mVehicle->    Nationality(mUi->nationalityLineEdit->text());
+  mVehicle->     TravelMove(mUi-> travelMoveLineEdit->text());
+  mVehicle->     CombatMove(mUi-> combatMoveLineEdit->text());
+  mVehicle->   FuelCapacity(mUi->       fcapLineEdit->text());
+  mVehicle->FuelConsumption(mUi->      fconsLineEdit->text());
+  mVehicle->     Suspension(mUi-> suspensionLineEdit->text());
+  mVehicle->    TurretFront(mUi->         tfLineEdit->text());
+  mVehicle->    TurretSides(mUi->         tsLineEdit->text());
+  mVehicle->     TurretRear(mUi->         trLineEdit->text());
+  mVehicle->      HullFront(mUi->         hfLineEdit->text());
+  mVehicle->      HullSides(mUi->         hsLineEdit->text());
+  mVehicle->       HullRear(mUi->         hrLineEdit->text());
+  mVehicle->         Weight(mUi->     weightLineEdit->text());
+  mVehicle->           Load(mUi->       loadLineEdit->text());
+  mVehicle->           Crew(mUi->       crewLineEdit->text());
+  mVehicle->     Passengers(mUi->  passengerLineEdit->text());
+  mVehicle->    Maintenance(mUi->maintenanceLineEdit->text());
+  mVehicle->          Price(mUi->      priceLineEdit->text());
+  mVehicle->             Rf(mUi->         rFLineEdit->text());
+  mVehicle->           Deck(mUi->       deckLineEdit->text());
+  mVehicle->          Belly(mUi->      bellyLineEdit->text());
+  mVehicle->  Stabilization(mUi->       stabLineEdit->text());
+  mVehicle->      FuelTypes(mUi->   fuelTypeLineEdit->text());
+  mVehicle->    NightVision(mUi->      nightLineEdit->text());
+  mVehicle->            NBC(mUi->        radLineEdit->text());
+  mVehicle->             X5(mUi->         x5LineEdit->text());
+  mVehicle->             X6(mUi->         x6LineEdit->text());
+  mVehicle->             X7(mUi->         x7LineEdit->text());
+  mVehicle->             X8(mUi->         x8TextEdit->toPlainText());
+  mVehicle->   HitLocations(mUi->       locaLineEdit->text());
 
   SetReadOnly(true);
+
+  return original;
 }
 
 void
@@ -133,11 +148,11 @@ VehicleForm::SetReadOnly(bool value)
   mUi->       nameLineEdit->setReadOnly(value);
   mUi->       typeLineEdit->setReadOnly(value);
   mUi->nationalityLineEdit->setReadOnly(value);
-  mUi->      trmovLineEdit->setReadOnly(value);
-  mUi->      ccmovLineEdit->setReadOnly(value);
+  mUi-> travelMoveLineEdit->setReadOnly(value);
+  mUi-> combatMoveLineEdit->setReadOnly(value);
   mUi->       fcapLineEdit->setReadOnly(value);
   mUi->      fconsLineEdit->setReadOnly(value);
-  mUi->       suspLineEdit->setReadOnly(value);
+  mUi-> suspensionLineEdit->setReadOnly(value);
   mUi->         tfLineEdit->setReadOnly(value);
   mUi->         tsLineEdit->setReadOnly(value);
   mUi->         trLineEdit->setReadOnly(value);
@@ -148,13 +163,13 @@ VehicleForm::SetReadOnly(bool value)
   mUi->       loadLineEdit->setReadOnly(value);
   mUi->       crewLineEdit->setReadOnly(value);
   mUi->  passengerLineEdit->setReadOnly(value);
-  mUi->    mountedLineEdit->setReadOnly(value);
+  mUi->maintenanceLineEdit->setReadOnly(value);
   mUi->      priceLineEdit->setReadOnly(value);
   mUi->         rFLineEdit->setReadOnly(value);
   mUi->       deckLineEdit->setReadOnly(value);
   mUi->      bellyLineEdit->setReadOnly(value);
   mUi->       stabLineEdit->setReadOnly(value);
-  mUi->       fuelLineEdit->setReadOnly(value);
+  mUi->   fuelTypeLineEdit->setReadOnly(value);
   mUi->      nightLineEdit->setReadOnly(value);
   mUi->        radLineEdit->setReadOnly(value);
   mUi->         x5LineEdit->setReadOnly(value);

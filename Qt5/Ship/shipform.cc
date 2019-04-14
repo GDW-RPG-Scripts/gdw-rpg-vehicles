@@ -34,18 +34,22 @@ ShipForm::~ShipForm()
   delete mUi;
 }
 
-void
-ShipForm::Read()
+Ship*
+ShipForm::Read(Mode, Object* value)
 {
   ObjectForm::Read();
+
+  return static_cast<Ship*>(value);
 }
 
-void
+Ship*
 ShipForm::Write()
 {
   ObjectForm::Write();
 
   SetReadOnly(true);
+
+  return nullptr;
 }
 
 void

@@ -61,3 +61,9 @@ UnitTreeItem::GetObject() const
 {
   return static_cast<const Unit*>(ObjectTreeItem::GetObject());
 }
+
+UnitModel*
+UnitTreeItem::Model() const
+{
+  return UnitModel::Model();
+}

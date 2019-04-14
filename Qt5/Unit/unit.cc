@@ -42,14 +42,14 @@ Unit::New()
 
 const QString Unit::PROP_NAME = "name";
 
-QString
+QVariant
 Unit::Name() const
 {
-  return GetStringFor(PROP_NAME);
+  return GetVariantFor(PROP_NAME);
 }
 
 void
-Unit::Name(const QString& value)
+Unit::Name(const QVariant& value)
 {
-  SetStringFor(PROP_NAME, value);
+  SetVariantFor(PROP_NAME, value);
 }

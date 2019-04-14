@@ -35,8 +35,8 @@ namespace GDW
         static Unit* New();
 
 
-        QString Name() const;
-        void Name(const QString&);
+        QVariant Name() const;
+        void Name(const QVariant&);
 
         static const QString JSON_TYPE;
 

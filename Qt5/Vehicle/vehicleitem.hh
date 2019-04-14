@@ -46,6 +46,8 @@ namespace GDW
 
         Vehicle* GetObject() override;
         const Vehicle* GetObject() const override;
+
+        VehicleModel* Model() const override;
     };
   };
 };

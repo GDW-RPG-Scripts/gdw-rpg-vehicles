@@ -46,44 +46,44 @@ namespace GDW
         const Weapon* Copy() const override;
 
         QList<QVariant> ItemData() const override;
-        QVariantHash ToVariantHash() const override;
+        void ToVariantHash(QVariantHash&) const override;
 
 
-        QString Wtyp() const;
-        void Wtyp(const QString&);
+        QVariant Wtyp() const;
+        void Wtyp(const QVariant&);
 
-        QString Wqual() const;
-        void Wqual(const QString&);
+        QVariant Wqual() const;
+        void Wqual(const QVariant&);
 
-        double Rof() const;
-        void Rof(double);
+        QVariant Rof() const;
+        void Rof(const QVariant&);
 
-        double Rng() const;
-        void Rng(double);
+        QVariant Rng() const;
+        void Rng(const QVariant&);
 
-        double Ps() const;
-        void Ps(double);
+        QVariant Ps() const;
+        void Ps(const QVariant&);
 
-        double Pm() const;
-        void Pm(double);
+        QVariant Pm() const;
+        void Pm(const QVariant&);
 
-        double Pl() const;
-        void Pl(double);
+        QVariant Pl() const;
+        void Pl(const QVariant&);
 
-        double Px() const;
-        void Px(double);
+        QVariant Px() const;
+        void Px(const QVariant&);
 
-        double Ammo() const;
-        void Ammo(double);
+        QVariant Ammo() const;
+        void Ammo(const QVariant&);
 
-        double Con() const;
-        void Con(double);
+        QVariant Con() const;
+        void Con(const QVariant&);
 
-        double Bur() const;
-        void Bur(double);
+        QVariant Bur() const;
+        void Bur(const QVariant&);
 
-        double Pran() const;
-        void Pran(double);
+        QVariant Pran() const;
+        void Pran(const QVariant&);
 
         static const QString JSON_TYPE;
 

@@ -55,6 +55,8 @@ namespace GDW
         Weapon* GetObject() override;
         const Weapon* GetObject() const override;
 
+        WeaponModel* Model() const override;
+
         QDebug& Debug(QDebug&) const override;
     };
   };

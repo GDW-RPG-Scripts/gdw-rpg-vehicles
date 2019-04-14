@@ -33,8 +33,6 @@ namespace GDW
 {
   namespace RPG
   {
-    class Vehicle;
-
     class VEHICLESHARED_EXPORT VehicleForm : public ObjectForm
     {
         Q_OBJECT
@@ -43,8 +41,8 @@ namespace GDW
         explicit VehicleForm(Vehicle* = nullptr, QWidget* parent = nullptr);
         ~VehicleForm() override;
 
-        void Read() override;
-        void Write() override;
+        Vehicle* Read(Mode = Mode::Standard, Object* = nullptr) override;
+        Vehicle* Write() override;
         void SetReadOnly(bool) override;
         QString Title() const override;
 

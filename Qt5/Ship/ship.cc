@@ -42,14 +42,14 @@ Ship::New()
 
 const QString Ship::PROP_NAME = "name";
 
-QString
+QVariant
 Ship::Name() const
 {
-  return GetStringFor(PROP_NAME);
+  return GetVariantFor(PROP_NAME);
 }
 
 void
-Ship::Name(const QString& value)
+Ship::Name(const QVariant& value)
 {
-  SetStringFor(PROP_NAME, value);
+  SetVariantFor(PROP_NAME, value);
 }

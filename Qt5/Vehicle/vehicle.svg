@@ -1,5 +1,6 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+"http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <svg
     xmlns="http://www.w3.org/2000/svg"
     xmlns:dc="http://purl.org/dc/elements/1.1/"
@@ -15,16 +16,6 @@
     id="VehiclePage"
     inkscape:version="0.92.4 (5da689c313, 2019-01-14)"
     sodipodi:docname="vehicle.svg">
-  <defs id="defs2">
-  <rect
-      id="HeadingRect"
-      class="HeadingBox"
-      x="0"
-      y="0"
-      ry="2"
-      height="10"
-      width="26" />
-  </defs>
   <sodipodi:namedview
       id="base"
       pagecolor="#ffffff"
@@ -45,987 +36,1002 @@
       inkscape:window-maximized="1"
       inkscape:snap-grids="true"
       inkscape:snap-to-guides="true" />
-  <metadata
-      id="metadata5">
+  <metadata id="metadata5">
     <rdf:RDF>
       <cc:Work
-          rdf:about="">
-        <dc:format>image/svg+xml</dc:format>
-        <dc:type
-            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+	  rdf:about="">
+	<dc:format>image/svg+xml</dc:format>
+	<dc:type
+	    rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+	<dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>
-  <style type="text/css">
-    <![CDATA[
-	     .TitleField {
-	     fill: #ffffff;
-	     stroke: #ffffff;
-	     stroke-width: 0.5px;
-	     }
-	     .TitleHeading {
-             dominant-baseline: middle;
-	     fill: #ffffff;
-	     font-family: '.Helvetica Neue DeskInterface';
-             font-size: 5pt;
-	     stroke: #ffffff;
-             text-anchor: end;
-	     }
-	     .TitleText {
-	     dominant-baseline: middle;
-	     fill: #000000;
-	     font-family: '.Helvetica Neue DeskInterface';
-             font-size: 5pt;
-	     stroke: #000000;
-	     text-anchor: end;
-	     }
-	     .HeadingBox {
-	     fill: #000000;
-	     stroke: #000000;
-	     stroke-width: 0.5px;
-	     }
-	     .FieldBox {
-	     fill: #ffffff;
-	     stroke: #000000;
-	     stroke-width: 0.5px;
-	     }
-	     .ImageBox {
-	     fill: #e6e6e6;
-	     stroke: #000000;
-	     stroke-width: 0.5px;
-	     }
-	     .Heading1Text {
-	     dominant-baseline: middle;
-	     fill: #ffffff;
-	     font-family: '.Helvetica Neue DeskInterface';
-             font-size: 5pt;
-	     stroke: #ffffff;
-	     text-anchor: middle;
-	     }
-             .Heading1LeftText {
-             dominant-baseline: middle;
-             fill: #ffffff;
-             font-family: '.Helvetica Neue DeskInterface';
-             font-size: 5pt;
-             stroke: #ffffff;
-             text-anchor: start;
-             }
-             .Heading2Text {
-	     dominant-baseline: middle;
-	     fill: #ffffff;
-	     font-family: '.Helvetica Neue DeskInterface';
-             font-size: 4pt;
-	     stroke: #ffffff;
-	     text-anchor: middle;
-	     }
-             .Field1Text {
-	     dominant-baseline: middle;
-	     fill: #000000;
-	     font-family: '.Helvetica Neue DeskInterface';
-             font-size: 5pt;
-	     stroke: #000000;
-	     text-anchor: middle;
-	     }
-             .Field2Text {
-             dominant-baseline: middle;
-             fill: #000000;
-             font-family: '.Helvetica Neue DeskInterface';
-             font-size: 4.5pt;
-             stroke: #000000;
-             text-anchor: middle;
-             }
-             .Field2LeftText {
-             dominant-baseline: middle;
-             fill: #000000;
-             font-family: '.Helvetica Neue DeskInterface';
-             font-size: 4.5pt;
-             stroke: #000000;
-             text-anchor: start;
-             }
+  <defs>
+    <style type="text/css"><![CDATA[
+    .TitleField {
+    fill: #ffffff;
+    stroke: #ffffff;
+    stroke-width: 0.5;
+    }
+    .TitleHeading {
+    dominant-baseline: middle;
+    fill: #ffffff;
+    font-family: '.Helvetica Neue DeskInterface';
+    font-size: 5;
+    stroke: #ffffff;
+    text-anchor: end;
+    }
+    .TitleText {
+    dominant-baseline: middle;
+    fill: #000000;
+    font-family: '.Helvetica Neue DeskInterface';
+    font-size: 5;
+    stroke: #000000;
+    text-anchor: end;
+    }
+    .HeadingBox {
+    fill: #000000;
+    stroke: #000000;
+    stroke-width: 0.5;
+    }
+    .FieldBox {
+    fill: #ffffff;
+    stroke: #000000;
+    stroke-width: 0.5;
+    }
+    .ImageBox {
+    fill: #e6e6e6;
+    stroke: #000000;
+    stroke-width: 0.5;
+    }
+    .Heading1Text {
+    dominant-baseline: middle;
+    fill: #ffffff;
+    font-family: '.Helvetica Neue DeskInterface';
+    font-size: 4.5;
+    stroke: #ffffff;
+    text-anchor: middle;
+    }
+    .Heading1LeftText {
+    dominant-baseline: middle;
+    fill: #ffffff;
+    font-family: '.Helvetica Neue DeskInterface';
+    font-size: 4.5;
+    stroke: #ffffff;
+    text-anchor: start;
+    }
+    .Heading2Text {
+    dominant-baseline: middle;
+    fill: #ffffff;
+    font-family: '.Helvetica Neue DeskInterface';
+    font-size: 4;
+    stroke: #ffffff;
+    text-anchor: middle;
+    }
+    .Heading2LeftText {
+    dominant-baseline: middle;
+    fill: #ffffff;
+    font-family: '.Helvetica Neue DeskInterface';
+    font-size: 4;
+    stroke: #ffffff;
+    text-anchor: start;
+    }
+    .Field1Text {
+    dominant-baseline: middle;
+    fill: #000000;
+    font-family: '.Helvetica Neue DeskInterface';
+    font-size: 5;
+    stroke: #000000;
+    text-anchor: middle;
+    }
+    .Field2Text {
+    dominant-baseline: middle;
+    fill: #000000;
+    font-family: '.Helvetica Neue DeskInterface';
+    font-size: 4.5;
+    stroke: #000000;
+    text-anchor: middle;
+    }
+    .Field2LeftText {
+    dominant-baseline: middle;
+    fill: #000000;
+    font-family: '.Helvetica Neue DeskInterface';
+    font-size: 4.5;
+    stroke: #000000;
+    text-anchor: start;
+    }
     ]]>
-  </style>
+    </style>
+    <rect
+	id="HeadingRect"
+	class="HeadingBox"
+	x="0"
+	y="0"
+	ry="2"
+	height="10"
+	width="26" />
+    <rect
+	id="FieldRect"
+	class="FieldBox"
+	x="0"
+	y="0"
+	ry="2"
+	height="10"
+	width="26" />
+  </defs>
   <g id="Title" transform="translate(5,5)">
     <rect
-        id="TitleBar"
-        class="HeadingBox"
-        ry="2"
-        y="0"
-        x="0"
-        height="10"
-        width="200" />
+	id="TitleBar"
+	class="HeadingBox"
+	ry="2"
+	y="0"
+	x="0"
+	height="10"
+	width="200" />
     <rect
-        id="NameField"
-        class="TitleField"
-        x="20"
-        y="1"
-        ry="1"
-        height="8"
-        width="110" />
-     <rect
-        id="ChassisField"
-        class="TitleField"
-        x="155"
-        y="1"
-        ry="1"
-        height="8"
-        width="44" />
-      <text
-        id="NameText"
-        class="TitleHeading"
-        x="20"
-        y="6.5"
-        xml:space="preserve">Name: </text>
-      <text
-        id="NameValue"
-        class="TitleText"
-        x="120"
-        y="6.5"
-        xml:space="preserve">{{name}}</text>
-      <text
-        id="ChassisText"
-        class="TitleHeading"
-        x="155"
-        y="6.5"
-        xml:space="preserve">Chassis: </text>
+	id="NameField"
+	class="TitleField"
+	x="20"
+	y="1"
+	ry="1"
+	height="8"
+	width="110" />
+    <rect
+	id="ChassisField"
+	class="TitleField"
+	x="155"
+	y="1"
+	ry="1"
+	height="8"
+	width="44" />
     <text
-        id="TypeValue"
-        class="TitleText"
-        x="193.5"
-        y="6.5"
-        xml:space="preserve">{{typ}}</text>
+	id="NameText"
+	class="TitleHeading"
+	x="20"
+	y="6.5"
+	xml:space="preserve">Name: </text>
+    <text
+	id="NameValue"
+	class="TitleText"
+	x="120"
+	y="6.5"
+	xml:space="preserve">{{name}}</text>
+    <text
+	id="ChassisText"
+	class="TitleHeading"
+	x="155"
+	y="6.5"
+	xml:space="preserve">Chassis: </text>
+    <text
+	id="TypeValue"
+	class="TitleText"
+	x="193.5"
+	y="6.5"
+	xml:space="preserve">{{typ}}</text>
   </g>
   <g id="StatsHeading_1" transform="translate(5,17)">
     <g id="TechLevel" transform="translate(0,0)">
       <use id="TechLevelBox" xlink:href="#HeadingRect"/>
       <text
-          id="TechLevelHeading"
+	  id="TechLevelHeading"
 	  class="Heading1Text"
-          textLength="22"
-          x="13"
-          y="6.5">Tech Level</text>
+	  textLength="22"
+	  x="13"
+	  y="6.5">Tech Level</text>
     </g>
     <g id="Skill" transform="translate(29,0)">
       <use id="TechLevelBox" xlink:href="#HeadingRect"/>
       <text
-        id="SkillHeading"
-        class="Heading1Text"
-        textLength="22"
-        x="13"
-        y="6.5">Skill</text>
+	  id="SkillHeading"
+	  class="Heading1Text"
+	  textLength="22"
+	  x="13"
+	  y="6.5">Skill</text>
     </g>
     <g id="Agility" transform="translate(58,0)">
       <use id="AgilityBox" xlink:href="#HeadingRect"/>
       <text
-        id="AgilityHeading"
-        class="Heading1Text"
-        textLength="22"
-        x="13"
-        y="6.5">Agility</text>
+	  id="AgilityHeading"
+	  class="Heading1Text"
+	  textLength="22"
+	  x="13"
+	  y="6.5">Agility</text>
     </g>
     <g id="Speed" transform="translate(87,0)">
-      <rect
-        id="SpeedBox"
-        class="HeadingBox"
-        x="0"
-        y="0"
-        ry="2"
-        height="10"
-        width="26" />
+      <use id="SpeedBox" xlink:href="#HeadingRect"/>
       <text
-        id="SpeedHeading"
-        class="Heading1Text"
-        textLength="22"
-        x="13"
-        y="6.5">Speed</text>
+	  id="SpeedHeading"
+	  class="Heading1Text"
+	  textLength="22"
+	  x="13"
+	  y="6.5">Speed</text>
     </g>
     <g id="Range" transform="translate(116,0)">
       <use id="RangeBox" xlink:href="#HeadingRect"/>
       <text
-        id="RangeHeading"
-        class="Heading1Text"
-        textLength="22"
-        x="13"
-        y="6.5">Range</text>
+	  id="RangeHeading"
+	  class="Heading1Text"
+	  textLength="22"
+	  x="13"
+	  y="6.5">Range</text>
     </g>
     <g id="Crew" transform="translate(145,0)">
       <use id="CrewBox" xlink:href="#HeadingRect"/>
       <text
-        id="CrewHeading"
-        class="Heading1Text"
-        textLength="22"
-        x="13"
-        y="6.5">Crew</text>
+	  id="CrewHeading"
+	  class="Heading1Text"
+	  textLength="22"
+	  x="13"
+	  y="6.5">Crew</text>
     </g>
     <g id="Open" transform="translate(174,0)">
       <use id="CrewBox" xlink:href="#HeadingRect"/>
       <text
-        id="OpenHeading"
-        class="Heading1Text"
-        textLength="22"
-        x="13"
-        y="6.5">Open/Clsd</text>
+	  id="OpenHeading"
+	  class="Heading1Text"
+	  textLength="22"
+	  x="13"
+	  y="6.5">Open/Clsd</text>
     </g>
   </g>
   <g id="StatsFields_1" transform="translate(5,28)">
     <g id="TechLevelField" transform="translate(0,0)">
-      <rect
-          id="TechLevelFieldBox"
-          class="FieldBox"
-          x="0"
-          y="0"
-          ry="2"
-          height="10"
-          width="26" />
+      <use id="TechLevelFieldBox" xlink:href="#FieldRect"/>
       <text
 	  id="TechLevelValue"
-          class="Field1Text"
-          x="13"
-          y="6.5"
-          >{{ techlevel }}</text>
+	  class="Field1Text"
+	  x="13"
+	  y="6.5"
+	  >{{ tl }}</text>
     </g>
     <g id="SkillField" transform="translate(29,0)">
-      <rect
-        id="SkillFieldBox"
-        class="FieldBox"
-        x="0"
-        y="0"
-        ry="2"
-        height="10"
-        width="26" />
+      <use id="SkillFieldBox" xlink:href="#FieldRect"/>
       <text
-        id="SkillValue"
-        class="Field1Text"
-        x="13"
-        y="6.5"
-        >{{ skill }}</text>
+	  id="SkillValue"
+	  class="Field1Text"
+	  x="13"
+	  y="6.5"
+	  >{{ skill }}</text>
     </g>
     <g id="AgilityField" transform="translate(58,0)">
-      <rect
-        id="AgilityFieldBox"
-        class="FieldBox"
-        width="26"
-        height="10"
-        x="0"
-        y="0"
-        ry="2" />
+      <use id="AgilityFieldBox" xlink:href="#FieldRect"/>
       <text
-        id="AgilityValue"
-        class="Field1Text"
-        x="13"
-        y="6.5"
-        >{{ agility }}</text>
+	  id="AgilityValue"
+	  class="Field1Text"
+	  x="13"
+	  y="6.5"
+	  >{{ agility }}</text>
     </g>
     <g id="SpeedField" transform="translate(87,0)">
-      <rect
-        id="SpeedFieldBox"
-        class="FieldBox"
-        x="0"
-        y="0"
-        ry="2"
-        height="10"
-        width="26" />
+      <use id="SpeedFieldBox" xlink:href="#FieldRect"/>
       <text
-        id="SpeedValue"
-        class="Field1Text"
-        x="13"
-        y="6.5"
-        >{{ speed }}</text>
+	  id="SpeedValue"
+	  class="Field1Text"
+	  x="13"
+	  y="6.5"
+	  >{{ speed }}</text>
     </g>
     <g id="RangeField" transform="translate(116,0)">
-      <rect
-        id="RangeFieldBox"
-        class="FieldBox"
-        width="26"
-        height="10"
-        x="0"
-        y="0"
-        ry="2" />
+      <use id="RangeFieldBox" xlink:href="#FieldRect"/>
       <text
-        id="RangeValue"
-        class="Field1Text"
-        x="13"
-        y="6.5"
-        >{{ range }}</text>
+	  id="RangeValue"
+	  class="Field1Text"
+	  x="13"
+	  y="6.5"
+	  >{{ range }}</text>
     </g>
     <g id="CrewField" transform="translate(145,0)">
-      <rect
-        id="CrewFieldBox"
-        class="FieldBox"
-        x="0"
-        y="0"
-        ry="2"
-        height="10"
-        width="26" />
+      <use id="CrewFieldBox" xlink:href="#FieldRect"/>
       <text
-        id="CrewValue"
-        class="Field1Text"
-        x="13"
-        y="6.5"
-        >{{ crew }}</text>
+	  id="CrewValue"
+	  class="Field1Text"
+	  x="13"
+	  y="6.5"
+	  >{{ crew }}</text>
     </g>
     <g id="OpenField" transform="translate(174,0)">
-      <rect
-        id="OpenFieldBox"
-        class="FieldBox"
-        width="26"
-        height="10"
-        x="0"
-        y="0"
-        ry="2" />
+      <use id="OpenFieldBox" xlink:href="#FieldRect"/>
       <text
-        id="OpenValue"
-        class="Field1Text"
-        x="13"
-        y="6.5"
-        >{{ open }}</text>
+	  id="OpenValue"
+	  class="Field1Text"
+	  x="13"
+	  y="6.5"
+	  >{{ open }}</text>
     </g>
   </g>
   <g id="StatsHeading_2" transform="translate(5,40)">
     <g id="Hull" transform="translate(0,0)">
-      <rect
-        id="HullBox"
-        class="HeadingBox"
-        x="0"
-        y="0"
-        ry="2"
-        height="10"
-        width="26" />
+      <use id="HullBox" xlink:href="#HeadingRect"/>
       <text
-        id="HullHeading"
-        class="Heading1Text"
-        textLength="22"
-        x="13"
-        y="6.5">Hull</text>
+	  id="HullHeading"
+	  class="Heading1Text"
+	  textLength="22"
+	  x="13"
+	  y="6.5">Hull</text>
     </g>
     <g id="Structure" transform="translate(29,0)">
-      <rect
-        id="StructureBox"
-        class="HeadingBox"
-        x="0"
-        y="0"
-        ry="2"
-        height="10"
-        width="26" />
+      <use id="StructureBox" xlink:href="#HeadingRect"/>
       <text
-        id="StructureHeading"
-        class="Heading1Text"
-        textLength="22"
-        x="13"
-        y="6.5">Structure</text>
+	  id="StructureHeading"
+	  class="Heading1Text"
+	  textLength="22"
+	  x="13"
+	  y="6.5">Structure</text>
     </g>
     <g id="Cost" transform="translate(58,0)">
-      <rect
-        id="CostBox"
-        class="HeadingBox"
-        x="0"
-        y="0"
-        ry="2"
-        height="10"
-        width="26" />
+      <use id="CostBox" xlink:href="#HeadingRect"/>
       <text
-        id="CostHeading"
-        class="Heading1Text"
-        textLength="22"
-        x="13"
-        y="6.5">Cost</text>
+	  id="CostHeading"
+	  class="Heading1Text"
+	  textLength="22"
+	  x="13"
+	  y="6.5">Cost</text>
     </g>
     <g id="Shipping" transform="translate(87,0)">
-      <rect
-        id="ShippingSizeBox"
-        class="HeadingBox"
-        x="0"
-        y="0"
-        ry="2"
-        height="10"
-        width="26" />
+      <use id="ShippingSizeBox" xlink:href="#HeadingRect"/>
       <text
-        id="ShippingHeading"
-        class="Heading1Text"
-        textLength="22"
-        x="13"
-        y="6.5">Shipping</text>
+	  id="ShippingHeading"
+	  class="Heading1Text"
+	  textLength="22"
+	  x="13"
+	  y="6.5">Shipping</text>
     </g>
     <g id="SpacesUsed" transform="translate(116,0)">
-      <rect
-        id="SpacesUsedBox"
-        class="HeadingBox"
-        x="0"
-        y="0"
-        ry="2"
-        height="10"
-        width="26" />
+      <use id="SpacesUsedBox" xlink:href="#HeadingRect"/>
       <text
-        id="SpacesUsedHeading"
-        class="Heading1Text"
-        textLength="22"
-        x="13"
-        y="6.5">Spaces Used</text>
+	  id="SpacesUsedHeading"
+	  class="Heading1Text"
+	  textLength="22"
+	  x="13"
+	  y="6.5">Spaces Used</text>
     </g>
     <g id="Mass" transform="translate(145,0)">
-      <rect
-        id="MassBox"
-        class="HeadingBox"
-        x="0"
-        y="0"
-        ry="2"
-        height="10"
-        width="26" />
+      <use id="MassBox" xlink:href="#HeadingRect"/>
       <text
-        id="MassHeading"
-        class="Heading1Text"
-        textLength="22"
-        x="13"
-        y="6.5">Mass</text>
+	  id="MassHeading"
+	  class="Heading1Text"
+	  textLength="22"
+	  x="13"
+	  y="6.5">Mass</text>
     </g>
     <g id="Cargo" transform="translate(174,0)">
-      <rect
-        id="CargoBox"
-        class="HeadingBox"
-        x="0"
-        y="0"
-        ry="2"
-        height="10"
-        width="26" />
+      <use id="CargoBox" xlink:href="#HeadingRect"/>
       <text
-        id="CargoHeading"
-        class="Heading1Text"
-        textLength="22"
-        x="13"
-        y="6.5">Cargo</text>
+	  id="CargoHeading"
+	  class="Heading1Text"
+	  textLength="22"
+	  x="13"
+	  y="6.5">Cargo</text>
     </g>
   </g>
   <g id="StatsFields_2" transform="translate(5,51)">
     <g id="HullField" transform="translate(0,0)">
-      <rect
-        id="HullFieldBox"
-        class="FieldBox"
-        x="0"
-        y="0"
-        ry="2"
-        height="10"
-        width="26" />
+      <use id="HullFieldBox" xlink:href="#FieldRect"/>
       <text
-        id="HullValue"
-        class="Field1Text"
-        x="13"
-        y="6.5"
-        >{{ hull }}</text>
+	  id="HullValue"
+	  class="Field1Text"
+	  x="13"
+	  y="6.5"
+	  >{{ hull }}</text>
     </g>
     <g id="StructureField" transform="translate(29,0)">
-      <rect
-        id="StructureFieldBox"
-        class="FieldBox"
-        x="0"
-        y="0"
-        ry="2"
-        height="10"
-        width="26" />
+      <use id="StructureFieldBox" xlink:href="#FieldRect"/>
       <text
-        id="StructureValue"
-        class="Field1Text"
-        x="13"
-        y="6.5"
-        >{{ structure }}</text>
+	  id="StructureValue"
+	  class="Field1Text"
+	  x="13"
+	  y="6.5"
+	  >{{ structure }}</text>
     </g>
     <g id="CostField" transform="translate(58,0)">
-      <rect
-        id="CostFieldBox"
-        class="FieldBox"
-        x="0"
-        y="0"
-        ry="2"
-        height="10"
-        width="26" />
+      <use id="CostFieldBox" xlink:href="#FieldRect"/>
       <text
-        id="CostValue"
-        class="Field1Text"
-        x="13"
-        y="6.5"
-        >{{ cost }}</text>
+	  id="CostValue"
+	  class="Field1Text"
+	  x="13"
+	  y="6.5"
+	  >{{ cost }}</text>
     </g>
     <g id="ShippingField" transform="translate(87,0)">
-      <rect
-        id="ShippingFieldBox"
-        class="FieldBox"
-        x="0"
-        y="0"
-        ry="2"
-        height="10"
-        width="26" />
+      <use id="ShippingFieldBox" xlink:href="#FieldRect"/>
       <text
-        id="ShippingValue"
-        class="Field1Text"
-        x="13"
-        y="6.5"
-        >{{ shipping }}</text>
+	  id="ShippingValue"
+	  class="Field1Text"
+	  x="13"
+	  y="6.5"
+	  >{{ shipping }}</text>
     </g>
     <g id="SpacesUsedField" transform="translate(116,0)">
-      <rect
-        id="SpacesUsedFieldBox"
-        class="FieldBox"
-        x="0"
-        y="0"
-        ry="2"
-        height="10"
-        width="26" />
+      <use id="SpacesUsedFieldBox" xlink:href="#FieldRect"/>
       <text
-        id="SpacesUsedValue"
-        class="Field1Text"
-        x="13"
-        y="6.5"
-        >{{ spacesused }}</text>
+	  id="SpacesUsedValue"
+	  class="Field1Text"
+	  x="13"
+	  y="6.5"
+	  >{{ spacesused }}</text>
     </g>
     <g id="MassField" transform="translate(145,0)">
-      <rect
-        id="MassFieldBox"
-        class="FieldBox"
-        x="0"
-        y="0"
-        ry="2"
-        height="10"
-        width="26" />
+      <use id="MassFieldBox" xlink:href="#FieldRect"/>
       <text
-        id="MassValue"
-        class="Field1Text"
-        x="13"
-        y="6.5"
-        >{{ mass }}</text>
+	  id="MassValue"
+	  class="Field1Text"
+	  x="13"
+	  y="6.5"
+	  >{{ mass }}</text>
     </g>
     <g id="CargoField" transform="translate(174,0)">
-      <rect
-        id="CargoFieldBox"
-        class="FieldBox"
-        x="0"
-        y="0"
-        ry="2"
-        height="10"
-        width="26" />
+      <use id="CargoFieldBox" xlink:href="#FieldRect"/>
       <text
-        id="CargoValue"
-        class="Field1Text"
-        x="13"
-        y="6.5"
-        >{{ cargo }}</text>
+	  id="CargoValue"
+	  class="Field1Text"
+	  x="13"
+	  y="6.5"
+	  >{{ cargo }}</text>
     </g>
   </g>
   <g id="WeaponHeading" transform="translate(5,63)">
     <g id="WeaponType" transform="translate(0,0)">
       <rect
-        id="WeaponTypeBox"
-        class="HeadingBox"
-        x="0"
-        y="0"
-        ry="2"
-        height="10"
-        width="70" />
+	  id="WeaponTypeBox"
+	  class="HeadingBox"
+	  x="0"
+	  y="0"
+	  ry="2"
+	  height="10"
+	  width="70" />
       <text
-        id="WeaponTypeHeading"
-        class="Heading1LeftText"
-        textLength="66"
-        x="2"
-        y="6.5">Weapon</text>
+	  id="WeaponTypeHeading"
+	  class="Heading1LeftText"
+	  textLength="66"
+	  x="2"
+	  y="6.5">Weapon</text>
     </g>
     <g id="Short" transform="translate(71,0)">
       <rect
-        id="ShortBox"
-        class="HeadingBox"
-        x="0"
-        y="0"
-        ry="2"
-        height="10"
-        width="25" />
+	  id="ShortBox"
+	  class="HeadingBox"
+	  x="0"
+	  y="0"
+	  ry="2"
+	  height="10"
+	  width="25" />
       <text
-        id="ShortHeading"
-        class="Heading1Text"
-        x="12.5"
-        y="6.5">Short</text>
+	  id="ShortHeading"
+	  class="Heading1Text"
+	  textLength="21"
+	  x="12.5"
+	  y="6.5">Short</text>
     </g>
     <g id="Medium" transform="translate(97,0)">
       <rect
-        id="MediumBox"
-        class="HeadingBox"
-        x="0"
-        y="0"
-        ry="2"
-        height="10"
-        width="25" />
+	  id="MediumBox"
+	  class="HeadingBox"
+	  x="0"
+	  y="0"
+	  ry="2"
+	  height="10"
+	  width="25" />
       <text
-        id="MediumHeading"
-        class="Heading1Text"
-        x="12.5"
-        y="6.5">Medium</text>
+	  id="MediumHeading"
+	  class="Heading1Text"
+	  textLength="21"
+	  x="12.5"
+	  y="6.5">Medium</text>
     </g>
     <g id="Long" transform="translate(123,0)">
       <rect
-        id="LongBox"
-        class="HeadingBox"
-        x="0"
-        y="0"
-        ry="2"
-        height="10"
-        width="25" />
+	  id="LongBox"
+	  class="HeadingBox"
+	  x="0"
+	  y="0"
+	  ry="2"
+	  height="10"
+	  width="25" />
       <text
-        id="LongHeading"
-        class="Heading1Text"
-        x="12.5"
-        y="6.5">Long</text>
+	  id="LongHeading"
+	  class="Heading1Text"
+	  textLength="21"
+	  x="12.5"
+	  y="6.5">Long</text>
     </g>
     <g id="Extreme" transform="translate(149,0)">
       <rect
-        id="ExtremeBox"
-        class="HeadingBox"
-        width="25"
-        height="10"
-        x="0"
-        y="0"
-        ry="2" />
+	  id="ExtremeBox"
+	  class="HeadingBox"
+	  width="25"
+	  height="10"
+	  x="0"
+	  y="0"
+	  ry="2" />
       <text
-        id="ExtremeHeading"
-        class="Heading1Text"
-        x="12.5"
-        y="6.5">Extreme</text>
+	  id="ExtremeHeading"
+	  class="Heading1Text"
+	  textLength="21"
+	  x="12.5"
+	  y="6.5">Extreme</text>
     </g>
     <g id="ConcFR" transform="translate(175,0)">
       <rect
-        id="ConcFRBox"
-        class="HeadingBox"
-        x="0"
-        y="0"
-        ry="2"
-        height="10"
-        width="25" />
+	  id="ConcFRBox"
+	  class="HeadingBox"
+	  x="0"
+	  y="0"
+	  ry="2"
+	  height="10"
+	  width="25" />
       <text
-        id="ConcFRHeading"
-        class="Heading1Text"
-        x="12.5"
-        y="6.5">Conc FR</text>
+	  id="ConcFRHeading"
+	  class="Heading1Text"
+	  textLength="21"
+	  x="12.5"
+	  y="6.5">Conc FR</text>
     </g>
   </g>
   {{#weap}}{{#counter}}
   <g id="Weapon_{{ number }}" transform="translate(5,{{ y_coord }})">
     <g id="WeaponTypeField_{{ number }}" transform="translate(0,0)">
       <rect
-        id="WeaponTypeFieldBox_{{ number }}"
-        class="FieldBox"
-        x="0"
-        y="0"
-        ry="2"
-        height="10"
-        width="70" />
+	  id="WeaponTypeFieldBox_{{ number }}"
+	  class="FieldBox"
+	  x="0"
+	  y="0"
+	  ry="2"
+	  height="10"
+	  width="70" />
       <text
-        id="WeaponTypeValue_{{ number }}"
-        class="Field2LeftText"
-        x="2"
-        y="6.5"
-        >{{ wtyp }}</text>
+	  id="WeaponTypeValue_{{ number }}"
+	  class="Field2LeftText"
+	  textLength="66"
+	  x="2"
+	  y="6.5"
+	  >{{ wtyp }}</text>
     </g>
     <g id="ShortField_{{ number }}" transform="translate(71,0)">
       <rect
-        id="ShortFieldBox_{{ number }}"
-        class="FieldBox"
-        x="0"
-        y="0"
-        ry="2"
-        height="10"
-        width="25" />
+	  id="ShortFieldBox_{{ number }}"
+	  class="FieldBox"
+	  x="0"
+	  y="0"
+	  ry="2"
+	  height="10"
+	  width="25" />
       <text
-        id="ShortValue_{{ number }}"
-        class="Field2Text"
-        x="12.5"
-        y="6.5"
-        >{{short}} ({{ps}})</text>
+	  id="ShortValue_{{ number }}"
+	  class="Field2Text"
+	  textLength="21"
+	  x="12.5"
+	  y="6.5"
+	  >{{short}} ({{ps}})</text>
     </g>
     <g id="MediumField_{{ number }}" transform="translate(97,0)">
       <rect
-        id="MediumFieldBox_{{ number }}"
-        class="FieldBox"
-        x="0"
-        y="0"
-        ry="2"
-        height="10"
-        width="25" />
+	  id="MediumFieldBox_{{ number }}"
+	  class="FieldBox"
+	  x="0"
+	  y="0"
+	  ry="2"
+	  height="10"
+	  width="25" />
       <text
-        id="MediumValue_{{ number }}"
-        class="Field2Text"
-        x="12.5"
-        y="6.5"
-        >{{rng}} ({{pm}})</text>
+	  id="MediumValue_{{ number }}"
+	  class="Field2Text"
+	  textLength="21"
+	  x="12.5"
+	  y="6.5"
+	  >{{rng}} ({{pm}})</text>
     </g>
     <g id="LongField_{{ number }}" transform="translate(123,0)">
       <rect
-        id="LongFieldBox_{{ number }}"
-        class="FieldBox"
-        x="0"
-        y="0"
-        ry="2"
-        height="10"
-        width="25" />
+	  id="LongFieldBox_{{ number }}"
+	  class="FieldBox"
+	  x="0"
+	  y="0"
+	  ry="2"
+	  height="10"
+	  width="25" />
       <text
-        id="LongValue_{{ number }}"
-        class="Field2Text"
-        x="12.5"
-        y="6.5"
-        >{{long}} ({{pl}})</text>
+	  id="LongValue_{{ number }}"
+	  class="Field2Text"
+	  textLength="21"
+	  x="12.5"
+	  y="6.5"
+	  >{{long}} ({{pl}})</text>
     </g>
     <g id="ExtremeField_{{ number }}" transform="translate(149,0)">
       <rect
-        id="ExtremeFieldBox_{{ number }}"
-        class="FieldBox"
-        x="0"
-        y="0"
-        ry="2"
-        height="10"
-        width="25" />
+	  id="ExtremeFieldBox_{{ number }}"
+	  class="FieldBox"
+	  x="0"
+	  y="0"
+	  ry="2"
+	  height="10"
+	  width="25" />
       <text
-        id="ExtremeValue_{{ number }}"
-        class="Field2Text"
-        x="12.5"
-        y="6.5"
-        >{{extreme}} ({{px}})</text>
+	  id="ExtremeValue_{{ number }}"
+	  class="Field2Text"
+	  textLength="21"
+	  x="12.5"
+	  y="6.5"
+	  >{{extreme}} ({{px}})</text>
     </g>
     <g id="AmmoField_{{ number }}" transform="translate(175,0)">
       <rect
-        id="AmmoFieldBox_{{ number }}"
-        class="FieldBox"
-        x="0"
-        y="0"
-        ry="2"
-        height="10"
-        width="25" />
+	  id="AmmoFieldBox_{{ number }}"
+	  class="FieldBox"
+	  x="0"
+	  y="0"
+	  ry="2"
+	  height="10"
+	  width="25" />
       <text
-        id="AmmoValue_{{ number }}"
-        class="Field2Text"
-        x="12.5"
-        y="6.5"
-        >{{ ammo }}</text>
+	  id="AmmoValue_{{ number }}"
+	  class="Field2Text"
+	  textLength="21"
+	  x="12.5"
+	  y="6.5"
+	  >{{ ammo }}</text>
     </g>
   </g>
   {{/counter}}{{/weap}}
   <!--g id="Weapon_2" transform="translate(5,85)">
-    <rect
-        id="WeaponField_2"
-        class="FieldBox"
-        ry="2"
-        y="85"
-        x="5"
-        height="10"
-        width="70" />
-    <rect
-        id="LocationField_2"
-        class="FieldBox"
-        ry="2"
-        y="85"
-        x="76"
-        height="10"
-        width="25" />
-    <rect
-        id="DamageField_2"
-        class="FieldBox"
-        width="25"
-        height="10"
-        x="102"
-        y="85"
-        ry="2" />
-    <rect
-        id="WRangeField_2"
-        class="FieldBox"
-        ry="2"
-        y="85"
-        x="128"
-        height="10"
-        width="25" />
-    <rect
-        id="AutoField_2"
-        class="FieldBox"
-        width="25"
-        height="10"
-        x="154"
-        y="85"
-        ry="2" />
-    <rect
-        id="AmmoField_2"
-        class="FieldBox"
-        ry="2"
-        y="85"
-        x="180"
-        height="10"
-        width="25" />
-  </g>
-  <g id="Weapon_3" transform="translate(5,96)">
-    <rect
-        id="WeaponField_3"
-        class="FieldBox"
-        width="70"
-        height="10"
-        x="5"
-        y="96"
-        ry="2" />
-    <rect
-        id="LocationField_3"
-        class="FieldBox"
-        width="25"
-        height="10"
-        x="76"
-        y="96"
-        ry="2" />
-    <rect
-        id="DamageField_3"
-        class="FieldBox"
-        ry="2"
-        x="102"
-        y="96"
-        height="10"
-        width="25" />
-    <rect
-        id="WRangeField_3"
-        class="FieldBox"
-        width="25"
-        height="10"
-        x="128"
-        y="96"
-        ry="2" />
-    <rect
-        id="AutoField_3"
-        class="FieldBox"
-        ry="2"
-        x="154"
-        y="96"
-        height="10"
-        width="25" />
-    <rect
-        id="AmmoField_3"
-        class="FieldBox"
-        width="25"
-        height="10"
-        x="180"
-        y="96"
-        ry="2" />
-  </g>
-  <g id="Weapon_4" transform="translate(5,107)">
-    <rect
-        id="WeaponField_4"
-        class="FieldBox"
-        ry="2"
-        y="107"
-        x="5"
-        height="10"
-        width="70" />
-    <rect
-        id="LocationField_4"
-        class="FieldBox"
-        ry="2"
-        y="107"
-        x="76"
-        height="10"
-        width="25" />
-    <rect
-        id="DamageField_4"
-        class="FieldBox"
-        width="25"
-        height="10"
-        x="102"
-        y="107"
-        ry="2" />
-    <rect
-        id="WRangeField_4"
-        class="FieldBox"
-        ry="2"
-        y="107"
-        x="128"
-        height="10"
-        width="25" />
-    <rect
-        id="AutoField_4"
-        class="FieldBox"
-        width="25"
-        height="10"
-        x="154"
-        y="107"
-        ry="2" />
-    <rect
-        id="AmmoField_4"
-        class="FieldBox"
-        ry="2"
-        y="107"
-        x="180"
-        height="10"
-        width="25" />
-  </g>
-  <g id="Weapon_5" transform="translate(5,118)">
-    <rect
-        id="WeaponField_5"
-        class="FieldBox"
-        width="70"
-        height="10"
-        x="5"
-        y="118"
-        ry="2" />
-    <rect
-        id="LocationField_5"
-        class="FieldBox"
-        width="25"
-        height="10"
-        x="76"
-        y="118"
-        ry="2" />
-    <rect
-        id="DamageField_5"
-        class="FieldBox"
-        ry="2"
-        y="118"
-        x="102"
-        height="10"
-        width="25" />
-    <rect
-        id="WRangeField_5"
-        class="FieldBox"
-        width="25"
-        height="10"
-        x="128"
-        y="118"
-        ry="2" />
-    <rect
-        class="FieldBox"
-        ry="2"
-        y="118"
-        x="154"
-        height="10"
-        width="25"
-        id="AutoField_5" />
-    <rect
-        id="AmmoField_5"
-        class="FieldBox"
-        width="25"
-        height="10"
-        x="180"
-        y="118"
-        ry="2" />
-  </g -->
-  <rect
-      id="AdditionalView"
+      <rect
+      id="WeaponField_2"
       class="FieldBox"
-      width="200"
-      height="54"
+      ry="2"
+      y="85"
       x="5"
-      y="129"
+      height="10"
+      width="70" />
+      <rect
+      id="LocationField_2"
+      class="FieldBox"
+      ry="2"
+      y="85"
+      x="76"
+      height="10"
+      width="25" />
+      <rect
+      id="DamageField_2"
+      class="FieldBox"
+      width="25"
+      height="10"
+      x="102"
+      y="85"
       ry="2" />
-  <rect
-      id="ArmorView"
-      class="ImageBox"
-      width="67"
-      height="108"
+      <rect
+      id="WRangeField_2"
+      class="FieldBox"
+      ry="2"
+      y="85"
+      x="128"
+      height="10"
+      width="25" />
+      <rect
+      id="AutoField_2"
+      class="FieldBox"
+      width="25"
+      height="10"
+      x="154"
+      y="85"
+      ry="2" />
+      <rect
+      id="AmmoField_2"
+      class="FieldBox"
+      ry="2"
+      y="85"
+      x="180"
+      height="10"
+      width="25" />
+      </g>
+      <g id="Weapon_3" transform="translate(5,96)">
+      <rect
+      id="WeaponField_3"
+      class="FieldBox"
+      width="70"
+      height="10"
       x="5"
-      y="184"
+      y="96"
       ry="2" />
-  <rect
-      id="SideView"
-      class="ImageBox"
-      width="132"
-      height="65"
-      x="73"
-      y="184"
+      <rect
+      id="LocationField_3"
+      class="FieldBox"
+      width="25"
+      height="10"
+      x="76"
+      y="96"
       ry="2" />
+      <rect
+      id="DamageField_3"
+      class="FieldBox"
+      ry="2"
+      x="102"
+      y="96"
+      height="10"
+      width="25" />
+      <rect
+      id="WRangeField_3"
+      class="FieldBox"
+      width="25"
+      height="10"
+      x="128"
+      y="96"
+      ry="2" />
+      <rect
+      id="AutoField_3"
+      class="FieldBox"
+      ry="2"
+      x="154"
+      y="96"
+      height="10"
+      width="25" />
+      <rect
+      id="AmmoField_3"
+      class="FieldBox"
+      width="25"
+      height="10"
+      x="180"
+      y="96"
+      ry="2" />
+      </g>
+      <g id="Weapon_4" transform="translate(5,107)">
+      <rect
+      id="WeaponField_4"
+      class="FieldBox"
+      ry="2"
+      y="107"
+      x="5"
+      height="10"
+      width="70" />
+      <rect
+      id="LocationField_4"
+      class="FieldBox"
+      ry="2"
+      y="107"
+      x="76"
+      height="10"
+      width="25" />
+      <rect
+      id="DamageField_4"
+      class="FieldBox"
+      width="25"
+      height="10"
+      x="102"
+      y="107"
+      ry="2" />
+      <rect
+      id="WRangeField_4"
+      class="FieldBox"
+      ry="2"
+      y="107"
+      x="128"
+      height="10"
+      width="25" />
+      <rect
+      id="AutoField_4"
+      class="FieldBox"
+      width="25"
+      height="10"
+      x="154"
+      y="107"
+      ry="2" />
+      <rect
+      id="AmmoField_4"
+      class="FieldBox"
+      ry="2"
+      y="107"
+      x="180"
+      height="10"
+      width="25" />
+      </g>
+      <g id="Weapon_5" transform="translate(5,118)">
+      <rect
+      id="WeaponField_5"
+      class="FieldBox"
+      width="70"
+      height="10"
+      x="5"
+      y="118"
+      ry="2" />
+      <rect
+      id="LocationField_5"
+      class="FieldBox"
+      width="25"
+      height="10"
+      x="76"
+      y="118"
+      ry="2" />
+      <rect
+      id="DamageField_5"
+      class="FieldBox"
+      ry="2"
+      y="118"
+      x="102"
+      height="10"
+      width="25" />
+      <rect
+      id="WRangeField_5"
+      class="FieldBox"
+      width="25"
+      height="10"
+      x="128"
+      y="118"
+      ry="2" />
+      <rect
+      class="FieldBox"
+      ry="2"
+      y="118"
+      x="154"
+      height="10"
+      width="25"
+      id="AutoField_5" />
+      <rect
+      id="AmmoField_5"
+      class="FieldBox"
+      width="25"
+      height="10"
+      x="180"
+      y="118"
+      ry="2" />
+      </g -->
+  <g id="Additional" transform="translate(5,129)">
+    <rect
+	id="AdditionalView"
+	class="FieldBox"
+	width="200"
+	height="54"
+	x="0"
+	y="0"
+	ry="2" />
+    <rect
+	id="AdditionalBox"
+	class="HeadingBox"
+	width="58"
+	height="7"
+	x="1"
+	y="1"
+	ry="1">
+    </rect>
+    <text
+	id="AdditonalHeading"
+	class="Heading2LeftText"
+	textLength="54"
+	x="2"
+	y="5.5">Additional assets/capabilites:</text>
+  </g>
+  <g id="TopDownView" transform="translate(5,184)">
+    <rect
+	id="TopDownBox"
+	class="ImageBox"
+	width="67"
+	height="108"
+	x="0"
+	y="0"
+	ry="2" />
+    <rect
+	id="DeckBox"
+	class="HeadingBox"
+	width="20"
+	height="7"
+	x="1"
+	y="1"
+	ry="1">
+    </rect>
+    <text
+	id="DeckHeading"
+	class="Heading2Text"
+	textLength="16"
+	x="11"
+	y="5.5">Deck: {{ deck }}</text>
+    <rect
+	id="BellyBox"
+	class="HeadingBox"
+	width="20"
+	height="7"
+	x="46"
+	y="1"
+	ry="1">
+    </rect>
+    <text
+	id="BellyHeading"
+	class="Heading2Text"
+	textLength="16"
+	x="56"
+	y="5.5">Belly: {{ belly }}</text>
+
+    <text
+	id="HullFrontText"
+	class="Field2Text"
+	textLength="10"
+	x="33.5"
+	y="25">{{ hf }}</text>
+    <text
+	id="TurretFrontText"
+	class="Field2Text"
+	textLength="10"
+	x="33.5"
+	y="36">{{ tf }}</text>
+    <text
+	id="TurretLeftText"
+	class="Field2Text"
+	textLength="10"
+	x="18.5"
+	y="51">{{ ts }}</text>
+    <text
+	id="TurretRightText"
+	class="Field2Text"
+	textLength="10"
+	x="48.5"
+	y="51">{{ ts }}</text>
+    <text
+	id="TurretRearText"
+	class="Field2Text"
+	textLength="10"
+	x="33.5"
+	y="66">{{ tr }}</text>
+    <text
+	id="HullLeftText"
+	class="Field2Text"
+	textLength="10"
+	x="10.5"
+	y="72">{{ hs }}</text>
+    <text
+	id="HullRightText"
+	class="Field2Text"
+	textLength="10"
+	x="56.5"
+	y="72">{{ hs }}</text>
+    <text
+	id="SuspensionLeftText"
+	class="Field2Text"
+	textLength="10"
+	x="10.5"
+	y="91">{{ susp }}</text>
+    <text
+	id="SuspensionRightText"
+	class="Field2Text"
+	textLength="10"
+	x="56.5"
+	y="91">{{ susp }}</text>
+    <text
+	id="HullRearText"
+	class="Field2Text"
+	textLength="10"
+	x="33.5"
+	y="101">{{ hr }}</text>
+  </g>
+  <g id="SideView" transform="translate(73,184)">
+    <rect
+	id="SideViewBox"
+	class="ImageBox"
+	width="132"
+	height="65"
+	x="0"
+	y="0"
+	ry="2" />
+    <rect
+	id="SideViewTextBox"
+	class="HeadingBox"
+	width="64.5"
+	height="7"
+	x="1"
+	y="1"
+	ry="1" />
+    <rect
+	id="SideViewTextBox"
+	class="HeadingBox"
+	width="64.5"
+	height="7"
+	x="66.5"
+	y="1"
+	ry="1" />
+    <text
+	id="AdditonalHeading"
+	class="Heading2LeftText"
+	textLength="60.5"
+	x="2"
+	y="5.5">Pos: {{positions}}</text>
+  </g>
   <rect
       id="DisplayView"
       class="FieldBox"
@@ -1034,20 +1040,4 @@
       x="73"
       y="250"
       ry="2" />
-  <g id="Additional">
-    <rect
-	id="AdditionalBox"
-	class="HeadingBox"
-	width="58"
-	height="7"
-	x="6"
-	y="130"
-        ry="1">
-    </rect>
-    <text
-	id="AdditonalHeading"
-	class="Heading2Text"
-        x="36"
-        y="134">Additional assets/capabilites:</text>
-  </g>
 </svg>

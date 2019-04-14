@@ -37,29 +37,40 @@ WeaponForm::~WeaponForm()
 }
 
 
-void WeaponForm::Read()
+Weapon*
+WeaponForm::Read(Mode mode, Object* object)
 {
+  Weapon* original = mWeapon;
+
+  if(object) {
+    mWeapon = static_cast<Weapon*>(object);
+  }
+
   ObjectForm::Read();
 
-  mUi->techLevelLineEdit->setText(QString::number(mWeapon->TechLevel()));
+  mUi->techLevelLineEdit->setText(mWeapon->TechLevel().toString());
 
-  mUi->     wtypLineEdit->setText(                mWeapon->     Wtyp());
-  mUi->    wqualLineEdit->setText(                mWeapon->    Wqual());
-  mUi->      rofLineEdit->setText(QString::number(mWeapon->      Rof()));
-  mUi->      rngLineEdit->setText(QString::number(mWeapon->      Rng()));
-  mUi->       psLineEdit->setText(QString::number(mWeapon->       Ps()));
-  mUi->       pmLineEdit->setText(QString::number(mWeapon->       Pm()));
-  mUi->       plLineEdit->setText(QString::number(mWeapon->       Pl()));
-  mUi->       pxLineEdit->setText(QString::number(mWeapon->       Px()));
-  mUi->     ammoLineEdit->setText(QString::number(mWeapon->     Ammo()));
-  mUi->      conLineEdit->setText(QString::number(mWeapon->      Con()));
-  mUi->      burLineEdit->setText(QString::number(mWeapon->      Bur()));
-  mUi->     pranLineEdit->setText(QString::number(mWeapon->     Pran()));
+  mUi->     wtypLineEdit->setText(mWeapon->     Wtyp().toString());
+  mUi->    wqualLineEdit->setText(mWeapon->    Wqual().toString());
+  mUi->      rofLineEdit->setText(mWeapon->      Rof().toString());
+  mUi->      rngLineEdit->setText(mWeapon->      Rng().toString());
+  mUi->       psLineEdit->setText(mWeapon->       Ps().toString());
+  mUi->       pmLineEdit->setText(mWeapon->       Pm().toString());
+  mUi->       plLineEdit->setText(mWeapon->       Pl().toString());
+  mUi->       pxLineEdit->setText(mWeapon->       Px().toString());
+  mUi->     ammoLineEdit->setText(mWeapon->     Ammo().toString());
+  mUi->      conLineEdit->setText(mWeapon->      Con().toString());
+  mUi->      burLineEdit->setText(mWeapon->      Bur().toString());
+  mUi->     pranLineEdit->setText(mWeapon->     Pran().toString());
+
+  return original;
 }
 
-void
+Weapon*
 WeaponForm::Write()
 {
+  Weapon* original = mWeapon->Copy();
+
   ObjectForm::Write();
 
   mWeapon->TechLevel(mUi->  techLevelLineEdit->text().toDouble());
@@ -78,6 +89,8 @@ WeaponForm::Write()
   mWeapon->     Pran(mUi->       pranLineEdit->text().toDouble());
 
   SetReadOnly(true);
+
+  return original;
 }
 
 void

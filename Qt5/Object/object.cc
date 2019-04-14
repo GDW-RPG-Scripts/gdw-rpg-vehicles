@@ -81,16 +81,17 @@ Object::Object(const QJsonObject& json)
 const QString Object::PROP_TECHLEVEL = "tl";
 
 void
-Object::TechLevel(double value)
+Object::TechLevel(const QVariant& variant)
 {
-  SetDoubleFor(PROP_TECHLEVEL, value);
+  SetVariantFor(PROP_TECHLEVEL, variant);
 }
 
-double
+QVariant
 Object::TechLevel() const
 {
-  return GetDoubleFor(PROP_TECHLEVEL);
+  return mJsonObject[PROP_TECHLEVEL].toVariant();
 }
+
 
 Object*
 Object::Copy()
@@ -115,10 +116,10 @@ Object::operator const QJsonObject&() const
   return mJsonObject;
 }
 
-QVariantHash
-Object::ToVariantHash() const
+void
+Object::ToVariantHash(QVariantHash& hash) const
 {
-  return QVariantHash();
+  hash[PROP_TECHLEVEL]   = GetVariantFor(PROP_TECHLEVEL);
 }
 
 Mustache::QtVariantContext*
@@ -128,49 +129,76 @@ Object::Context(const QVariantHash& hash) const
 }
 
 
+bool
+Object::RemoveIfEmpty(const QString& property, const QVariant& variant)
+{
+  if(variant.isValid() && variant.toString().isEmpty()) {
+    mJsonObject.remove(property);
+    return true;
+  }
+
+  return false;
+}
+
 QVariant
 Object::GetVariantFor(const QString& index) const
 {
-  static const QVariant INVALID;
-
-  if(mJsonObject.contains(index))
-    return mJsonObject[index];
-
-  return INVALID;
-}
-
-QString
-Object::GetStringFor(const QString& index) const
-{
-  if(!mJsonObject.isEmpty() &&
-     mJsonObject.contains(index) &&
-     mJsonObject[index].isString())
-    return mJsonObject[index].toString();
-
-  return "";
+  return mJsonObject[index].toVariant();
 }
 
 void
-Object::SetStringFor(const QString& index, const QString& value)
+Object::SetVariantFor(const QString& index, const QVariant& variant)
 {
-  mJsonObject[index] = value;
+  if(!RemoveIfEmpty(index, variant)) {
+    mJsonObject[index] = QJsonValue::fromVariant(variant);
+  }
 }
 
-double
-Object::GetDoubleFor(const QString& index) const
-{
-  if(!mJsonObject.isEmpty() &&
-     mJsonObject.contains(index) &&
-     mJsonObject[index].isDouble())
-    return mJsonObject[index].toDouble();
+//    bool ok;
+//    double number = variant.toDouble(&ok);
+//    if(ok) {
+//      SetDoubleFor(property, number);
+//    }
 
-  return 0;
+//QString
+//Object::GetStringFor(const QString& index) const
+//{
+//  if(!mJsonObject.isEmpty() &&
+//     mJsonObject.contains(index) &&
+//     mJsonObject[index].isString()) {
+//    return mJsonObject[index].toString();
+//  }
+//  return "";
+//}
+
+//void
+//Object::SetStringFor(const QString& index, const QString& value)
+//{
+//  mJsonObject[index] = value;
+//}
+
+QVariant
+Object::GetDoubleFor(const QString& index,
+                     std::function<double(double)> calculate) const
+{
+  QVariant result;
+
+  bool ok;
+  double value = GetVariantFor(index).toDouble(&ok);
+  if(ok)
+    result = calculate(value);
+
+  return result;
 }
 
 void
-Object::SetDoubleFor(const QString& index, double value)
+Object::SetDoubleFor(const QString& index, QVariant variant,
+                     std::function<double(double)> calculate)
 {
-  mJsonObject[index] = std::round(value);
+  bool ok;
+  double value = variant.toDouble(&ok);
+  if(ok)
+    SetVariantFor(index, calculate(value));
 }
 
 double
@@ -191,21 +219,18 @@ Object::Round(double value) const
   QSettings settings;
 
   if(settings.value("ruleset", 0).toInt() == 1) {
-
     for(int i = 0; i < RANGE; ++i) {
       if(STRIKER[i] > value) {
         value = i;
         break;
       }
     }
-  } else {
-    if(value > 100) {
-      value = std::round(value / 10) * 10;
-    } else if (value > 50) {
-      value = std::round(value / 5) * 5;
-    } else if (value < 1) {
-      value = 1;
-    }
+  } else if(value > 100) {
+    value = std::round(value / 10) * 10;
+  } else if (value > 50) {
+    value = std::round(value / 5) * 5;
+  } else if (value < 1) {
+    value = 1;
   }
 
   return std::round(value);

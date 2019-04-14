@@ -21,14 +21,14 @@
 
 #include "object_global.hh"
 
+#include "object.hh"
+
 #include <QWidget>
 
 namespace GDW
 {
   namespace RPG
   {
-    class Object;
-
     class OBJECTSHARED_EXPORT ObjectForm : public QWidget
     {
         Q_OBJECT
@@ -37,8 +37,8 @@ namespace GDW
         explicit ObjectForm(QWidget* parent = nullptr);
         virtual ~ObjectForm();
 
-        virtual void Read();
-        virtual void Write();
+        virtual Object* Read(Mode = Mode::Standard, Object* = nullptr);
+        virtual Object* Write();
         virtual void SetReadOnly(bool);
         virtual QString Title() const;
 
@@ -48,7 +48,7 @@ namespace GDW
         virtual const Object* GetObject() const;
 
       protected:
-        void AddSvgFrame(QString, QWidget*);
+        void AddSvgFrame(const QVariant&, QWidget*);
 
       private:
         bool mReadOnly;

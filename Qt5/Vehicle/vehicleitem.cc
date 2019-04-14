@@ -54,9 +54,7 @@ VehicleTreeItem::Unpack(const QJsonObject& json, ObjectTreeItem* parent)
 }
 
 VehicleTreeItem::VehicleTreeItem(Vehicle* vehicle, ObjectTreeItem* parent)
-  : ObjectTreeItem(vehicle,
-                   parent == nullptr ? VehicleModel::Model()->RootItem()
-                                     : parent)
+  : ObjectTreeItem(vehicle, parent)
 {}
 
 VehicleForm*
@@ -75,6 +73,12 @@ const Vehicle*
 VehicleTreeItem::GetObject() const
 {
   return static_cast<const Vehicle*>(ObjectTreeItem::GetObject());
+}
+
+VehicleModel*
+VehicleTreeItem::Model() const
+{
+  return VehicleModel::Model();
 }
 
 QByteArray

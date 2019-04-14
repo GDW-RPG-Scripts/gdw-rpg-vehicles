@@ -26,6 +26,8 @@ namespace GDW
 {
   namespace RPG
   {
+    class Object;
+    class ObjectForm;
     class ObjectModel;
 
     class InsertItemCommand : public QUndoCommand
@@ -58,6 +60,20 @@ namespace GDW
         bool mRemoved;
         QModelIndex mParent;
         ObjectModel* mModel;
+    };
+
+    class UpdateItemCommand : public QUndoCommand
+    {
+      public:
+        UpdateItemCommand(ObjectForm*, QUndoCommand* parent = nullptr);
+        ~UpdateItemCommand();
+
+        void undo() override;
+        void redo() override;
+
+      private:
+        Object* mObject;
+        ObjectForm* mObjectForm;
     };
   };
 };

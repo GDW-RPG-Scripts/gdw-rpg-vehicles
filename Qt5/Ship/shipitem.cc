@@ -62,3 +62,9 @@ ShipTreeItem::GetObject() const
 {
   return static_cast<const Ship*>(ObjectTreeItem::GetObject());
 }
+
+ShipModel*
+ShipTreeItem::Model() const
+{
+  return ShipModel::Model();
+}

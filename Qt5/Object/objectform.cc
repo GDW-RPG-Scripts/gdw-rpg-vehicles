@@ -33,13 +33,17 @@ ObjectForm::ObjectForm(QWidget* parent) :
 ObjectForm::~ObjectForm()
 {}
 
-void
-ObjectForm::Read()
-{}
+Object*
+ObjectForm::Read(Mode, Object*)
+{
+  return nullptr;
+}
 
-void
+Object*
 ObjectForm::Write()
-{}
+{
+  return nullptr;
+}
 
 bool
 ObjectForm::IsReadOnly() const
@@ -72,11 +76,12 @@ ObjectForm::GetObject() const
 }
 
 void
-ObjectForm::AddSvgFrame(QString name, QWidget* parent)
+ObjectForm::AddSvgFrame(const QVariant& name, QWidget* parent)
 {
   QHBoxLayout* hbox = new QHBoxLayout(parent);
   hbox->setContentsMargins(2,2,2,2);
-  QSvgWidget* svg = new QSvgWidget(":/images/" + name +".svg", parent); // + mWeapon->Wtyp() +
+  QSvgWidget* svg =
+      new QSvgWidget(":/images/" + name.toString() +".svg", parent); // + mWeapon->Wtyp() +
   hbox->addWidget(svg);
   parent->setLayout(hbox);
 }

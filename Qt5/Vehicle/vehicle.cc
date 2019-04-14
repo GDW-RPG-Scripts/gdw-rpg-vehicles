@@ -13,7 +13,7 @@
  * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
  * See the GNU General Public License for more details. You should have received a copy of the GNU
- * General Public License along with GDW RPG Vehicles. If not, see <http://www.gnu.org/licenses/>.
+ * General Public License along with GDW RPG Vehicles. if(not, see <http://www.gnu.org/licenses/>.
  */
 
 #include "vehicle.hh"
@@ -56,16 +56,16 @@ Vehicle::New()
   static const QJsonObject exemplar
   {
     {"__GDW_RPG_Type__", JSON_TYPE},
-    {PROP_NAME, "[Name]"}, {PROP_TYPE, "[Type]"}, {PROP_NATIONALITY, "[Nationality]"},
-    {PROP_TRMOV,   QJsonValue(QJsonValue::Double)}, {PROP_CCMOV, QJsonValue(QJsonValue::Double)}, {PROP_FCAP, QJsonValue(QJsonValue::Double)}, {PROP_FCONS, QJsonValue(QJsonValue::Double)}, {PROP_SUSP, ""},
-    {PROP_TF,      QJsonValue(QJsonValue::Double)}, {PROP_TS,    QJsonValue(QJsonValue::Double)}, {PROP_TR,   QJsonValue(QJsonValue::Double)}, {PROP_HF,    QJsonValue(QJsonValue::Double)}, {PROP_HS,  QJsonValue(QJsonValue::Double)}, {PROP_HR, QJsonValue(QJsonValue::Double)},
-    {PROP_WEAPONS, QJsonArray()},
-    {PROP_WEIGHT,  QJsonValue(QJsonValue::Double)}, {PROP_LOAD,  QJsonValue(QJsonValue::Double)}, {PROP_CREW, QJsonValue(QJsonValue::Double)}, {PROP_PSGR,  QJsonValue(QJsonValue::Double)}, {PROP_MNT, QJsonValue(QJsonValue::Double)},
-    {PROP_PRICE,   QJsonValue(QJsonValue::Double)}, {PROP_RF,    QJsonValue(QJsonValue::Double)}, {PROP_DECK, QJsonValue(QJsonValue::Double)}, {PROP_BELLY, QJsonValue(QJsonValue::Double)},
-    {PROP_STAB, ""}, {PROP_FUEL, ""}, {PROP_NIGHT, ""}, {PROP_RAD, ""},
-    {PROP_X5,   ""}, {PROP_X6,   ""}, {PROP_X7,    ""},
-    {PROP_X8,   ""},
-    {PROP_LOCA, ""}
+    {PROP_NAME, "[Name]"}, {PROP_TYPE, "[Type]"}, {PROP_NATIONALITY, "[Nationality]"} //,
+//    {PROP_TRMOV,   QJsonValue(QJsonValue::Double)}, {PROP_CCMOV, QJsonValue(QJsonValue::Double)}, {PROP_FCAP, QJsonValue(QJsonValue::Double)}, {PROP_FCONS, QJsonValue(QJsonValue::Double)}, {PROP_SUSP, ""},
+//    {PROP_TF,      QJsonValue(QJsonValue::Double)}, {PROP_TS,    QJsonValue(QJsonValue::Double)}, {PROP_TR,   QJsonValue(QJsonValue::Double)}, {PROP_HF,    QJsonValue(QJsonValue::Double)}, {PROP_HS,  QJsonValue(QJsonValue::Double)}, {PROP_HR, QJsonValue(QJsonValue::Double)},
+//    {PROP_WEAPONS, QJsonArray()},
+//    {PROP_WEIGHT,  QJsonValue(QJsonValue::Double)}, {PROP_LOAD,  QJsonValue(QJsonValue::Double)}, {PROP_CREW, QJsonValue(QJsonValue::Double)}, {PROP_PSGR,  QJsonValue(QJsonValue::Double)}, {PROP_MNT, QJsonValue(QJsonValue::Double)},
+//    {PROP_PRICE,   QJsonValue(QJsonValue::Double)}, {PROP_RF,    QJsonValue(QJsonValue::Double)}, {PROP_DECK, QJsonValue(QJsonValue::Double)}, {PROP_BELLY, QJsonValue(QJsonValue::Double)},
+//    {PROP_STAB, ""}, {PROP_FUEL, ""}, {PROP_NIGHT, ""}, {PROP_RAD, ""},
+//    {PROP_X5,   ""}, {PROP_X6,   ""}, {PROP_X7,    ""},
+//    {PROP_X8,   ""},
+//    {PROP_LOCA, ""}
   };
 
   return new Vehicle(exemplar);
@@ -93,52 +93,73 @@ Vehicle::ItemData() const
   return data;
 }
 
-QVariantHash
-Vehicle::ToVariantHash() const
+void
+Vehicle::ToVariantHash(QVariantHash& hash) const
 {
-  QVariantHash hash;
+  Object::ToVariantHash(hash);
 
   hash[PROP_NAME]        = Name();
   hash[PROP_TYPE]        = Type();
   hash[PROP_NATIONALITY] = Nationality();
-  hash[PROP_TRMOV]       = Trmov();
-  hash[PROP_CCMOV]       = Ccmov();
-  hash[PROP_FCAP]        = Fcap();
-  hash[PROP_FCONS]       = Fcons();
-  hash[PROP_SUSP]        = Susp();
-  hash[PROP_TF]          = Tf();
-  hash[PROP_TS]          = Ts();
-  hash[PROP_TR]          = Tr();
-  hash[PROP_HF]          = Hf();
-  hash[PROP_HS]          = Hs();
-  hash[PROP_HR]          = Hr();
+  hash[PROP_TRMOV]       = TravelMove();
+  hash[PROP_CCMOV]       = CombatMove();
+  hash[PROP_FCAP]        = FuelCapacity();
+  hash[PROP_FCONS]       = FuelConsumption();
+  hash[PROP_SUSP]        = Suspension();
+  hash[PROP_TF]          = TurretFront();
+  hash[PROP_TS]          = TurretSides();
+  hash[PROP_TR]          = TurretRear();
+  hash[PROP_HF]          = HullFront();
+  hash[PROP_HS]          = HullSides();
+  hash[PROP_HR]          = HullRear();
 
   QVariantList list;
   for(Weapon* weapon: Weapons()) {
-    list << weapon->ToVariantHash();
+    QVariantHash w_hash;
+    weapon->ToVariantHash(w_hash);
+    list << w_hash;
   }
 
   hash[PROP_WEAPONS]     = list;
   hash[PROP_WEIGHT]      = Weight();
   hash[PROP_LOAD]        = Load();
   hash[PROP_CREW]        = Crew();
-  hash[PROP_PSGR]        = Psgr();
-  hash[PROP_MNT]         = Mnt();
+  hash[PROP_PSGR]        = Passengers();
+  hash[PROP_MNT]         = Maintenance();
   hash[PROP_PRICE]       = Price();
   hash[PROP_RF]          = Rf();
   hash[PROP_DECK]        = Deck();
   hash[PROP_BELLY]       = Belly();
-  hash[PROP_STAB]        = Stab();
-  hash[PROP_FUEL]        = Fuel();
-  hash[PROP_NIGHT]       = Night();
-  hash[PROP_RAD]         = Rad();
+  hash[PROP_STAB]        = Stabilization();
+  hash[PROP_FUEL]        = FuelTypes();
+  hash[PROP_NIGHT]       = NightVision();
+  hash[PROP_RAD]         = NBC();
   hash[PROP_X5]          = X5();
   hash[PROP_X6]          = X6();
   hash[PROP_X7]          = X7();
   hash[PROP_X8]          = X8();
-  hash[PROP_LOCA]        = Loca();
+  hash[PROP_LOCA]        = HitLocations();
 
-  return hash;
+  QString positions(" C ");
+
+  bool ok;
+  double crew = Crew().toDouble(&ok);
+  if(ok) {
+    if(crew > 1) positions += " D ";
+    if(crew > 2) positions += " G ";
+    if(crew > 3) positions += " L ";
+    if(crew > 4) positions += " R ";
+    if(crew > 5) positions += " X ";
+  }
+
+  double pass = Passengers().toDouble(&ok);
+  if(ok && pass > 0) {
+    positions += "   ";
+    for(int i = 0; i < pass; ++i)
+      positions += " T ";
+  }
+
+  hash["positions"]      = positions;
 }
 
 Mustache::QtVariantContext*
@@ -161,7 +182,7 @@ Vehicle::Context(const QVariantHash& hash) const
       }
 
       virtual QString eval(const QString& key, const QString& _template, Mustache::Renderer* renderer) {
-        if (key == "counter") {
+        if(key == "counter") {
           mNumber += 1;
           mYCoord += mIncrement;
         }
@@ -169,9 +190,9 @@ Vehicle::Context(const QVariantHash& hash) const
       }
 
       virtual QString stringValue(const QString& key) const {
-        if (key == "number") {
+        if(key == "number") {
           return QString::number(mNumber);
-        } else if (key == "y_coord") {
+        } else if(key == "y_coord") {
           return QString::number(mYCoord);
         } else {
           return Mustache::QtVariantContext::stringValue(key);
@@ -201,16 +222,16 @@ Vehicle::Divisor() const
  */
 const QString Vehicle::PROP_NAME = "name";
 
-QString
+QVariant
 Vehicle::Name() const
 {
-  return GetStringFor(PROP_NAME);
+  return GetVariantFor(PROP_NAME);
 }
 
 void
-Vehicle::Name(const QString& value)
+Vehicle::Name(const QVariant& variant)
 {
-  SetStringFor(PROP_NAME, value);
+  SetVariantFor(PROP_NAME, variant);
 }
 
 
@@ -219,16 +240,16 @@ Vehicle::Name(const QString& value)
  */
 const QString Vehicle::PROP_TYPE = "typ";
 
-QString
+QVariant
 Vehicle::Type() const
 {
-  return GetStringFor(PROP_TYPE);
+  return GetVariantFor(PROP_TYPE);
 }
 
 void
-Vehicle::Type(const QString& value)
+Vehicle::Type(const QVariant& variant)
 {
-  SetStringFor(PROP_TYPE, value);
+  SetVariantFor(PROP_TYPE, variant);
 }
 
 
@@ -237,16 +258,16 @@ Vehicle::Type(const QString& value)
  */
 const QString Vehicle::PROP_NATIONALITY = "nat";
 
-QString
+QVariant
 Vehicle::Nationality() const
 {
-  return GetStringFor(PROP_NATIONALITY);
+  return GetVariantFor(PROP_NATIONALITY);
 }
 
 void
-Vehicle::Nationality(const QString& value)
+Vehicle::Nationality(const QVariant& variant)
 {
-  SetStringFor(PROP_NATIONALITY, value);
+  SetVariantFor(PROP_NATIONALITY, variant);
 }
 
 
@@ -255,34 +276,34 @@ Vehicle::Nationality(const QString& value)
  */
 const QString Vehicle::PROP_TRMOV = "trmov";
 
-double
-Vehicle::Trmov() const
+QVariant
+Vehicle::TravelMove() const
 {
   return GetDoubleFor(PROP_TRMOV);
 }
 
 void
-Vehicle::Trmov(double value)
+Vehicle::TravelMove(const QVariant& variant)
 {
-  SetDoubleFor(PROP_TRMOV, value);
+  SetDoubleFor(PROP_TRMOV, variant);
 }
 
 
 /*
  * Ccmov
  */
-const QString Vehicle::PROP_CCMOV = "ccmov";
+const QString Vehicle::PROP_CCMOV = "ccmove";
 
-double
-Vehicle::Ccmov() const
+QVariant
+Vehicle::CombatMove() const
 {
   return GetDoubleFor(PROP_CCMOV);
 }
 
 void
-Vehicle::Ccmov(double value)
+Vehicle::CombatMove(const QVariant& variant)
 {
-  SetDoubleFor(PROP_CCMOV, value);
+  SetDoubleFor(PROP_CCMOV, variant);
 }
 
 
@@ -291,16 +312,16 @@ Vehicle::Ccmov(double value)
  */
 const QString Vehicle::PROP_FCAP = "fcap";
 
-double
-Vehicle::Fcap() const
+QVariant
+Vehicle::FuelCapacity() const
 {
   return GetDoubleFor(PROP_FCAP);
 }
 
 void
-Vehicle::Fcap(double value)
+Vehicle::FuelCapacity(const QVariant& variant)
 {
-  SetDoubleFor(PROP_FCAP, value);
+  SetDoubleFor(PROP_FCAP, variant);
 }
 
 
@@ -309,16 +330,16 @@ Vehicle::Fcap(double value)
  */
 const QString Vehicle::PROP_FCONS = "fcons";
 
-double
-Vehicle::Fcons() const
+QVariant
+Vehicle::FuelConsumption() const
 {
   return GetDoubleFor(PROP_FCONS);
 }
 
 void
-Vehicle::Fcons(double value)
+Vehicle::FuelConsumption(const QVariant& variant)
 {
-  SetDoubleFor(PROP_FCONS, value);
+  SetDoubleFor(PROP_FCONS, variant);
 }
 
 
@@ -327,16 +348,36 @@ Vehicle::Fcons(double value)
  */
 const QString Vehicle::PROP_SUSP = "susp";
 
-QString
-Vehicle::Susp() const
+QVariant
+Vehicle::Suspension() const
 {
-  return GetStringFor(PROP_SUSP);
+  QString value = GetVariantFor(PROP_SUSP).toString();
+  QChar type = value[0];
+
+  bool ok;
+  double number = value.mid(1).toDouble(&ok);
+  if(ok) {
+    value = type + QString::number(Round(number / Divisor()));
+  }
+
+  return value;
 }
 
 void
-Vehicle::Susp(const QString& value)
+Vehicle::Suspension(const QVariant& variant)
 {
-  SetStringFor(PROP_SUSP, value);
+  QString value = variant.toString();
+
+  if(value.isEmpty())
+    return;
+
+  QChar type = value[0];
+
+  bool ok;
+  double number = value.mid(1).toDouble(&ok);
+  if(ok) {
+    SetVariantFor(PROP_SUSP, type + ConvertFrom(number));
+  }
 }
 
 
@@ -345,16 +386,24 @@ Vehicle::Susp(const QString& value)
  */
 const QString Vehicle::PROP_TF = "tf";
 
-double
-Vehicle::Tf() const
+QVariant
+Vehicle::TurretFront() const
 {
-  return Round(GetDoubleFor(PROP_TF) / Divisor());
+  auto lambda = [this](double value) -> double {
+    return Round(value / Divisor());
+  };
+
+  return GetDoubleFor(PROP_TF, lambda);
 }
 
 void
-Vehicle::Tf(double value)
+Vehicle::TurretFront(const QVariant& variant)
 {
-  SetDoubleFor(PROP_TF, ConvertFrom(value));
+  auto lambda = [this](double value) -> double {
+    return ConvertFrom(value);
+  };
+
+  SetDoubleFor(PROP_TF, variant, lambda);
 }
 
 
@@ -363,52 +412,76 @@ Vehicle::Tf(double value)
  */
 const QString Vehicle::PROP_TS = "ts";
 
-double
-Vehicle::Ts() const
+QVariant
+Vehicle::TurretSides() const
 {
-  return Round(GetDoubleFor(PROP_TS) / Divisor());
+  auto lambda = [this](double value) -> double {
+    return Round(value / Divisor());
+  };
+
+  return GetDoubleFor(PROP_TS, lambda);
 }
 
 void
-Vehicle::Ts(double value)
+Vehicle::TurretSides(const QVariant& variant)
 {
-  SetDoubleFor(PROP_TS, value);
+  auto lambda = [this](double value) -> double {
+    return ConvertFrom(value);
+  };
+
+  SetDoubleFor(PROP_TS, variant, lambda);
 }
 
 
 /*
-     * Tr
-     */
+ * Tr
+ */
 const QString Vehicle::PROP_TR = "tr";
 
-double
-Vehicle::Tr() const
+QVariant
+Vehicle::TurretRear() const
 {
-  return Round(GetDoubleFor(PROP_TR) / Divisor());
+  auto lambda = [this](double value) -> double {
+    return Round(value / Divisor());
+  };
+
+  return GetDoubleFor(PROP_TR, lambda);
 }
 
 void
-Vehicle::Tr(double value)
+Vehicle::TurretRear(const QVariant& variant)
 {
-  SetDoubleFor(PROP_TR, value);
+  auto lambda = [this](double value) -> double {
+    return ConvertFrom(value);
+  };
+
+  SetDoubleFor(PROP_TR, variant, lambda);
 }
 
 
 /*
-     * Hf
-     */
+ * Hf
+ */
 const QString Vehicle::PROP_HF = "hf";
 
-double
-Vehicle::Hf() const
+QVariant
+Vehicle::HullFront() const
 {
-  return Round(GetDoubleFor(PROP_HF) / Divisor());
+  auto lambda = [this](double value) -> double {
+    return Round(value / Divisor());
+  };
+
+  return GetDoubleFor(PROP_HF, lambda);
 }
 
 void
-Vehicle::Hf(double value)
+Vehicle::HullFront(const QVariant& variant)
 {
-  SetDoubleFor(PROP_HF, value * Divisor());
+  auto lambda = [this](double value) -> double {
+    return ConvertFrom(value);
+  };
+
+  SetDoubleFor(PROP_HF, variant, lambda);
 }
 
 
@@ -417,16 +490,24 @@ Vehicle::Hf(double value)
  */
 const QString Vehicle::PROP_HS = "hs";
 
-double
-Vehicle::Hs() const
+QVariant
+Vehicle::HullSides() const
 {
-  return Round(GetDoubleFor(PROP_HS) / Divisor());
+  auto lambda = [this](double value) -> double {
+    return Round(value / Divisor());
+  };
+
+  return GetDoubleFor(PROP_HS, lambda);
 }
 
 void
-Vehicle::Hs(double value)
+Vehicle::HullSides(const QVariant& variant)
 {
-  SetDoubleFor(PROP_HS, value);
+  auto lambda = [this](double value) -> double {
+    return ConvertFrom(value);
+  };
+
+  SetDoubleFor(PROP_HS, variant, lambda);
 }
 
 
@@ -435,16 +516,24 @@ Vehicle::Hs(double value)
  */
 const QString Vehicle::PROP_HR = "hr";
 
-double
-Vehicle::Hr() const
+QVariant
+Vehicle::HullRear() const
 {
-  return Round(GetDoubleFor(PROP_HR) / Divisor());
+  auto lambda = [this](double value) -> double {
+    return Round(value / Divisor());
+  };
+
+  return GetDoubleFor(PROP_HR, lambda);
 }
 
 void
-Vehicle::Hr(double value)
+Vehicle::HullRear(const QVariant& variant)
 {
-  SetDoubleFor(PROP_HR, value);
+  auto lambda = [this](double value) -> double {
+    return ConvertFrom(value);
+  };
+
+  SetDoubleFor(PROP_HR, variant, lambda);
 }
 
 
@@ -471,14 +560,14 @@ Vehicle::Weapons(QList<Weapon*>& weapons)
  */
 const QString Vehicle::PROP_WEIGHT = "weight";
 
-double
+QVariant
 Vehicle::Weight() const
 {
   return GetDoubleFor(PROP_WEIGHT);
 }
 
 void
-Vehicle::Weight(double value)
+Vehicle::Weight(const QVariant& value)
 {
   SetDoubleFor(PROP_WEIGHT, value);
 }
@@ -489,16 +578,16 @@ Vehicle::Weight(double value)
  */
 const QString Vehicle::PROP_LOAD = "load";
 
-double
+QVariant
 Vehicle::Load() const
 {
-  return GetDoubleFor(PROP_HR);
+  return GetDoubleFor(PROP_LOAD);
 }
 
 void
-Vehicle::Load(double value)
+Vehicle::Load(const QVariant& value)
 {
-  SetDoubleFor(PROP_HR, value);
+  SetDoubleFor(PROP_LOAD, value);
 }
 
 
@@ -507,86 +596,86 @@ Vehicle::Load(double value)
  */
 const QString Vehicle::PROP_CREW = "crew";
 
-double
+QVariant
 Vehicle::Crew() const
 {
   return GetDoubleFor(PROP_CREW);
 }
 
 void
-Vehicle::Crew(double value)
+Vehicle::Crew(const QVariant& value)
 {
   SetDoubleFor(PROP_CREW, value);
 }
 
 
 /*
-     * Psgr
-     */
+ * Passengers
+ */
 const QString Vehicle::PROP_PSGR = "psgr";
 
-double
-Vehicle::Psgr() const
+QVariant
+Vehicle::Passengers() const
 {
   return GetDoubleFor(PROP_PSGR);
 }
 
 void
-Vehicle::Psgr(double value)
+Vehicle::Passengers(const QVariant& value)
 {
   SetDoubleFor(PROP_PSGR, value);
 }
 
 
 /*
-     * Mnt
-     */
+ * Mnt
+ */
 const QString Vehicle::PROP_MNT = "mnt";
 
-double
-Vehicle::Mnt() const
+QVariant
+Vehicle::Maintenance() const
 {
   return GetDoubleFor(PROP_MNT);
 }
 
 void
-Vehicle::Mnt(double value)
+Vehicle::Maintenance(const QVariant& value)
 {
   SetDoubleFor(PROP_MNT, value);
 }
 
 
 /*
-     * Price
-     */
+ * Price
+ */
 const QString Vehicle::PROP_PRICE = "price";
 
-double
+QVariant
 Vehicle::Price() const
 {
   return GetDoubleFor(PROP_PRICE);
 }
 
 void
-Vehicle::Price(double value)
+Vehicle::Price(const QVariant& value)
 {
   SetDoubleFor(PROP_PRICE, value);
 }
 
 
 /*
-     * Rf
-     */
+ * Rf
+ */
 const QString Vehicle::PROP_RF = "rf";
 
-double
+QVariant
 Vehicle::Rf() const
 {
   return GetDoubleFor(PROP_RF);
 }
 
 void
-Vehicle::Rf(double value)
+Vehicle::Rf(const QVariant& value)
 {
   SetDoubleFor(PROP_RF, value);
 }
@@ -597,22 +686,34 @@ Vehicle::Rf(double value)
  */
 const QString Vehicle::PROP_DECK = "deck";
 
-double
-Vehicle::Deck() const
+QVariant
+Vehicle::Deck(Mode mode) const
 {
-  double value = GetDoubleFor(PROP_DECK);
+  auto lambda = [this](double value) -> double {
+    return Round(value / Divisor());
+  };
 
-  if(value == 0) {
-    value = GetDoubleFor(PROP_HR) / 2;
+  QVariant result = GetDoubleFor(PROP_DECK, lambda);
+
+  if(mode == Mode::Standard && !result.isValid()) {
+    auto alternate = [this](double value) -> double {
+      return Round(value / 2 / Divisor());
+    };
+
+    result = GetDoubleFor(PROP_HR, alternate);
   }
 
-  return Round(value / Divisor());
+  return result;
 }
 
 void
-Vehicle::Deck(double value)
+Vehicle::Deck(const QVariant& variant)
 {
-  SetDoubleFor(PROP_DECK, ConvertFrom(value * Divisor()));
+  auto lambda = [this](double value) -> double {
+    return ConvertFrom(value * Divisor());
+  };
+
+  SetDoubleFor(PROP_DECK, variant, lambda);
 }
 
 
@@ -621,182 +722,194 @@ Vehicle::Deck(double value)
  */
 const QString Vehicle::PROP_BELLY = "belly";
 
-double
-Vehicle::Belly() const
+QVariant
+Vehicle::Belly(Mode mode) const
 {
-  double value = GetDoubleFor(PROP_BELLY);
+  auto lambda = [this](double value) -> double {
+    return Round(value / Divisor());
+  };
 
-  if(value == 0) {
-    value = GetDoubleFor(PROP_HR) / 2;
+  QVariant result = GetDoubleFor(PROP_BELLY, lambda);
+
+  if(mode == Mode::Standard && !result.isValid()) {
+    auto alternate = [this](double value) -> double {
+      return Round(value / 2 / Divisor());
+    };
+
+    result = GetDoubleFor(PROP_HR, alternate);
   }
 
-  return Round(value / Divisor());
+  return result;
 }
 
 void
-Vehicle::Belly(double value)
+Vehicle::Belly(const QVariant& variant)
 {
-  SetDoubleFor(PROP_BELLY, ConvertFrom(value * Divisor()));
+  auto lambda = [this](double value) -> double {
+    return ConvertFrom(value * Divisor());
+  };
+
+  SetDoubleFor(PROP_BELLY, variant, lambda);
 }
 
 
 /*
-     * Stab
-     */
+ * Stabilization
+ */
 const QString Vehicle::PROP_STAB = "stab";
 
-QString
-Vehicle::Stab() const
+QVariant
+Vehicle::Stabilization() const
 {
-  return GetStringFor(PROP_STAB);
+  return GetVariantFor(PROP_STAB);
 }
 
 void
-Vehicle::Stab(const QString& value)
+Vehicle::Stabilization(const QVariant& value)
 {
-  SetStringFor(PROP_STAB, value);
+  SetVariantFor(PROP_STAB, value);
 }
 
 
 /*
-     * Fuel
-     */
+ * Fuel Types
+ */
 const QString Vehicle::PROP_FUEL = "fuel";
 
-QString
-Vehicle::Fuel() const
+QVariant
+Vehicle::FuelTypes() const
 {
-  return GetStringFor(PROP_FUEL);
+  return GetVariantFor(PROP_FUEL);
 }
 
 void
-Vehicle::Fuel(const QString& value)
+Vehicle::FuelTypes(const QVariant& value)
 {
-  SetStringFor(PROP_FUEL, value);
+  SetVariantFor(PROP_FUEL, value);
 }
 
 
 /*
-     * Night
-     */
+ * Night Vision
+ */
 const QString Vehicle::PROP_NIGHT = "night";
 
-QString
-Vehicle::Night() const
+QVariant
+Vehicle::NightVision() const
 {
-  return GetStringFor(PROP_NIGHT);
+  return GetVariantFor(PROP_NIGHT);
 }
 
 void
-Vehicle::Night(const QString& value)
+Vehicle::NightVision(const QVariant& value)
 {
-  SetStringFor(PROP_NIGHT, value);
+  SetVariantFor(PROP_NIGHT, value);
 }
 
 
 /*
-     * Rad
-     */
+ * Rad
+ */
 const QString Vehicle::PROP_RAD = "rad";
 
-QString
-Vehicle::Rad() const
+QVariant
+Vehicle::NBC() const
 {
-  return GetStringFor(PROP_RAD);
+  return GetVariantFor(PROP_RAD);
 }
 
 void
-Vehicle::Rad(const QString& value)
+Vehicle::NBC(const QVariant& value)
 {
-  SetStringFor(PROP_RAD, value);
+  SetVariantFor(PROP_RAD, value);
 }
 
 
 /*
-     * X5
-     */
+ * X5
+ */
 const QString Vehicle::PROP_X5 = "x5";
 
-QString
+QVariant
 Vehicle::X5() const
 {
-  return GetStringFor(PROP_X5);
+  return GetVariantFor(PROP_X5);
 }
 
 void
-Vehicle::X5(const QString& value)
+Vehicle::X5(const QVariant& value)
 {
-  SetStringFor(PROP_X5, value);
+  SetVariantFor(PROP_X5, value);
 }
 
 
 /*
-     * X6
-     */
+ * X6
+ */
 const QString Vehicle::PROP_X6 = "x6";
 
-QString
+QVariant
 Vehicle::X6() const
 {
-  return GetStringFor(PROP_X6);
+  return GetVariantFor(PROP_X6);
 }
 
 void
-Vehicle::X6(const QString& value)
+Vehicle::X6(const QVariant& value)
 {
-  SetStringFor(PROP_X6, value);
+  SetVariantFor(PROP_X6, value);
 }
 
 
 /*
-     * X7
-     */
+ * X7
+ */
 const QString Vehicle::PROP_X7 = "x7";
 
-QString
+QVariant
 Vehicle::X7() const
 {
-  return GetStringFor(PROP_X7);
+  return GetVariantFor(PROP_X7);
 }
 
 void
-Vehicle::X7(const QString& value)
+Vehicle::X7(const QVariant& value)
 {
-  SetStringFor(PROP_X7, value);
+  SetVariantFor(PROP_X7, value);
 }
 
 
 /*
-     * X8
-     */
+ * X8
+ */
 const QString Vehicle::PROP_X8 = "x8";
 
-QString
+QVariant
 Vehicle::X8() const
 {
-  return GetStringFor(PROP_X8);
+  return GetVariantFor(PROP_X8);
 }
 
 void
-Vehicle::X8(const QString& value)
+Vehicle::X8(const QVariant& value)
 {
-  SetStringFor(PROP_X8, value);
+  SetVariantFor(PROP_X8, value);
 }
 
 
 /*
- * Loca
+ * Additional Hit Location
  */
 const QString Vehicle::PROP_LOCA = "loca";
 
-QString
-Vehicle::Loca() const
+QVariant
+Vehicle::HitLocations() const
 {
-  return GetStringFor(PROP_LOCA);
+  return GetVariantFor(PROP_LOCA);
 }
 
 void
-Vehicle::Loca(const QString& value)
+Vehicle::HitLocations(const QVariant& value)
 {
-  SetStringFor(PROP_LOCA, value);
+  SetVariantFor(PROP_LOCA, value);
 }

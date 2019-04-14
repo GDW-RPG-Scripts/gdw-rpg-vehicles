@@ -82,6 +82,12 @@ WeaponTreeItem::GetObject() const
   return static_cast<const Weapon*>(ObjectTreeItem::GetObject());
 }
 
+WeaponModel*
+WeaponTreeItem::Model() const
+{
+  return WeaponModel::Model();
+}
+
 QDebug&
 WeaponTreeItem::Debug(QDebug& debug) const
 {

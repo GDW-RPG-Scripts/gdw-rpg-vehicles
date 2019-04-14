@@ -281,6 +281,7 @@ void
 Workspace::EditItem()
 {
   if(mUi.objectForm->IsReadOnly()) {
+    mUi.objectForm->Read(Mode::Raw);
     mUi.editItemButton->setText(tr("&Cancel"));
     mUi.      okButton->setEnabled(true);
     mUi.    objectForm->SetReadOnly(false);
@@ -325,6 +326,8 @@ Workspace::PrintItem()
     return;
 
   QTreeView& view = GetCurrentTreeView();
+  QItemSelectionModel* itemSelectionModel = view.selectionModel();
+  QModelIndex index = itemSelectionModel->currentIndex();
   ObjectModel* model =
       static_cast<ObjectModel*>(view.model());
 
@@ -426,8 +429,9 @@ Workspace::Unselect()
 void
 Workspace::SaveItem()
 {
-  // mUndoStack.push(new InsertItemCommand());
-  mUi.    objectForm->Write();
+  mUndoStack.push(new UpdateItemCommand(mUi.objectForm));
+  mUi.objectForm->Read();
+
   mUi.editItemButton->setText(tr("Edit"));
   mUi.      okButton->setEnabled(false);
 

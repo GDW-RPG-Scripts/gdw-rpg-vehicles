@@ -47,6 +47,8 @@ namespace GDW
 
         Ship* GetObject() override;
         const Ship* GetObject() const override;
+
+        ShipModel* Model() const override;
     };
   };
 };

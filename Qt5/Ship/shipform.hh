@@ -43,8 +43,8 @@ namespace GDW
         explicit ShipForm(Ship* = nullptr, QWidget* parent = nullptr);
         ~ShipForm();
 
-        void Read() override;
-        void Write() override;
+        Ship* Read(Mode = Mode::Standard, Object* = nullptr) override;
+        Ship* Write() override;
         void SetReadOnly(bool) override;
         QString Title() const override;
 

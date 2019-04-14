@@ -54,108 +54,108 @@ namespace GDW
         const Vehicle* Copy() const override;
 
         QList<QVariant> ItemData() const override;
-        QVariantHash ToVariantHash() const override;
+        void ToVariantHash(QVariantHash&) const override;
         Mustache::QtVariantContext* Context(const QVariantHash&) const override;
 
 
-        QString Name() const;
-        void Name(const QString&);
+        QVariant Name() const;
+        void Name(const QVariant&);
 
-        QString Type() const;
-        void Type(const QString&);
+        QVariant Type() const;
+        void Type(const QVariant&);
 
-        QString Nationality() const;
-        void Nationality(const QString&);
+        QVariant Nationality() const;
+        void Nationality(const QVariant&);
 
-        double Trmov() const;
-        void Trmov(double);
+        QVariant TravelMove() const;
+        void TravelMove(const QVariant&);
 
-        double Ccmov() const;
-        void Ccmov(double);
+        QVariant CombatMove() const;
+        void CombatMove(const QVariant&);
 
-        double Fcap() const;
-        void Fcap(double);
+        QVariant FuelCapacity() const;
+        void FuelCapacity(const QVariant&);
 
-        double Fcons() const;
-        void Fcons(double);
+        QVariant FuelConsumption() const;
+        void FuelConsumption(const QVariant&);
 
-        QString Susp() const;
-        void Susp(const QString&);
+        QVariant Suspension() const;
+        void Suspension(const QVariant&);
 
-        double Tf() const;
-        void Tf(double);
+        QVariant TurretFront() const;
+        void TurretFront(const QVariant&);
 
-        double Ts() const;
-        void Ts(double);
+        QVariant TurretSides() const;
+        void TurretSides(const QVariant&);
 
-        double Tr() const;
-        void Tr(double);
+        QVariant TurretRear() const;
+        void TurretRear(const QVariant&);
 
-        double Hf() const;
-        void Hf(double);
+        QVariant HullFront() const;
+        void HullFront(const QVariant&);
 
-        double Hs() const;
-        void Hs(double);
+        QVariant HullSides() const;
+        void HullSides(const QVariant&);
 
-        double Hr() const;
-        void Hr(double);
+        QVariant HullRear() const;
+        void HullRear(const QVariant&);
 
         QList<Weapon*> Weapons() const;
         void Weapons(QList<Weapon*>&);
 
-        double Weight() const;
-        void Weight(double);
+        QVariant Weight() const;
+        void Weight(const QVariant&);
 
-        double Load() const;
-        void Load(double);
+        QVariant Load() const;
+        void Load(const QVariant&);
 
-        double Crew() const;
-        void Crew(double);
+        QVariant Crew() const;
+        void Crew(const QVariant&);
 
-        double Psgr() const;
-        void Psgr(double);
+        QVariant Passengers() const;
+        void Passengers(const QVariant&);
 
-        double Mnt() const;
-        void Mnt(double);
+        QVariant Maintenance() const;
+        void Maintenance(const QVariant&);
 
-        double Price() const;
-        void Price(double);
+        QVariant Price() const;
+        void Price(const QVariant&);
 
-        double Rf() const;
-        void Rf(double);
+        QVariant Rf() const;
+        void Rf(const QVariant&);
 
-        double Deck() const;
-        void Deck(double);
+        QVariant Deck(Mode = Mode::Standard) const;
+        void Deck(const QVariant&);
 
-        double Belly() const;
-        void Belly(double);
+        QVariant Belly(Mode = Mode::Standard) const;
+        void Belly(const QVariant&);
 
-        QString Stab() const;
-        void Stab(const QString&);
+        QVariant Stabilization() const;
+        void Stabilization(const QVariant&);
 
-        QString Fuel() const;
-        void Fuel(const QString&);
+        QVariant FuelTypes() const;
+        void FuelTypes(const QVariant&);
 
-        QString Night() const;
-        void Night(const QString&);
+        QVariant NightVision() const;
+        void NightVision(const QVariant&);
 
-        QString Rad() const;
-        void Rad(const QString&);
+        QVariant NBC() const;
+        void NBC(const QVariant&);
 
-        QString X5() const;
-        void X5(const QString&);
+        QVariant X5() const;
+        void X5(const QVariant&);
 
-        QString X6() const;
-        void X6(const QString&);
+        QVariant X6() const;
+        void X6(const QVariant&);
 
-        QString X7() const;
-        void X7(const QString&);
+        QVariant X7() const;
+        void X7(const QVariant&);
 
-        QString X8() const;
-        void X8(const QString&);
+        QVariant X8() const;
+        void X8(const QVariant&);
 
-        QString Loca() const;
-        void Loca(const QString&);
+        QVariant HitLocations() const;
+        void HitLocations(const QVariant&);
 
         // virtual void Read(const QJsonObject&) override;
 

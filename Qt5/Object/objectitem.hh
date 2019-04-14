@@ -38,6 +38,7 @@ namespace GDW
   {
     class Object;
     class ObjectForm;
+    class ObjectModel;
 
     class OBJECTSHARED_EXPORT ObjectTreeItem : public QObject
     {
@@ -78,6 +79,7 @@ namespace GDW
       protected:
         virtual Object* GetObject();
         virtual const Object* GetObject() const;
+        virtual ObjectModel* Model() const;
 
       private:
         friend QTextStream& operator<<(QTextStream&, const ObjectTreeItem&);

@@ -34,18 +34,22 @@ UnitForm::~UnitForm()
   delete mUi;
 }
 
-void
-UnitForm::Read()
+Unit*
+UnitForm::Read(Mode, Object*)
 {
   ObjectForm::Read();
+
+  return nullptr;
 }
 
-void
+Unit*
 UnitForm::Write()
 {
   ObjectForm::Write();
 
   SetReadOnly(true);
+
+  return nullptr;
 }
 
 void

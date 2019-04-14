@@ -19,6 +19,7 @@
 #include "objectitem.hh"
 #include "object.hh"
 #include "objectform.hh"
+#include "objectmodel.hh"
 
 #include "mustache.hh"
 
@@ -36,7 +37,12 @@ using namespace GDW::RPG;
 
 ObjectTreeItem::ObjectTreeItem(Object* object, ObjectTreeItem* parent)
   : mObject(object), mItemData(object->ItemData()), mParentItem(parent)
-{}
+{
+  if(parent == nullptr)
+    parent = Model()->RootItem();
+
+  mParentItem = parent;
+}
 
 ObjectTreeItem::ObjectTreeItem(const QList<QVariant>& data, ObjectTreeItem* parent)
   : mObject(nullptr), mItemData(data), mParentItem(parent)
@@ -177,6 +183,12 @@ ObjectTreeItem::GetObject() const
   return mObject;
 }
 
+ObjectModel*
+ObjectTreeItem::Model() const
+{
+  return nullptr;
+}
+
 QDebug&
 operator<<(QDebug& debug, const ObjectTreeItem& item)
 {
@@ -198,7 +210,9 @@ ObjectTreeItem::Template() const
 void
 ObjectTreeItem::RenderPage(QPaintDevice& device) const
 {
-  QVariantHash map = GetObject()->ToVariantHash();
+  QVariantHash map;
+
+  GetObject()->ToVariantHash(map);
 
   Mustache::Renderer renderer;
   Mustache::QtVariantContext* context = GetObject()->Context(map);

@@ -19,6 +19,7 @@
 #include "commands.hh"
 
 #include "vehiclemodel.hh"
+#include "objectform.hh"
 #include "objectitem.hh"
 
 #include <QDebug>
@@ -92,4 +93,42 @@ RemoveItemCommand::redo()
 {
   qDebug() << "RemoveItemCommand::redo()";
   mRemoved = mModel->removeRow(mRow, mParent);
+}
+
+
+//
+// Update Item Command
+//
+UpdateItemCommand::UpdateItemCommand(ObjectForm* form, QUndoCommand* parent)
+  : QUndoCommand(parent), mObject(nullptr), mObjectForm(form)
+{
+  setText(QObject::tr("update"));
+}
+
+UpdateItemCommand::~UpdateItemCommand()
+{
+  qDebug() << "UpdateItemCommand::~UpdateItemCommand()";
+
+//  if(mObject)
+//    delete mObject;
+}
+
+void
+UpdateItemCommand::undo()
+{
+  qDebug() << "UpdateItemCommand::undo()";
+
+  mObject = mObjectForm->Read(mObject);
+}
+
+void
+UpdateItemCommand::redo()
+{
+  qDebug() << "UpdateItemCommand::redo()";
+
+  if(mObject) {
+    mObject = mObjectForm->Read(mObject);
+  } else {
+    mObject = mObjectForm->Write();
+  }
 }
