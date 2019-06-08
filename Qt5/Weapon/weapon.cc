@@ -19,24 +19,24 @@
 #include "weapon.hh"
 
 #include <QJsonArray>
+#include <QSettings>
+
+#include <cmath>
 
 using namespace GDW::RPG;
 
 const QString
 Weapon::JSON_TYPE = "__GDW_RPG_Weapon__";
 
-Weapon::Weapon()
+Weapon::Weapon(const QJsonObject& json, Object* parent)
+  : Object(json, parent)
 {}
 
-Weapon::Weapon(const Weapon& weapon)
-  : Object(weapon)
+Weapon::Weapon(const Weapon& weapon, Object* parent)
+  : Object(weapon, parent)
 {}
 
 Weapon::~Weapon()
-{}
-
-Weapon::Weapon(const QJsonObject& json)
-  : Object(json)
 {}
 
 Weapon*
@@ -44,8 +44,8 @@ Weapon::New()
 {
   static const QJsonObject weapon
   {
-    {"__GDW_RPG_Type__", JSON_TYPE} //,
-    //    {PROP_WTYP, "[Type]"}, {PROP_WQUAL, ""},    {PROP_ROF, QJsonValue(QJsonValue::Double)}, {PROP_RNG,  QJsonValue(QJsonValue::Double)},
+    {"__GDW_RPG_Type__", JSON_TYPE},
+    {PROP_WTYP, "[Type]"} //, {PROP_WQUAL, ""},    {PROP_ROF, QJsonValue(QJsonValue::Double)}, {PROP_RNG,  QJsonValue(QJsonValue::Double)},
     //    {PROP_PS,  QJsonValue(QJsonValue::Double)}, {PROP_PM,  QJsonValue(QJsonValue::Double)}, {PROP_PL,   QJsonValue(QJsonValue::Double)}, {PROP_PX, QJsonValue(QJsonValue::Double)}, {PROP_AMMO, QJsonValue(QJsonValue::Double)},
     //    {PROP_CON, QJsonValue(QJsonValue::Double)}, {PROP_BUR, QJsonValue(QJsonValue::Double)}, {PROP_PRAN, QJsonValue(QJsonValue::Double)}
   };
@@ -54,15 +54,15 @@ Weapon::New()
 }
 
 Weapon*
-Weapon::Copy()
+Weapon::Copy(Object* parent)
 {
-  return new Weapon(*this);
+  return new Weapon(*this, parent);
 }
 
 const Weapon*
-Weapon::Copy() const
+Weapon::Copy(Object* parent) const
 {
-  return new Weapon(*this);
+  return new Weapon(*this, parent);
 }
 
 QList<QVariant>
@@ -85,28 +85,41 @@ Weapon::ToVariantHash(QVariantHash& hash) const
 
   hash[PROP_WTYP]  = Wtyp();
   hash[PROP_WQUAL] = Wqual();
-  hash[PROP_ROF]   = Rof();
-  hash[PROP_RNG]   = Rng();
+  hash[PROP_ROF]   = RateOfFire();
+  hash[PROP_RNG]   = Range();
   hash[PROP_PS]    = Ps();
   hash[PROP_PM]    = Pl();
   hash[PROP_PL]    = Pm();
   hash[PROP_PX]    = Px();
   hash[PROP_AMMO]  = Ammo();
-  hash[PROP_CON]   = Con();
-  hash[PROP_BUR]   = Bur();
+  hash[PROP_CON]   = Concussion();
+  hash[PROP_BUR]   = Burst();
   hash[PROP_PRAN]  = Pran();
 
-  value = Rng().toDouble(&ok) / 2;
-  if(ok)
-    hash["short"]    = value;
+  hash["conc?"]  = Wqual() == "C";
+  value = std::round(Range().toDouble(&ok) / 2);
+  if(ok) {
+    if(value < 1000)
+      hash["short"]    = value;
+    else
+      hash["short"]    = QString::number(value/1000, 'f', 1) + "k";
+  }
 
-  value = Rng().toDouble(&ok) * 2;
-  if(ok)
-    hash["long"]     = value;
+  value = Range().toDouble(&ok) * 2;
+  if(ok) {
+    if(value < 1000)
+      hash["long"]     = value;
+    else
+      hash["long"]    = QString::number(value/1000, 'f', 1) + "k";
+  }
 
-  value = Rng().toDouble(&ok) * 4;
-  if(ok)
-    hash["extreme"]  = value;
+  value = Range().toDouble(&ok) * 4;
+  if(ok) {
+    if(value < 1000)
+      hash["extreme"]     = value;
+    else
+      hash["extreme"]    = QString::number(value/1000, 'f', 1) + "k";
+  }
 }
 
 
@@ -141,13 +154,13 @@ Weapon::Wqual(const QVariant& value)
 const QString Weapon::PROP_ROF = "rof";
 
 QVariant
-Weapon::Rof() const
+Weapon::RateOfFire() const
 {
   return GetVariantFor(PROP_ROF);
 }
 
 void
-Weapon::Rof(const QVariant& value)
+Weapon::RateOfFire(const QVariant& value)
 {
   SetVariantFor(PROP_ROF, value);
 }
@@ -156,13 +169,13 @@ Weapon::Rof(const QVariant& value)
 const QString Weapon::PROP_RNG = "rng";
 
 QVariant
-Weapon::Rng() const
+Weapon::Range() const
 {
   return GetVariantFor(PROP_RNG);
 }
 
 void
-Weapon::Rng(const QVariant& value)
+Weapon::Range(const QVariant& value)
 {
   SetVariantFor(PROP_RNG, value);
 }
@@ -246,13 +259,13 @@ Weapon::Ammo(const QVariant& value)
 const QString Weapon::PROP_CON = "con";
 
 QVariant
-Weapon::Con() const
+Weapon::Concussion() const
 {
   return GetVariantFor(PROP_CON);
 }
 
 void
-Weapon::Con(const QVariant& value)
+Weapon::Concussion(const QVariant& value)
 {
   SetVariantFor(PROP_CON, value);
 }
@@ -261,13 +274,28 @@ Weapon::Con(const QVariant& value)
 const QString Weapon::PROP_BUR = "bur";
 
 QVariant
-Weapon::Bur() const
+Weapon::Burst(Mode mode) const
 {
-  return GetVariantFor(PROP_BUR);
+  QVariant variant = GetVariantFor(PROP_BUR);
+
+  if(mode == Mode::Display) {
+    bool ok;
+    double value = variant.toDouble(&ok);
+    if(ok) {
+      double divisor = 2;
+      QSettings settings;
+      if(settings.value("ruleset", 0).toInt() == 1)
+        divisor = 10;
+
+      variant = std::round(value / divisor);
+    }
+  }
+
+  return variant;
 }
 
 void
-Weapon::Bur(const QVariant& value)
+Weapon::Burst(const QVariant& value)
 {
   SetVariantFor(PROP_BUR, value);
 }
@@ -289,18 +317,18 @@ Weapon::Pran(const QVariant& value)
 
 
 QList<Weapon*>
-Weapon::Load(const QJsonValue& json)
+Weapon::Load(const QJsonValue& json, Object* parent)
 {
   QList<Weapon*> result;
 
   if(json.isNull()) {
     return result;
   } else if (json.isObject()) {
-    result.append(new Weapon(json.toObject()));
+    result.append(new Weapon(json.toObject(), parent));
   } else if (json.isArray()) {
     QJsonArray ja = json.toArray();
     for (int i = 0; i < ja.size(); ++i) {
-      result.append(new Weapon(ja[i].toObject()));
+      result.append(new Weapon(ja[i].toObject(), parent));
     }
   }
 

@@ -16,37 +16,27 @@
  * General Public License along with GDW RPG Vehicles. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef SHIP_HH
-#define SHIP_HH
+#ifndef WEAPONDIALOG_HH
+#define WEAPONDIALOG_HH
 
-#include "ship_global.hh"
+#include <QDialog>
+#include <QModelIndex>
 
-#include "object.hh"
-
-namespace GDW
-{
-  namespace RPG
-  {
-    class SHIPSHARED_EXPORT Ship : public Object
+namespace GDW {
+  namespace RPG {
+    class WeaponDialog : public QDialog
     {
-        Q_OBJECT
-
       public:
-        Ship(const QJsonObject& = QJsonObject());
-        static Ship* New();
+        WeaponDialog(QWidget* parent = nullptr);
 
+        QModelIndex Selected() const;
 
-        QVariant Name() const;
-        void Name(const QVariant&);
-
-        static const QString JSON_TYPE;
+      public slots:
+        void ItemSelected(const QModelIndex&);
 
       private:
-        static const QString PROP_NAME;
+        QModelIndex mSelectedIndex;
     };
   };
 };
-
-// Q_DECLARE_METATYPE(GDW::RPG::Ship)
-
-#endif // SHIP_HH
+#endif // WEAPONDIALOG_HH

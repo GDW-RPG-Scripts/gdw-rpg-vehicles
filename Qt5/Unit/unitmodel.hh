@@ -42,7 +42,7 @@ namespace GDW
         UnitModel(QObject* parent = nullptr);
 
       protected:
-        ObjectTreeItem* Create(ObjectTreeItem*) const override;
+        ObjectTreeItem* InsertObject(ObjectTreeItem*) const override;
         const QList<QVariant>& RootData() const override;
 
       private:

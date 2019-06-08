@@ -43,7 +43,7 @@ namespace GDW
         explicit WeaponForm(Weapon* = nullptr, QWidget* parent = nullptr);
         ~WeaponForm() override;
 
-        Weapon* Read(Mode = Mode::Standard, Object* = nullptr) override;
+        Weapon* Read(Mode = Mode::Display, Object* = nullptr) override;
         Weapon* Write() override;
         void SetReadOnly(bool) override;
         QString Title() const override;

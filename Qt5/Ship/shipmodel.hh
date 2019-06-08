@@ -40,7 +40,7 @@ namespace GDW
                                ObjectTreeItem* parent) override;
 
       protected:
-        ObjectTreeItem* Create(ObjectTreeItem*) const override;
+        ObjectTreeItem* InsertObject(ObjectTreeItem*) const override;
         const QList<QVariant>& RootData() const override;
 
       private:

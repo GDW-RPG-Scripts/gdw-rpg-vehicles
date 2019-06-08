@@ -41,22 +41,25 @@ WeaponTreeItem*
 WeaponTreeItem::Unpack(const QJsonObject& json, ObjectTreeItem* parent)
 {
   Weapon* weapon = new Weapon(json);
-  WeaponTreeItem* wti = new WeaponTreeItem(weapon, parent);
-
-  return wti;
+  return new WeaponTreeItem(weapon, parent);
 }
 
 WeaponTreeItem::WeaponTreeItem(Weapon* weapon, ObjectTreeItem* parent)
-  : ObjectTreeItem(weapon,
-                   parent == nullptr ? WeaponModel::Model()->RootItem()
-                                     : parent)
-{
-  if(parent == nullptr)
-    WeaponModel::Model()->RootItem()->AppendChild(this);
-}
+  : ObjectTreeItem(weapon, parent)
+{}
+
+WeaponTreeItem::WeaponTreeItem(const WeaponTreeItem& item)
+  : ObjectTreeItem(item)
+{}
 
 WeaponTreeItem::~WeaponTreeItem()
 {}
+
+WeaponTreeItem*
+WeaponTreeItem::Copy() const
+{
+  return new WeaponTreeItem(*this);
+}
 
 WeaponForm*
 WeaponTreeItem::GetForm()
@@ -86,12 +89,4 @@ WeaponModel*
 WeaponTreeItem::Model() const
 {
   return WeaponModel::Model();
-}
-
-QDebug&
-WeaponTreeItem::Debug(QDebug& debug) const
-{
-  debug.nospace() << "Weapon: ";
-
-  return debug;
 }

@@ -22,9 +22,38 @@
 #include "objectform.hh"
 #include "objectitem.hh"
 
+#include <QObject>
 #include <QDebug>
 
 using namespace GDW::RPG;
+
+//
+// Add Item Command
+//
+AddChildItemCommand::AddChildItemCommand(ObjectTreeItem* parentItem,
+                                         ObjectTreeItem* childItem,
+                                         QUndoCommand* parent)
+  : QUndoCommand(parent),
+    mParentItem(parentItem), mChildItem(childItem)
+{
+  setText(QObject::tr("child add"));
+}
+
+void
+AddChildItemCommand::undo()
+{
+  qDebug() << "AddItemCommand::undo()";
+
+  mParentItem->Model()->RemoveChild(mParentItem, mChildItem->Row());
+}
+
+void
+AddChildItemCommand::redo()
+{
+  qDebug() << "AddItemCommand::redo()";
+
+  mParentItem->Model()->InsertChild(mChildItem, mParentItem);
+}
 
 //
 // Insert Item Command
@@ -45,8 +74,9 @@ void
 InsertItemCommand::undo()
 {
   qDebug() << "InsertItemCommand::undo()";
+
   if(mInserted)
-    mModel->removeRow(mRow, mParent);
+    mModel->RemoveObject(mRow);
 }
 
 void
@@ -54,45 +84,44 @@ InsertItemCommand::redo()
 {
   qDebug() << "InsertItemCommand::redo()";
 
-  mInserted = mModel->insertRow(mRow, mParent);
-
-  //      bool isSet = true;
-  //      for (int col = 0; col < mModel.columnCount(); ++col) {
-  //        QModelIndex index = mModel.index(mRow, col, mParent);
-  //        ObjectTreeItem* item = mModel.GetItem(index);
-  //        isSet = isSet && mModel.setData(index, item->Data(col));
-  //      }
-  //      mInserted = isSet;
+  mInserted = mModel->InsertObject(mRow);
 }
 
 //
 // Remove Item Command
 //
 RemoveItemCommand::RemoveItemCommand(const QModelIndex& index,
-                                     ObjectModel* model,
                                      QUndoCommand* parent)
   : QUndoCommand(parent),
     mRow(index.row()),
-    mRemoved(false),
-    mParent(index.parent()),
-    mModel(model)
+    mParent(static_cast<ObjectTreeItem*>(index.parent().internalPointer())),
+    mRemovedItem(nullptr)
 {
   setText(QObject::tr("remove"));
+
+  const ObjectModel* model =
+      static_cast<const ObjectModel*>(index.model());
+
+  if(model)
+    mModel = const_cast<ObjectModel*>(model); // Kludge
 }
 
 void
 RemoveItemCommand::undo()
 {
   qDebug() << "RemoveItemCommand::undo()";
-  if(mRemoved)
-    mModel->insertRow(mRow, mParent);
+
+  if(mRemovedItem)
+    mModel->InsertChild(mRemovedItem, mParent, mRow);
 }
 
 void
 RemoveItemCommand::redo()
 {
   qDebug() << "RemoveItemCommand::redo()";
-  mRemoved = mModel->removeRow(mRow, mParent);
+
+  mRemovedItem =
+      mModel->RemoveChild(mParent, mRow);
 }
 
 
@@ -109,8 +138,8 @@ UpdateItemCommand::~UpdateItemCommand()
 {
   qDebug() << "UpdateItemCommand::~UpdateItemCommand()";
 
-//  if(mObject)
-//    delete mObject;
+  //  if(mObject)
+  //    delete mObject;
 }
 
 void
@@ -118,7 +147,7 @@ UpdateItemCommand::undo()
 {
   qDebug() << "UpdateItemCommand::undo()";
 
-  mObject = mObjectForm->Read(mObject);
+  mObject = mObjectForm->Read(Mode::Display, mObject);
 }
 
 void
@@ -127,7 +156,7 @@ UpdateItemCommand::redo()
   qDebug() << "UpdateItemCommand::redo()";
 
   if(mObject) {
-    mObject = mObjectForm->Read(mObject);
+    mObject = mObjectForm->Read(Mode::Display, mObject);
   } else {
     mObject = mObjectForm->Write();
   }

@@ -23,6 +23,7 @@
 #include "mustache.hh"
 
 #include <QtMath>
+#include <QJsonArray>
 #include <QSettings>
 
 #include <cmath>
@@ -56,24 +57,20 @@ Object::STRIKER[RANGE] = {
   22300.00, 24400.00, 26600.00, 29000.00, 31600.00, 34400.00
 };
 
-Object::Object()
+Object::Object(const QJsonObject& json, Object* parent)
+  : QObject(parent), mJsonObject(json)
 {}
 
-Object::Object(const Object& object)
-  : mJsonObject(object.mJsonObject)
+Object::Object(const Object& object, Object* parent)
+  : QObject(parent), mJsonObject(object.mJsonObject)
 {}
 
 Object::~Object()
 {}
 
-Object::Object(const QJsonObject& json)
-  : mJsonObject(json)
-{
-  //  if(mJsonObject.isEmpty() ||
-  //     !mJsonObject.contains(PROP_TECHLEVEL) ||
-  //     !mJsonObject[PROP_TECHLEVEL].isDouble())
-  //    mJsonObject.insert(PROP_TECHLEVEL, 0);
-}
+void
+Object::RefreshDependencies()
+{}
 
 /*
  * Tech-level
@@ -94,13 +91,13 @@ Object::TechLevel() const
 
 
 Object*
-Object::Copy()
+Object::Copy(Object*)
 {
   return nullptr;
 }
 
 const Object*
-Object::Copy() const
+Object::Copy(Object*) const
 {
   return nullptr;
 }
@@ -111,8 +108,9 @@ Object::ItemData() const
   return QList<QVariant>();
 }
 
-Object::operator const QJsonObject&() const
+Object::operator const QJsonObject&()
 {
+  RefreshDependencies();
   return mJsonObject;
 }
 
@@ -128,6 +126,15 @@ Object::Context(const QVariantHash& hash) const
   return new Mustache::QtVariantContext(hash);
 }
 
+void
+Object::InsertChild(Object*, int)
+{}
+
+Object*
+Object::RemoveChild(int)
+{
+  return nullptr;
+}
 
 bool
 Object::RemoveIfEmpty(const QString& property, const QVariant& variant)
@@ -154,29 +161,6 @@ Object::SetVariantFor(const QString& index, const QVariant& variant)
   }
 }
 
-//    bool ok;
-//    double number = variant.toDouble(&ok);
-//    if(ok) {
-//      SetDoubleFor(property, number);
-//    }
-
-//QString
-//Object::GetStringFor(const QString& index) const
-//{
-//  if(!mJsonObject.isEmpty() &&
-//     mJsonObject.contains(index) &&
-//     mJsonObject[index].isString()) {
-//    return mJsonObject[index].toString();
-//  }
-//  return "";
-//}
-
-//void
-//Object::SetStringFor(const QString& index, const QString& value)
-//{
-//  mJsonObject[index] = value;
-//}
-
 QVariant
 Object::GetDoubleFor(const QString& index,
                      std::function<double(double)> calculate) const
@@ -198,7 +182,19 @@ Object::SetDoubleFor(const QString& index, QVariant variant,
   bool ok;
   double value = variant.toDouble(&ok);
   if(ok)
-    SetVariantFor(index, calculate(value));
+    return SetVariantFor(index, calculate(value));
+
+  RemoveIfEmpty(index, variant);
+}
+
+void
+Object::SetObjectsFor(const QString& index, QList<Object*>& objectList)
+{
+  QJsonArray jarr;
+  for(Object* object: objectList) {
+    jarr.append(QJsonValue(*object));
+  }
+  mJsonObject[index] = jarr;
 }
 
 double
@@ -221,17 +217,17 @@ Object::Round(double value) const
   if(settings.value("ruleset", 0).toInt() == 1) {
     for(int i = 0; i < RANGE; ++i) {
       if(STRIKER[i] > value) {
-        value = i;
-        break;
+        return i;
       }
     }
-  } else if(value > 100) {
-    value = std::round(value / 10) * 10;
-  } else if (value > 50) {
-    value = std::round(value / 5) * 5;
-  } else if (value < 1) {
-    value = 1;
   }
+
+  if(value > 100)
+    return std::round(value / 10) * 10;
+  if (value > 50)
+    return std::round(value / 5) * 5;
+  if (value < 1)
+    return 1;
 
   return std::round(value);
 }

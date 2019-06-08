@@ -37,7 +37,7 @@ namespace GDW
         explicit ObjectForm(QWidget* parent = nullptr);
         virtual ~ObjectForm();
 
-        virtual Object* Read(Mode = Mode::Standard, Object* = nullptr);
+        virtual Object* Read(Mode = Mode::Display, Object* = nullptr);
         virtual Object* Write();
         virtual void SetReadOnly(bool);
         virtual QString Title() const;

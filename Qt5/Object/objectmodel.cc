@@ -52,6 +52,50 @@ ObjectModel::Export(QJsonArray& jarr) const
   mRootItem->Export(jarr);
 }
 
+bool
+ObjectModel::InsertObject(int)
+{
+  return false;
+}
+
+bool
+ObjectModel::RemoveObject(int position)
+{
+  return RemoveChild(RootItem(), position);
+}
+
+bool
+ObjectModel::InsertChild(ObjectTreeItem* childItem,
+                         ObjectTreeItem* parentItem,
+                         int position)
+{
+  bool success = true;
+
+  if(!parentItem)
+    parentItem = RootItem();
+
+  beginInsertRows(parentItem->Index(), position, position);
+  parentItem->InsertChild(childItem, position);
+  endInsertRows();
+
+  return success;
+}
+
+ObjectTreeItem*
+ObjectModel::RemoveChild(ObjectTreeItem* parentItem, int position)
+{
+  ObjectTreeItem* removed = nullptr;
+
+  if(!parentItem)
+    parentItem = RootItem();
+
+  beginRemoveRows(parentItem->Index(), position, position);
+  removed = parentItem->RemoveChild(position);
+  endRemoveRows();
+
+  return removed;
+}
+
 void
 ObjectModel::Reset()
 {
@@ -121,7 +165,7 @@ ObjectModel::parent(const QModelIndex& index) const
   ObjectTreeItem* childItem = ItemFor(index);
   ObjectTreeItem* parentItem = childItem->ParentItem();
 
-  if (parentItem == RootItem())
+  if (parentItem == nullptr || parentItem == RootItem())
     return QModelIndex();
 
   return createIndex(parentItem->Row(), 0, parentItem);
@@ -184,8 +228,11 @@ ObjectModel::insertRows(int position, int rows, const QModelIndex& parent)
   ObjectTreeItem* parentItem = ItemFor(parent);
 
   beginInsertRows(parent, position, position + rows - 1);
-  bool success =
-      parentItem->InsertChildren(position, rows, Create(parentItem));
+  bool success = true;
+  for (int i = 0; i < rows; ++i) {
+    success =
+        success && parentItem->InsertChild(new ObjectTreeItem /*Create(parentItem)*/, position + i);
+  }
   endInsertRows();
 
   return success;
@@ -197,7 +244,11 @@ ObjectModel::removeRows(int position, int rows, const QModelIndex& parent)
   ObjectTreeItem* parentItem = ItemFor(parent);
 
   beginRemoveRows(parent, position, position + rows - 1);
-  bool success = parentItem->RemoveChildren(position, rows);
+  bool success = true;
+  for (int i = 0; i < rows; ++i) {
+    success =
+        success && parentItem->RemoveChild(position + i);
+  }
   endRemoveRows();
 
   return success;

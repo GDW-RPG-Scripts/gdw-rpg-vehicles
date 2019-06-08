@@ -21,11 +21,10 @@
 
 using namespace GDW::RPG;
 
-VehicleModel VehicleModel::MODEL;
-
 VehicleModel*
 VehicleModel::Model()
 {
+  static VehicleModel MODEL;
   return &MODEL;
 }
 
@@ -45,8 +44,14 @@ VehicleModel::RootData() const
   return rootData;
 }
 
+bool
+VehicleModel::InsertObject(int position)
+{
+  return InsertChild(VehicleTreeItem::Create(), RootItem(), position);
+}
+
 ObjectTreeItem*
-VehicleModel::Create(ObjectTreeItem* parent) const
+VehicleModel::InsertObject(ObjectTreeItem* parent) const
 {
   return VehicleTreeItem::Create(parent);
 }
@@ -57,14 +62,12 @@ VehicleModel::Unpack(const QJsonObject& json, ObjectTreeItem* parent)
   if(parent == nullptr)
     parent = RootItem();
 
+//  int row = rowCount();
+//  QModelIndex index = createIndex(parent->Row(), 0, parent);
+//  beginInsertRows(index, row, row);
   VehicleTreeItem* item = VehicleTreeItem::Unpack(json, parent);
+  InsertChild(item, parent);
+//  endInsertRows();
 
-//  QModelIndex index = createIndex(rowCount(), 0, item);
-//  if(insertRow(rowCount())) // && setData(index, QVariant::fromValue(item)))
-//  {
-//    dataChanged(createIndex(0,0), index);
-//    return item;
-//  }
-
-  return parent->AppendChild(item);
+  return item;
 }

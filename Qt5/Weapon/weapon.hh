@@ -27,23 +27,23 @@ namespace GDW
 {
   namespace RPG
   {
-    class WEAPONSHARED_EXPORT WeaponReference : public ObjectReference
-    {};
-
     class WEAPONSHARED_EXPORT Weapon : public Object
     {
-      public:
-        static QList<Weapon*> Load(const QJsonValue&);
+        Q_OBJECT
 
-        Weapon();
-        Weapon(const Weapon&);
+      public:
+        static QList<Weapon*> Load(const QJsonValue&,
+                                   Object* = nullptr);
+
+        Weapon(const QJsonObject& = QJsonObject(),
+               Object* = nullptr);
+        Weapon(const Weapon&, Object* = nullptr);
         ~Weapon() override;
 
-        Weapon(const QJsonObject&);
         static Weapon* New();
 
-        Weapon* Copy() override;
-        const Weapon* Copy() const override;
+        Weapon* Copy(Object* = nullptr) override;
+        const Weapon* Copy(Object* = nullptr) const override;
 
         QList<QVariant> ItemData() const override;
         void ToVariantHash(QVariantHash&) const override;
@@ -55,11 +55,11 @@ namespace GDW
         QVariant Wqual() const;
         void Wqual(const QVariant&);
 
-        QVariant Rof() const;
-        void Rof(const QVariant&);
+        QVariant RateOfFire() const;
+        void RateOfFire(const QVariant&);
 
-        QVariant Rng() const;
-        void Rng(const QVariant&);
+        QVariant Range() const;
+        void Range(const QVariant&);
 
         QVariant Ps() const;
         void Ps(const QVariant&);
@@ -76,11 +76,11 @@ namespace GDW
         QVariant Ammo() const;
         void Ammo(const QVariant&);
 
-        QVariant Con() const;
-        void Con(const QVariant&);
+        QVariant Concussion() const;
+        void Concussion(const QVariant&);
 
-        QVariant Bur() const;
-        void Bur(const QVariant&);
+        QVariant Burst(Mode = Mode::Display) const;
+        void Burst(const QVariant&);
 
         QVariant Pran() const;
         void Pran(const QVariant&);
@@ -105,6 +105,6 @@ namespace GDW
   };
 };
 
-Q_DECLARE_METATYPE(GDW::RPG::Weapon)
+//Q_DECLARE_METATYPE(GDW::RPG::Weapon)
 
 #endif // WEAPON_HH

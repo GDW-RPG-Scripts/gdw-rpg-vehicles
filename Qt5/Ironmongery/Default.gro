@@ -14,8 +14,8 @@
 	"ps": 3, "pm": 3, "pl": 3, "px": 3, "ammo": 3,
 	"con": 34, "bur": 40
 	}],
-    "weight": 30, "load": 0.8, "crew": 6, "mnt": 10,
-    "price": 375000, "rf": 1,
+    "mass": 30, "load": 0.8, "crew": 6, "mnt": 10,
+    "cost": 375000, "rf": 1,
     "stab": "Basic", "fuel": "D,A", "night": "Passive IR/thermal, searchlight", "rad": "Shielded",
     "x5": "5", "x6": "6", "x7": "7",
     "x8": "Indirect Firing Range: 24 km. The M107 is an earlier variation on the M110, using a 175mm howitzer. It is no longer in service with the US Army, but it remains in the arsenals of many other armies. Like the M110, the gun system is mounted externally on the chassis, and (unlike the M109) there is no protection forthe gun crew (except for the driver, who rides inside) or for the ammunition. To remedy this (at least for the crew), a kit consisting of a tubular metal framework and Kevlar shields was issued, but most crews found these kits too cumbersome to erect. They were usually discarded or left with the supply units. The turret armor rating is with these shields in place; without them, the armor is 0. No provision is made for a weapons mount.",
@@ -23,7 +23,7 @@
 },{
     "__GDW_RPG_Type__": "__GDW_RPG_Vehicle__",
     "name": "M110 SPA", "typ": "SPA", "nat": "US",
-    "trmove": 95, "ccmove": "50", "fcap": 704, "fcons": 180, "susp": "T4",
+    "trmove": "95", "ccmove": "50", "fcap": 704, "fcons": 180, "susp": "T4",
     "tf": 1, "ts": 1, "tr": 1, "hf": 10, "hs": 3, "hr": 3,
     "weap": [{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
@@ -31,8 +31,8 @@
 	"ps": 4, "pm": 4, "pl": 4, "px": 4, "ammo": 2,
 	"con": 36, "bur": 44
 	}],
-    "weight": 31, "load": 0.5, "crew": 4, "psgr": 3, "mnt": 10,
-    "price": 375000, "rf": 1,
+    "mass": 31, "load": 0.5, "crew": 4, "psgr": 3, "mnt": 10,
+    "cost": 375000, "rf": 1,
     "stab": "Basic", "fuel": "D,A", "night": "Passive IR/thermal, searchlight", "rad": "Shielded",
     "x5": "5", "x6": "6", "x7": "7",
     "x8": "Indirect Firing Range: 24 km. The gun system is mounted externally on the chassis, and (unlike the M109) there is no protection forthe gun crew (except for the driver, who rides inside) or for the ammunition. To remedy this (at least for the crew), a kit consisting of a tubular metal framework and Kevlar shields was issued, but most crews found these kits too cumbersome to erect. They were usually discarded or left with the supply units. The turret armor rating is with these shields in place; without them, the armor is 0. No provision is made for a weapons mount.",
@@ -49,17 +49,17 @@
 	"con": 6
 	},{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
-	"wtyp": "Polsten 20mm", "wqual": "x", "rof": 10, "rng": 125,
+	"wtyp": "Polsten 20mm", "wqual": "X", "rof": 10, "rng": 125,
 	"ps": 6, "pm": 4, "pl": 2, "px": 1, "ammo": 999,
 	"con": 0.4, "bur": 2, "pran": 125
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
-	"wtyp": "M2HB", "wqual": "x", "rof": 5, "rng": 150,
+	"wtyp": "M2HB", "wqual": "X", "rof": 5, "rng": 150,
 	"ps": 4, "pm": 4, "pl": 3, "px": 3, "ammo": 600,
 	"con": 1, "bur": 9, "pran": 150
     }],
-    "weight": 52.6, "load": 0.6, "crew": 4, "mnt": 10,
-    "price": 350000, "rf": 1,
+    "mass": 52.6, "load": 0.6, "crew": 4, "mnt": 10,
+    "cost": 350000, "rf": 1,
     "stab": "Basic", "fuel": "D,A", "night": "Passive IR/thermal, searchlight", "rad": "Shielded",
     "x5": "5", "x6": "6", "x7": "7", "x8": "8",
     "loca": "TUR"
@@ -76,12 +76,12 @@
 	"con": 8, "pran": 64
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
-	"wtyp": "M1919 A4 MG", "wqual": "x", "rof": 10, "rng": 125,
+	"wtyp": "M1919 A4 MG", "wqual": "X", "rof": 10, "rng": 125,
 	"ps": 2, "pm": 2, "pl": 1, "ammo": 999,
 	"con": 0.4, "bur": 2, "pran": 3600
     }],
-    "weight": 51.62, "load": 0.6, "crew": 4, "mnt": 10,
-    "price": 350000, "rf": 1,
+    "mass": 51.62, "load": 0.6, "crew": 4, "mnt": 10,
+    "cost": 350000, "rf": 1,
     "stab": "Basic", "fuel": "G,A", "night": "Searchlight", "rad": "Shielded",
     "x5": "5", "x6": "6", "x7": "7", "x8": "8",
     "loca": "TUR"
@@ -97,7 +97,7 @@
 	"con": 158, "bur": 35, "pran": 1980
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
-	"wtyp": "25 mm Autocannon", "wqual": "x", "rof": 50, "rng": 300,
+	"wtyp": "25 mm Autocannon", "wqual": "X", "rof": 50, "rng": 300,
 	"ps": 6, "pm": 6, "pl": 2, "px": 1, "ammo": 120000,
 	"con": 0.4, "bur": 2, "pran": 300
     }],
@@ -159,7 +159,7 @@
 	"ps": 44, "pm": 40, "pl": 34, "px": 28, "ammo": 50,
 	"con": 8
     }],
-    "weight": 69.8, "load": 2, "crew": 5, "mnt": 25,
+    "mass": 69.8, "load": 2, "crew": 5, "mnt": 25,
     "deck": 8.1, "belly": 8.1,
     "stab": "Stab", "fuel": "Fuel", "night": "Nightvision", "rad": "RAD shield",
     "x5": "FREE", "x6": "FREE", "x7": "7", "x8": "8",
@@ -180,7 +180,7 @@
 	"ps": 46, "pm": 44, "pl": 41, "px": 36, "ammo": 50,
 	"con": 8
     }],
-    "weight": 69.8, "load": 2, "crew": 5, "mnt": 25,
+    "mass": 69.8, "load": 2, "crew": 5, "mnt": 25,
     "deck": 8.1, "belly": 8.1,
     "stab": "Stab", "fuel": "Fuel", "night": "Nightvision", "rad": "RAD shield",
     "x5": "FREE", "x6": "FREE", "x7": "7", "x8": "8",
@@ -207,12 +207,12 @@
 	"con": 4, "bur": 10, "pran": 250
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
-	"wtyp": "PK MG", "wqual": "x", "rof": 5, "rng": 125,
+	"wtyp": "PK MG", "wqual": "X", "rof": 5, "rng": 125,
 	"ps": 2, "pm": 2, "pl": 1, "ammo": 0.4,
 	"con": 1, "bur": 2, "pran": 125
     }],
-    "weight": 33, "load": 0.5, "crew": 4, "mnt": 5,
-    "price": 100000,
+    "mass": 33, "load": 0.5, "crew": 4, "mnt": 5,
+    "cost": 100000,
     "fuel": "D,A", "night": "Active IR", "rad": "4",
     "x5": "5", "x6": "6", "x7": "7", "x8": "8",
     "loca": "TUR"
@@ -228,7 +228,7 @@
 	"con": 158, "bur": 35, "pran": 1980
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
-	"wtyp": "VRF 4x20 mm/60 Dart", "wqual": "x", "rof": 50, "rng": 300,
+	"wtyp": "VRF 4x20 mm/60 Dart", "wqual": "X", "rof": 50, "rng": 300,
 	"ps": 6, "pm": 6, "pl": 2, "px": 1, "ammo": 120000,
 	"con": 0.4, "bur": 2, "pran": 300
     }],
@@ -249,7 +249,7 @@
 	"con": 67, "bur": 25, "pran": 1290
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
-	"wtyp": "VRF 4x20 mm/60 Dart", "wqual": "x", "rof": 50, "rng": 300,
+	"wtyp": "VRF 4x20 mm/60 Dart", "wqual": "X", "rof": 50, "rng": 300,
 	"ps": 6, "pm": 6, "pl": 2, "px": 1, "ammo": 120000,
 	"con": 0.4, "bur": 2, "pran": 300
     }],
@@ -270,7 +270,7 @@
 	"con": 112, "bur": 35, "pran": 1680
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
-	"wtyp": "VR 4x20 mm/60 Dart", "wqual": "x", "rof": 50, "rng": 300,
+	"wtyp": "VR 4x20 mm/60 Dart", "wqual": "X", "rof": 50, "rng": 300,
 	"ps": 6, "pm": 6, "pl": 2, "px": 1, "ammo": 120000,
 	"con": 0.4, "bur": 2, "pran": 300
     }],
@@ -291,7 +291,7 @@
 	"con": 29, "bur": 35, "pran": 580
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
-	"wtyp": "15mmRC/E", "wqual": "x", "rof": 10, "rng": 300,
+	"wtyp": "15mmRC/E", "wqual": "X", "rof": 10, "rng": 300,
 	"ps": 8, "pm": 8, "pl": 8, "px": 8, "ammo": 5000,
 	"con": 0.4, "bur": 2, "pran": 300
     }],
@@ -312,7 +312,7 @@
 	"con": 10, "bur": 20, "pran": 350
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
-	"wtyp": "7.5 mm LMG", "wqual": "x", "rof": 10, "rng": 300,
+	"wtyp": "7.5 mm LMG", "wqual": "X", "rof": 10, "rng": 300,
 	"ps": 4, "pm": 4, "pl": 2, "px": 2, "ammo": 999999,
 	"con": 0.4, "bur": 2, "pran": 300
     }],
@@ -328,7 +328,7 @@
     "tf": 84, "ts": 30, "tr": 30, "hf": 84, "hs": 30, "hr": 30,
     "weap": [{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
-	"wtyp": "15 mm HMG", "wqual": "x", "rof": 50, "rng": 300,
+	"wtyp": "15 mm HMG", "wqual": "X", "rof": 50, "rng": 300,
 	"ps": 8, "pm": 8, "pl": 8, "px": 8, "ammo": 999999,
 	"con": 0.4, "bur": 2, "pran": 300
     }],
@@ -344,7 +344,7 @@
     "tf": 60, "ts": 30, "tr": 30, "hf": 60, "hs": 30, "hr": 30,
     "weap": [{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
-	"wtyp": "15 mm HMG", "wqual": "x", "rof": 50, "rng": 300,
+	"wtyp": "15 mm HMG", "wqual": "X", "rof": 50, "rng": 300,
 	"ps": 8, "pm": 8, "pl": 8, "px": 8, "ammo": 999999,
 	"con": 0.4, "bur": 2, "pran": 300
     }],
@@ -365,7 +365,7 @@
 	"con": 9, "bur": 30, "pran": 550
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
-	"wtyp": "15 mm HMG", "wqual": "x", "rof": 50, "rng": 300,
+	"wtyp": "15 mm HMG", "wqual": "X", "rof": 50, "rng": 300,
 	"ps": 8, "pm": 8, "pl": 8, "px": 8, "ammo": 999999,
 	"con": 0.4, "bur": 2, "pran": 300
     }],
@@ -386,7 +386,7 @@
 	"con": 9, "bur": 30, "pran": 550
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
-	"wtyp": "15 mm HMG", "wqual": "x", "rof": 50, "rng": 300,
+	"wtyp": "15 mm HMG", "wqual": "X", "rof": 50, "rng": 300,
 	"ps": 8, "pm": 8, "pl": 8, "px": 8, "ammo": 999999,
 	"con": 0.4, "bur": 2, "pran": 300
     }],
@@ -407,7 +407,7 @@
 	"con": 30, "bur": 40, "pran": 580
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
-	"wtyp": "15 mm HMG", "wqual": "x", "rof": 50, "rng": 300,
+	"wtyp": "15 mm HMG", "wqual": "X", "rof": 50, "rng": 300,
 	"ps": 8, "pm": 8, "pl": 8, "px": 8, "ammo": 999999,
 	"con": 0.4, "bur": 2, "pran": 300
     }],
@@ -470,7 +470,7 @@
 	"con": 158, "bur": 35, "pran": 1980
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
-	"wtyp": "VRF 4x20 mm/60 Dart", "wqual": "x", "rof": 50, "rng": 300,
+	"wtyp": "VRF 4x20 mm/60 Dart", "wqual": "X", "rof": 50, "rng": 300,
 	"ps": 6, "pm": 6, "pl": 2, "px": 1, "ammo": 120000,
 	"con": 0.4, "bur": 2, "pran": 300
     }],
@@ -491,11 +491,11 @@
 	"con": 3, "bur": 5, "pran": 260
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
-	"wtyp": "VRF 4x20 mm/60 Dart", "wqual": "x", "rof": 50, "rng": 300,
+	"wtyp": "VRF 4x20 mm/60 Dart", "wqual": "X", "rof": 50, "rng": 300,
 	"ps": 6, "pm": 6, "pl": 2, "px": 1, "ammo": 120000,
 	"con": 0.4, "bur": 2, "pran": 300
     }],
-    "weight": 130, "crew": 2, "psgr": 10,
+    "mass": 130, "crew": 2, "psgr": 10,
     "deck": 129, "belly": 129,
     "stab": "Stab", "fuel": "Fuel", "night": "Nightvision", "rad": "RAD shield",
     "x5": "FREE", "x6": "FREE", "x7": "7", "x8": "8",
@@ -512,11 +512,11 @@
 	"con": 17, "bur": 15, "pran": 650
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
-	"wtyp": "VRF 4x20 mm/60 Dart", "wqual": "x", "rof": 50, "rng": 300,
+	"wtyp": "VRF 4x20 mm/60 Dart", "wqual": "X", "rof": 50, "rng": 300,
 	"ps": 6, "pm": 6, "pl": 2, "px": 1, "ammo": 120000,
 	"con": 0.4, "bur": 2, "pran": 300
     }],
-    "weight": 130, "crew": 2, "psgr": 10,
+    "mass": 130, "crew": 2, "psgr": 10,
     "deck": 126, "belly": 140,
     "stab": "Stab", "fuel": "Fuel", "night": "Nightvision", "rad": "RAD shield",
     "x5": "FREE", "x6": "FREE", "x7": "7", "x8": "8",
@@ -532,8 +532,8 @@
 	"ps": 137, "pm": 137, "pl": 137, "px": 137, "ammo": 1200,
 	"con": 29, "bur": 35, "pran": 400
     }],
-    "weight": 1291, "load": 0.6, "crew": 4, "psgr": 10, "mnt": 113,
-    "price": 6460000, "rf": 2, "deck": 192, "belly": 120,
+    "mass": 1291, "load": 0.6, "crew": 4, "psgr": 10, "mnt": 113,
+    "cost": 6460000, "rf": 2, "deck": 192, "belly": 120,
     "stab": "Advanced", "fuel": "Fission", "night": "30 km HRT", "rad": "Pressurized",
     "x5": "5", "x6": "6", "x7": "7", "x8": "8",
     "loca": "TUR"
@@ -549,12 +549,12 @@
 	"con": 30, "bur": 35, "pran": 510
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
-	"wtyp": "7 mm Rotary", "wqual": "x", "rof": 50, "rng": 270,
+	"wtyp": "7 mm Rotary", "wqual": "X", "rof": 50, "rng": 270,
 	"ps": 3, "pm": 3, "pl": 2, "ammo": 2500,
 	"con": 1, "bur": 9, "pran": 270
     }],
-    "weight": 247, "crew": 3, "mnt": 67,
-    "price": 866875, "rf": 2, "deck": 36, "belly": 24,
+    "mass": 247, "crew": 3, "mnt": 67,
+    "cost": 866875, "rf": 2, "deck": 36, "belly": 24,
     "stab": "Advanced", "fuel": "L-Hyd", "night": "3 km HRT", "rad": "Overpressure",
     "x5": "5", "x6": "6", "x7": "7", "x8": "8",
     "loca": "TUR"
@@ -570,12 +570,12 @@
 	"con": 1, "bur": 5, "pran": 350
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
-	"wtyp": "7 mm LMG", "wqual": "x", "rof": 10, "rng": 150,
+	"wtyp": "7 mm LMG", "wqual": "X", "rof": 10, "rng": 150,
 	"ps": 2, "pm": 2, "ammo": 1000,
 	"con": 1, "bur": 9, "pran": 150
     }],
-    "weight": 35, "crew": 3, "mnt": 12,
-    "price": 66648, "deck": 3, "belly": 3,
+    "mass": 35, "crew": 3, "mnt": 12,
+    "cost": 66648, "deck": 3, "belly": 3,
     "stab": "Basic", "fuel": "L-Hyd", "night": "30km Radio", "rad": "Overpressure",
     "x5": "5", "x6": "6", "x7": "7", "x8": "8",
     "loca": "TUR"
@@ -591,17 +591,17 @@
 	"con": 6, "bur": 15, "pran": 400
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
-	"wtyp": "M2HB", "wqual": "x", "rof": 5, "rng": 150,
+	"wtyp": "M2HB", "wqual": "X", "rof": 5, "rng": 150,
 	"ps": 4, "pm": 4, "pl": 3, "px": 3, "ammo": 600,
 	"con": 1, "bur": 9, "pran": 150
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
-	"wtyp": "MAG MG", "wqual": "x", "rof": 10, "rng": 125,
+	"wtyp": "MAG MG", "wqual": "X", "rof": 10, "rng": 125,
 	"ps": 2, "pm": 2, "pl": 1, "ammo": 999,
 	"con": 0.4, "bur": 2, "pran": 125
     }],
-    "weight": 54, "load": 0.7, "crew": 4, "mnt": 14,
-    "price": 600000, "rf": 2,
+    "mass": 54, "load": 0.7, "crew": 4, "mnt": 14,
+    "cost": 600000, "rf": 2,
     "stab": "Good", "fuel": "D,G,AvG,A", "night": "Passive IR/thermal", "rad": "Shielded",
     "x5": "5", "x6": "6", "x7": "7",
     "x8": "A tracked main battle tank with a large turret There is a driver's hatch in the center of the front deck, and a commander's and loader's hatch on the turret deck. The tank's gunner uses the commander's hatch. A weapons mount is located by each of the commander's and loader's hatches. Supplanted in regular service by the M1A1 and M1A2, the M1 remains in service with national guard units.",
@@ -618,17 +618,17 @@
 	"con": 10, "bur": 25, "pran": 400
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
-	"wtyp": "M2HB", "wqual": "x", "rof": 5, "rng": 150,
+	"wtyp": "M2HB", "wqual": "X", "rof": 5, "rng": 150,
 	"ps": 4, "pm": 4, "pl": 3, "px": 3, "ammo": 600,
 	"con": 1, "bur": 9, "pran": 150
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
-	"wtyp": "MAG MG", "wqual": "x", "rof": 10, "rng": 125,
+	"wtyp": "MAG MG", "wqual": "X", "rof": 10, "rng": 125,
 	"ps": 2, "pm": 2, "pl": 1, "ammo": 999,
 	"con": 0.4, "bur": 2, "pran": 125
     }],
-    "weight": 63, "load": 0.7, "crew": 4, "mnt": 14,
-    "price": 650000, "rf": 2,
+    "mass": 63, "load": 0.7, "crew": 4, "mnt": 14,
+    "cost": 650000, "rf": 2,
     "stab": "Good", "fuel": "D,G,AvG,A", "night": "Passive IR/thermal", "rad": "Shielded",
     "x5": "5", "x6": "6", "x7": "7",
     "x8": "An extensively improved version of the basic M1. The most significant changes are the substitution of a 120mm smoothbore gun for the rifled 105mm gun of the M1, and the use of depleted uranium armor inserts to increase the armor protection on the hull and turret front. Due to the nature of the M1 turret, a turret (but not hull) hitwhich results in an ammunition explosion (see page 219) does not automatically kill the crew and destroy the vehicle. Instead, consider ail armament, sensors, and electronics to be damaged and inoperative. Then apply 50 points of concussion damage to the commander, gunner, and loader.",
@@ -645,17 +645,17 @@
 	"con": 10, "bur": 25, "pran": 400
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
-	"wtyp": "MAG MG", "wqual": "x", "rof": 10, "rng": 125,
+	"wtyp": "MAG MG", "wqual": "X", "rof": 10, "rng": 125,
 	"ps": 2, "pm": 2, "pl": 1, "ammo": 11400,
 	"con": 0.4, "bur": 2, "pran": 125
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
-	"wtyp": "M2HB", "wqual": "x", "rof": 5, "rng": 150,
+	"wtyp": "M2HB", "wqual": "X", "rof": 5, "rng": 150,
 	"ps": 4, "pm": 4, "pl": 3, "px": 3, "ammo": 1000,
 	"con": 1, "bur": 9, "pran": 150
     }],
-    "weight": 63, "load": 0.7, "crew": 4, "mnt": 16,
-    "price": 700000, "rf": 2,
+    "mass": 63, "load": 0.7, "crew": 4, "mnt": 16,
+    "cost": 700000, "rf": 2,
     "stab": "Good", "fuel": "D,G,AvG,A", "night": "Passive IR/thermal", "rad": "Shielded",
     "x5": "5", "x6": "6", "x7": "7", "x8": "An extensively improved version of the basic M1. The most significant changes are the substitution of a 120mm smoothbore gun for the rifled 105mm gun of the M1, and the use of depleted uranium armor inserts to increase the armor protection on the hull and turret front. Due to the nature of the M1 turret, a turret (but not hull) hitwhich results in an ammunition explosion (see page 219) does not automatically kill the crew and destroy the vehicle. Instead, consider ail armament, sensors, and electronics to be damaged and inoperative. Then apply 50 points of concussion damage to the commander, gunner, and loader.",
     "loca": "TUR"
@@ -681,17 +681,17 @@
 	"con": 10, "bur": 25, "pran": 400
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
-	"wtyp": "MAG MG", "wqual": "x", "rof": 10, "rng": 125,
+	"wtyp": "MAG MG", "wqual": "X", "rof": 10, "rng": 125,
 	"ps": 2, "pm": 2, "pl": 1, "ammo": 11400,
 	"con": 0.4, "bur": 2, "pran": 125
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
-	"wtyp": "M2HB", "wqual": "x", "rof": 5, "rng": 150,
+	"wtyp": "M2HB", "wqual": "X", "rof": 5, "rng": 150,
 	"ps": 4, "pm": 4, "pl": 3, "px": 3, "ammo": 1000,
 	"con": 1, "bur": 9, "pran": 150
     }],
-    "weight": 63, "load": 0.7, "crew": 4, "mnt": 16,
-    "price": 700000, "rf": 2,
+    "mass": 63, "load": 0.7, "crew": 4, "mnt": 16,
+    "cost": 700000, "rf": 2,
     "stab": "Good", "fuel": "D,G,AvG,A", "night": "Passive IR/thermal", "rad": "Shielded",
     "x5": "5", "x6": "6", "x7": "7", "x8": "An extensively improved version of the basic M1. The most significant changes are the substitution of a 120mm smoothbore gun for the rifled 105mm gun of the M1, and the use of depleted uranium armor inserts to increase the armor protection on the hull and turret front. Due to the nature of the M1 turret, a turret (but not hull) hitwhich results in an ammunition explosion (see page 219) does not automatically kill the crew and destroy the vehicle. Instead, consider ail armament, sensors, and electronics to be damaged and inoperative. Then apply 50 points of concussion damage to the commander, gunner, and loader.",
     "loca": "TUR"
@@ -707,17 +707,17 @@
 	"con": 6, "bur": 12, "pran": 300
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
-	"wtyp": "MAG MG", "wqual": "x", "rof": 10, "rng": 125,
+	"wtyp": "MAG MG", "wqual": "X", "rof": 10, "rng": 125,
 	"ps": 2, "pm": 2, "pl": 1, "ammo": 999,
 	"con": 0.4, "bur": 2, "pran": 125
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
-	"wtyp": "M2HB", "wqual": "x", "rof": 5, "rng": 150,
+	"wtyp": "M2HB", "wqual": "X", "rof": 5, "rng": 150,
 	"ps": 4, "pm": 4, "pl": 3, "px": 3, "ammo": 600,
 	"con": 1, "bur": 9, "pran": 150
     }],
-    "weight": 33, "load": 0.5, "crew": 5, "mnt": 6,
-    "price": 90000,
+    "mass": 33, "load": 0.5, "crew": 5, "mnt": 6,
+    "cost": 90000,
     "fuel": "G,A", "night": "Headlights", "rad": "4",
     "x5": "5", "x6": "6", "x7": "7", "x8": "8",
     "loca": "TUR"
@@ -733,17 +733,17 @@
 	"con": 5, "bur": 10, "pran": 350
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
-	"wtyp": "M2HB", "wqual": "x", "rof": 5, "rng": 150,
+	"wtyp": "M2HB", "wqual": "X", "rof": 5, "rng": 150,
 	"ps": 4, "pm": 4, "pl": 3, "px": 3, "ammo": 600,
 	"con": 1, "bur": 9, "pran": 150
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
-	"wtyp": "MAG MG", "wqual": "x", "rof": 10, "rng": 125,
+	"wtyp": "MAG MG", "wqual": "X", "rof": 10, "rng": 125,
 	"ps": 2, "pm": 2, "pl": 1, "ammo": 999,
 	"con": 0.4, "bur": 2, "pran": 125
     }],
-    "weight": 46, "load": 0.5, "crew": 5, "mnt": 5,
-    "price": 95000, "rf": 1,
+    "mass": 46, "load": 0.5, "crew": 5, "mnt": 5,
+    "cost": 95000, "rf": 1,
     "fuel": "G,A", "night": "Headlights", "rad": "4",
     "x5": "5", "x6": "6", "x7": "7", "x8": "8",
     "loca": "TUR"
@@ -759,17 +759,17 @@
 	"con": 5, "bur": 10, "pran": 350
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
-	"wtyp": "M2HB", "wqual": "x", "rof": 5, "rng": 150,
+	"wtyp": "M2HB", "wqual": "X", "rof": 5, "rng": 150,
 	"ps": 4, "pm": 4, "pl": 3, "px": 3, "ammo": 600,
 	"con": 1, "bur": 9, "pran": 150
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
-	"wtyp": "MAG MG", "wqual": "x", "rof": 10, "rng": 125,
+	"wtyp": "MAG MG", "wqual": "X", "rof": 10, "rng": 125,
 	"ps": 2, "pm": 2, "pl": 1, "ammo": 999,
 	"con": 0.4, "bur": 2, "pran": 125
     }],
-    "weight": 46, "load": 0.5, "crew": 5, "mnt": 5,
-    "price": 95000, "rf": 1,
+    "mass": 46, "load": 0.5, "crew": 5, "mnt": 5,
+    "cost": 95000, "rf": 1,
     "fuel": "G,A", "night": "Headlights", "rad": "4",
     "x5": "5", "x6": "6", "x7": "7", "x8": "8",
     "loca": "TUR"
@@ -785,17 +785,17 @@
 	"con": 5, "bur": 10, "pran": 350
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
-	"wtyp": "M2HB", "wqual": "x", "rof": 5, "rng": 150,
+	"wtyp": "M2HB", "wqual": "X", "rof": 5, "rng": 150,
 	"ps": 4, "pm": 4, "pl": 3, "px": 3, "ammo": 600,
 	"con": 1, "bur": 9, "pran": 150
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
-	"wtyp": "MAG MG", "wqual": "x", "rof": 10, "rng": 125,
+	"wtyp": "MAG MG", "wqual": "X", "rof": 10, "rng": 125,
 	"ps": 2, "pm": 2, "pl": 1, "ammo": 999,
 	"con": 0.4, "bur": 2, "pran": 125
     }],
-    "weight": 46, "load": 0.5, "crew": 5, "mnt": 5,
-    "price": 95000, "rf": 1,
+    "mass": 46, "load": 0.5, "crew": 5, "mnt": 5,
+    "cost": 95000, "rf": 1,
     "fuel": "G,A", "night": "Headlights", "rad": "4",
     "x5": "5", "x6": "6", "x7": "7", "x8": "8",
     "loca": "TUR"
@@ -811,12 +811,12 @@
 	"con": 6, "bur": 15, "pran": 400
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
-	"wtyp": "MAG MG", "wqual": "x", "rof": 10, "rng": 125,
+	"wtyp": "MAG MG", "wqual": "X", "rof": 10, "rng": 125,
 	"ps": 2, "pm": 2, "pl": 1, "ammo": 999,
 	"con": 0.4, "bur": 2, "pran": 125
     }],
-    "weight": 49, "load": 0.5, "crew": 4, "mnt": 10,
-    "price": 350000, "rf": 1,
+    "mass": 49, "load": 0.5, "crew": 4, "mnt": 10,
+    "cost": 350000, "rf": 1,
     "stab": "Basic", "fuel": "D,A", "night": "Passive IR, w/Searchlight", "rad": "Enclosed",
     "x5": "5", "x6": "6", "x7": "7", "x8": "8",
     "loca": "TUR"
@@ -832,12 +832,12 @@
 	"con": 6, "bur": 15, "pran": 400
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
-	"wtyp": "MAG MG", "wqual": "x", "rof": 10, "rng": 125,
+	"wtyp": "MAG MG", "wqual": "X", "rof": 10, "rng": 125,
 	"ps": 2, "pm": 2, "pl": 1, "ammo": 999,
 	"con": 0.4, "bur": 2, "pran": 125
     }],
-    "weight": 49, "load": 0.5, "crew": 4, "mnt": 10,
-    "price": 350000, "rf": 1,
+    "mass": 49, "load": 0.5, "crew": 4, "mnt": 10,
+    "cost": 350000, "rf": 1,
     "stab": "Basic", "fuel": "D,A", "night": "Passive IR, w/Searchlight", "rad": "Enclosed",
     "x5": "5", "x6": "6", "x7": "7", "x8": "8",
     "loca": "TUR"
@@ -853,17 +853,17 @@
 	"con": 6, "bur": 15, "pran": 400
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
-	"wtyp": "MAG MG", "wqual": "x", "rof": 10, "rng": 125,
+	"wtyp": "MAG MG", "wqual": "X", "rof": 10, "rng": 125,
 	"ps": 2, "pm": 2, "pl": 1, "ammo": 999,
 	"con": 0.4, "bur": 2, "pran": 125
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
-	"wtyp": "M2HB", "wqual": "x", "rof": 5, "rng": 150,
+	"wtyp": "M2HB", "wqual": "X", "rof": 5, "rng": 150,
 	"ps": 4, "pm": 4, "pl": 3, "px": 3, "ammo": 600,
 	"con": 1, "bur": 9, "pran": 150
     }],
-    "weight": 52.6, "load": 0.6, "crew": 4, "mnt": 10,
-    "price": 350000, "rf": 1,
+    "mass": 52.6, "load": 0.6, "crew": 4, "mnt": 10,
+    "cost": 350000, "rf": 1,
     "stab": "Basic", "fuel": "D,A", "night": "Passive IR/thermal, searchlight", "rad": "Shielded",
     "x5": "5", "x6": "6", "x7": "7", "x8": "8",
     "loca": "TUR"
@@ -879,17 +879,17 @@
 	"con": 6, "bur": 15, "pran": 400
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
-	"wtyp": "MAG MG", "wqual": "x", "rof": 10, "rng": 125,
+	"wtyp": "MAG MG", "wqual": "X", "rof": 10, "rng": 125,
 	"ps": 2, "pm": 2, "pl": 1, "ammo": 999,
 	"con": 0.4, "bur": 2, "pran": 125
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
-	"wtyp": "M2HB", "wqual": "x", "rof": 5, "rng": 150,
+	"wtyp": "M2HB", "wqual": "X", "rof": 5, "rng": 150,
 	"ps": 4, "pm": 4, "pl": 3, "px": 3, "ammo": 600,
 	"con": 1, "bur": 9, "pran": 150
     }],
-    "weight": 21, "load": 0.7, "crew": 4, "mnt": 14,
-    "price": 800000, "rf": 4,
+    "mass": 21, "load": 0.7, "crew": 4, "mnt": 14,
+    "cost": 800000, "rf": 4,
     "stab": "Good", "fuel": "D,A,AvG,A", "night": "Headlights, Passive IR", "rad": "Shielded",
     "x5": "5", "x6": "6", "x7": "7", "x8": "8",
     "loca": "TUR"
@@ -905,17 +905,17 @@
 	"con": 6, "bur": 15, "pran": 400
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
-	"wtyp": "MAG MG", "wqual": "x", "rof": 10, "rng": 125,
+	"wtyp": "MAG MG", "wqual": "X", "rof": 10, "rng": 125,
 	"ps": 2, "pm": 2, "pl": 1, "ammo": 4500,
 	"con": 0.4, "bur": 2, "pran": 125
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
-	"wtyp": "M2HB", "wqual": "x", "rof": 5, "rng": 150,
+	"wtyp": "M2HB", "wqual": "X", "rof": 5, "rng": 150,
 	"ps": 4, "pm": 4, "pl": 3, "px": 3, "ammo": 600,
 	"con": 1, "bur": 9, "pran": 150
     }],
-    "weight": 38.5, "load": 0.2, "crew": 3, "mnt": 10,
-    "price": 250000, "rf": 2,
+    "mass": 38.5, "load": 0.2, "crew": 3, "mnt": 10,
+    "cost": 250000, "rf": 2,
     "stab": "Good", "fuel": "D,A", "night": "Passive IR/thermal", "rad": "Shielded",
     "x5": "5", "x6": "6", "x7": "7", "x8": "R/R",
     "loca": "TUR"
@@ -931,17 +931,17 @@
 	"con": 6, "bur": 15, "pran": 400
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
-	"wtyp": "MAG MG", "wqual": "x", "rof": 10, "rng": 125,
+	"wtyp": "MAG MG", "wqual": "X", "rof": 10, "rng": 125,
 	"ps": 2, "pm": 2, "pl": 1, "ammo": 999,
 	"con": 0.4, "bur": 2, "pran": 125
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
-	"wtyp": "M2HB", "wqual": "x", "rof": 5, "rng": 150,
+	"wtyp": "M2HB", "wqual": "X", "rof": 5, "rng": 150,
 	"ps": 4, "pm": 4, "pl": 3, "px": 3, "ammo": 600,
 	"con": 1, "bur": 9, "pran": 150
     }],
-    "weight": 44.5, "load": 0.2, "crew": 3, "mnt": 10,
-    "price": 250000, "rf": 2,
+    "mass": 44.5, "load": 0.2, "crew": 3, "mnt": 10,
+    "cost": 250000, "rf": 2,
     "stab": "Good", "fuel": "D,A", "night": "Passive IR/thermal", "rad": "Shielded",
     "x5": "5", "x6": "6", "x7": "7", "x8": "R/R",
     "loca": "TUR"
@@ -957,17 +957,17 @@
 	"con": 6, "bur": 15, "pran": 400
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
-	"wtyp": "MAG MG", "wqual": "x", "rof": 10, "rng": 125,
+	"wtyp": "MAG MG", "wqual": "X", "rof": 10, "rng": 125,
 	"ps": 2, "pm": 2, "pl": 1, "ammo": 999,
 	"con": 0.4, "bur": 2, "pran": 125
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
-	"wtyp": "M2HB", "wqual": "x", "rof": 5, "rng": 150,
+	"wtyp": "M2HB", "wqual": "X", "rof": 5, "rng": 150,
 	"ps": 4, "pm": 4, "pl": 3, "px": 3, "ammo": 600,
 	"con": 1, "bur": 9, "pran": 150
     }],
-    "weight": 49.5, "load": 0.2, "crew": 3, "mnt": 10,
-    "price": 250000, "rf": 2,
+    "mass": 49.5, "load": 0.2, "crew": 3, "mnt": 10,
+    "cost": 250000, "rf": 2,
     "stab": "Good", "fuel": "D,A", "night": "Passive IR/thermal", "rad": "Shielded",
     "x5": "5", "x6": "6", "x7": "7", "x8": "R/R",
     "loca": "TUR"
@@ -983,7 +983,7 @@
 	"con": 1, "bur": 2, "pran": 250
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
-	"wtyp": "MAG MG", "wqual": "x", "rof": 10, "rng": 125,
+	"wtyp": "MAG MG", "wqual": "X", "rof": 10, "rng": 125,
 	"ps": 2, "pm": 2, "pl": 1, "ammo": 999,
 	"con": 0.4, "bur": 2, "pran": 125
     },{
@@ -992,8 +992,8 @@
 	"ps": 220, "ammo": 7,
 	"con": 12, "bur": 12, "pran": 3500
     }],
-    "weight": 33, "load": 1.5, "crew": 3, "psgr": 6, "mnt": 8,
-    "price": 200000, "rf": 1,
+    "mass": 33, "load": 1.5, "crew": 3, "psgr": 6, "mnt": 8,
+    "cost": 200000, "rf": 1,
     "stab": "Good", "fuel": "D,A", "night": "Passive IR/thermal imaging", "rad": "Shielded",
     "x5": "5", "x6": "6", "x7": "7", "x8": "8",
     "loca": "CIH"
@@ -1009,7 +1009,7 @@
 	"con": 1, "bur": 3, "pran": 250
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
-	"wtyp": "MAG MG", "wqual": "x", "rof": 10, "rng": 125,
+	"wtyp": "MAG MG", "wqual": "X", "rof": 10, "rng": 125,
 	"ps": 2, "pm": 2, "pl": 1, "ammo": 2200,
 	"con": 0.4, "bur": 2, "pran": 125
     },{
@@ -1018,8 +1018,8 @@
 	"ps": 220, "ammo": 7,
 	"con": 12, "bur": 15, "pran": 3500
     }],
-    "weight": 33, "load": 1.5, "crew": 3, "psgr": 6, "mnt": 8,
-    "price": 200000, "rf": 1,
+    "mass": 33, "load": 1.5, "crew": 3, "psgr": 6, "mnt": 8,
+    "cost": 200000, "rf": 1,
     "stab": "Good", "fuel": "D,A", "night": "Passive IR/thermal imaging", "rad": "Shielded",
     "x5": "5", "x6": "6", "x7": "7", "x8": "S/R",
     "loca": "CIH"
@@ -1035,7 +1035,7 @@
 	"con": 1, "bur": 2, "pran": 250
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
-	"wtyp": "MAG MG", "wqual": "x", "rof": 10, "rng": 125,
+	"wtyp": "MAG MG", "wqual": "X", "rof": 10, "rng": 125,
 	"ps": 2, "pm": 2, "pl": 1, "ammo": 999,
 	"con": 0.4, "bur": 2, "pran": 125
     },{
@@ -1044,8 +1044,8 @@
 	"ps": 220, "ammo": 7,
 	"con": 12, "bur": 12, "pran": 4500
     }],
-    "weight": 33, "load": 1.5, "crew": 3, "psgr": 6, "mnt": 8,
-    "price": 200000, "rf": 1,
+    "mass": 33, "load": 1.5, "crew": 3, "psgr": 6, "mnt": 8,
+    "cost": 200000, "rf": 1,
     "stab": "Good", "fuel": "D,A", "night": "Passive IR/thermal imaging", "rad": "Shielded",
     "x5": "5", "x6": "6", "x7": "7", "x8": "8",
     "loca": "CIH"
@@ -1061,7 +1061,7 @@
 	"con": 1, "bur": 2, "pran": 250
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
-	"wtyp": "MAG MG", "wqual": "x", "rof": 10, "rng": 125,
+	"wtyp": "MAG MG", "wqual": "X", "rof": 10, "rng": 125,
 	"ps": 2, "pm": 2, "pl": 1, "ammo": 999,
 	"con": 0.4, "bur": 2, "pran": 125
     },{
@@ -1070,8 +1070,8 @@
 	"ps": 220, "ammo": 12,
 	"con": 12, "bur": 12, "pran": 3500
     }],
-    "weight": 33, "load": 1.5, "crew": 3, "psgr": 3, "mnt": 8,
-    "price": 200000, "rf": 1,
+    "mass": 33, "load": 1.5, "crew": 3, "psgr": 3, "mnt": 8,
+    "cost": 200000, "rf": 1,
     "stab": "Good", "fuel": "D,A", "night": "Passive IR/thermal imaging", "rad": "Shielded",
     "x5": "5", "x6": "6", "x7": "7", "x8": "8",
     "loca": "CIH"
@@ -1098,12 +1098,12 @@
     "hf": 6, "hs": 4, "hr": 4,
     "weap": [{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
-	"wtyp": "M2HB", "wqual": "x", "rof": 5, "rng": 150,
+	"wtyp": "M2HB", "wqual": "X", "rof": 5, "rng": 150,
 	"ps": 4, "pm": 4, "pl": 3, "px": 3, "ammo": 2000,
 	"con": 1, "bur": 9, "pran": 150
     }],
-    "weight": 11, "load": 2, "crew": 2, "psgr": 11, "mnt": 6,
-    "price": 75000,
+    "mass": 11, "load": 2, "crew": 2, "psgr": 11, "mnt": 6,
+    "cost": 75000,
     "fuel": "D,A", "night": "Headlights, Passive IR", "rad": "Shielded",
     "x5": "5", "x6": "6", "x7": "7", "x8": "S/R",
     "loca": "VEH"
@@ -1118,8 +1118,8 @@
 	"ps": 4, "pm": 4, "pl": 4, "px": 4, "ammo": 150,
 	"con": 3, "bur": 15, "pran": 200
     }],
-    "weight": 10, "load": 1.25, "crew": 3, "mnt": 3,
-    "price": 20000,
+    "mass": 10, "load": 1.25, "crew": 3, "mnt": 3,
+    "cost": 20000,
     "fuel": "D,G,A", "night": "Headlights", "rad": "Open",
     "x5": "5", "x6": "6", "x7": "7", "x8": "C/S",
     "loca": "VEH"
@@ -1135,12 +1135,12 @@
 	"con": 1, "bur": 3, "pran": 250
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
-	"wtyp": "MAG MG", "wqual": "x", "rof": 10, "rng": 125,
+	"wtyp": "MAG MG", "wqual": "X", "rof": 10, "rng": 125,
 	"ps": 2, "pm": 2, "pl": 1, "ammo": 999,
 	"con": 0.4, "bur": 2, "pran": 125
     }],
-    "weight": 12, "load": 2, "crew": 3, "psgr": 6, "mnt": 6,
-    "price": 10000, "rf": 1,
+    "mass": 12, "load": 2, "crew": 3, "psgr": 6, "mnt": 6,
+    "cost": 10000, "rf": 1,
     "stab": "Basic", "fuel": "D,A", "night": "Passive IR", "rad": "Enclosed",
     "x5": "5", "x6": "6", "x7": "7", "x8": "8",
     "loca": "CIH"
@@ -1156,12 +1156,12 @@
 	"con": 6, "bur": 12, "pran": 300
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
-	"wtyp": "MAG MG", "wqual": "x", "rof": 10, "rng": 125,
+	"wtyp": "MAG MG", "wqual": "X", "rof": 10, "rng": 125,
 	"ps": 2, "pm": 2, "pl": 1, "ammo": 999,
 	"con": 0.4, "bur": 2, "pran": 125
     }],
-    "weight": 15, "load": 0.5, "crew": 3, "mnt": 10,
-    "price": 250000, "rf": 2,
+    "mass": 15, "load": 0.5, "crew": 3, "mnt": 10,
+    "cost": 250000, "rf": 2,
     "stab": "Good", "fuel": "D,G,A,AvG", "night": "Active/Passive IR", "rad": "Enclosed",
     "x5": "5", "x6": "6", "x7": "7", "x8": "8",
     "loca": "CIH"
@@ -1182,12 +1182,12 @@
 	"con": 30, "bur": 45, "pran": 350
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
-	"wtyp": "M2HB", "wqual": "x", "rof": 5, "rng": 150,
+	"wtyp": "M2HB", "wqual": "X", "rof": 5, "rng": 150,
 	"ps": 4, "pm": 4, "pl": 3, "px": 3, "ammo": 600,
 	"con": 1, "bur": 9, "pran": 150
     }],
-    "weight": 25, "load": 1, "crew": 6, "mnt": 10,
-    "price": 300000,
+    "mass": 25, "load": 1, "crew": 6, "mnt": 10,
+    "cost": 300000,
     "fuel": "D,A", "night": "Headlights", "rad": "Shielded",
     "x5": "5", "x6": "6", "x7": "7", "x8": "8",
     "loca": "TUR"
@@ -1203,7 +1203,7 @@
 	"con": 1, "bur": 3, "pran": 250
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
-	"wtyp": "MG3 MG", "wqual": "x", "rof": 10, "rng": 125,
+	"wtyp": "MG3 MG", "wqual": "X", "rof": 10, "rng": 125,
 	"ps": 2, "pm": 2, "pl": 1, "ammo": 999,
 	"con": 0.4, "bur": 2, "pran": 125
     }],
@@ -1219,12 +1219,12 @@
     "hf": 3, "hs": 3, "hr": 3,
     "weap": [{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
-	"wtyp": "MG3 MG", "wqual": "x", "rof": 10, "rng": 125,
+	"wtyp": "MG3 MG", "wqual": "X", "rof": 10, "rng": 125,
 	"ps": 2, "pm": 2, "pl": 1, "ammo": 1000,
 	"con": 0.4, "bur": 2, "pran": 125
     }],
-    "weight": 17, "load": 1, "crew": 2, "psgr": 10, "mnt": 6,
-    "price": 120000, "rf": 7,
+    "mass": 17, "load": 1, "crew": 2, "psgr": 10, "mnt": 6,
+    "cost": 120000, "rf": 7,
     "fuel": "D,A", "night": "Active/Passive IR", "rad": "Shielded",
     "x5": "5", "x6": "6", "x7": "7", "x8": "S/-",
     "loca": "VEH"
@@ -1240,7 +1240,7 @@
 	"con": 1, "bur": 3, "pran": 250
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
-	"wtyp": "MG3 MG", "wqual": "x", "rof": 10, "rng": 125,
+	"wtyp": "MG3 MG", "wqual": "X", "rof": 10, "rng": 125,
 	"ps": 2, "pm": 2, "pl": 1, "ammo": 999,
 	"con": 0.4, "bur": 2, "pran": 125
     },{
@@ -1248,8 +1248,8 @@
 	"wtyp": "Milan II", "wqual": "R", "rof": 1, "rng": 2000,
 	"ps": 145
     }],
-    "weight": 29, "load": 0.6, "crew": 3, "psgr": 7, "mnt": 10,
-    "price": 200000, "rf": 7,
+    "mass": 29, "load": 0.6, "crew": 3, "psgr": 7, "mnt": 10,
+    "cost": 200000, "rf": 7,
     "stab": "Fair", "fuel": "D,A", "night": "Passive/Active IR, Searchlight", "rad": "4",
     "x5": "5", "x6": "6", "x7": "7", "x8": "8",
     "loca": "CIH"
@@ -1265,7 +1265,7 @@
 	"con": 6, "bur": 15, "pran": 400
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
-	"wtyp": "MG3 MG", "wqual": "x", "rof": 10, "rng": 125,
+	"wtyp": "MG3 MG", "wqual": "X", "rof": 10, "rng": 125,
 	"ps": 2, "pm": 2, "pl": 1, "ammo": 999,
 	"con": 0.4, "bur": 2, "pran": 125
     }],
@@ -1291,12 +1291,12 @@
 	"con": 10, "bur": 5, "pran": 250
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
-	"wtyp": "MG3 MG", "wqual": "x", "rof": 10, "rng": 125,
+	"wtyp": "MG3 MG", "wqual": "X", "rof": 10, "rng": 125,
 	"ps": 2, "pm": 2, "pl": 1, "ammo": 999,
 	"con": 0.4, "bur": 2, "pran": 125
     }],
-    "weight": 23, "load": 0.5, "crew": 4, "mnt": 6,
-    "price": 850000, "rf": 4, "deck": 6, "belly": 6,
+    "mass": 23, "load": 0.5, "crew": 4, "mnt": 6,
+    "cost": 850000, "rf": 4, "deck": 6, "belly": 6,
     "stab": "No", "fuel": "D,G,AvG,A", "night": "Headlights/Passive IR", "rad": "Shielded",
     "x5": "5", "x6": "6", "x7": "7", "x8": "The gun of the Kanonenjagdpanzer 4-5 was a Rheinmetall L/40,4, the main types of ammunition being HEAT and HESH, plus HE, smoke and illumination. Barrel length: 4,91m. Weight of shell: 5,74kg HEAT and 7,45kg HESH. Muzzle velocity: 1145m/s HEAT and 795m/s HESH. Maximum effective range: 2000m. 300mm RHA penetration HEAT. Ammunition load: 51.",
     "loca": "TUR"
@@ -1312,12 +1312,12 @@
 	"con": 6, "bur": 15, "pran": 400
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
-	"wtyp": "MG3 MG", "wqual": "x", "rof": 10, "rng": 125,
+	"wtyp": "MG3 MG", "wqual": "X", "rof": 10, "rng": 125,
 	"ps": 2, "pm": 2, "pl": 1, "ammo": 999,
 	"con": 0.4, "bur": 2, "pran": 125
     }],
-    "weight": 40, "load": 0.7, "crew": 4, "mnt": 8,
-    "price": 420000, "rf": 1, "deck": 4, "belly": 5,
+    "mass": 40, "load": 0.7, "crew": 4, "mnt": 8,
+    "cost": 420000, "rf": 1, "deck": 4, "belly": 5,
     "stab": "Full", "fuel": "D,G,A", "night": "W/IR Searchlight, Active/Passive IR", "rad": "Shielded",
     "x5": "5", "x6": "6", "x7": "7", "x8": "8",
     "loca": "TUR"
@@ -1333,12 +1333,12 @@
 	"con": 10, "bur": 25, "pran": 400
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
-	"wtyp": "MG3 MG", "wqual": "x", "rof": 10, "rng": 125,
+	"wtyp": "MG3 MG", "wqual": "X", "rof": 10, "rng": 125,
 	"ps": 2, "pm": 2, "pl": 1, "ammo": 999,
 	"con": 0.4, "bur": 2, "pran": 125
     }],
-    "weight": 62.5, "load": 0.7, "crew": 4, "mnt": 14,
-    "price": 650000, "rf": 2,
+    "mass": 62.5, "load": 0.7, "crew": 4, "mnt": 14,
+    "cost": 650000, "rf": 2,
     "stab": "Good", "fuel": "D,G,A", "night": "W/IR Searchlight, Active/Passive IR", "rad": "Shielded",
     "x5": "5", "x6": "6", "x7": "7", "x8": "8",
     "loca": "TUR"
@@ -1354,12 +1354,12 @@
 	"con": 10, "bur": 25, "pran": 400
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
-	"wtyp": "MG3 MG", "wqual": "x", "rof": 10, "rng": 125,
+	"wtyp": "MG3 MG", "wqual": "X", "rof": 10, "rng": 125,
 	"ps": 2, "pm": 2, "pl": 1, "ammo": 4750,
 	"con": 0.4, "bur": 2, "pran": 125
     }],
-    "weight": 62.5, "load": 0.7, "crew": 4, "mnt": 14,
-    "price": 650000, "rf": 2,
+    "mass": 62.5, "load": 0.7, "crew": 4, "mnt": 14,
+    "cost": 650000, "rf": 2,
     "stab": "Good", "fuel": "D,G,A", "night": "W/IR Searchlight, Active/Passive IR", "rad": "Shielded",
     "x5": "5", "x6": "6", "x7": "7", "x8": "S/R",
     "loca": "TUR"
@@ -1375,12 +1375,12 @@
 	"con": 10, "bur": 25, "pran": 400
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
-	"wtyp": "MG3 MG", "wqual": "x", "rof": 10, "rng": 125,
+	"wtyp": "MG3 MG", "wqual": "X", "rof": 10, "rng": 125,
 	"ps": 2, "pm": 2, "pl": 1, "ammo": 4750,
 	"con": 0.4, "bur": 2, "pran": 125
     }],
-    "weight": 62.5, "load": 0.7, "crew": 4, "mnt": 14,
-    "price": 650000, "rf": 2,
+    "mass": 62.5, "load": 0.7, "crew": 4, "mnt": 14,
+    "cost": 650000, "rf": 2,
     "stab": "Good", "fuel": "D,G,A", "night": "W/IR Searchlight, Active/Passive IR", "rad": "Shielded",
     "x5": "5", "x6": "6", "x7": "7", "x8": "S/R",
     "loca": "TUR"
@@ -1396,12 +1396,12 @@
 	"con": 14, "bur": 25, "pran": 400
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
-	"wtyp": "L7A2 GPMG", "wqual": "x", "rof": 10, "rng": 125,
+	"wtyp": "L7A2 GPMG", "wqual": "X", "rof": 10, "rng": 125,
 	"ps": 2, "pm": 2, "pl": 1, "ammo": 4000,
 	"con": 0.4, "bur": 2, "pran": 125
     }],
-    "weight": 62.5, "load": 0.5, "crew": 4, "mnt": 16,
-    "price": 850000, "rf": 2,
+    "mass": 62.5, "load": 0.5, "crew": 4, "mnt": 16,
+    "cost": 850000, "rf": 2,
     "stab": "Good", "fuel": "D,G,A,AvG", "night": "A/P IR, Thermal", "rad": "Shielded",
     "x5": "5", "x6": "6", "x7": "7", "x8": "R/-",
     "loca": "TUR"
@@ -1417,12 +1417,12 @@
 	"con": 10, "bur": 25, "pran": 400
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
-	"wtyp": "L7A2 GPMG", "wqual": "x", "rof": 10, "rng": 125,
+	"wtyp": "L7A2 GPMG", "wqual": "X", "rof": 10, "rng": 125,
 	"ps": 2, "pm": 2, "pl": 1, "ammo": 999,
 	"con": 0.4, "bur": 2, "pran": 125
     }],
-    "weight": 58, "load": 0.5, "crew": 4, "mnt": 16,
-    "price": 850000, "rf": 2,
+    "mass": 58, "load": 0.5, "crew": 4, "mnt": 16,
+    "cost": 850000, "rf": 2,
     "stab": "Good", "fuel": "D,G,A,AvG", "night": "A/P IR, Thermal", "rad": "Shielded",
     "x5": "5", "x6": "6", "x7": "7", "x8": "8",
     "loca": "TUR"
@@ -1438,12 +1438,12 @@
 	"con": 10, "bur": 25, "pran": 400
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
-	"wtyp": "L7A2 GPMG", "wqual": "x", "rof": 10, "rng": 125,
+	"wtyp": "L7A2 GPMG", "wqual": "X", "rof": 10, "rng": 125,
 	"ps": 2, "pm": 2, "pl": 1, "ammo": 999,
 	"con": 0.4, "bur": 2, "pran": 125
     }],
-    "weight": 54, "load": 0.4, "crew": 4, "mnt": 8,
-    "price": 600000, "rf": 2,
+    "mass": 54, "load": 0.4, "crew": 4, "mnt": 8,
+    "cost": 600000, "rf": 2,
     "stab": "Good", "fuel": "D,G,A", "night": "Passive IR, Thermal", "rad": "Shielded",
     "x5": "5", "x6": "6", "x7": "7", "x8": "8",
     "loca": "TUR"
@@ -1459,7 +1459,7 @@
 	"con": 6, "bur": 15, "pran": 400
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
-	"wtyp": "L7A2 GPMG", "wqual": "x", "rof": 10, "rng": 125,
+	"wtyp": "L7A2 GPMG", "wqual": "X", "rof": 10, "rng": 125,
 	"ps": 2, "pm": 2, "pl": 1, "ammo": 999,
 	"con": 0.4, "bur": 2, "pran": 125
     }],
@@ -1480,12 +1480,12 @@
 	"con": 1, "bur": 3, "pran": 250
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
-	"wtyp": "L7A2 GPMG", "wqual": "x", "rof": 10, "rng": 125,
+	"wtyp": "L7A2 GPMG", "wqual": "X", "rof": 10, "rng": 125,
 	"ps": 2, "pm": 2, "pl": 1, "ammo": 999,
 	"con": 0.4, "bur": 2, "pran": 125
     }],
-    "weight": 24, "load": 0.6, "crew": 3, "psgr": 7, "mnt": 12,
-    "price": 250000, "rf": 1,
+    "mass": 24, "load": 0.6, "crew": 3, "psgr": 7, "mnt": 12,
+    "cost": 250000, "rf": 1,
     "stab": "Good", "fuel": "D,eA", "night": "IR Spotlight, Active/Passive IR", "rad": "Shielded",
     "x5": "5", "x6": "6", "x7": "7", "x8": "S/R",
     "loca": "CIH"
@@ -1512,12 +1512,12 @@
     "hf": 7, "hs": 4, "hr": 2,
     "weap": [{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
-	"wtyp": "M2HB", "wqual": "x", "rof": 5, "rng": 150,
+	"wtyp": "M2HB", "wqual": "X", "rof": 5, "rng": 150,
 	"ps": 4, "pm": 4, "pl": 3, "px": 3, "ammo": 500,
 	"con": 1, "bur": 9, "pran": 150
     }],
-    "weight": 12.5, "load": 0.8, "crew": 2, "psgr": 8, "mnt": 4,
-    "price": 100000,
+    "mass": 12.5, "load": 0.8, "crew": 2, "psgr": 8, "mnt": 4,
+    "cost": 100000,
     "fuel": "D,A", "night": "Headlights", "rad": "Enclosed",
     "x5": "5", "x6": "6", "x7": "7", "x8": "R/-",
     "loca": "VEH"
@@ -1532,8 +1532,8 @@
 	"ps": 3, "pm": 3, "pl": -2, "px": -5, "ammo": 100,
 	"con": 1, "bur": 3, "pran": 250
     }],
-    "weight": 15, "load": 0.8, "crew": 2, "psgr": 8, "mnt": 4,
-    "price": 100000,
+    "mass": 15, "load": 0.8, "crew": 2, "psgr": 8, "mnt": 4,
+    "cost": 100000,
     "fuel": "D,A", "night": "Headlights", "rad": "Enclosed",
     "x5": "5", "x6": "6", "x7": "7", "x8": "R/-",
     "loca": "CIH"
@@ -1544,12 +1544,12 @@
     "hf": 12, "hs": 6, "hr": 4,
     "weap": [{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
-	"wtyp": "M2HB", "wqual": "x", "rof": 5, "rng": 150,
+	"wtyp": "M2HB", "wqual": "X", "rof": 5, "rng": 150,
 	"ps": 4, "pm": 4, "pl": 3, "px": 3, "ammo": 300,
 	"con": 1, "bur": 9, "pran": 150
     }],
-    "weight": 14.8, "load": 0.8, "crew": 2, "psgr": 8, "mnt": 5,
-    "price": 75000,
+    "mass": 14.8, "load": 0.8, "crew": 2, "psgr": 8, "mnt": 5,
+    "cost": 75000,
     "fuel": "D,A", "night": "Headlights, Passive IR", "rad": "Enclosed",
     "x5": "5", "x6": "6", "x7": "7", "x8": "-/S",
     "loca": "VEH"
@@ -1633,8 +1633,8 @@
 	"wtyp": "20 mm AC API", "wqual": "C", "rof": 5, "rng": 250,
 	"ps": 5, "pm": 1, "pl": -2, "px": -2
     }],
-    "weight": 14, "load": 0.5, "crew": 3, "psgr": 8, "mnt": 12,
-    "price": 100000,
+    "mass": 14, "load": 0.5, "crew": 3, "psgr": 8, "mnt": 12,
+    "cost": 100000,
     "stab": "Basic", "fuel": "D,A", "night": "Passive IR", "rad": "Shielded",
     "x5": "5", "x6": "6", "x7": "7", "x8": "8",
     "loca": "CIH"
@@ -1743,17 +1743,17 @@
 	"con": 6, "bur": 15, "pran": 300
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
-	"wtyp": "PK MG", "wqual": "x", "rof": 5, "rng": 125,
+	"wtyp": "PK MG", "wqual": "X", "rof": 5, "rng": 125,
 	"ps": 2, "pm": 2, "pl": 1, "ammo": 0.4,
 	"con": 1, "bur": 2, "pran": 125
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
-	"wtyp": "DShK MG", "wqual": "x", "rof": 5, "rng": 150,
+	"wtyp": "DShK MG", "wqual": "X", "rof": 5, "rng": 150,
 	"ps": 4, "pm": 4, "pl": 1, "ammo": 500,
 	"con": 1, "bur": 9, "pran": 150
     }],
-    "weight": 36, "load": 0.4, "crew": 4, "mnt": 8,
-    "price": 300000, "rf": 1,
+    "mass": 36, "load": 0.4, "crew": 4, "mnt": 8,
+    "cost": 300000, "rf": 1,
     "fuel": "D,A", "night": "Active IR",
     "x5": "5", "x6": "6", "x7": "7", "x8": "8",
     "loca": "TUR"
@@ -1769,17 +1769,17 @@
 	"con": 6, "bur": 15, "pran": 300
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
-	"wtyp": "PK MG", "wqual": "x", "rof": 5, "rng": 125,
+	"wtyp": "PK MG", "wqual": "X", "rof": 5, "rng": 125,
 	"ps": 2, "pm": 2, "pl": 1, "ammo": 0.4,
 	"con": 1, "bur": 2, "pran": 125
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
-	"wtyp": "DShK MG", "wqual": "x", "rof": 5, "rng": 150,
+	"wtyp": "DShK MG", "wqual": "X", "rof": 5, "rng": 150,
 	"ps": 4, "pm": 4, "pl": 1, "ammo": 500,
 	"con": 1, "bur": 9, "pran": 150
     }],
-    "weight": 36, "load": 0.4, "crew": 4, "mnt": 8,
-    "price": 300000, "rf": 1,
+    "mass": 36, "load": 0.4, "crew": 4, "mnt": 8,
+    "cost": 300000, "rf": 1,
     "fuel": "D,A", "night": "Active IR",
     "x5": "5", "x6": "6", "x7": "7", "x8": "8",
     "loca": "TUR"
@@ -1795,17 +1795,17 @@
 	"con": 12, "bur": 24, "pran": 400
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
-	"wtyp": "PK MG", "wqual": "x", "rof": 5, "rng": 125,
+	"wtyp": "PK MG", "wqual": "X", "rof": 5, "rng": 125,
 	"ps": 2, "pm": 2, "pl": 1, "ammo": 0.4,
 	"con": 1, "bur": 2, "pran": 125
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
-	"wtyp": "DShK MG", "wqual": "x", "rof": 5, "rng": 150,
+	"wtyp": "DShK MG", "wqual": "X", "rof": 5, "rng": 150,
 	"ps": 4, "pm": 4, "pl": 1, "ammo": 500,
 	"con": 1, "bur": 9, "pran": 150
     }],
-    "weight": 36.5, "load": 0.5, "crew": 4, "mnt": 6,
-    "price": 300000, "rf": 1,
+    "mass": 36.5, "load": 0.5, "crew": 4, "mnt": 6,
+    "cost": 300000, "rf": 1,
     "fuel": "D,A",
     "x6": "6", "x7": "7", "x8": "8",
     "loca": "TUR"
@@ -1821,7 +1821,7 @@
 	"con": 14, "bur": 35, "pran": 400
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
-	"wtyp": "PK MG", "wqual": "x", "rof": 5, "rng": 125,
+	"wtyp": "PK MG", "wqual": "X", "rof": 5, "rng": 125,
 	"ps": 2, "pm": 2, "pl": 1, "ammo": 0.4,
 	"con": 1, "bur": 2, "pran": 125
     },{
@@ -1830,8 +1830,8 @@
 	"ps": 130, "ammo": 5,
 	"con": 12, "bur": 15, "pran": 5000
     }],
-    "weight": 38, "load": 0.5, "crew": 3, "mnt": 6,
-    "price": 350000, "rf": 1,
+    "mass": 38, "load": 0.5, "crew": 3, "mnt": 6,
+    "cost": 350000, "rf": 1,
     "fuel": "D,A", "night": "Passive IR", "rad": "4",
     "x5": "5", "x6": "6", "x7": "7", "x8": "8",
     "loca": "TUR"
@@ -1847,17 +1847,17 @@
 	"con": 14, "bur": 35, "pran": 400
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
-	"wtyp": "PK MG", "wqual": "x", "rof": 5, "rng": 125,
+	"wtyp": "PK MG", "wqual": "X", "rof": 5, "rng": 125,
 	"ps": 2, "pm": 2, "pl": 1, "ammo": 0.4,
 	"con": 1, "bur": 2, "pran": 125
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
-	"wtyp": "DShK MG", "wqual": "x", "rof": 5, "rng": 150,
+	"wtyp": "DShK MG", "wqual": "X", "rof": 5, "rng": 150,
 	"ps": 4, "pm": 4, "pl": 1, "ammo": 500,
 	"con": 1, "bur": 9, "pran": 150
     }],
-    "weight": 40, "load": 0.5, "crew": 3, "mnt": 14,
-    "price": 400000, "rf": 1,
+    "mass": 40, "load": 0.5, "crew": 3, "mnt": 14,
+    "cost": 400000, "rf": 1,
     "stab": "Fair", "fuel": "D,A", "night": "A/P IR", "rad": "4",
     "x5": "5", "x6": "6", "x7": "7", "x8": "8",
     "loca": "TUR"
@@ -1873,7 +1873,7 @@
 	"con": 14, "bur": 35, "pran": 400
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
-	"wtyp": "DShK MG", "wqual": "x", "rof": 5, "rng": 150,
+	"wtyp": "DShK MG", "wqual": "X", "rof": 5, "rng": 150,
 	"ps": 4, "pm": 4, "pl": 1, "ammo": 500,
 	"con": 1, "bur": 9, "pran": 150
     },{
@@ -1882,8 +1882,8 @@
 	"ps": 130, "ammo": 5,
 	"con": 12, "bur": 15, "pran": 5000
     }],
-    "weight": 40, "load": 0.5, "crew": 3, "mnt": 18,
-    "price": 500000, "rf": 1,
+    "mass": 40, "load": 0.5, "crew": 3, "mnt": 18,
+    "cost": 500000, "rf": 1,
     "stab": "Fair", "fuel": "G,AvG,A", "night": "A/P IR", "rad": "Shielded",
     "x5": "5", "x6": "6", "x7": "7", "x8": "8",
     "loca": "TUR"
@@ -1899,7 +1899,7 @@
 	"con": 14, "bur": 35, "pran": 400
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
-	"wtyp": "12.7 mm DShK", "wqual": "x", "rof": 5, "rng": 150,
+	"wtyp": "12.7 mm DShK", "wqual": "X", "rof": 5, "rng": 150,
 	"ps": 4.5, "pm": 4.5, "pl": 4.5, "px": 3, "ammo": 300,
 	"con": 1, "bur": 9, "pran": 150
     },{
@@ -1908,8 +1908,8 @@
 	"ps": 170, "ammo": 6,
 	"con": 12, "bur": 15, "pran": 5000
     }],
-    "weight": 45, "load": 0.5, "crew": 3, "mnt": 18,
-    "price": 600000, "rf": 2,
+    "mass": 45, "load": 0.5, "crew": 3, "mnt": 18,
+    "cost": 600000, "rf": 2,
     "stab": "Good", "fuel": "D,G,AvG,A", "night": "A/P IR, Spotlight", "rad": "Shielded",
     "x5": "5", "x6": "6", "x7": "7", "x8": "R/R",
     "loca": "TUR"
@@ -1925,7 +1925,7 @@
 	"con": 6, "bur": 12, "pran": 200
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
-	"wtyp": "PK MG", "wqual": "x", "rof": 5, "rng": 125,
+	"wtyp": "PK MG", "wqual": "X", "rof": 5, "rng": 125,
 	"ps": 2, "pm": 2, "pl": 1, "ammo": 0.4,
 	"con": 1, "bur": 2, "pran": 125
     },{
@@ -1934,8 +1934,8 @@
 	"ps": 75, "ammo": 4,
 	"con": 6, "bur": 4, "pran": 3000
     }],
-    "weight": 9, "load": 0.6, "crew": 3, "psgr": 6, "mnt": 11,
-    "price": 80000, "rf": 1,
+    "mass": 9, "load": 0.6, "crew": 3, "psgr": 6, "mnt": 11,
+    "cost": 80000, "rf": 1,
     "fuel": "D,A", "night": "P/A IR", "rad": "4",
     "x5": "5", "x6": "6", "x7": "7", "x8": "8",
     "loca": "CIH"
@@ -1951,12 +1951,12 @@
 	"con": 2, "bur": 12, "pran": 150
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
-	"wtyp": "PK MG", "wqual": "x", "rof": 5, "rng": 125,
+	"wtyp": "PK MG", "wqual": "X", "rof": 5, "rng": 125,
 	"ps": 2, "pm": 2, "pl": 1, "ammo": 0.4,
 	"con": 1, "bur": 2, "pran": 125
     }],
-    "weight": 9.5, "load": 0.6, "crew": 2, "psgr": 8, "mnt": 11,
-    "price": 110000,
+    "mass": 9.5, "load": 0.6, "crew": 2, "psgr": 8, "mnt": 11,
+    "cost": 110000,
     "fuel": "D,A", "night": "P/A IR", "rad": "4",
     "x5": "5", "x6": "6", "x7": "7", "x8": "8",
     "loca": "VEH"
@@ -1972,12 +1972,12 @@
 	"con": 8, "bur": 14, "pran": 300
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
-	"wtyp": "PK MG", "wqual": "x", "rof": 5, "rng": 125,
+	"wtyp": "PK MG", "wqual": "X", "rof": 5, "rng": 125,
 	"ps": 2, "pm": 2, "pl": 1, "ammo": 1000,
 	"con": 1, "bur": 2, "pran": 125
     }],
-    "weight": 14, "load": 0.3, "crew": 3, "mnt": 5,
-    "price": 110000,
+    "mass": 14, "load": 0.3, "crew": 3, "mnt": 5,
+    "cost": 110000,
     "fuel": "D,A", "night": "Active IR/Headlights", "rad": "4",
     "x5": "5", "x6": "6", "x7": "7", "x8": "R/S",
     "loca": "TUR"
@@ -1993,7 +1993,7 @@
 	"con": 1, "bur": 3, "pran": 250
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
-	"wtyp": "PK MG", "wqual": "x", "rof": 5, "rng": 125,
+	"wtyp": "PK MG", "wqual": "X", "rof": 5, "rng": 125,
 	"ps": 2, "pm": 2, "pl": 1, "ammo": 0.4,
 	"con": 1, "bur": 2, "pran": 125
     },{
@@ -2002,8 +2002,8 @@
 	"ps": 140, "ammo": 4,
 	"con": 12, "bur": 15, "pran": 3500
     }],
-    "weight": 12.5, "load": 1.5, "crew": 3, "psgr": 8, "mnt": 12,
-    "price": 150000, "rf": 1,
+    "mass": 12.5, "load": 1.5, "crew": 3, "psgr": 8, "mnt": 12,
+    "cost": 150000, "rf": 1,
     "fuel": "D,G,AvG,A", "night": "Passive IR", "rad": "4",
     "x5": "5", "x6": "6", "x7": "7", "x8": "8",
     "loca": "CIH"
@@ -2028,8 +2028,8 @@
 	"ps": 80, "ammo": 6,
 	"con": 6, "bur": 5, "pran": 3000
     }],
-    "weight": 18.7, "load": 1.5, "crew": 3, "psgr": 7, "mnt": 12,
-    "price": 175000, "rf": 7,
+    "mass": 18.7, "load": 1.5, "crew": 3, "psgr": 7, "mnt": 12,
+    "cost": 175000, "rf": 7,
     "stab": "Good", "fuel": "D,G,A,AvG", "night": "Passive IR, ImageInt", "rad": "Shielded",
     "x5": "5", "x6": "6", "x7": "7", "x8": "R/S",
     "loca": "CIH"
@@ -2045,7 +2045,7 @@
 	"con": 1, "bur": 3, "pran": 250
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
-	"wtyp": "PK MG", "wqual": "x", "rof": 5, "rng": 125,
+	"wtyp": "PK MG", "wqual": "X", "rof": 5, "rng": 125,
 	"ps": 2, "pm": 2, "pl": 1, "ammo": 2000,
 	"con": 1, "bur": 2, "pran": 125
     },{
@@ -2054,8 +2054,8 @@
 	"ps": 70, "ammo": 4,
 	"con": 6, "bur": 5, "pran": 3000
     }],
-    "weight": 15.2, "load": 0.7, "crew": 3, "psgr": 7, "mnt": 5,
-    "price": 150000, "rf": 7,
+    "mass": 15.2, "load": 0.7, "crew": 3, "psgr": 7, "mnt": 5,
+    "cost": 150000, "rf": 7,
     "fuel": "D,A", "night": "Active/Passive IR, Headlights", "rad": "Enclosed",
     "x5": "5", "x6": "6", "x7": "7", "x8": "R/S",
     "loca": "CIH"
@@ -2071,7 +2071,7 @@
 	"con": 1, "bur": 3, "pran": 250
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
-	"wtyp": "PK MG", "wqual": "x", "rof": 5, "rng": 125,
+	"wtyp": "PK MG", "wqual": "X", "rof": 5, "rng": 125,
 	"ps": 2, "pm": 2, "pl": 1, "ammo": 2000,
 	"con": 1, "bur": 2, "pran": 125
     },{
@@ -2080,8 +2080,8 @@
 	"ps": 70, "ammo": 4,
 	"con": 6, "bur": 5, "pran": 3000
     }],
-    "weight": 15.2, "load": 0.7, "crew": 3, "psgr": 7, "mnt": 5,
-    "price": 150000, "rf": 7,
+    "mass": 15.2, "load": 0.7, "crew": 3, "psgr": 7, "mnt": 5,
+    "cost": 150000, "rf": 7,
     "fuel": "D,A", "night": "Active/Passive IR, Headlights", "rad": "Enclosed",
     "x5": "5", "x6": "6", "x7": "7", "x8": "R/S",
     "loca": "CIH"
@@ -2092,17 +2092,17 @@
     "tf": 2, "ts": 2, "tr": 2, "hf": 3, "hs": 1, "hr": 1,
     "weap": [{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
-	"wtyp": "14.5 mm KPV MG", "wqual": "x", "rof": 5, "rng": 150,
+	"wtyp": "14.5 mm KPV MG", "wqual": "X", "rof": 5, "rng": 150,
 	"ps": 6, "pm": 6, "pl": 6, "px": 4, "ammo": 500,
 	"con": 1, "bur": 9, "pran": 150
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
-	"wtyp": "PK MG", "wqual": "x", "rof": 5, "rng": 125,
+	"wtyp": "PK MG", "wqual": "X", "rof": 5, "rng": 125,
 	"ps": 2, "pm": 2, "pl": 1, "ammo": 0.4,
 	"con": 1, "bur": 2, "pran": 125
     }],
-    "weight": 13.6, "load": 2.5, "crew": 3, "psgr": 8, "mnt": 8,
-    "price": 74000,
+    "mass": 13.6, "load": 2.5, "crew": 3, "psgr": 8, "mnt": 8,
+    "cost": 74000,
     "fuel": "D,A", "night": "Active IR, Headlights", "rad": "Shielded",
     "x5": "5", "x6": "6", "x7": "7", "x8": "8",
     "loca": "CIH"
@@ -2113,17 +2113,17 @@
     "tf": 2, "ts": 1, "tr": 1, "hf": 3, "hs": 2, "hr": 2,
     "weap": [{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
-	"wtyp": "14.5 mm KPV MG", "wqual": "x", "rof": 5, "rng": 150,
+	"wtyp": "14.5 mm KPV MG", "wqual": "X", "rof": 5, "rng": 150,
 	"ps": 6, "pm": 6, "pl": 6, "px": 4, "ammo": 500,
 	"con": 1, "bur": 9, "pran": 150
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
-	"wtyp": "PK MG", "wqual": "x", "rof": 5, "rng": 125,
+	"wtyp": "PK MG", "wqual": "X", "rof": 5, "rng": 125,
 	"ps": 2, "pm": 2, "pl": 1, "ammo": 2000,
 	"con": 1, "bur": 2, "pran": 125
     }],
-    "weight": 11, "load": 0.8, "crew": 3, "psgr": 8, "mnt": 4,
-    "price": 100000,
+    "mass": 11, "load": 0.8, "crew": 3, "psgr": 8, "mnt": 4,
+    "cost": 100000,
     "fuel": "D,A", "night": "Active IR, Headlights", "rad": "Enclosed",
     "x5": "5", "x6": "6", "x7": "7", "x8": "-/S",
     "loca": "CIH"
@@ -2134,17 +2134,17 @@
     "tf": 2, "ts": 1, "tr": 1, "hf": 3, "hs": 2, "hr": 2,
     "weap": [{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
-	"wtyp": "14.5 mm KPV MG", "wqual": "x", "rof": 5, "rng": 150,
+	"wtyp": "14.5 mm KPV MG", "wqual": "X", "rof": 5, "rng": 150,
 	"ps": 6, "pm": 6, "pl": 6, "px": 4, "ammo": 500,
 	"con": 1, "bur": 9, "pran": 150
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
-	"wtyp": "PK MG", "wqual": "x", "rof": 5, "rng": 125,
+	"wtyp": "PK MG", "wqual": "X", "rof": 5, "rng": 125,
 	"ps": 2, "pm": 2, "pl": 1, "ammo": 2000,
 	"con": 1, "bur": 2, "pran": 125
     }],
-    "weight": 11.5, "load": 0.9, "crew": 3, "psgr": 9, "mnt": 4,
-    "price": 110000,
+    "mass": 11.5, "load": 0.9, "crew": 3, "psgr": 9, "mnt": 4,
+    "cost": 110000,
     "fuel": "D,A", "night": "Active IR, Headlights", "rad": "Enclosed",
     "x5": "5", "x6": "6", "x7": "7", "x8": "-/S",
     "loca": "CIH"
@@ -2155,12 +2155,12 @@
     "tf": 2, "ts": 1, "tr": 1, "hf": 4, "hs": 2, "hr": 2,
     "weap": [{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
-	"wtyp": "12.7 mm DShK", "wqual": "x", "rof": 5, "rng": 150,
+	"wtyp": "12.7 mm DShK", "wqual": "X", "rof": 5, "rng": 150,
 	"ps": 4.5, "pm": 4.5, "pl": 4.5, "px": 3, "ammo": 1120,
 	"con": 1, "bur": 9, "pran": 150
     }],
-    "weight": 12.6, "load": 1.3, "crew": 3, "psgr": 13, "mnt": 4,
-    "price": 50000,
+    "mass": 12.6, "load": 1.3, "crew": 3, "psgr": 13, "mnt": 4,
+    "cost": 50000,
     "fuel": "D,A", "night": "Headlights", "rad": "Enclosed",
     "x5": "5", "x6": "6", "x7": "7", "x8": "-/R",
     "loca": "VEH"
@@ -2171,12 +2171,12 @@
     "tf": 2, "ts": 2, "tr": 2, "hf": 2, "hs": 2, "hr": 2,
     "weap": [{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
-	"wtyp": "M2HB", "wqual": "x", "rof": 5, "rng": 150,
+	"wtyp": "M2HB", "wqual": "X", "rof": 5, "rng": 150,
 	"ps": 4, "pm": 4, "pl": 3, "px": 3, "ammo": 500,
 	"con": 1, "bur": 9, "pran": 150
     }],
-    "weight": 5.7, "load": 0.8, "crew": 2, "psgr": 8, "mnt": 2,
-    "price": 100000,
+    "mass": 5.7, "load": 0.8, "crew": 2, "psgr": 8, "mnt": 2,
+    "cost": 100000,
     "fuel": "D,A", "night": "Active IR, Headlights", "rad": "Enclosed",
     "x5": "5", "x6": "6", "x7": "7", "x8": "R/S",
     "loca": "VEH"
@@ -2192,7 +2192,7 @@
 	"con": 1, "bur": 3, "pran": 250
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
-	"wtyp": "PK MG", "wqual": "x", "rof": 5, "rng": 125,
+	"wtyp": "PK MG", "wqual": "X", "rof": 5, "rng": 125,
 	"ps": 2, "pm": 2, "pl": 1, "ammo": 2250,
 	"con": 1, "bur": 2, "pran": 125
     },{
@@ -2201,8 +2201,8 @@
 	"ps": 70, "ammo": 4,
 	"con": 6, "bur": 5, "pran": 3000
     }],
-    "weight": 13.7, "load": 0.7, "crew": 3, "psgr": 7, "mnt": 5,
-    "price": 150000,
+    "mass": 13.7, "load": 0.7, "crew": 3, "psgr": 7, "mnt": 5,
+    "cost": 150000,
     "stab": "Basic", "fuel": "D,A", "night": "Active/Passive IR, Headlights", "rad": "Shielded",
     "x5": "5", "x6": "6", "x7": "7", "x8": "-/R",
     "loca": "CIH"
@@ -2218,7 +2218,7 @@
 	"con": 1, "bur": 3, "pran": 250
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
-	"wtyp": "PK MG", "wqual": "x", "rof": 5, "rng": 125,
+	"wtyp": "PK MG", "wqual": "X", "rof": 5, "rng": 125,
 	"ps": 2, "pm": 2, "pl": 1, "ammo": 2000,
 	"con": 1, "bur": 2, "pran": 125
     },{
@@ -2227,8 +2227,8 @@
 	"ps": 70, "ammo": 4,
 	"con": 6, "bur": 5, "pran": 3000
     }],
-    "weight": 13.7, "load": 0.7, "crew": 3, "psgr": 7, "mnt": 5,
-    "price": 150000,
+    "mass": 13.7, "load": 0.7, "crew": 3, "psgr": 7, "mnt": 5,
+    "cost": 150000,
     "stab": "Basic", "fuel": "D,A", "night": "Active/Passive IR, Headlights", "rad": "Shielded",
     "x5": "5", "x6": "6", "x7": "7", "x8": "-/R",
     "loca": "CIH"
@@ -2239,17 +2239,17 @@
     "tf": 5, "ts": 3, "tr": 3, "hf": 5, "hs": 5, "hr": 3,
     "weap": [{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
-	"wtyp": "M2HB", "wqual": "x", "rof": 5, "rng": 150,
+	"wtyp": "M2HB", "wqual": "X", "rof": 5, "rng": 150,
 	"ps": 4, "pm": 4, "pl": 3, "px": 3, "ammo": 500,
 	"con": 1, "bur": 9, "pran": 150
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
-	"wtyp": "MG-42", "wqual": "x", "rof": 10, "rng": 125,
+	"wtyp": "MG-42", "wqual": "X", "rof": 10, "rng": 125,
 	"ps": 2, "pm": 2, "pl": 1, "ammo": 2000,
 	"con": 1, "bur": 2, "pran": 125
     }],
-    "weight": 11, "load": 1, "crew": 4, "psgr": 10, "mnt": 4,
-    "price": 75000,
+    "mass": 11, "load": 1, "crew": 4, "psgr": 10, "mnt": 4,
+    "cost": 75000,
     "fuel": "D,A", "night": "Active IR, Headlights", "rad": "Enclosed",
     "x5": "5", "x6": "6", "x7": "7", "x8": "R/S",
     "loca": "VEH"
@@ -2260,17 +2260,17 @@
     "tf": 2, "ts": 2, "tr": 2, "hf": 3, "hs": 1, "hr": 1,
     "weap": [{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
-	"wtyp": "14.5 mm KPV MG", "wqual": "x", "rof": 5, "rng": 150,
+	"wtyp": "14.5 mm KPV MG", "wqual": "X", "rof": 5, "rng": 150,
 	"ps": 6, "pm": 6, "pl": 6, "px": 4, "ammo": 500,
 	"con": 1, "bur": 9, "pran": 150
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
-	"wtyp": "PK MG", "wqual": "x", "rof": 5, "rng": 125,
+	"wtyp": "PK MG", "wqual": "X", "rof": 5, "rng": 125,
 	"ps": 2, "pm": 2, "pl": 1, "ammo": 0.4,
 	"con": 1, "bur": 2, "pran": 125
     }],
-    "weight": 13.6, "load": 2.5, "crew": 3, "psgr": 7, "mnt": 6,
-    "price": 75000,
+    "mass": 13.6, "load": 2.5, "crew": 3, "psgr": 7, "mnt": 6,
+    "cost": 75000,
     "fuel": "D,A", "night": "Headlights", "rad": "Shielded",
     "x5": "5", "x6": "6", "x7": "7", "x8": "8",
     "loca": "CIH"
@@ -2286,12 +2286,12 @@
 	"con": 3, "bur": 8, "pran": 100
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
-	"wtyp": "PK MG", "wqual": "x", "rof": 5, "rng": 125,
+	"wtyp": "PK MG", "wqual": "X", "rof": 5, "rng": 125,
 	"ps": 2, "pm": 2, "pl": 1, "ammo": 0.4,
 	"con": 1, "bur": 2, "pran": 125
     }],
-    "weight": 15, "load": 1.8, "crew": 3, "psgr": 18, "mnt": 5,
-    "price": 90000,
+    "mass": 15, "load": 1.8, "crew": 3, "psgr": 18, "mnt": 5,
+    "cost": 90000,
     "fuel": "D,A", "night": "IR searchlight", "rad": "Encloesd",
     "x5": "5", "x6": "6", "x7": "7", "x8": "-/S",
     "loca": "VEH"
@@ -2302,17 +2302,17 @@
     "tf": 2, "ts": 1, "tr": 2, "hf": 3, "hs": 2, "hr": 2,
     "weap": [{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
-	"wtyp": "14.5 mm KPV MG", "wqual": "x", "rof": 5, "rng": 150,
+	"wtyp": "14.5 mm KPV MG", "wqual": "X", "rof": 5, "rng": 150,
 	"ps": 6, "pm": 6, "pl": 6, "px": 4, "ammo": 500,
 	"con": 1, "bur": 9, "pran": 150
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
-	"wtyp": "PK MG", "wqual": "x", "rof": 5, "rng": 125,
+	"wtyp": "PK MG", "wqual": "X", "rof": 5, "rng": 125,
 	"ps": 2, "pm": 2, "pl": 1, "ammo": 0.4,
 	"con": 1, "bur": 2, "pran": 125
     }],
-    "weight": 16.4, "load": 1.2, "crew": 3, "psgr": 12, "mnt": 6,
-    "price": 110000,
+    "mass": 16.4, "load": 1.2, "crew": 3, "psgr": 12, "mnt": 6,
+    "cost": 110000,
     "fuel": "D,A", "night": "IR searchlight", "rad": "Encloesd",
     "x5": "5", "x6": "6", "x7": "7", "x8": "-/R",
     "loca": "CIH"
@@ -2323,17 +2323,17 @@
     "tf": 3, "ts": 3, "tr": 3, "hf": 4, "hs": 2, "hr": 2,
     "weap": [{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
-	"wtyp": "14.5 mm KPV MG", "wqual": "x", "rof": 5, "rng": 150,
+	"wtyp": "14.5 mm KPV MG", "wqual": "X", "rof": 5, "rng": 150,
 	"ps": 6, "pm": 6, "pl": 6, "px": 4, "ammo": 500,
 	"con": 1, "bur": 9, "pran": 150
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
-	"wtyp": "PK MG", "wqual": "x", "rof": 5, "rng": 125,
+	"wtyp": "PK MG", "wqual": "X", "rof": 5, "rng": 125,
 	"ps": 2, "pm": 2, "pl": 1, "ammo": 0.4,
 	"con": 1, "bur": 2, "pran": 125
     }],
-    "weight": 14, "load": 3, "crew": 2, "psgr": 15, "mnt": 6,
-    "price": 80000,
+    "mass": 14, "load": 3, "crew": 2, "psgr": 15, "mnt": 6,
+    "cost": 80000,
     "fuel": "D,A", "night": "Headlights", "rad": "Shielded",
     "x5": "5", "x6": "6", "x7": "7", "x8": "8",
     "loca": "CIH"
@@ -2344,12 +2344,12 @@
     "tf": 3, "ts": 3, "tr": 3, "hf": 2, "hs": 1, "hr": 1,
     "weap": [{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
-	"wtyp": "PK MG", "wqual": "x", "rof": 5, "rng": 125,
+	"wtyp": "PK MG", "wqual": "X", "rof": 5, "rng": 125,
 	"ps": 2, "pm": 2, "pl": 1, "ammo": 1250,
 	"con": 1, "bur": 2, "pran": 125
     }],
-    "weight": 7, "load": 0.4, "crew": 2, "psgr": 4, "mnt": 2,
-    "price": 65000,
+    "mass": 7, "load": 0.4, "crew": 2, "psgr": 4, "mnt": 2,
+    "cost": 65000,
     "fuel": "D,A", "night": "Active IR/Headlights", "rad": "Open",
     "x5": "5", "x6": "6", "x7": "7", "x8": "R/S",
     "loca": "VEH"
@@ -2360,17 +2360,17 @@
     "tf": 3, "ts": 2, "tr": 2, "hf": 3, "hs": 2, "hr": 2,
     "weap": [{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
-	"wtyp": "14.5 mm KPV MG", "wqual": "x", "rof": 5, "rng": 150,
+	"wtyp": "14.5 mm KPV MG", "wqual": "X", "rof": 5, "rng": 150,
 	"ps": 6, "pm": 6, "pl": 6, "px": 4, "ammo": 500,
 	"con": 1, "bur": 9, "pran": 150
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
-	"wtyp": "PK MG", "wqual": "x", "rof": 5, "rng": 125,
+	"wtyp": "PK MG", "wqual": "X", "rof": 5, "rng": 125,
 	"ps": 2, "pm": 2, "pl": 1, "ammo": 2000,
 	"con": 1, "bur": 2, "pran": 125
     }],
-    "weight": 7.5, "load": 0.3, "crew": 3, "psgr": 6, "mnt": 3,
-    "price": 95000,
+    "mass": 7.5, "load": 0.3, "crew": 3, "psgr": 6, "mnt": 3,
+    "cost": 95000,
     "fuel": "D,A", "night": "IR Searchlights, Headlights", "rad": "Enclosed",
     "x5": "5", "x6": "6", "x7": "7", "x8": "-/S",
     "loca": "CIH"
@@ -2386,12 +2386,12 @@
 	"con": 6, "bur": 4, "pran": 3000
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
-	"wtyp": "PK MG", "wqual": "x", "rof": 5, "rng": 125,
+	"wtyp": "PK MG", "wqual": "X", "rof": 5, "rng": 125,
 	"ps": 2, "pm": 2, "pl": 1, "ammo": 0.4,
 	"con": 1, "bur": 2, "pran": 125
     }],
-    "weight": 5.6, "load": 0.5, "crew": 3, "mnt": 6,
-    "price": 25000,
+    "mass": 5.6, "load": 0.5, "crew": 3, "mnt": 6,
+    "cost": 25000,
     "fuel": "G,A", "night": "Headlights", "rad": "Shielded",
     "x5": "5", "x6": "6", "x7": "7", "x8": "8",
     "loca": "VEH"
@@ -2402,17 +2402,17 @@
     "hf": 2, "hs": 2, "hr": 2,
     "weap": [{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
-	"wtyp": "14.5 mm KPV MG", "wqual": "x", "rof": 5, "rng": 150,
+	"wtyp": "14.5 mm KPV MG", "wqual": "X", "rof": 5, "rng": 150,
 	"ps": 6, "pm": 6, "pl": 6, "px": 4, "ammo": 500,
 	"con": 1, "bur": 9, "pran": 150
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
-	"wtyp": "PK MG", "wqual": "x", "rof": 5, "rng": 125,
+	"wtyp": "PK MG", "wqual": "X", "rof": 5, "rng": 125,
 	"ps": 2, "pm": 2, "pl": 1, "ammo": 0.4,
 	"con": 1, "bur": 2, "pran": 125
     }],
-    "weight": 8, "load": 0.6, "crew": 4, "mnt": 4,
-    "price": 50000,
+    "mass": 8, "load": 0.6, "crew": 4, "mnt": 4,
+    "cost": 50000,
     "stab": "Basic", "fuel": "G, AvG, A", "night": "Headlights, ImInt", "rad": "Shielded",
     "x5": "5", "x6": "6", "x7": "7", "x8": "8",
     "loca": "VEH"
@@ -2427,8 +2427,8 @@
 	"ps": 155, "pm": 155, "pl": 155, "px": 155, "ammo": 10,
 	"con": 12, "bur": 12, "pran": 3500
     }],
-    "weight": 8, "load": 0.6, "crew": 3, "mnt": 4,
-    "price": 50000,
+    "mass": 8, "load": 0.6, "crew": 3, "mnt": 4,
+    "cost": 50000,
     "stab": "Basic", "fuel": "G, AvG, A", "night": "Headlights, ImInt", "rad": "Shielded",
     "x5": "5", "x6": "6", "x7": "7", "x8": "8",
     "loca": "CIH"
@@ -2444,12 +2444,12 @@
 	"con": 1, "bur": 3, "pran": 250
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
-	"wtyp": "PK MG", "wqual": "x", "rof": 5, "rng": 125,
+	"wtyp": "PK MG", "wqual": "X", "rof": 5, "rng": 125,
 	"ps": 2, "pm": 2, "pl": 1, "ammo": 0.4,
 	"con": 1, "bur": 2, "pran": 125
     }],
-    "weight": 8, "load": 0.6, "crew": 4, "mnt": 4,
-    "price": 50000,
+    "mass": 8, "load": 0.6, "crew": 4, "mnt": 4,
+    "cost": 50000,
     "stab": "Basic", "fuel": "G, AvG, A", "night": "Headlights, ImInt", "rad": "Shielded",
     "x5": "5", "x6": "6", "x7": "7", "x8": "8",
     "loca": "CIH"
@@ -2459,8 +2459,8 @@
     "trmov": "175", "ccmove": "65", "fcap": 200, "fcons": 60, "susp": "W2",
     "tf": 2, "ts": 2, "tr": 2, "hf": 2, "hs": 1, "hr": 1,
     "weap": [],
-    "weight": 7, "load": 0.7, "crew": 2, "psgr": 4, "mnt": 4,
-    "price": 45000,
+    "mass": 7, "load": 0.7, "crew": 2, "psgr": 4, "mnt": 4,
+    "cost": 45000,
     "fuel": "D,A", "night": "Headlights, Passive IR", "rad": "Enclosed",
     "x5": "5", "x6": "6", "x7": "7", "x8": "8",
     "loca": "VEH"
@@ -2475,8 +2475,8 @@
 	"ps": 70, "pm": 60, "pl": 50, "px": 30, "ammo": 43,
 	"con": 6, "bur": 15, "pran": 300
     }],
-    "weight": 36, "load": 0.4, "crew": 4, "mnt": 8,
-    "price": 300000, "rf": 1,
+    "mass": 36, "load": 0.4, "crew": 4, "mnt": 8,
+    "cost": 300000, "rf": 1,
     "fuel": "D,A", "night": "A/P IR", "rad": "4",
     "x5": "5", "x6": "6", "x7": "7", "x8": "8",
     "loca": "TUR"
@@ -2491,8 +2491,8 @@
 	"ps": 150, "pm": 140, "pl": 130, "px": 110, "ammo": 40,
 	"con": 10, "bur": 25, "pran": 400
     }],
-    "weight": 39, "load": 0.5, "crew": 4, "mnt": 8,
-    "price": 450000, "rf": 1,
+    "mass": 39, "load": 0.5, "crew": 4, "mnt": 8,
+    "cost": 450000, "rf": 1,
     "fuel": "D,A", "night": "A/P IR", "rad": "4",
     "x5": "5", "x6": "6", "x7": "7", "x8": "8",
     "loca": "TUR"
@@ -2508,17 +2508,17 @@
 	"con": 14, "bur": 35, "pran": 400
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
-	"wtyp": "PK MG", "wqual": "x", "rof": 5, "rng": 125,
+	"wtyp": "PK MG", "wqual": "X", "rof": 5, "rng": 125,
 	"ps": 2, "pm": 2, "pl": 1, "ammo": 3000,
 	"con": 1, "bur": 2, "pran": 125
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
-	"wtyp": "M2HB", "wqual": "x", "rof": 5, "rng": 150,
+	"wtyp": "M2HB", "wqual": "X", "rof": 5, "rng": 150,
 	"ps": 4, "pm": 4, "pl": 3, "px": 3, "ammo": 500,
 	"con": 1, "bur": 9, "pran": 150
     }],
-    "weight": 41, "load": 0.5, "crew": 3, "mnt": 13,
-    "price": 400000, "rf": 1,
+    "mass": 41, "load": 0.5, "crew": 3, "mnt": 13,
+    "cost": 400000, "rf": 1,
     "stab": "Basic", "fuel": "D,A", "night": "IR Searchlight, Headlights", "rad": "Shielded",
     "x5": "5", "x6": "6", "x7": "7", "x8": "-/R",
     "loca": "TUR"
@@ -2534,17 +2534,17 @@
 	"con": 6, "bur": 15, "pran": 300
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
-	"wtyp": "PK MG", "wqual": "x", "rof": 5, "rng": 125,
+	"wtyp": "PK MG", "wqual": "X", "rof": 5, "rng": 125,
 	"ps": 2, "pm": 2, "pl": 1, "ammo": 3000,
 	"con": 1, "bur": 2, "pran": 125
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
-	"wtyp": "DShK MG", "wqual": "x", "rof": 5, "rng": 150,
+	"wtyp": "DShK MG", "wqual": "X", "rof": 5, "rng": 150,
 	"ps": 4, "pm": 4, "pl": 1, "ammo": 500,
 	"con": 1, "bur": 9, "pran": 150
     }],
-    "weight": 36, "load": 0.4, "crew": 4, "mnt": 12,
-    "price": 300000, "rf": 1,
+    "mass": 36, "load": 0.4, "crew": 4, "mnt": 12,
+    "cost": 300000, "rf": 1,
     "stab": "Basic", "fuel": "D,A", "night": "Active/Passive IR, IR Searchlight", "rad": "Shielded",
     "x5": "5", "x6": "6", "x7": "7", "x8": "-/R",
     "loca": "TUR"
@@ -2560,12 +2560,12 @@
 	"con": 75, "bur": 45, "pran": 300
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
-	"wtyp": "DShK MG", "wqual": "x", "rof": 5, "rng": 150,
+	"wtyp": "DShK MG", "wqual": "X", "rof": 5, "rng": 150,
 	"ps": 4, "pm": 4, "pl": 1, "ammo": 300,
 	"con": 1, "bur": 9, "pran": 150
     }],
-    "weight": 23, "load": 0.5, "crew": 5, "mnt": 8,
-    "price": 120000,
+    "mass": 23, "load": 0.5, "crew": 5, "mnt": 8,
+    "cost": 120000,
     "fuel": "D,A,G,AvG", "night": "Active/Passive IR", "rad": "Enclosed",
     "x5": "5", "x6": "6", "x7": "7", "x8": "-/R",
     "loca": "TUR"
@@ -2580,8 +2580,8 @@
 	"ps": 5, "pm": 5, "pl": -1, "px": -2, "ammo": 800,
 	"con": 1, "bur": 3, "pran": 2500
     }],
-    "weight": 10.3, "load": 0.5, "crew": 5, "mnt": 3,
-    "price": 85000, "rf": 1,
+    "mass": 10.3, "load": 0.5, "crew": 5, "mnt": 3,
+    "cost": 85000, "rf": 1,
     "fuel": "D,A", "night": "Headlights", "rad": "Open",
     "x5": "5", "x6": "6", "x7": "7", "x8": "-/R",
     "loca": "VEH"

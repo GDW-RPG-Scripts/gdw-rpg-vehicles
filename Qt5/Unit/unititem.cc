@@ -41,7 +41,9 @@ UnitTreeItem::UnitTreeItem(Unit* unit, ObjectTreeItem* parent)
                                      : parent)
 {
   if(parent == nullptr)
-    UnitModel::Model()->RootItem()->AppendChild(this);
+    parent = Model()->RootItem();
+
+  parent->InsertChild(this);
 }
 
 UnitForm*

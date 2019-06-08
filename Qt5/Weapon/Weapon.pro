@@ -46,14 +46,18 @@ SOURCES += \
     weapon.cc \
     weaponform.cc \
     weaponitem.cc \
-    weaponmodel.cc
+    weaponmodel.cc \
+    munition.cc \
+    weapondialog.cc
 
 HEADERS += \
     weapon_global.hh \
     weapon.hh \
     weaponform.hh \
     weaponitem.hh \
-    weaponmodel.hh
+    weaponmodel.hh \
+    munition.hh \
+    weapondialog.hh
 
 FORMS += \
     weaponform.ui

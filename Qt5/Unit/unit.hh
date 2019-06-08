@@ -29,9 +29,10 @@ namespace GDW
   {
     class UNITSHARED_EXPORT Unit : public Object
     {
+        Q_OBJECT
 
       public:
-        Unit(const QJsonObject&);
+        Unit(const QJsonObject& = QJsonObject());
         static Unit* New();
 
 
@@ -45,5 +46,7 @@ namespace GDW
     };
   };
 };
+
+// Q_DECLARE_METATYPE(GDW::RPG::Unit)
 
 #endif // UNIT_HH

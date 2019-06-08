@@ -39,15 +39,17 @@ namespace GDW
         ObjectTreeItem* Unpack(const QJsonObject&,
                                ObjectTreeItem* parent) override;
 
+        bool InsertObject(int /*= INT_MAX*/) override;
+        // bool RemoveObject(int /*= INT_MAX*/) override;
+
       protected:
-        ObjectTreeItem* Create(ObjectTreeItem*) const override;
+        ObjectTreeItem* InsertObject(ObjectTreeItem*) const override;
         const QList<QVariant>& RootData() const override;
 
       private:
         WeaponModel(QObject* parent = nullptr);
-
-        static WeaponModel MODEL;
     };
   };
 };
+
 #endif // WEAPONMODEL_HH

@@ -47,7 +47,13 @@ namespace GDW
         void Reset();
         virtual ObjectTreeItem* Unpack(const QJsonObject&, ObjectTreeItem*);
 
-        ObjectTreeItem* RootItem() const;
+        virtual ObjectTreeItem* RootItem() const;
+
+        virtual bool InsertObject(int /*= INT_MAX*/);
+        virtual bool RemoveObject(int /*= INT_MAX*/);
+
+        bool InsertChild(ObjectTreeItem*, ObjectTreeItem*, int = INT_MAX);
+        ObjectTreeItem* RemoveChild(ObjectTreeItem*, int = INT_MAX);
 
         // Mandatory overrides
         QModelIndex index(int row, int column,
@@ -79,7 +85,7 @@ namespace GDW
         // Extension points
         ObjectTreeItem* ItemFor(const QModelIndex& index) const;
 
-        virtual ObjectTreeItem* Create(ObjectTreeItem*) const = 0;
+        virtual ObjectTreeItem* InsertObject(ObjectTreeItem*) const = 0;
         virtual const QList<QVariant>& RootData() const = 0;
 
       private:

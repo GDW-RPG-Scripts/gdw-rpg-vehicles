@@ -29,6 +29,21 @@ namespace GDW
     class Object;
     class ObjectForm;
     class ObjectModel;
+    class ObjectTreeItem;
+
+    class AddChildItemCommand : public QUndoCommand
+    {
+      public:
+        AddChildItemCommand(ObjectTreeItem*, ObjectTreeItem*,
+                            QUndoCommand* parent = nullptr);
+
+        void undo() override;
+        void redo() override;
+
+      private:
+        ObjectTreeItem* mParentItem;
+        ObjectTreeItem* mChildItem;
+    };
 
     class InsertItemCommand : public QUndoCommand
     {
@@ -49,7 +64,7 @@ namespace GDW
     class RemoveItemCommand : public QUndoCommand
     {
       public:
-        RemoveItemCommand(const QModelIndex&, ObjectModel*,
+        RemoveItemCommand(const QModelIndex&,
                           QUndoCommand* parent = nullptr);
 
         void undo() override;
@@ -57,9 +72,9 @@ namespace GDW
 
       private:
         int mRow;
-        bool mRemoved;
-        QModelIndex mParent;
+        ObjectTreeItem* mParent;
         ObjectModel* mModel;
+        ObjectTreeItem* mRemovedItem;
     };
 
     class UpdateItemCommand : public QUndoCommand

@@ -41,7 +41,7 @@ namespace GDW
         explicit VehicleForm(Vehicle* = nullptr, QWidget* parent = nullptr);
         ~VehicleForm() override;
 
-        Vehicle* Read(Mode = Mode::Standard, Object* = nullptr) override;
+        Vehicle* Read(Mode = Mode::Display, Object* = nullptr) override;
         Vehicle* Write() override;
         void SetReadOnly(bool) override;
         QString Title() const override;

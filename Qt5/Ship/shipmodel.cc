@@ -44,7 +44,7 @@ ShipModel::RootData() const
 }
 
 ObjectTreeItem*
-ShipModel::Create(ObjectTreeItem* parent) const
+ShipModel::InsertObject(ObjectTreeItem* parent) const
 {
   return ShipTreeItem::Create(parent);
 }

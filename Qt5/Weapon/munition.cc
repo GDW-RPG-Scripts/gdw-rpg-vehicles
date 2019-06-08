@@ -16,37 +16,23 @@
  * General Public License along with GDW RPG Vehicles. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef SHIP_HH
-#define SHIP_HH
+#include "munition.hh"
 
-#include "ship_global.hh"
+using namespace GDW::RPG;
 
-#include "object.hh"
+const QString
+Munition::JSON_TYPE = "__GDW_RPG_Munition__";
 
-namespace GDW
-{
-  namespace RPG
-  {
-    class SHIPSHARED_EXPORT Ship : public Object
-    {
-        Q_OBJECT
+Munition::Munition()
+{}
 
-      public:
-        Ship(const QJsonObject& = QJsonObject());
-        static Ship* New();
+Munition::Munition(const Munition& object)
+  : Object (object)
+{}
 
+Munition::~Munition()
+{}
 
-        QVariant Name() const;
-        void Name(const QVariant&);
-
-        static const QString JSON_TYPE;
-
-      private:
-        static const QString PROP_NAME;
-    };
-  };
-};
-
-// Q_DECLARE_METATYPE(GDW::RPG::Ship)
-
-#endif // SHIP_HH
+Munition::Munition(const QJsonObject& json)
+  : Object (json)
+{}

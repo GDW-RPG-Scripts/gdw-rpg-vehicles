@@ -34,6 +34,7 @@
 #include "commands.hh"
 #include "workspace.hh"
 #include "prefsdialog.hh"
+#include "weapondialog.hh"
 
 #include "objectitem.hh"
 #include "shipitem.hh"
@@ -70,10 +71,21 @@ Workspace::Workspace(QWidget* parent) :
   mUi.menuEdit->insertActions(mUi.action_Placeholder, actions);
   mUi.menuEdit->removeAction(mUi.action_Placeholder);
 
-  mUi.vehiclesTreeView->setModel(VehicleModel::Model());
-  mUi.weaponsTreeView ->setModel(WeaponModel ::Model());
-  mUi.shipTreeView    ->setModel(ShipModel   ::Model());
-  mUi.unitTreeView    ->setModel(UnitModel   ::Model());
+  struct ModelView {
+      QTreeView* view;
+      std::function<ObjectModel*()> model;
+  } mvMap[] = {
+  {mUi.vehiclesTreeView, VehicleModel::Model},
+  {mUi.weaponsTreeView,  WeaponModel ::Model},
+  {mUi.shipTreeView,     ShipModel   ::Model},
+  {mUi.unitTreeView,     UnitModel   ::Model}};
+
+  for(ModelView mv: mvMap) {
+//    QSortFilterProxyModel* proxyModel = new QSortFilterProxyModel(this);
+//    proxyModel->setSourceModel(mv.model());
+//    mv.view->setModel(proxyModel);
+    mv.view->setModel(mv.model());
+  }
 
   CurrentFile(QString());
   setUnifiedTitleAndToolBarOnMac(true);
@@ -90,25 +102,12 @@ Workspace::Workspace(QWidget* parent) :
 #endif
 
   connect(mUi.menuEdit, &QMenu::aboutToShow, this, &Workspace::UpdateActions);
-  // connect(&mVehicleModel, &QAbstractItemModel::rowsRemoved, this, &Workspace::RemoveSelectedItems);
-  // connect(mUi.insertItemButton, &QAbstractButton::clicked, this, &MainWindow::AddItem);
-  // connect(mUi.action_Cut, &QAction::triggered, this, &MainWindow::RemoveItem);
-  // connect(insertChildAction, &QAction::triggered, this, &MainWindow::insertChild);
 
   if(mLoadOnStart)
     LoadFile(":/Default.gro");
 
   UpdateActions();
 }
-
-//    QAbstractItemModel*
-//    Workspace::Model()
-//    {
-//      QAbstractItemView* view =
-//          static_cast<QAbstractItemView*>(mUi.tabWidget->currentWidget());
-
-//      return view->model();
-//    }
 
 Workspace::~Workspace()
 {}
@@ -144,8 +143,11 @@ void Workspace::New()
       QTreeView* view =
           static_cast<QTreeView*>(mUi.tabWidget->widget(i)->layout()->itemAt(0)->widget());
 
+//      QAbstractProxyModel* proxy =
+//          static_cast<QAbstractProxyModel*>(view->model());
+
       ObjectModel* model =
-          static_cast<ObjectModel*>(view->model());
+          static_cast<ObjectModel*>(view->model()); //proxy->sourceModel());
 
       model->Reset();
     }
@@ -234,7 +236,7 @@ bool Workspace::SaveAs()
 void
 Workspace::About()
 {
-  // qDebug() << "MainWindow::About()";
+  // qDebug() << "Workspace::About()";
   const QString text =
       tr("GDW RPG Vehicles – Vehicle database and card printing software "
          "for 2d6 Sci-fi and other RPGs.\n\n"
@@ -266,13 +268,21 @@ Workspace::InsertItem()
       static_cast<ObjectModel*>(view.model());
   mUndoStack.push(new InsertItemCommand(index, model));
 
+  if(!index.isValid()) {
+    index = index.siblingAtRow(0);
+  }
+
+  itemSelectionModel->select(index,
+                             QItemSelectionModel::ClearAndSelect |
+                             QItemSelectionModel::Rows);
+
   UpdateActions();
 
   view.update();
 }
 
 void
-Workspace::CurrentType(int type)
+Workspace::CurrentType(int)
 {
   UpdateActions();
 }
@@ -281,10 +291,10 @@ void
 Workspace::EditItem()
 {
   if(mUi.objectForm->IsReadOnly()) {
-    mUi.objectForm->Read(Mode::Raw);
     mUi.editItemButton->setText(tr("&Cancel"));
     mUi.      okButton->setEnabled(true);
     mUi.    objectForm->SetReadOnly(false);
+    mUi.    objectForm->Read(Mode::Edit);
   } else {
     mUi.editItemButton->setText(tr("&Edit"));
     mUi.      okButton->setEnabled(false);
@@ -297,17 +307,11 @@ void
 Workspace::RemoveSelectedItems()
 {
   QTreeView& view = GetCurrentTreeView();
-
-  while(view.selectionModel()->hasSelection()) {
-    QModelIndex index =
-        view.selectionModel()->selectedRows().takeAt(0);
-    //ObjectTreeItem* oti =
-    //     static_cast<ObjectTreeItem*>(index.internalPointer());
-    // oti->Unselect(mUi);
+  QItemSelectionModel* selectionModel = view.selectionModel();
+  QModelIndexList indexList = selectionModel->selectedRows();
+  for(QModelIndex index: indexList) {
     Unselect();
-    ObjectModel* model =
-        static_cast<ObjectModel*>(view.model());
-    mUndoStack.push(new RemoveItemCommand(index, model));
+    mUndoStack.push(new RemoveItemCommand(index));
   }
 
   UpdateActions();
@@ -326,8 +330,6 @@ Workspace::PrintItem()
     return;
 
   QTreeView& view = GetCurrentTreeView();
-  QItemSelectionModel* itemSelectionModel = view.selectionModel();
-  QModelIndex index = itemSelectionModel->currentIndex();
   ObjectModel* model =
       static_cast<ObjectModel*>(view.model());
 
@@ -462,18 +464,40 @@ void Workspace::CommitData(QSessionManager& manager)
 #endif
 
 void
-Workspace::AddWeapon()
+Workspace::AddMunition()
 {
-  qDebug() << "MainWindow::AddWeapon";
+  qDebug() << "Workspace::AddMunition";
   QModelIndex index =
-      mUi.vehiclesTreeView->selectionModel()->currentIndex();
+      mUi.weaponsTreeView->selectionModel()->currentIndex();
 
   ObjectTreeItem* oti =
       static_cast<ObjectTreeItem*>(index.internalPointer());
 
-  WeaponTreeItem* weaponItem = WeaponTreeItem::Create(oti);
+}
 
-  oti->AppendChild(weaponItem);
+void
+Workspace::AddWeapon()
+{
+  qDebug() << "Workspace::AddWeapon";
+  QModelIndex vehicleIndex =
+      mUi.vehiclesTreeView->selectionModel()->currentIndex();
+
+  VehicleTreeItem* vti =
+      static_cast<VehicleTreeItem*>(vehicleIndex.internalPointer());
+
+  WeaponDialog dialog(this);
+
+  if(dialog.exec() != PrefsDialog::Accepted) {
+    return;
+  }
+
+  QModelIndex weaponIndex = dialog.Selected();
+  if(weaponIndex.isValid()) {
+    WeaponTreeItem* wti =
+        static_cast<WeaponTreeItem*>(weaponIndex.internalPointer());
+
+    mUndoStack.push(new AddChildItemCommand(vti, wti));
+  }
 }
 
 void
@@ -493,7 +517,15 @@ Workspace::ShowVehiclesMenu(const QPoint& position)
 void
 Workspace::ShowWeaponsMenu(const QPoint& position)
 {
-  qDebug() << "MainWindow::ShowWeaponsMenu(const QPoint& " << position << ")";
+  QAction action(tr("Add munition"), this);
+  QFontMetrics fontMetric(action.font());
+  QPoint offset(0, fontMetric.height());
+
+  connect(&action, &QAction::triggered, this, &Workspace::AddMunition);
+
+  QMenu menu(this);
+  menu.addAction(&action);
+  menu.exec(mUi.weaponsTreeView->mapToGlobal(position + offset));
 }
 
 //
@@ -655,9 +687,9 @@ Workspace::SaveFile(const QString& fileName)
 #ifndef QT_NO_CURSOR
   QApplication::setOverrideCursor(Qt::WaitCursor);
 #endif
+
   out << mFactory;
-  // out << mVehicleModel;
-  // out << textEdit->toPlainText();
+
 #ifndef QT_NO_CURSOR
   QApplication::restoreOverrideCursor();
 #endif

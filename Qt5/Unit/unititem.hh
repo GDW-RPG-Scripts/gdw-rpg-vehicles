@@ -33,6 +33,8 @@ namespace GDW
   {
     class UNITSHARED_EXPORT UnitTreeItem : public ObjectTreeItem
     {
+        Q_OBJECT
+
       public:
         static UnitTreeItem* Create(ObjectTreeItem* parent = nullptr);
         static UnitTreeItem* Unpack(const QJsonObject&,
@@ -53,6 +55,6 @@ namespace GDW
   };
 };
 
-Q_DECLARE_METATYPE(GDW::RPG::UnitTreeItem)
+// Q_DECLARE_METATYPE(GDW::RPG::UnitTreeItem)
 
 #endif // UNITITEM_HH

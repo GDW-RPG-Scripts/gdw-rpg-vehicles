@@ -21,11 +21,10 @@
 
 using namespace GDW::RPG;
 
-WeaponModel WeaponModel::MODEL;
-
 WeaponModel*
 WeaponModel::Model()
 {
+  static WeaponModel MODEL;
   return &MODEL;
 }
 
@@ -38,13 +37,19 @@ WeaponModel::RootData() const
 {
   static const QList<QVariant> rootData =
   {
-    tr("Name")
+    tr("Munition type")
   };
   return rootData;
 }
 
+bool
+WeaponModel::InsertObject(int position)
+{
+  return InsertChild(WeaponTreeItem::Create(), RootItem(), position);
+}
+
 ObjectTreeItem*
-WeaponModel::Create(ObjectTreeItem* parent) const
+WeaponModel::InsertObject(ObjectTreeItem* parent) const
 {
   return WeaponTreeItem::Create(parent);
 }
@@ -52,6 +57,11 @@ WeaponModel::Create(ObjectTreeItem* parent) const
 ObjectTreeItem*
 WeaponModel::Unpack(const QJsonObject& json, ObjectTreeItem* parent)
 {
+  if(parent == nullptr)
+    parent = RootItem();
+
   WeaponTreeItem* item = WeaponTreeItem::Unpack(json, parent);
+  InsertChild(item, parent);
+
   return item;
 }

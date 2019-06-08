@@ -12,6 +12,7 @@
     width="210mm"
     height="297mm"
     viewBox="0 0 210 297"
+    style="background: lightgrey"
     version="1.1"
     id="VehiclePage"
     inkscape:version="0.92.4 (5da689c313, 2019-01-14)"
@@ -101,6 +102,14 @@
     stroke: #ffffff;
     text-anchor: start;
     }
+    .Heading1RightText {
+    dominant-baseline: middle;
+    fill: #ffffff;
+    font-family: '.Helvetica Neue DeskInterface';
+    font-size: 4.5;
+    stroke: #ffffff;
+    text-anchor: end;
+    }
     .Heading2Text {
     dominant-baseline: middle;
     fill: #ffffff;
@@ -140,6 +149,14 @@
     font-size: 4.5;
     stroke: #000000;
     text-anchor: start;
+    }
+    .Field2RightText {
+    dominant-baseline: middle;
+    fill: #000000;
+    font-family: '.Helvetica Neue DeskInterface';
+    font-size: 4.5;
+    stroke: #000000;
+    text-anchor: end;
     }
     ]]>
     </style>
@@ -281,63 +298,70 @@
       <text
 	  id="TechLevelValue"
 	  class="Field1Text"
-	  x="13"
+          textLength="22"
+          x="13"
 	  y="6.5"
-	  >{{ tl }}</text>
+          >{{tl}}</text>
     </g>
     <g id="SkillField" transform="translate(29,0)">
       <use id="SkillFieldBox" xlink:href="#FieldRect"/>
       <text
 	  id="SkillValue"
 	  class="Field1Text"
-	  x="13"
+          textLength="22"
+          x="13"
 	  y="6.5"
-	  >{{ skill }}</text>
+          >{{skill}}</text>
     </g>
     <g id="AgilityField" transform="translate(58,0)">
       <use id="AgilityFieldBox" xlink:href="#FieldRect"/>
       <text
 	  id="AgilityValue"
 	  class="Field1Text"
-	  x="13"
+          textLength="22"
+          x="13"
 	  y="6.5"
-	  >{{ agility }}</text>
+          >{{agility}}</text>
     </g>
     <g id="SpeedField" transform="translate(87,0)">
       <use id="SpeedFieldBox" xlink:href="#FieldRect"/>
       <text
 	  id="SpeedValue"
 	  class="Field1Text"
-	  x="13"
+          textLength="22"
+          x="13"
 	  y="6.5"
-	  >{{ speed }}</text>
+          >{{speed}}</text>
     </g>
     <g id="RangeField" transform="translate(116,0)">
       <use id="RangeFieldBox" xlink:href="#FieldRect"/>
       <text
 	  id="RangeValue"
 	  class="Field1Text"
-	  x="13"
+          textLength="22"
+          x="13"
 	  y="6.5"
-	  >{{ range }}</text>
+          >{{range}}</text>
     </g>
     <g id="CrewField" transform="translate(145,0)">
       <use id="CrewFieldBox" xlink:href="#FieldRect"/>
       <text
 	  id="CrewValue"
 	  class="Field1Text"
-	  x="13"
+          textLength="22"
+          x="13"
 	  y="6.5"
-	  >{{ crew }}</text>
+          >{{crew}}{{#psgr?}}+{{psgr}}{{/psgr?}}</text>
     </g>
     <g id="OpenField" transform="translate(174,0)">
       <use id="OpenFieldBox" xlink:href="#FieldRect"/>
       <text
 	  id="OpenValue"
 	  class="Field1Text"
-	  x="13"
+          textLength="22"
+          x="13"
 	  y="6.5"
-	  >{{ open }}</text>
+          >{{open}}</text>
     </g>
   </g>
   <g id="StatsHeading_2" transform="translate(5,40)">
@@ -384,7 +408,7 @@
 	  class="Heading1Text"
 	  textLength="22"
 	  x="13"
-	  y="6.5">Spaces Used</text>
+          y="6.5">Spaces</text>
     </g>
     <g id="Mass" transform="translate(145,0)">
       <use id="MassBox" xlink:href="#HeadingRect"/>
@@ -402,7 +426,7 @@
 	  class="Heading1Text"
 	  textLength="22"
 	  x="13"
-	  y="6.5">Cargo</text>
+          y="6.5">Load</text>
     </g>
   </g>
   <g id="StatsFields_2" transform="translate(5,51)">
@@ -411,63 +435,70 @@
       <text
 	  id="HullValue"
 	  class="Field1Text"
-	  x="13"
+          textLength="22"
+          x="13"
 	  y="6.5"
-	  >{{ hull }}</text>
+          >{{hull}}</text>
     </g>
     <g id="StructureField" transform="translate(29,0)">
       <use id="StructureFieldBox" xlink:href="#FieldRect"/>
       <text
 	  id="StructureValue"
 	  class="Field1Text"
-	  x="13"
+          textLength="22"
+          x="13"
 	  y="6.5"
-	  >{{ structure }}</text>
+          >{{structure}}</text>
     </g>
     <g id="CostField" transform="translate(58,0)">
       <use id="CostFieldBox" xlink:href="#FieldRect"/>
       <text
 	  id="CostValue"
 	  class="Field1Text"
-	  x="13"
+          textLength="22"
+          x="13"
 	  y="6.5"
-	  >{{ cost }}</text>
+          >{{cost}}</text>
     </g>
     <g id="ShippingField" transform="translate(87,0)">
       <use id="ShippingFieldBox" xlink:href="#FieldRect"/>
       <text
 	  id="ShippingValue"
 	  class="Field1Text"
-	  x="13"
+          textLength="22"
+          x="13"
 	  y="6.5"
-	  >{{ shipping }}</text>
+          >{{shipping}}</text>
     </g>
     <g id="SpacesUsedField" transform="translate(116,0)">
       <use id="SpacesUsedFieldBox" xlink:href="#FieldRect"/>
       <text
 	  id="SpacesUsedValue"
 	  class="Field1Text"
-	  x="13"
+          textLength="22"
+          x="13"
 	  y="6.5"
-	  >{{ spacesused }}</text>
+          >{{spacesused}}</text>
     </g>
     <g id="MassField" transform="translate(145,0)">
       <use id="MassFieldBox" xlink:href="#FieldRect"/>
       <text
 	  id="MassValue"
 	  class="Field1Text"
-	  x="13"
+          textLength="22"
+          x="13"
 	  y="6.5"
-	  >{{ mass }}</text>
+          >{{mass}}</text>
     </g>
     <g id="CargoField" transform="translate(174,0)">
       <use id="CargoFieldBox" xlink:href="#FieldRect"/>
       <text
 	  id="CargoValue"
 	  class="Field1Text"
-	  x="13"
+          textLength="22"
+          x="13"
 	  y="6.5"
-	  >{{ cargo }}</text>
+          >{{load}}</text>
     </g>
   </g>
   <g id="WeaponHeading" transform="translate(5,63)">
@@ -480,12 +511,18 @@
 	  ry="2"
 	  height="10"
 	  width="70" />
-      <text
-	  id="WeaponTypeHeading"
-	  class="Heading1LeftText"
-	  textLength="66"
-	  x="2"
-	  y="6.5">Weapon</text>
+        <text
+          id="WeaponTypeHeading"
+          class="Heading1LeftText"
+          textLength="66"
+          x="2"
+          y="6.5">Weapon</text>
+        <text
+          id="WeaponTypeHeading"
+          class="Heading1RightText"
+          textLength="33"
+          x="68"
+          y="6.5">Rounds</text>
     </g>
     <g id="Short" transform="translate(71,0)">
       <rect
@@ -562,17 +599,23 @@
 	  width="25" />
       <text
 	  id="ConcFRHeading"
-	  class="Heading1Text"
-	  textLength="21"
-	  x="12.5"
-	  y="6.5">Conc FR</text>
+          class="Heading1LeftText"
+          textLength="10"
+          x="2"
+          y="6.5">Con</text>
+      <text
+          id="ConcFRHeading"
+          class="Heading1RightText"
+          textLength="10"
+          x="23"
+          y="6.5">Frag</text>
     </g>
   </g>
   {{#weap}}{{#counter}}
-  <g id="Weapon_{{ number }}" transform="translate(5,{{ y_coord }})">
-    <g id="WeaponTypeField_{{ number }}" transform="translate(0,0)">
+  <g id="Weapon_{{number}}" transform="translate(5,{{y_coord}})">
+    <g id="WeaponTypeField_{{number}}" transform="translate(0,0)">
       <rect
-	  id="WeaponTypeFieldBox_{{ number }}"
+          id="WeaponTypeFieldBox_{{number}}"
 	  class="FieldBox"
 	  x="0"
 	  y="0"
@@ -580,16 +623,119 @@
 	  height="10"
 	  width="70" />
       <text
-	  id="WeaponTypeValue_{{ number }}"
-	  class="Field2LeftText"
-	  textLength="66"
-	  x="2"
-	  y="6.5"
-	  >{{ wtyp }}</text>
+          id="WeaponTypeValue_{{number}}"
+          class="Field2LeftText"
+          textLength="56"
+          x="2"
+          y="6.5"
+          >{{wtyp}}</text>
+      <text
+          id="WeaponTypeValue_{{number}}"
+          class="Field2RightText"
+          textLength="10"
+          x="68"
+          y="6.5"
+          >{{ammo}}</text>
     </g>
-    <g id="ShortField_{{ number }}" transform="translate(71,0)">
+    <g id="ShortField_{{number}}" transform="translate(71,0)">
       <rect
-	  id="ShortFieldBox_{{ number }}"
+          id="ShortFieldBox_{{number}}"
+	  class="FieldBox"
+	  x="0"
+	  y="0"
+	  ry="2"
+	  height="10"
+	  width="25" />
+        <text
+          id="ShortValue_{{number}}"
+          class="Field2LeftText"
+          textLength="10"
+          x="2"
+          y="6.5"
+          >{{short}}</text>
+        <text
+          id="ShortValue_{{number}}"
+          class="Field2LeftText"
+          textLength="10"
+          x="13"
+          y="6.5"
+          >({{ps}})</text>
+    </g>
+    <g id="MediumField_{{number}}" transform="translate(97,0)">
+      <rect
+          id="MediumFieldBox_{{number}}"
+	  class="FieldBox"
+	  x="0"
+	  y="0"
+	  ry="2"
+	  height="10"
+	  width="25" />
+        <text
+          id="MediumValue_{{number}}"
+          class="Field2LeftText"
+          textLength="10"
+          x="2"
+          y="6.5"
+          >{{rng}}</text>
+        <text
+          id="MediumValue_{{number}}"
+          class="Field2LeftText"
+          textLength="10"
+          x="13"
+          y="6.5"
+          >({{pm}})</text>
+    </g>
+    <g id="LongField_{{number}}" transform="translate(123,0)">
+      <rect
+          id="LongFieldBox_{{number}}"
+	  class="FieldBox"
+	  x="0"
+	  y="0"
+	  ry="2"
+	  height="10"
+	  width="25" />
+        <text
+          id="LongValue_{{number}}"
+          class="Field2LeftText"
+          textLength="10"
+          x="2"
+          y="6.5"
+          >{{long}}</text>
+        <text
+          id="LongValue_{{number}}"
+          class="Field2LeftText"
+          textLength="10"
+          x="13"
+          y="6.5"
+          >({{pl}})</text>
+    </g>
+    <g id="ExtremeField_{{number}}" transform="translate(149,0)">
+      <rect
+          id="ExtremeFieldBox_{{number}}"
+	  class="FieldBox"
+	  x="0"
+	  y="0"
+	  ry="2"
+	  height="10"
+	  width="25" />
+        <text
+          id="ExtremeValue_{{number}}"
+          class="Field2LeftText"
+          textLength="10"
+          x="2"
+          y="6.5"
+          >{{extreme}}</text>
+        <text
+          id="ExtremeValue_{{number}}"
+          class="Field2LeftText"
+          textLength="10"
+          x="13"
+          y="6.5"
+          >({{px}})</text>
+    </g>
+    <g id="FragField_{{number}}" transform="translate(175,0)">
+      <rect
+          id="FragFieldBox_{{number}}"
 	  class="FieldBox"
 	  x="0"
 	  y="0"
@@ -597,283 +743,22 @@
 	  height="10"
 	  width="25" />
       <text
-	  id="ShortValue_{{ number }}"
-	  class="Field2Text"
-	  textLength="21"
-	  x="12.5"
+          id="FragValue_1{{number}}"
+          class="Field2LeftText"
+          textLength="15"
+          x="3"
 	  y="6.5"
-	  >{{short}} ({{ps}})</text>
-    </g>
-    <g id="MediumField_{{ number }}" transform="translate(97,0)">
-      <rect
-	  id="MediumFieldBox_{{ number }}"
-	  class="FieldBox"
-	  x="0"
-	  y="0"
-	  ry="2"
-	  height="10"
-	  width="25" />
+          >{{#conc?}}{{wqual}}:{{con}}{{/conc?}}</text>
       <text
-	  id="MediumValue_{{ number }}"
-	  class="Field2Text"
-	  textLength="21"
-	  x="12.5"
-	  y="6.5"
-	  >{{rng}} ({{pm}})</text>
-    </g>
-    <g id="LongField_{{ number }}" transform="translate(123,0)">
-      <rect
-	  id="LongFieldBox_{{ number }}"
-	  class="FieldBox"
-	  x="0"
-	  y="0"
-	  ry="2"
-	  height="10"
-	  width="25" />
-      <text
-	  id="LongValue_{{ number }}"
-	  class="Field2Text"
-	  textLength="21"
-	  x="12.5"
-	  y="6.5"
-	  >{{long}} ({{pl}})</text>
-    </g>
-    <g id="ExtremeField_{{ number }}" transform="translate(149,0)">
-      <rect
-	  id="ExtremeFieldBox_{{ number }}"
-	  class="FieldBox"
-	  x="0"
-	  y="0"
-	  ry="2"
-	  height="10"
-	  width="25" />
-      <text
-	  id="ExtremeValue_{{ number }}"
-	  class="Field2Text"
-	  textLength="21"
-	  x="12.5"
-	  y="6.5"
-	  >{{extreme}} ({{px}})</text>
-    </g>
-    <g id="AmmoField_{{ number }}" transform="translate(175,0)">
-      <rect
-	  id="AmmoFieldBox_{{ number }}"
-	  class="FieldBox"
-	  x="0"
-	  y="0"
-	  ry="2"
-	  height="10"
-	  width="25" />
-      <text
-	  id="AmmoValue_{{ number }}"
-	  class="Field2Text"
-	  textLength="21"
-	  x="12.5"
-	  y="6.5"
-	  >{{ ammo }}</text>
+          id="FragValue_{{number}}"
+          class="Field2RightText"
+          textLength="15"
+          x="22"
+          y="6.5"
+          >{{#conc?}}{{bur}}{{/conc?}}</text>
     </g>
   </g>
   {{/counter}}{{/weap}}
-  <!--g id="Weapon_2" transform="translate(5,85)">
-      <rect
-      id="WeaponField_2"
-      class="FieldBox"
-      ry="2"
-      y="85"
-      x="5"
-      height="10"
-      width="70" />
-      <rect
-      id="LocationField_2"
-      class="FieldBox"
-      ry="2"
-      y="85"
-      x="76"
-      height="10"
-      width="25" />
-      <rect
-      id="DamageField_2"
-      class="FieldBox"
-      width="25"
-      height="10"
-      x="102"
-      y="85"
-      ry="2" />
-      <rect
-      id="WRangeField_2"
-      class="FieldBox"
-      ry="2"
-      y="85"
-      x="128"
-      height="10"
-      width="25" />
-      <rect
-      id="AutoField_2"
-      class="FieldBox"
-      width="25"
-      height="10"
-      x="154"
-      y="85"
-      ry="2" />
-      <rect
-      id="AmmoField_2"
-      class="FieldBox"
-      ry="2"
-      y="85"
-      x="180"
-      height="10"
-      width="25" />
-      </g>
-      <g id="Weapon_3" transform="translate(5,96)">
-      <rect
-      id="WeaponField_3"
-      class="FieldBox"
-      width="70"
-      height="10"
-      x="5"
-      y="96"
-      ry="2" />
-      <rect
-      id="LocationField_3"
-      class="FieldBox"
-      width="25"
-      height="10"
-      x="76"
-      y="96"
-      ry="2" />
-      <rect
-      id="DamageField_3"
-      class="FieldBox"
-      ry="2"
-      x="102"
-      y="96"
-      height="10"
-      width="25" />
-      <rect
-      id="WRangeField_3"
-      class="FieldBox"
-      width="25"
-      height="10"
-      x="128"
-      y="96"
-      ry="2" />
-      <rect
-      id="AutoField_3"
-      class="FieldBox"
-      ry="2"
-      x="154"
-      y="96"
-      height="10"
-      width="25" />
-      <rect
-      id="AmmoField_3"
-      class="FieldBox"
-      width="25"
-      height="10"
-      x="180"
-      y="96"
-      ry="2" />
-      </g>
-      <g id="Weapon_4" transform="translate(5,107)">
-      <rect
-      id="WeaponField_4"
-      class="FieldBox"
-      ry="2"
-      y="107"
-      x="5"
-      height="10"
-      width="70" />
-      <rect
-      id="LocationField_4"
-      class="FieldBox"
-      ry="2"
-      y="107"
-      x="76"
-      height="10"
-      width="25" />
-      <rect
-      id="DamageField_4"
-      class="FieldBox"
-      width="25"
-      height="10"
-      x="102"
-      y="107"
-      ry="2" />
-      <rect
-      id="WRangeField_4"
-      class="FieldBox"
-      ry="2"
-      y="107"
-      x="128"
-      height="10"
-      width="25" />
-      <rect
-      id="AutoField_4"
-      class="FieldBox"
-      width="25"
-      height="10"
-      x="154"
-      y="107"
-      ry="2" />
-      <rect
-      id="AmmoField_4"
-      class="FieldBox"
-      ry="2"
-      y="107"
-      x="180"
-      height="10"
-      width="25" />
-      </g>
-      <g id="Weapon_5" transform="translate(5,118)">
-      <rect
-      id="WeaponField_5"
-      class="FieldBox"
-      width="70"
-      height="10"
-      x="5"
-      y="118"
-      ry="2" />
-      <rect
-      id="LocationField_5"
-      class="FieldBox"
-      width="25"
-      height="10"
-      x="76"
-      y="118"
-      ry="2" />
-      <rect
-      id="DamageField_5"
-      class="FieldBox"
-      ry="2"
-      y="118"
-      x="102"
-      height="10"
-      width="25" />
-      <rect
-      id="WRangeField_5"
-      class="FieldBox"
-      width="25"
-      height="10"
-      x="128"
-      y="118"
-      ry="2" />
-      <rect
-      class="FieldBox"
-      ry="2"
-      y="118"
-      x="154"
-      height="10"
-      width="25"
-      id="AutoField_5" />
-      <rect
-      id="AmmoField_5"
-      class="FieldBox"
-      width="25"
-      height="10"
-      x="180"
-      y="118"
-      ry="2" />
-      </g -->
   <g id="Additional" transform="translate(5,129)">
     <rect
 	id="AdditionalView"
@@ -922,7 +807,7 @@
 	class="Heading2Text"
 	textLength="16"
 	x="11"
-	y="5.5">Deck: {{ deck }}</text>
+        y="5.5">Deck: {{deck}}</text>
     <rect
 	id="BellyBox"
 	class="HeadingBox"
@@ -937,68 +822,68 @@
 	class="Heading2Text"
 	textLength="16"
 	x="56"
-	y="5.5">Belly: {{ belly }}</text>
+        y="5.5">Belly: {{belly}}</text>
 
     <text
 	id="HullFrontText"
 	class="Field2Text"
 	textLength="10"
 	x="33.5"
-	y="25">{{ hf }}</text>
+        y="25">{{hf}}</text>
     <text
 	id="TurretFrontText"
 	class="Field2Text"
 	textLength="10"
 	x="33.5"
-	y="36">{{ tf }}</text>
+        y="36">{{tf}}</text>
     <text
 	id="TurretLeftText"
 	class="Field2Text"
 	textLength="10"
 	x="18.5"
-	y="51">{{ ts }}</text>
+        y="51">{{ts}}</text>
     <text
 	id="TurretRightText"
 	class="Field2Text"
 	textLength="10"
 	x="48.5"
-	y="51">{{ ts }}</text>
+        y="51">{{ts}}</text>
     <text
 	id="TurretRearText"
 	class="Field2Text"
 	textLength="10"
 	x="33.5"
-	y="66">{{ tr }}</text>
+        y="66">{{tr}}</text>
     <text
 	id="HullLeftText"
 	class="Field2Text"
 	textLength="10"
 	x="10.5"
-	y="72">{{ hs }}</text>
+        y="72">{{hs}}</text>
     <text
 	id="HullRightText"
 	class="Field2Text"
 	textLength="10"
 	x="56.5"
-	y="72">{{ hs }}</text>
+        y="72">{{hs}}</text>
     <text
 	id="SuspensionLeftText"
 	class="Field2Text"
 	textLength="10"
 	x="10.5"
-	y="91">{{ susp }}</text>
+        y="91">{{susp}}</text>
     <text
 	id="SuspensionRightText"
 	class="Field2Text"
 	textLength="10"
 	x="56.5"
-	y="91">{{ susp }}</text>
+        y="91">{{susp}}</text>
     <text
 	id="HullRearText"
 	class="Field2Text"
 	textLength="10"
 	x="33.5"
-	y="101">{{ hr }}</text>
+        y="101">{{hr}}</text>
   </g>
   <g id="SideView" transform="translate(73,184)">
     <rect
@@ -1032,12 +917,20 @@
 	x="2"
 	y="5.5">Pos: {{positions}}</text>
   </g>
-  <rect
-      id="DisplayView"
+  <g id="DisplayView" transform="translate(73,250)">
+   <rect
+      id="DisplayViewBox"
       class="FieldBox"
       width="132"
       height="42"
-      x="73"
-      y="250"
+      x="0"
+      y="0"
       ry="2" />
+  <text
+      id="HullRearText"
+      class="Field2LeftText"
+      textLength="128"
+      x="2"
+      y="6.5">{{x8}}</text>
+  </g>
 </svg>

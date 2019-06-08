@@ -42,6 +42,8 @@ namespace GDW
 
     class OBJECTSHARED_EXPORT ObjectTreeItem : public QObject
     {
+        Q_OBJECT
+
       public:
         ObjectTreeItem();
         ObjectTreeItem(const ObjectTreeItem&);
@@ -50,36 +52,37 @@ namespace GDW
                        ObjectTreeItem* parent = nullptr);
         virtual ~ObjectTreeItem();
 
+        virtual ObjectTreeItem* Copy() const;
+
         void Export(QJsonArray&) const;
         void RenderPage(QPaintDevice&) const;
         virtual QByteArray Template() const;
 
-        ObjectTreeItem* AppendChild(ObjectTreeItem* child);
-        bool InsertChildren(int, int, /*int type,*/ ObjectTreeItem* = nullptr);
-        bool RemoveChildren(int, int);
+        QModelIndex Index() const;
+        virtual ObjectModel* Model() const;
 
+        virtual bool InsertChild(ObjectTreeItem*, int = INT_MAX);
+        ObjectTreeItem* RemoveChild(int);
         ObjectTreeItem* Child(int row);
         int ChildCount() const;
+
         int ColumnCount() const;
         virtual QVariant Data(int column) const;
         virtual bool SetData(int column, const QVariant&);
         int Row() const;
-        ObjectTreeItem* ParentItem();
+        ObjectTreeItem* ParentItem() const;
 
         void RefreshItemData();
 
         virtual ObjectForm* GetForm();
-
-        virtual QDebug& Debug(QDebug&) const;
+        virtual Object* GetObject();
+        virtual const Object* GetObject() const;
 
       signals:
 
       public slots:
 
       protected:
-        virtual Object* GetObject();
-        virtual const Object* GetObject() const;
-        virtual ObjectModel* Model() const;
 
       private:
         friend QTextStream& operator<<(QTextStream&, const ObjectTreeItem&);
@@ -87,11 +90,10 @@ namespace GDW
         Object* mObject;
         QList<ObjectTreeItem*> mChildItems;
         QList<QVariant> mItemData;
-        ObjectTreeItem* mParentItem;
     };
   };
 };
 
-Q_DECLARE_METATYPE(GDW::RPG::ObjectTreeItem)
+// Q_DECLARE_METATYPE(GDW::RPG::ObjectTreeItem)
 
 #endif // OBJECTTREEITEM_HH

@@ -40,6 +40,8 @@ namespace GDW
   {
     class WEAPONSHARED_EXPORT WeaponTreeItem : public ObjectTreeItem
     {
+        Q_OBJECT
+
       public:
         static WeaponTreeItem* Create(ObjectTreeItem* parent = nullptr);
         static WeaponTreeItem* Unpack(const QJsonObject&,
@@ -48,16 +50,18 @@ namespace GDW
         WeaponTreeItem(Weapon*, ObjectTreeItem* parent);
         ~WeaponTreeItem() override;
 
+        WeaponTreeItem* Copy() const override;
+
         WeaponForm* GetForm() override;
         // void Select(Ui::Workspace&, ObjectForm* = nullptr) override;
 
-      protected:
         Weapon* GetObject() override;
         const Weapon* GetObject() const override;
 
-        WeaponModel* Model() const override;
+      protected:
+        WeaponTreeItem(const WeaponTreeItem&);
 
-        QDebug& Debug(QDebug&) const override;
+        WeaponModel* Model() const override;
     };
   };
 };

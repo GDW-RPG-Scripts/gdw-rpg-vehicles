@@ -44,7 +44,7 @@ UnitModel::RootData() const
 }
 
 ObjectTreeItem*
-UnitModel::Create(ObjectTreeItem* parent) const
+UnitModel::InsertObject(ObjectTreeItem* parent) const
 {
   return UnitTreeItem::Create(parent);
 }

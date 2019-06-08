@@ -31,12 +31,18 @@ namespace GDW
 {
   namespace RPG
   {
+    class WeaponTreeItem;
+
     class VEHICLESHARED_EXPORT VehicleTreeItem : public ObjectTreeItem
     {
+        Q_OBJECT
+
       public:
         static VehicleTreeItem* Create(ObjectTreeItem* parent = nullptr);
         static VehicleTreeItem* Unpack(const QJsonObject&,
                                        ObjectTreeItem* parent);
+
+        // bool InsertChild(ObjectTreeItem*, int = INT_MAX) override;
 
         VehicleForm* GetForm() override;
         QByteArray Template() const override;

@@ -36,26 +36,27 @@ namespace GDW
 {
   namespace RPG
   {
-    class VEHICLESHARED_EXPORT VehicleReference : public ObjectReference
-    {};
-
     class VEHICLESHARED_EXPORT Vehicle : public Object
     {
-      public:
+        Q_OBJECT
 
-        Vehicle();
-        Vehicle(const Vehicle&);
+      public:
+        Vehicle(const QJsonObject& = QJsonObject(), Object* = nullptr);
+        Vehicle(const Vehicle&, Object* = nullptr);
         ~Vehicle() override;
 
-        Vehicle(const QJsonObject&);
-        static Vehicle* New();
+        static Vehicle* New(Object* = nullptr);
 
-        Vehicle* Copy() override;
-        const Vehicle* Copy() const override;
+        Vehicle* Copy(Object* = nullptr) override;
+        const Vehicle* Copy(Object* = nullptr) const override;
+
+        void InsertChild(Object*, int = INT_MAX) override;
+        Object* RemoveChild(int) override;
 
         QList<QVariant> ItemData() const override;
         void ToVariantHash(QVariantHash&) const override;
         Mustache::QtVariantContext* Context(const QVariantHash&) const override;
+        void RefreshDependencies() override;
 
 
         QVariant Name() const;
@@ -100,13 +101,14 @@ namespace GDW
         QVariant HullRear() const;
         void HullRear(const QVariant&);
 
+        void AddWeapon(Weapon*, int = INT_MAX);
         QList<Weapon*> Weapons() const;
         void Weapons(QList<Weapon*>&);
 
-        QVariant Weight() const;
-        void Weight(const QVariant&);
+        QVariant Mass(Mode = Mode::Display) const;
+        void Mass(const QVariant&);
 
-        QVariant Load() const;
+        QVariant Load(Mode = Mode::Display) const;
         void Load(const QVariant&);
 
         QVariant Crew() const;
@@ -118,16 +120,16 @@ namespace GDW
         QVariant Maintenance() const;
         void Maintenance(const QVariant&);
 
-        QVariant Price() const;
-        void Price(const QVariant&);
+        QVariant Cost(Mode = Mode::Display) const;
+        void Cost(const QVariant&);
 
         QVariant Rf() const;
         void Rf(const QVariant&);
 
-        QVariant Deck(Mode = Mode::Standard) const;
+        QVariant Deck(Mode = Mode::Display) const;
         void Deck(const QVariant&);
 
-        QVariant Belly(Mode = Mode::Standard) const;
+        QVariant Belly(Mode = Mode::Display) const;
         void Belly(const QVariant&);
 
         QVariant Stabilization() const;
@@ -177,12 +179,12 @@ namespace GDW
         static const QString PROP_HS;
         static const QString PROP_HR;
         static const QString PROP_WEAPONS;
-        static const QString PROP_WEIGHT;
+        static const QString PROP_MASS;
         static const QString PROP_LOAD;
         static const QString PROP_CREW;
         static const QString PROP_PSGR;
         static const QString PROP_MNT;
-        static const QString PROP_PRICE;
+        static const QString PROP_COST;
         static const QString PROP_RF;
         static const QString PROP_DECK;
         static const QString PROP_BELLY;

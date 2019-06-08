@@ -71,7 +71,7 @@ typedef std::function<ObjectModel*()> ModelFunction;
 typedef QHash<const QString, ModelFunction> ModelMap;
 
 ObjectTreeItem*
-Factory::Unpack(const QJsonValue& json, ObjectTreeItem* parent)
+Factory::Unpack(const QJsonValue& json, ObjectTreeItem*)
 {
   static const QString GDW_RPG_TYPE = "__GDW_RPG_Type__";
   static const ModelMap MODEL = {
@@ -87,7 +87,8 @@ Factory::Unpack(const QJsonValue& json, ObjectTreeItem* parent)
       const QString type = obj[GDW_RPG_TYPE].toString();
 
       if(MODEL.contains(type)) {
-        return MODEL[type]()->Unpack(obj, parent);
+        ObjectModel* model = MODEL[type]();
+        return model->Unpack(obj, model->RootItem());
       }
     }
   }
@@ -96,7 +97,7 @@ Factory::Unpack(const QJsonValue& json, ObjectTreeItem* parent)
 }
 
 QTextStream&
-GDW::RPG::operator<<(QTextStream& ots, const Factory& factory)
+GDW::RPG::operator<<(QTextStream& ots, const Factory&)
 {
   static const ModelFunction MODEL[] = {
     VehicleModel::Model,
@@ -111,5 +112,5 @@ GDW::RPG::operator<<(QTextStream& ots, const Factory& factory)
     model()->Export(jarr);
   }
 
-  return ots << QJsonDocument(jarr).toJson(QJsonDocument::Compact);
+  return ots << QJsonDocument(jarr).toJson(QJsonDocument::Indented);
 }

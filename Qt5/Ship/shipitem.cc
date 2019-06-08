@@ -42,7 +42,9 @@ ShipTreeItem::ShipTreeItem(Ship* ship, ObjectTreeItem* parent)
                                      : parent)
 {
   if(parent == nullptr)
-    ShipModel::Model()->RootItem()->AppendChild(this);
+    parent = Model()->RootItem();
+
+  parent->InsertChild(this);
 }
 
 ShipForm*

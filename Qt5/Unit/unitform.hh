@@ -43,7 +43,7 @@ namespace GDW
         explicit UnitForm(Unit* = nullptr, QWidget *parent = nullptr);
         ~UnitForm() override;
 
-        Unit* Read(Mode = Mode::Standard, Object* = nullptr) override;
+        Unit* Read(Mode = Mode::Display, Object* = nullptr) override;
         Unit* Write() override;
         void SetReadOnly(bool) override;
         QString Title() const override;

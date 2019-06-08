@@ -35,33 +35,35 @@
 
 using namespace GDW::RPG;
 
-ObjectTreeItem::ObjectTreeItem(Object* object, ObjectTreeItem* parent)
-  : mObject(object), mItemData(object->ItemData()), mParentItem(parent)
-{
-  if(parent == nullptr)
-    parent = Model()->RootItem();
+ObjectTreeItem::ObjectTreeItem()
+{}
 
-  mParentItem = parent;
-}
+ObjectTreeItem::ObjectTreeItem(Object* object, ObjectTreeItem* parent)
+  : QObject(parent),
+    mObject(object), mItemData(object->ItemData())
+{}
 
 ObjectTreeItem::ObjectTreeItem(const QList<QVariant>& data, ObjectTreeItem* parent)
-  : mObject(nullptr), mItemData(data), mParentItem(parent)
+  : QObject(parent), mObject(nullptr), mItemData(data)
+{}
+
+ObjectTreeItem::ObjectTreeItem(const ObjectTreeItem& item)
+  : QObject(item.parent()),
+    mObject(item.mObject->Copy()), mItemData(item.mItemData)
 {}
 
 ObjectTreeItem::~ObjectTreeItem()
 {
-  if(mObject != nullptr)
-    delete mObject;
+  //  if(mObject != nullptr)
+  //    delete mObject;
 
-  qDeleteAll(mChildItems);
+  // qDeleteAll(mChildItems);
 }
 
 ObjectTreeItem*
-ObjectTreeItem::AppendChild(ObjectTreeItem* item)
+ObjectTreeItem::Copy() const
 {
-  mChildItems.append(item);
-
-  return item;
+  return nullptr;
 }
 
 ObjectTreeItem*
@@ -89,54 +91,76 @@ ObjectTreeItem::Data(int column) const
 }
 
 bool
-ObjectTreeItem::SetData(int column, const QVariant& value)
+ObjectTreeItem::SetData(int column, const QVariant& variant)
 {
-  if (column < 0 || column >= mItemData.size())
+  if (column < 0 || column > mItemData.size())
     return false;
 
-  mItemData[column] = value;
-  return true;
-}
-
-bool
-ObjectTreeItem::InsertChildren(int position, int count, // int type,
-                               ObjectTreeItem* item)
-{
-  if (position < 0 || position > mChildItems.size())
-    return false;
-
-  for (int row = 0; row < count; ++row) {
-    mChildItems.insert(position, item);
+  if(variant.canConvert<ObjectTreeItem*>()) {
+    ObjectTreeItem* oti = variant.value<ObjectTreeItem*>();
+    mObject = oti->GetObject();
+    mItemData = mObject->ItemData();
+    return true;
   }
 
-  return true;
+  return false;
 }
 
 bool
-ObjectTreeItem::RemoveChildren(int position, int count)
+ObjectTreeItem::InsertChild(ObjectTreeItem* item, int position)
 {
-  if (position < 0 || position + count > mChildItems.size())
-    return false;
+  if(item)
+    item->setParent(this);
 
-  for (int row = 0; row < count; ++row)
-    delete mChildItems.takeAt(position);
+  mChildItems.insert(position, item);
+
+  if(mObject)
+    mObject->InsertChild(item->GetObject(), position);
 
   return true;
 }
 
 ObjectTreeItem*
-ObjectTreeItem::ParentItem()
+ObjectTreeItem::RemoveChild(int position)
 {
-  return mParentItem;
+  ObjectTreeItem* item = nullptr;
+
+  if(position >= 0 && position < mChildItems.size()) {
+    item = mChildItems.takeAt(position);
+    item->setParent(nullptr);
+
+    if(mObject)
+      mObject->RemoveChild(position);
+  }
+
+  return item;
+}
+
+ObjectTreeItem*
+ObjectTreeItem::ParentItem() const
+{
+  return qobject_cast<ObjectTreeItem*>(parent());
 }
 
 int
 ObjectTreeItem::Row() const
 {
-  if (mParentItem)
-    return mParentItem->mChildItems.indexOf(const_cast<ObjectTreeItem*>(this));
+  ObjectTreeItem* parent = ParentItem();
+
+  if (parent)
+    return parent->mChildItems.indexOf(const_cast<ObjectTreeItem*>(this));
 
   return 0;
+}
+
+QModelIndex
+ObjectTreeItem::Index() const
+{
+  if(parent() == nullptr) {
+    return QModelIndex();
+  }
+
+  return Model()->index(Row(), 0, ParentItem()->Index());
 }
 
 void
@@ -187,18 +211,6 @@ ObjectModel*
 ObjectTreeItem::Model() const
 {
   return nullptr;
-}
-
-QDebug&
-operator<<(QDebug& debug, const ObjectTreeItem& item)
-{
-  return item.Debug(debug);
-}
-
-QDebug&
-ObjectTreeItem::Debug(QDebug& debug) const
-{
-  return debug;
 }
 
 QByteArray

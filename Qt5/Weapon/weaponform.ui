@@ -170,7 +170,7 @@
          <item row="1" column="0">
           <widget class="QLabel" name="conLabel">
            <property name="text">
-            <string>Con:</string>
+            <string>Conc:</string>
            </property>
            <property name="buddy">
             <cstring>conLineEdit</cstring>
@@ -193,7 +193,7 @@
          <item row="2" column="0">
           <widget class="QLabel" name="burLabel">
            <property name="text">
-            <string>Bur:</string>
+            <string>Burst:</string>
            </property>
            <property name="buddy">
             <cstring>burLineEdit</cstring>
@@ -249,7 +249,7 @@
          <item row="0" column="0">
           <widget class="QLabel" name="psLabel">
            <property name="text">
-            <string>Pen. Short:</string>
+            <string>Pen Short:</string>
            </property>
            <property name="buddy">
             <cstring>psLineEdit</cstring>
@@ -272,7 +272,7 @@
          <item row="1" column="0">
           <widget class="QLabel" name="pmLabel">
            <property name="text">
-            <string>Pen. Medium:</string>
+            <string>Pen Medium:</string>
            </property>
            <property name="buddy">
             <cstring>pmLineEdit</cstring>
@@ -295,7 +295,7 @@
          <item row="2" column="0">
           <widget class="QLabel" name="plLabel">
            <property name="text">
-            <string>Pen. Long:</string>
+            <string>Pen Long:</string>
            </property>
            <property name="buddy">
             <cstring>plLineEdit</cstring>
@@ -318,7 +318,7 @@
          <item row="3" column="0">
           <widget class="QLabel" name="pxLabel">
            <property name="text">
-            <string>Pen. Extreme:</string>
+            <string>Pen Extreme:</string>
            </property>
            <property name="buddy">
             <cstring>pxLineEdit</cstring>

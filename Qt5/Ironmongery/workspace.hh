@@ -85,6 +85,7 @@ namespace GDW
         void RemoveSelectedItems();
         void SaveItem();
 
+        void AddMunition();
         void AddWeapon();
         void ShowVehiclesMenu(const QPoint&);
         void ShowWeaponsMenu(const QPoint&);

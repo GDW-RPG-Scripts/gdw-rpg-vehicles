@@ -34,32 +34,34 @@ namespace GDW
 {
   namespace RPG
   {
-    class OBJECTSHARED_EXPORT ObjectReference
-    {};
+    enum class Mode { Display, Edit };
 
-    enum class Mode { Standard, Raw };
-
-    class OBJECTSHARED_EXPORT Object
+    class OBJECTSHARED_EXPORT Object : public QObject
     {
+        Q_OBJECT
+
       public:
-        Object();
-        Object(const Object&);
+        Object(const QJsonObject& = QJsonObject(), Object* = nullptr);
+        Object(const Object&, Object* = nullptr);
         virtual ~Object();
 
-        virtual Object* Copy();
-        virtual const Object* Copy() const;
+        virtual Object* Copy(Object* = nullptr);
+        virtual const Object* Copy(Object* = nullptr) const;
+
+        virtual void InsertChild(Object*, int = INT_MAX);
+        virtual Object* RemoveChild(int);
 
         void TechLevel(const QVariant&);
         QVariant TechLevel() const;
 
-        operator const QJsonObject&() const;
+        operator const QJsonObject&();
         virtual void ToVariantHash(QVariantHash&) const;
         virtual Mustache::QtVariantContext* Context(const QVariantHash&) const;
 
         virtual QList<QVariant> ItemData() const;
 
       protected:
-        Object(const QJsonObject&);
+        virtual void RefreshDependencies();
 
         bool RemoveIfEmpty(const QString&, const QVariant&);
 
@@ -70,8 +72,8 @@ namespace GDW
                               std::function<double(double)> = [](double value) { return value; }) const;
         void SetDoubleFor(const QString&, QVariant,
                           std::function<double(double)> = [](double value) { return value; });
-//        QString GetStringFor(const QString&) const;
-//        void SetStringFor(const QString&, const QString&);
+
+        void SetObjectsFor(const QString&, QList<Object*>&);
 
         double ConvertFrom(double) const;
         double Round(double) const;
@@ -83,7 +85,6 @@ namespace GDW
         static const double STRIKER[];
 
         QJsonObject mJsonObject;
-
     };
   };
 };

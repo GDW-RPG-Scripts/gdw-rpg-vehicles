@@ -33,6 +33,8 @@ namespace GDW
   {
     class SHIPSHARED_EXPORT ShipTreeItem : public ObjectTreeItem
     {
+        Q_OBJECT
+
       public:
         static ShipTreeItem* Create(ObjectTreeItem* parent = nullptr);
         static ShipTreeItem* Unpack(const QJsonObject&,
