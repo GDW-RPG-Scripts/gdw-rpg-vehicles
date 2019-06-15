@@ -19,17 +19,23 @@
 #include "vehicleform.hh"
 #include "ui_vehicleform.h"
 
+#include "objectcmd.hh"
+
+#include <QtWidgets>
+#include <QHBoxLayout>
+#include <QSvgWidget>
+
 #include <QDoubleValidator>
 #include <QRegExpValidator>
 
 using namespace GDW::RPG;
 
-VehicleForm::VehicleForm(Vehicle* vehicle, QWidget* parent) :
-  ObjectForm(parent), mVehicle(vehicle), mUi(new Ui::VehicleForm)
+VehicleForm::VehicleForm(Vehicle* vehicle, QUndoStack* undoStack, QWidget* parent)
+  : ObjectForm(parent, undoStack), mVehicle(vehicle), mUi(new Ui::VehicleForm)
 {
   mUi->setupUi(this);
 
-  AddSvgFrame(mVehicle->Type(), mUi->svgFrame);
+  //AddSvgFrame(mVehicle->Type(), mUi->svgFrame);
   Read();
 
   // mUi-> travelMoveLineEdit->setValidator(new QIntValidator(0, 1000000, this));
@@ -40,6 +46,73 @@ VehicleForm::VehicleForm(Vehicle* vehicle, QWidget* parent) :
 VehicleForm::~VehicleForm()
 {
   delete mUi;
+}
+
+void
+VehicleForm::ShowSvgMenu(const QPoint& position)
+{
+  QAction action_TopDownSet(tr("Set top-down image..."), this);
+  QAction action_SideViewSet(tr("Set side-view image..."), this);
+  QAction action_TopDownClear(tr("Clear top-down image"), this);
+  QAction action_SideViewClear(tr("Clear side-view image"), this);
+
+  connect(&action_TopDownSet, &QAction::triggered, this, &VehicleForm::SetTopDownImage);
+  connect(&action_SideViewSet, &QAction::triggered, this, &VehicleForm::SetSideViewImage);
+  connect(&action_TopDownClear, &QAction::triggered, this, &VehicleForm::ClearTopDownImage);
+  connect(&action_SideViewClear, &QAction::triggered, this, &VehicleForm::ClearSideViewImage);
+
+  QFontMetrics fontMetric(action_TopDownSet.font());
+  QPoint offset(0, fontMetric.height());
+
+  QMenu menu(this);
+  menu.addAction(&action_TopDownSet);
+  menu.addAction(&action_SideViewSet);
+  menu.addSeparator();
+  menu.addAction(&action_TopDownClear);
+  menu.addAction(&action_SideViewClear);
+  menu.exec(mUi->svgFrame->mapToGlobal(position + offset));
+}
+
+void
+VehicleForm::ClearSideViewImage()
+{
+  mVehicle->SideViewImage("");
+
+  UndoStack()->push(new ClearImageCommand(this));
+}
+
+void
+VehicleForm::ClearTopDownImage()
+{
+  mVehicle->TopDownImage("");
+
+  UndoStack()->push(new ClearImageCommand(this));
+}
+
+void
+VehicleForm::SetTopDownImage()
+{
+  qDebug() << "VehicleForm::SetTopDownImage()";
+
+  QByteArray svg = GetSvgFragment(tr("Select Top-Down Image"));
+
+  if(!svg.isEmpty())
+    mVehicle->TopDownImage(svg);
+
+  UndoStack()->push(new SetImageCommand(this));
+}
+
+void
+VehicleForm::SetSideViewImage()
+{
+  qDebug() << "VehicleForm::SetSideViewImage()";
+
+  QByteArray svg = GetSvgFragment(tr("Select Side-View Image"));
+
+  if(!svg.isEmpty())
+    mVehicle->SideViewImage(svg);
+
+  UndoStack()->push(new SetImageCommand(this));
 }
 
 Vehicle*
@@ -82,11 +155,15 @@ VehicleForm::Read(Mode mode, Object* object)
   mUi->   fuelTypeLineEdit->setText(mVehicle->      FuelTypes()    .toString());
   mUi->      nightLineEdit->setText(mVehicle->    NightVision()    .toString());
   mUi->        radLineEdit->setText(mVehicle->            NBC()    .toString());
-  mUi->         x5LineEdit->setText(mVehicle->             X5()    .toString());
-  mUi->         x6LineEdit->setText(mVehicle->             X6()    .toString());
-  mUi->         x7LineEdit->setText(mVehicle->             X7()    .toString());
+  mUi->      skillLineEdit->setText(mVehicle->          Skill()    .toString());
+  mUi->    agilityLineEdit->setText(mVehicle->        Agility()    .toString());
+  mUi->       hullLineEdit->setText(mVehicle->           Hull()    .toString());
+  mUi->  structureLineEdit->setText(mVehicle->      Structure()    .toString());
+  mUi-> openClosedLineEdit->setText(mVehicle->     OpenClosed()    .toString());
   mUi->         x8TextEdit->setPlainText(mVehicle->        X8()    .toString());
   mUi->       locaLineEdit->setText(mVehicle->   HitLocations()    .toString());
+
+  AddSvgFrame(mVehicle->TopDownImage(), mUi->svgFrame);
 
   return original;
 }
@@ -127,9 +204,11 @@ VehicleForm::Write()
   mVehicle->      FuelTypes(mUi->   fuelTypeLineEdit->text());
   mVehicle->    NightVision(mUi->      nightLineEdit->text());
   mVehicle->            NBC(mUi->        radLineEdit->text());
-  mVehicle->             X5(mUi->         x5LineEdit->text());
-  mVehicle->             X6(mUi->         x6LineEdit->text());
-  mVehicle->             X7(mUi->         x7LineEdit->text());
+  mVehicle->          Skill(mUi->      skillLineEdit->text());
+  mVehicle->        Agility(mUi->    agilityLineEdit->text());
+  mVehicle->           Hull(mUi->       hullLineEdit->text());
+  mVehicle->      Structure(mUi->  structureLineEdit->text());
+  mVehicle->     OpenClosed(mUi-> openClosedLineEdit->text());
   mVehicle->             X8(mUi->         x8TextEdit->toPlainText());
   mVehicle->   HitLocations(mUi->       locaLineEdit->text());
 
@@ -172,9 +251,11 @@ VehicleForm::SetReadOnly(bool value)
   mUi->   fuelTypeLineEdit->setReadOnly(value);
   mUi->      nightLineEdit->setReadOnly(value);
   mUi->        radLineEdit->setReadOnly(value);
-  mUi->         x5LineEdit->setReadOnly(value);
-  mUi->         x6LineEdit->setReadOnly(value);
-  mUi->         x7LineEdit->setReadOnly(value);
+  mUi->      skillLineEdit->setReadOnly(value);
+  mUi->       hullLineEdit->setReadOnly(value);
+  mUi->    agilityLineEdit->setReadOnly(value);
+  mUi->  structureLineEdit->setReadOnly(value);
+  mUi-> openClosedLineEdit->setReadOnly(value);
   mUi->         x8TextEdit->setReadOnly(value);
   mUi->       locaLineEdit->setReadOnly(value);
 }

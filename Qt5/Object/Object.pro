@@ -45,6 +45,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
     exception.cc \
     object.cc \
+    objectcmd.cc \
     objectform.cc \
     objectitem.cc \
     objectmodel.cc \
@@ -54,6 +55,7 @@ HEADERS += \
     exception.hh \
     object_global.hh \
     object.hh \
+    objectcmd.hh \
     objectform.hh \
     objectitem.hh \
     objectmodel.hh \

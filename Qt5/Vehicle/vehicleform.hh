@@ -25,6 +25,8 @@
 
 #include "vehicle.hh"
 
+class QUndoStack;
+
 namespace Ui {
   class VehicleForm;
 }
@@ -38,7 +40,7 @@ namespace GDW
         Q_OBJECT
 
       public:
-        explicit VehicleForm(Vehicle* = nullptr, QWidget* parent = nullptr);
+        explicit VehicleForm(Vehicle* = nullptr, QUndoStack* = nullptr, QWidget* parent = nullptr);
         ~VehicleForm() override;
 
         Vehicle* Read(Mode = Mode::Display, Object* = nullptr) override;
@@ -48,6 +50,13 @@ namespace GDW
 
         Vehicle* GetObject() override;
         const Vehicle* GetObject() const override;
+
+      private slots:
+        void ShowSvgMenu(const QPoint&);
+        void SetTopDownImage();
+        void SetSideViewImage();
+        void ClearTopDownImage();
+        void ClearSideViewImage();
 
       private:
         Vehicle* mVehicle;

@@ -44,7 +44,7 @@ namespace GDW
 
         // bool InsertChild(ObjectTreeItem*, int = INT_MAX) override;
 
-        VehicleForm* GetForm() override;
+        VehicleForm* GetForm(QUndoStack*) override;
         QByteArray Template() const override;
 
       protected:

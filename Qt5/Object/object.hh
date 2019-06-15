@@ -78,6 +78,8 @@ namespace GDW
         double ConvertFrom(double) const;
         double Round(double) const;
 
+        QString LineBreakText(QString, int, double = 0.0) const;
+
       private:
         static const QString PROP_TECHLEVEL;
 

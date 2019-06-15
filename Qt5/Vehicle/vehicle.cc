@@ -35,12 +35,7 @@ Vehicle::JSON_TYPE = "__GDW_RPG_Vehicle__";
 
 Vehicle::Vehicle(const QJsonObject& json, Object* parent)
   : Object(json, parent)
-{
-  if(json.contains(PROP_WEAPONS))
-  {
-    mWeapons = Weapon::Load(json[PROP_WEAPONS], this);
-  }
-}
+{}
 
 Vehicle::Vehicle(const Vehicle& vehicle, Object* parent)
   : Object(vehicle, parent)
@@ -128,25 +123,40 @@ Vehicle::ToVariantHash(QVariantHash& hash) const
     list << w_hash;
   }
 
-  hash[PROP_WEAPONS]     = list;
-  hash[PROP_MASS]        = Mass();
-  hash[PROP_LOAD]        = Load();
-  hash[PROP_CREW]        = Crew();
-  hash[PROP_PSGR]        = Passengers();
-  hash[PROP_MNT]         = Maintenance();
-  hash[PROP_COST]        = Cost();
-  hash[PROP_RF]          = Rf();
-  hash[PROP_DECK]        = Deck();
-  hash[PROP_BELLY]       = Belly();
-  hash[PROP_STAB]        = Stabilization();
-  hash[PROP_FUEL]        = FuelTypes();
-  hash[PROP_NIGHT]       = NightVision();
-  hash[PROP_RAD]         = NBC();
-  hash[PROP_X5]          = X5();
-  hash[PROP_X6]          = X6();
-  hash[PROP_X7]          = X7();
-  hash[PROP_X8]          = X8();
-  hash[PROP_LOCA]        = HitLocations();
+  hash[PROP_WEAPONS]      = list;
+  hash[PROP_MASS]         = Mass();
+  hash[PROP_LOAD]         = Load();
+  hash[PROP_CREW]         = Crew();
+  hash[PROP_PSGR]         = Passengers();
+  hash[PROP_MNT]          = Maintenance();
+  hash[PROP_COST]         = Cost();
+  hash[PROP_RF]           = Rf();
+  hash[PROP_DECK]         = Deck();
+  hash[PROP_BELLY]        = Belly();
+  hash[PROP_STAB]         = Stabilization();
+  hash[PROP_FUEL]         = FuelTypes();
+  hash[PROP_NIGHT]        = NightVision();
+  hash[PROP_RAD]          = NBC();
+  hash[PROP_SKILL]        = Skill();
+  hash[PROP_AGILITY]      = Agility();
+  hash[PROP_HULL]         = Hull();
+  hash[PROP_STRUCTURE]    = Structure();
+  hash[PROP_OPENCLOSED]   = OpenClosed();
+  hash[PROP_X8]           = LineBreakText(X8().toString(), 140);
+  hash[PROP_LOCA]         = HitLocations();
+  hash[PROP_SIDEVIEW_IMG] =
+      qUncompress(QByteArray::fromBase64(SideViewImage().toByteArray()));
+  hash[PROP_TOPDOWN_IMG]  =
+      qUncompress(QByteArray::fromBase64(TopDownImage().toByteArray()));
+
+  // Additional asset box
+  QString paragraph;
+  paragraph += tr("Runs on ") + FuelTypes().toString() + ". ";
+  paragraph += Stabilization().toString() + tr(" stabilization. ");
+  paragraph += tr("Night vision: ") + NightVision().toString() + ". ";
+  paragraph += tr("Radiation ") + NBC().toString().toLower() + ". ";
+  hash["assets"]         = LineBreakText(paragraph, 100, 8);
+
 
   bool ok;
 
@@ -938,56 +948,92 @@ Vehicle::NBC(const QVariant& value)
 
 
 /*
- * X5
+ * Skill
  */
-const QString Vehicle::PROP_X5 = "x5";
+const QString Vehicle::PROP_SKILL = "skill";
 
 QVariant
-Vehicle::X5() const
+Vehicle::Skill() const
 {
-  return GetVariantFor(PROP_X5);
+  return GetVariantFor(PROP_SKILL);
 }
 
 void
-Vehicle::X5(const QVariant& value)
+Vehicle::Skill(const QVariant& value)
 {
-  SetVariantFor(PROP_X5, value);
+  SetVariantFor(PROP_SKILL, value);
 }
 
 
 /*
- * X6
+ * Agility
  */
-const QString Vehicle::PROP_X6 = "x6";
+const QString Vehicle::PROP_AGILITY = "agility";
 
 QVariant
-Vehicle::X6() const
+Vehicle::Agility() const
 {
-  return GetVariantFor(PROP_X6);
+  return GetVariantFor(PROP_AGILITY);
 }
 
 void
-Vehicle::X6(const QVariant& value)
+Vehicle::Agility(const QVariant& value)
 {
-  SetVariantFor(PROP_X6, value);
+  SetVariantFor(PROP_AGILITY, value);
 }
 
 
 /*
- * X7
+ * Hull
  */
-const QString Vehicle::PROP_X7 = "x7";
+const QString Vehicle::PROP_HULL = "hull";
 
 QVariant
-Vehicle::X7() const
+Vehicle::Hull() const
 {
-  return GetVariantFor(PROP_X7);
+  return GetVariantFor(PROP_HULL);
 }
 
 void
-Vehicle::X7(const QVariant& value)
+Vehicle::Hull(const QVariant& value)
 {
-  SetVariantFor(PROP_X7, value);
+  SetVariantFor(PROP_HULL, value);
+}
+
+
+/*
+ * Structure
+ */
+const QString Vehicle::PROP_STRUCTURE = "structure";
+
+QVariant
+Vehicle::Structure() const
+{
+  return GetVariantFor(PROP_STRUCTURE);
+}
+
+void
+Vehicle::Structure(const QVariant& value)
+{
+  SetVariantFor(PROP_STRUCTURE, value);
+}
+
+
+/*
+ * OpenClosed
+ */
+const QString Vehicle::PROP_OPENCLOSED = "openclosed";
+
+QVariant
+Vehicle::OpenClosed() const
+{
+  return GetVariantFor(PROP_OPENCLOSED);
+}
+
+void
+Vehicle::OpenClosed(const QVariant& value)
+{
+  SetVariantFor(PROP_OPENCLOSED, value);
 }
 
 
@@ -1006,6 +1052,42 @@ void
 Vehicle::X8(const QVariant& value)
 {
   SetVariantFor(PROP_X8, value);
+}
+
+
+/*
+ * TopDownImage
+ */
+const QString Vehicle::PROP_TOPDOWN_IMG = "topdown";
+
+QVariant
+Vehicle::TopDownImage() const
+{
+  return GetVariantFor(PROP_TOPDOWN_IMG);
+}
+
+void
+Vehicle::TopDownImage(const QVariant& value)
+{
+  SetVariantFor(PROP_TOPDOWN_IMG, value);
+}
+
+
+/*
+ * SideViewImage
+ */
+const QString Vehicle::PROP_SIDEVIEW_IMG = "sideview";
+
+QVariant
+Vehicle::SideViewImage() const
+{
+  return GetVariantFor(PROP_SIDEVIEW_IMG);
+}
+
+void
+Vehicle::SideViewImage(const QVariant& value)
+{
+  SetVariantFor(PROP_SIDEVIEW_IMG, value);
 }
 
 

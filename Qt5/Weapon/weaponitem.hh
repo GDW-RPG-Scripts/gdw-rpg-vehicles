@@ -52,7 +52,7 @@ namespace GDW
 
         WeaponTreeItem* Copy() const override;
 
-        WeaponForm* GetForm() override;
+        WeaponForm* GetForm(QUndoStack*) override;
         // void Select(Ui::Workspace&, ObjectForm* = nullptr) override;
 
         Weapon* GetObject() override;

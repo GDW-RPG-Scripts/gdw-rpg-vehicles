@@ -144,14 +144,20 @@ namespace GDW
         QVariant NBC() const;
         void NBC(const QVariant&);
 
-        QVariant X5() const;
-        void X5(const QVariant&);
+        QVariant Skill() const;
+        void Skill(const QVariant&);
 
-        QVariant X6() const;
-        void X6(const QVariant&);
+        QVariant Agility() const;
+        void Agility(const QVariant&);
 
-        QVariant X7() const;
-        void X7(const QVariant&);
+        QVariant Hull() const;
+        void Hull(const QVariant&);
+
+        QVariant Structure() const;
+        void Structure(const QVariant&);
+
+        QVariant OpenClosed() const;
+        void OpenClosed(const QVariant&);
 
         QVariant X8() const;
         void X8(const QVariant&);
@@ -159,7 +165,12 @@ namespace GDW
         QVariant HitLocations() const;
         void HitLocations(const QVariant&);
 
-        // virtual void Read(const QJsonObject&) override;
+        QVariant TopDownImage() const;
+        void TopDownImage(const QVariant&);
+
+        QVariant SideViewImage() const;
+        void SideViewImage(const QVariant&);
+
 
         static const QString JSON_TYPE;
 
@@ -192,11 +203,15 @@ namespace GDW
         static const QString PROP_FUEL;
         static const QString PROP_NIGHT;
         static const QString PROP_RAD;
-        static const QString PROP_X5;
-        static const QString PROP_X6;
-        static const QString PROP_X7;
+        static const QString PROP_SKILL;
+        static const QString PROP_AGILITY;
+        static const QString PROP_HULL;
+        static const QString PROP_STRUCTURE;
+        static const QString PROP_OPENCLOSED;
         static const QString PROP_X8;
         static const QString PROP_LOCA;
+        static const QString PROP_TOPDOWN_IMG;
+        static const QString PROP_SIDEVIEW_IMG;
 
         qreal Divisor() const;
 

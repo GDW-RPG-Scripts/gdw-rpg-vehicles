@@ -21,8 +21,8 @@
 
 using namespace GDW::RPG;
 
-ShipForm::ShipForm(Ship* ship, QWidget *parent)
-  : ObjectForm(parent), mShip(ship), mUi(new Ui::ShipForm)
+ShipForm::ShipForm(Ship* ship, QUndoStack* undoStack, QWidget *parent)
+  : ObjectForm(parent, undoStack), mShip(ship), mUi(new Ui::ShipForm)
 {
   mUi->setupUi(this);
 

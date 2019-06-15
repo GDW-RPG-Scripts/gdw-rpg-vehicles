@@ -27,6 +27,7 @@
 class QJsonArray;
 class QStackedWidget;
 class QTextStream;
+class QUndoStack;
 
 namespace Ui {
   class Workspace;
@@ -74,7 +75,7 @@ namespace GDW
 
         void RefreshItemData();
 
-        virtual ObjectForm* GetForm();
+        virtual ObjectForm* GetForm(QUndoStack*);
         virtual Object* GetObject();
         virtual const Object* GetObject() const;
 

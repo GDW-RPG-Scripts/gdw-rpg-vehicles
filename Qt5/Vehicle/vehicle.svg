@@ -361,7 +361,7 @@
           textLength="22"
           x="13"
 	  y="6.5"
-          >{{open}}</text>
+          >{{openclosed}}</text>
     </g>
   </g>
   <g id="StatsHeading_2" transform="translate(5,40)">
@@ -781,8 +781,9 @@
 	id="AdditonalHeading"
 	class="Heading2LeftText"
 	textLength="54"
-	x="2"
+        x="2.5"
 	y="5.5">Additional assets/capabilites:</text>
+    {{{assets}}}
   </g>
   <g id="TopDownView" transform="translate(5,184)">
     <rect
@@ -926,11 +927,6 @@
       x="0"
       y="0"
       ry="2" />
-  <text
-      id="HullRearText"
-      class="Field2LeftText"
-      textLength="128"
-      x="2"
-      y="6.5">{{x8}}</text>
+    {{{x8}}}
   </g>
 </svg>

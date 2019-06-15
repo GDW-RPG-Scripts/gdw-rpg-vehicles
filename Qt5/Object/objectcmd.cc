@@ -16,63 +16,59 @@
  * General Public License along with GDW RPG Vehicles. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "unitform.hh"
-#include "ui_unitform.h"
+#include "objectcmd.hh"
+#include "objectform.hh"
+
+#include <QDebug>
 
 using namespace GDW::RPG;
 
-UnitForm::UnitForm(Unit* unit, QUndoStack* undoStack, QWidget* parent)
-  : ObjectForm(parent, undoStack), mUnit(unit), mUi(new Ui::UnitForm)
+//
+// Clear Image Command
+//
+ClearImageCommand::ClearImageCommand(ObjectForm* form, QUndoCommand* parent)
+  : QUndoCommand(parent), mObjectForm(form)
 {
-  mUi->setupUi(this);
-
-  Read();
-}
-
-UnitForm::~UnitForm()
-{
-  delete mUi;
-}
-
-Unit*
-UnitForm::Read(Mode, Object*)
-{
-  ObjectForm::Read();
-
-  return nullptr;
-}
-
-Unit*
-UnitForm::Write()
-{
-  ObjectForm::Write();
-
-  SetReadOnly(true);
-
-  return nullptr;
+  setText(QObject::tr("clear image"));
 }
 
 void
-UnitForm::SetReadOnly(bool value)
+ClearImageCommand::undo()
 {
-  ObjectForm::SetReadOnly(value);
+  qDebug() << "ClearImageCommand::undo()";
+
+  mObjectForm->Read();
 }
 
-QString
-UnitForm::Title() const
+void
+ClearImageCommand::redo()
 {
+  qDebug() << "ClearImageCommand::redo()";
 
-  return tr("Unit");
+  mObjectForm->Read();
 }
 
-Unit*
-UnitForm::GetObject()
+//
+// Set Image Command
+//
+SetImageCommand::SetImageCommand(ObjectForm* form, QUndoCommand* parent)
+  : QUndoCommand(parent), mObjectForm(form)
 {
-  return mUnit;
+  setText(QObject::tr("set image"));
 }
 
-const Unit*
-UnitForm::GetObject() const
+void
+SetImageCommand::undo()
 {
-  return mUnit;
+  qDebug() << "SetImageCommand::undo()";
+
+  mObjectForm->Read();
+}
+
+void
+SetImageCommand::redo()
+{
+  qDebug() << "SetImageCommand::redo()";
+
+  mObjectForm->Read();
 }

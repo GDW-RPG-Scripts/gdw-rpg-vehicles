@@ -40,7 +40,7 @@ namespace GDW
         static ShipTreeItem* Unpack(const QJsonObject&,
                                     ObjectTreeItem* parent);
 
-        ShipForm* GetForm() override;
+        ShipForm* GetForm(QUndoStack*) override;
 
         ShipTreeItem();
 

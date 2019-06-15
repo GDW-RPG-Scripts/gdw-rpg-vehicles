@@ -47,9 +47,9 @@ UnitTreeItem::UnitTreeItem(Unit* unit, ObjectTreeItem* parent)
 }
 
 UnitForm*
-UnitTreeItem::GetForm()
+UnitTreeItem::GetForm(QUndoStack* undoStack)
 {
-  return new UnitForm(GetObject());
+  return new UnitForm(GetObject(), undoStack);
 }
 
 Unit*

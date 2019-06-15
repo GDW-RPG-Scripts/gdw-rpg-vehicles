@@ -40,7 +40,7 @@ namespace GDW
         Q_OBJECT
 
       public:
-        explicit UnitForm(Unit* = nullptr, QWidget *parent = nullptr);
+        explicit UnitForm(Unit* = nullptr, QUndoStack* = nullptr, QWidget *parent = nullptr);
         ~UnitForm() override;
 
         Unit* Read(Mode = Mode::Display, Object* = nullptr) override;

@@ -22,8 +22,11 @@
 
 #include "mustache.hh"
 
-#include <QtMath>
+#include <QFont>
+#include <QFontMetrics>
 #include <QJsonArray>
+#include <QPrinter>
+#include <QtMath>
 #include <QSettings>
 
 #include <cmath>
@@ -230,4 +233,40 @@ Object::Round(double value) const
     return 1;
 
   return std::round(value);
+}
+
+QString
+Object::LineBreakText(QString paragraph, int width, double y) const
+{
+  QPrinter printer;
+  QFont font("Helvetica Neue", 5);
+  QFontMetrics metric(font, &printer);
+
+  QString line, result;
+  QStringList words = paragraph.split(' ');
+  for (int i = 0; i < words.length(); i++) {
+    QString testLine = line + words[i] + ' ';
+    if(metric.boundingRect(testLine).width() > width && i > 0) {
+      result +=
+          "<text id=\"DisplayText\" class=\"Field2LeftText\" textLength=\""
+          + QString::number(width)
+          + "\" x=\"2\" y=\""
+          + QString::number(y += 5)
+          + "\">"
+          + line
+          + "</text>";
+      line = words[i] + ' ';
+    } else {
+      line = testLine;
+    }
+  }
+  result += "<text id=\"DisplayText\" class=\"Field2LeftText\" textLength=\""
+            + QString::number(width)
+            + "\" x=\"2\" y=\""
+            + QString::number(y + 5)
+            + "\">"
+            + line
+            + "</text>";
+
+  return result;
 }

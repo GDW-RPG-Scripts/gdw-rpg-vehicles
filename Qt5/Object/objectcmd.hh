@@ -16,45 +16,41 @@
  * General Public License along with GDW RPG Vehicles. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef UNITITEM_HH
-#define UNITITEM_HH
+#ifndef OBJECTCMD_HH
+#define OBJECTCMD_HH
 
-#include "unit_global.hh"
-
-#include "objectitem.hh"
-
-#include "unit.hh"
-#include "unitform.hh"
-#include "unitmodel.hh"
+#include <QUndoCommand>
 
 namespace GDW
 {
   namespace RPG
   {
-    class UNITSHARED_EXPORT UnitTreeItem : public ObjectTreeItem
+    class ObjectForm;
+
+    class ClearImageCommand : public QUndoCommand
     {
-        Q_OBJECT
-
       public:
-        static UnitTreeItem* Create(ObjectTreeItem* parent = nullptr);
-        static UnitTreeItem* Unpack(const QJsonObject&,
-                                    ObjectTreeItem* parent);
+        ClearImageCommand(ObjectForm*, QUndoCommand* parent = nullptr);
 
-        UnitForm* GetForm(QUndoStack*) override;
+        void undo() override;
+        void redo() override;
 
-        UnitTreeItem();
+      private:
+        ObjectForm* mObjectForm;
+    };
 
-      protected:
-        explicit UnitTreeItem(Unit*, ObjectTreeItem* parent = nullptr);
+    class SetImageCommand : public QUndoCommand
+    {
+      public:
+        SetImageCommand(ObjectForm*, QUndoCommand* parent = nullptr);
 
-        Unit* GetObject() override;
-        const Unit* GetObject() const override;
+        void undo() override;
+        void redo() override;
 
-        UnitModel* Model() const override;
+      private:
+        ObjectForm* mObjectForm;
     };
   };
 };
 
-// Q_DECLARE_METATYPE(GDW::RPG::UnitTreeItem)
-
-#endif // UNITITEM_HH
+#endif // OBJECTCMD_HH

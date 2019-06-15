@@ -72,7 +72,7 @@ namespace GDW
         void Redo();
         void Undo();
         void About();
-        void DocumentWasModified();
+        void DocumentWasModified(bool);
 #ifndef QT_NO_SESSIONMANAGER
         void CommitData(QSessionManager&);
 #endif

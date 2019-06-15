@@ -25,6 +25,9 @@
 
 #include <QWidget>
 
+class QUndoStack;
+class QXmlStreamReader;
+
 namespace GDW
 {
   namespace RPG
@@ -34,7 +37,7 @@ namespace GDW
         Q_OBJECT
 
       public:
-        explicit ObjectForm(QWidget* parent = nullptr);
+        explicit ObjectForm(QWidget* parent = nullptr, QUndoStack* = nullptr);
         virtual ~ObjectForm();
 
         virtual Object* Read(Mode = Mode::Display, Object* = nullptr);
@@ -48,10 +51,15 @@ namespace GDW
         virtual const Object* GetObject() const;
 
       protected:
+        QUndoStack* UndoStack();
+
         void AddSvgFrame(const QVariant&, QWidget*);
+        QByteArray GetSvgFragment(const QString&);
+
 
       private:
         bool mReadOnly;
+        mutable QUndoStack* mUndoStack;
     };
   };
 };

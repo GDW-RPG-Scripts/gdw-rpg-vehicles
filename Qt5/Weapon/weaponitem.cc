@@ -62,9 +62,9 @@ WeaponTreeItem::Copy() const
 }
 
 WeaponForm*
-WeaponTreeItem::GetForm()
+WeaponTreeItem::GetForm(QUndoStack* undoStack)
 {
-  return new WeaponForm(GetObject());
+  return new WeaponForm(GetObject(), undoStack);
 }
 
 //    void

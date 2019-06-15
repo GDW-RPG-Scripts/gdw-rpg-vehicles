@@ -40,7 +40,7 @@ namespace GDW
         Q_OBJECT
 
       public:
-        explicit WeaponForm(Weapon* = nullptr, QWidget* parent = nullptr);
+        explicit WeaponForm(Weapon* = nullptr, QUndoStack* = nullptr, QWidget* parent = nullptr);
         ~WeaponForm() override;
 
         Weapon* Read(Mode = Mode::Display, Object* = nullptr) override;

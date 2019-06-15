@@ -13,7 +13,7 @@
   <property name="sizePolicy">
    <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
     <horstretch>1</horstretch>
-    <verstretch>1</verstretch>
+    <verstretch>0</verstretch>
    </sizepolicy>
   </property>
   <property name="windowTitle">
@@ -788,7 +788,7 @@
       </layout>
      </item>
      <item row="2" column="2">
-      <widget class="QWidget" name="xnWidget" native="true">
+      <widget class="QWidget" name="cepheusWidget" native="true">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
          <horstretch>0</horstretch>
@@ -821,22 +821,25 @@
          <number>0</number>
         </property>
         <item row="2" column="0">
-         <widget class="QLabel" name="x5Label">
+         <widget class="QLabel" name="skillLabel">
           <property name="text">
-           <string>X5:</string>
+           <string>Skill:</string>
           </property>
           <property name="buddy">
-           <cstring>x5LineEdit</cstring>
+           <cstring>skillLineEdit</cstring>
           </property>
          </widget>
         </item>
         <item row="2" column="1">
-         <widget class="QLineEdit" name="x5LineEdit">
+         <widget class="QLineEdit" name="skillLineEdit">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
             <horstretch>0</horstretch>
             <verstretch>0</verstretch>
            </sizepolicy>
+          </property>
+          <property name="toolTip">
+           <string>Skill used to drive or pilot the vehicle.</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -847,17 +850,46 @@
          </widget>
         </item>
         <item row="3" column="0">
-         <widget class="QLabel" name="x6Label">
+         <widget class="QLabel" name="agilityLabel">
           <property name="text">
-           <string>X6:</string>
+           <string>Agility:</string>
           </property>
           <property name="buddy">
-           <cstring>x6LineEdit</cstring>
+           <cstring>agilityLineEdit</cstring>
           </property>
          </widget>
         </item>
         <item row="3" column="1">
-         <widget class="QLineEdit" name="x6LineEdit">
+         <widget class="QLineEdit" name="agilityLineEdit">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="toolTip">
+           <string>How easy the vehicle is to drive, expressed as a DM to the pilot’s skill check.</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          </property>
+          <property name="readOnly">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="0">
+         <widget class="QLabel" name="hullLabel">
+          <property name="text">
+           <string>Hull:</string>
+          </property>
+          <property name="buddy">
+           <cstring>hullLineEdit</cstring>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="1">
+         <widget class="QLineEdit" name="hullLineEdit">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
             <horstretch>0</horstretch>
@@ -872,23 +904,34 @@
           </property>
          </widget>
         </item>
-        <item row="4" column="0">
-         <widget class="QLabel" name="x7Label">
+        <item row="5" column="0">
+         <widget class="QLabel" name="structureLabel">
           <property name="text">
-           <string>X7:</string>
-          </property>
-          <property name="buddy">
-           <cstring>x7LineEdit</cstring>
+           <string>Structure:</string>
           </property>
          </widget>
         </item>
-        <item row="4" column="1">
-         <widget class="QLineEdit" name="x7LineEdit">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
+        <item row="5" column="1">
+         <widget class="QLineEdit" name="structureLineEdit">
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          </property>
+          <property name="readOnly">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item row="6" column="0">
+         <widget class="QLabel" name="openClosedLabel">
+          <property name="text">
+           <string>Open/Clsd:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="6" column="1">
+         <widget class="QLineEdit" name="openClosedLineEdit">
+          <property name="toolTip">
+           <string>If the vehicle is open or closed.</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -1406,8 +1449,11 @@
        <property name="sizePolicy">
         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
          <horstretch>1</horstretch>
-         <verstretch>1</verstretch>
+         <verstretch>0</verstretch>
         </sizepolicy>
+       </property>
+       <property name="contextMenuPolicy">
+        <enum>Qt::CustomContextMenu</enum>
        </property>
        <property name="autoFillBackground">
         <bool>false</bool>
@@ -1463,14 +1509,32 @@
   <tabstop>bellyLineEdit</tabstop>
   <tabstop>rFLineEdit</tabstop>
   <tabstop>locaLineEdit</tabstop>
-  <tabstop>x5LineEdit</tabstop>
-  <tabstop>x6LineEdit</tabstop>
-  <tabstop>x7LineEdit</tabstop>
+  <tabstop>skillLineEdit</tabstop>
+  <tabstop>agilityLineEdit</tabstop>
+  <tabstop>hullLineEdit</tabstop>
   <tabstop>x8TextEdit</tabstop>
  </tabstops>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>svgFrame</sender>
+   <signal>customContextMenuRequested(QPoint)</signal>
+   <receiver>VehicleForm</receiver>
+   <slot>ShowSvgMenu(QPoint)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>739</x>
+     <y>160</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>419</x>
+     <y>244</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
  <slots>
   <slot>ViewUpdated()</slot>
+  <slot>ShowSvgMenu(QPoint)</slot>
  </slots>
 </ui>

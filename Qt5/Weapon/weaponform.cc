@@ -22,12 +22,12 @@
 
 using namespace GDW::RPG;
 
-WeaponForm::WeaponForm(Weapon* weapon, QWidget* parent) :
-  ObjectForm(parent), mWeapon(weapon), mUi(new Ui::WeaponForm)
+WeaponForm::WeaponForm(Weapon* weapon, QUndoStack* undoStack, QWidget* parent)
+  : ObjectForm(parent, undoStack), mWeapon(weapon), mUi(new Ui::WeaponForm)
 {
   mUi->setupUi(this);
 
-  AddSvgFrame("WEP", mUi->svgFrame);
+  //AddSvgFrame("WEP", mUi->svgFrame);
   Read();
 }
 
@@ -62,6 +62,8 @@ WeaponForm::Read(Mode mode, Object* object)
   mUi->      conLineEdit->setText(mWeapon->Concussion()    .toString());
   mUi->      burLineEdit->setText(mWeapon->     Burst(mode).toString());
   mUi->     pranLineEdit->setText(mWeapon->      Pran()    .toString());
+
+  AddSvgFrame(mWeapon->SideViewImage(), mUi->svgFrame);
 
   return original;
 }

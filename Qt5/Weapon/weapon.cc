@@ -83,18 +83,21 @@ Weapon::ToVariantHash(QVariantHash& hash) const
   bool ok;
   double value;
 
-  hash[PROP_WTYP]  = Wtyp();
-  hash[PROP_WQUAL] = Wqual();
-  hash[PROP_ROF]   = RateOfFire();
-  hash[PROP_RNG]   = Range();
-  hash[PROP_PS]    = Ps();
-  hash[PROP_PM]    = Pl();
-  hash[PROP_PL]    = Pm();
-  hash[PROP_PX]    = Px();
-  hash[PROP_AMMO]  = Ammo();
-  hash[PROP_CON]   = Concussion();
-  hash[PROP_BUR]   = Burst();
-  hash[PROP_PRAN]  = Pran();
+  hash[PROP_WTYP]         = Wtyp();
+  hash[PROP_WQUAL]        = Wqual();
+  hash[PROP_ROF]          = RateOfFire();
+  hash[PROP_RNG]          = Range();
+  hash[PROP_PS]           = Ps();
+  hash[PROP_PM]           = Pl();
+  hash[PROP_PL]           = Pm();
+  hash[PROP_PX]           = Px();
+  hash[PROP_AMMO]         = Ammo();
+  hash[PROP_CON]          = Concussion();
+  hash[PROP_BUR]          = Burst();
+  hash[PROP_PRAN]         = Pran();
+
+  hash[PROP_SIDEVIEW_IMG] =
+      qUncompress(QByteArray::fromBase64(SideViewImage().toByteArray()));
 
   hash["conc?"]  = Wqual() == "C";
   value = std::round(Range().toDouble(&ok) / 2);
@@ -313,6 +316,24 @@ void
 Weapon::Pran(const QVariant& value)
 {
   SetVariantFor(PROP_PRAN, value);
+}
+
+
+/*
+ * SideViewImage
+ */
+const QString Weapon::PROP_SIDEVIEW_IMG = "sideview";
+
+QVariant
+Weapon::SideViewImage() const
+{
+  return GetVariantFor(PROP_SIDEVIEW_IMG);
+}
+
+void
+Weapon::SideViewImage(const QVariant& value)
+{
+  SetVariantFor(PROP_SIDEVIEW_IMG, value);
 }
 
 

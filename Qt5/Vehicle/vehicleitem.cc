@@ -46,7 +46,12 @@ VehicleTreeItem::Unpack(const QJsonObject& json, ObjectTreeItem* parent)
   Vehicle* vehicle = new Vehicle(json);
   VehicleTreeItem* vti = new VehicleTreeItem(vehicle, parent);
 
-  QList<Weapon*> list = vehicle->Weapons();
+  QList<Weapon*> list;// = vehicle->Weapons();
+  const QString PROP_WEAPONS = "weap";
+  if(json.contains(PROP_WEAPONS)) {
+    list = Weapon::Load(json[PROP_WEAPONS], vehicle);
+  }
+
   for(Weapon* weapon: list) {
     VehicleModel::Model()->InsertChild(new WeaponTreeItem(weapon, vti), vti);
   }
@@ -77,9 +82,9 @@ VehicleTreeItem::VehicleTreeItem(Vehicle* vehicle, ObjectTreeItem* parent)
 //}
 
 VehicleForm*
-VehicleTreeItem::GetForm()
+VehicleTreeItem::GetForm(QUndoStack* undoStack)
 {
-  return new VehicleForm(GetObject());
+  return new VehicleForm(GetObject(), undoStack);
 }
 
 Vehicle*

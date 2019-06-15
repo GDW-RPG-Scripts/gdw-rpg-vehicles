@@ -18,16 +18,16 @@
 
 #include "objectform.hh"
 
-// #include <QDebug>
-// #include <QDoubleValidator>
+#include <QDebug>
 #include <QHBoxLayout>
-// #include <QIntValidator>
+#include <QSvgRenderer>
 #include <QSvgWidget>
+#include <QtWidgets>
 
 using namespace GDW::RPG;
 
-ObjectForm::ObjectForm(QWidget* parent) :
-  QWidget(parent), mReadOnly(true)
+ObjectForm::ObjectForm(QWidget* parent, QUndoStack* undoStack) :
+  QWidget(parent), mReadOnly(true), mUndoStack(undoStack)
 {}
 
 ObjectForm::~ObjectForm()
@@ -75,13 +75,152 @@ ObjectForm::GetObject() const
   return nullptr;
 }
 
-void
-ObjectForm::AddSvgFrame(const QVariant& name, QWidget* parent)
+QUndoStack*
+ObjectForm::UndoStack()
 {
-  QHBoxLayout* hbox = new QHBoxLayout(parent);
+  return mUndoStack;
+}
+
+void
+ObjectForm::AddSvgFrame(const QVariant& data, QWidget* parent)
+{
+  if(!data.isValid())
+    return;
+
+  QSvgWidget* svg = nullptr;
+
+  if(!data.toByteArray().isEmpty()) {
+    QByteArray base64 = data.toByteArray();
+    QByteArray fragment = qUncompress(QByteArray::fromBase64(base64));
+
+    svg = new QSvgWidget;
+    svg->load(fragment);
+  }
+
+  QHBoxLayout* hbox = new QHBoxLayout;
   hbox->setContentsMargins(2,2,2,2);
-  QSvgWidget* svg =
-      new QSvgWidget(":/images/" + name.toString() +".svg", parent); // + mWeapon->Wtyp() +
   hbox->addWidget(svg);
+
+  QLayout* layout = parent->layout();
+  if(layout)
+    delete layout;
   parent->setLayout(hbox);
+  parent->update();
+}
+
+QByteArray
+ObjectForm::GetSvgFragment(const QString& message)
+{
+  QString fileName =
+      QFileDialog::getOpenFileName(this, message, ".",
+                                   tr("SVG files (*.svg)"));
+  if (fileName.isEmpty())
+    return "";
+
+  QFile file(fileName);
+  if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
+    return "";
+
+  QByteArray result;
+  QXmlStreamReader xml(&file);
+
+  int level = 0;
+  while (!xml.atEnd()) {
+    QXmlStreamReader::TokenType type = xml.readNext();
+    switch(type) {
+      case QXmlStreamReader::NoToken:
+        qDebug() << "<!-- No Token -->";
+        break;
+
+      case QXmlStreamReader::Invalid:
+        qDebug() << "<!-- Invalid -->";
+        break;
+
+      case QXmlStreamReader::StartDocument:
+        qDebug() << "<!-- Start Dockument -->";
+        break;
+
+      case QXmlStreamReader::EndDocument:
+        qDebug() << "<!-- End Dockument -->";
+        break;
+
+      case QXmlStreamReader::StartElement:
+      {
+        QString indent;
+        for (int i = 0; i < level; i++) {
+          indent += "  ";
+        }
+        QString nsDecls;
+        for(QXmlStreamNamespaceDeclaration nd: xml.namespaceDeclarations()){
+          nsDecls += (nd.prefix().isEmpty() ? " xmlns" : " xmlns:")
+                     + nd.prefix() + "=\"" + nd.namespaceUri() + "\"";
+        }
+        QString attributes;
+        for(QXmlStreamAttribute a: xml.attributes()) {
+          attributes += " " + a.name() + "=\"" + a.value() + "\"";
+        }
+        result += "<" + xml.name() + nsDecls + attributes + ">";
+        qDebug().noquote().nospace()
+            << indent
+            << "<" << xml.name()
+            << nsDecls
+            << attributes
+            << ">";
+        level += 1;
+        break;
+      }
+
+      case QXmlStreamReader::EndElement:
+      {
+        level -= 1;
+        QString indent;
+        for (int i = 0; i < level; i++) {
+          indent += "  ";
+        }
+        result += "</" + xml.name() + ">";
+        qDebug().noquote().nospace()
+            << indent
+            << "</" << xml.name() << ">";
+        break;
+      }
+
+      case QXmlStreamReader::Characters:
+      {
+        QString indent;
+        for (int i = 0; i < level; i++) {
+          indent += "  ";
+        }
+        if(!xml.isWhitespace()) {
+          result += xml.text().toString();
+          qDebug().noquote().nospace()
+              << indent
+              << "  " << xml.text();
+        }
+        break;
+      }
+
+      case QXmlStreamReader::Comment:
+        qDebug() << "<!-- Comment -->";
+        break;
+
+      case QXmlStreamReader::DTD:
+        qDebug() << "<!-- DTD -->";
+        break;
+
+      case QXmlStreamReader::EntityReference:
+        qDebug() << "<!-- EntityReference -->";
+        break;
+
+      case QXmlStreamReader::ProcessingInstruction:
+        qDebug() << "<!-- ProcessingInstruction -->";
+        break;
+    }
+  }
+
+  if(xml.hasError()) {
+    qDebug() << xml.errorString();
+    return "";
+  }
+
+  return qCompress(result, 9).toBase64();
 }

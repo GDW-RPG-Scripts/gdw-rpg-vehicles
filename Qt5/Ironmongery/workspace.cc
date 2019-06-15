@@ -81,9 +81,9 @@ Workspace::Workspace(QWidget* parent) :
   {mUi.unitTreeView,     UnitModel   ::Model}};
 
   for(ModelView mv: mvMap) {
-//    QSortFilterProxyModel* proxyModel = new QSortFilterProxyModel(this);
-//    proxyModel->setSourceModel(mv.model());
-//    mv.view->setModel(proxyModel);
+    //    QSortFilterProxyModel* proxyModel = new QSortFilterProxyModel(this);
+    //    proxyModel->setSourceModel(mv.model());
+    //    mv.view->setModel(proxyModel);
     mv.view->setModel(mv.model());
   }
 
@@ -102,6 +102,7 @@ Workspace::Workspace(QWidget* parent) :
 #endif
 
   connect(mUi.menuEdit, &QMenu::aboutToShow, this, &Workspace::UpdateActions);
+  connect(&mUndoStack, &QUndoStack::cleanChanged, this, &Workspace::DocumentWasModified);
 
   if(mLoadOnStart)
     LoadFile(":/Default.gro");
@@ -143,8 +144,8 @@ void Workspace::New()
       QTreeView* view =
           static_cast<QTreeView*>(mUi.tabWidget->widget(i)->layout()->itemAt(0)->widget());
 
-//      QAbstractProxyModel* proxy =
-//          static_cast<QAbstractProxyModel*>(view->model());
+      //      QAbstractProxyModel* proxy =
+      //          static_cast<QAbstractProxyModel*>(view->model());
 
       ObjectModel* model =
           static_cast<ObjectModel*>(view->model()); //proxy->sourceModel());
@@ -153,6 +154,7 @@ void Workspace::New()
     }
 
     CurrentFile(QString());
+    UpdateActions();
   }
 }
 
@@ -166,6 +168,7 @@ Workspace::Open()
     if (!fileName.isEmpty()) {
       New();
       LoadFile(fileName);
+      UpdateActions();
     }
   }
 }
@@ -178,6 +181,7 @@ Workspace::Import()
                                    tr("GDW RPG Object files (*.json *.grv *.gro)"));
   if (!fileName.isEmpty()) {
     LoadFile(fileName);
+    setWindowModified(true);
   }
 }
 
@@ -276,8 +280,6 @@ Workspace::InsertItem()
                              QItemSelectionModel::ClearAndSelect |
                              QItemSelectionModel::Rows);
 
-  UpdateActions();
-
   view.update();
 }
 
@@ -313,8 +315,6 @@ Workspace::RemoveSelectedItems()
     Unselect();
     mUndoStack.push(new RemoveItemCommand(index));
   }
-
-  UpdateActions();
 }
 
 void
@@ -350,10 +350,10 @@ Workspace::Undo()
 }
 
 void
-Workspace::DocumentWasModified()
+Workspace::DocumentWasModified(bool isClean)
 {
-  setWindowModified(IsModified());
-  // setWindowModified(textEdit->document()->isModified());
+  setWindowModified(!isClean);
+  UpdateActions();
 }
 
 void
@@ -363,7 +363,7 @@ Workspace::ItemClicked(const QModelIndex& index)
       static_cast<ObjectTreeItem*>(index.internalPointer());
 
   if(GetCurrentTreeView().selectionModel()->isSelected(index))
-    return Select(oti->GetForm());
+    return Select(oti->GetForm(&mUndoStack));
 
   Unselect();
 }
@@ -503,11 +503,12 @@ Workspace::AddWeapon()
 void
 Workspace::ShowVehiclesMenu(const QPoint& position)
 {
-  QAction action(tr("Add weapon"), this);
-  QFontMetrics fontMetric(action.font());
-  QPoint offset(0, fontMetric.height());
+  QAction action(tr("Add weapon..."), this);
 
   connect(&action, &QAction::triggered, this, &Workspace::AddWeapon);
+
+  QFontMetrics fontMetric(action.font());
+  QPoint offset(0, fontMetric.height());
 
   QMenu menu(this);
   menu.addAction(&action);
@@ -517,11 +518,12 @@ Workspace::ShowVehiclesMenu(const QPoint& position)
 void
 Workspace::ShowWeaponsMenu(const QPoint& position)
 {
-  QAction action(tr("Add munition"), this);
-  QFontMetrics fontMetric(action.font());
-  QPoint offset(0, fontMetric.height());
+  QAction action(tr("Add munition..."), this);
 
   connect(&action, &QAction::triggered, this, &Workspace::AddMunition);
+
+  QFontMetrics fontMetric(action.font());
+  QPoint offset(0, fontMetric.height());
 
   QMenu menu(this);
   menu.addAction(&action);
@@ -563,7 +565,7 @@ Workspace::WriteSettings()
 bool
 Workspace::IsModified()
 {
-  return !mUndoStack.isClean();
+  return isWindowModified();
 }
 
 bool
@@ -662,10 +664,10 @@ Workspace::LoadFile(const QString& fileName)
   UpdateActions();
   mUi.action_Save->setEnabled(true);
   mUi.action_SaveAs->setEnabled(true);
-  statusBar()->showMessage(tr("Objects loaded") +
-                           ": " +
-                           QString::number(time.count()) +
-                           " ms.", 5000);
+  statusBar()->showMessage(tr("Objects loaded")
+                           + ": "
+                           + QString::number(time.count())
+                           + " ms.", 5000);
 }
 
 bool
@@ -711,10 +713,12 @@ Workspace::CurrentFile(const QString& fileName)
 {
   QFileInfo info(mCurrentFile = fileName);
   QString title(info.fileName());
-  title += info.fileName().isEmpty() ? "" : " - ";
-  setWindowTitle(title +
-                 QCoreApplication::organizationName() + " " +
-                 QCoreApplication::applicationName());
+  title += info.fileName().isEmpty() ? "" : "[*] - ";
+  setWindowTitle(title
+                 + QCoreApplication::organizationName()
+                 + " "
+                 + QCoreApplication::applicationName()
+                 );
 }
 
 void
@@ -723,7 +727,7 @@ Workspace::UpdateActions()
   QTreeView& view = GetCurrentTreeView();
   QItemSelectionModel* selectionModel = view.selectionModel();
 
-  mUi.action_Save->setEnabled(!mUndoStack.isClean());
+  mUi.action_Save->setEnabled(IsModified() /*!mUndoStack.isClean()*/);
   mUi.action_SaveAs->setEnabled(true);
 
   bool hasSelection =

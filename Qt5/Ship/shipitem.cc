@@ -48,9 +48,9 @@ ShipTreeItem::ShipTreeItem(Ship* ship, ObjectTreeItem* parent)
 }
 
 ShipForm*
-ShipTreeItem::GetForm()
+ShipTreeItem::GetForm(QUndoStack* undoStack)
 {
-  return new ShipForm(GetObject());
+  return new ShipForm(GetObject(), undoStack);
 }
 
 Ship*

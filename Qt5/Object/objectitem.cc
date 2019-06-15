@@ -114,6 +114,8 @@ ObjectTreeItem::InsertChild(ObjectTreeItem* item, int position)
 
   mChildItems.insert(position, item);
 
+// Not necessary since the basic objects come with their
+// children already:
   if(mObject)
     mObject->InsertChild(item->GetObject(), position);
 
@@ -183,7 +185,7 @@ GDW::RPG::operator<<(QTextStream& ots, const ObjectTreeItem& item)
 }
 
 ObjectForm*
-ObjectTreeItem::GetForm()
+ObjectTreeItem::GetForm(QUndoStack*)
 {
   return nullptr;
 }

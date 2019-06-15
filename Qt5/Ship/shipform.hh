@@ -40,7 +40,7 @@ namespace GDW
         Q_OBJECT
 
       public:
-        explicit ShipForm(Ship* = nullptr, QWidget* parent = nullptr);
+        explicit ShipForm(Ship* = nullptr, QUndoStack* = nullptr, QWidget* parent = nullptr);
         ~ShipForm();
 
         Ship* Read(Mode = Mode::Display, Object* = nullptr) override;
