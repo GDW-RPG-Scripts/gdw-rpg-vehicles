@@ -26,8 +26,11 @@ QT       -= gui
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += printsupport
 
-TARGET = Ship
 TEMPLATE = lib
+
+TARGET = Ship
+VERSION = 0.0_a2
+CONFIG += staticlib
 
 DEFINES += SHIP_LIBRARY
 

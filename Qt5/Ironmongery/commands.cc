@@ -34,7 +34,7 @@ AddChildItemCommand::AddChildItemCommand(ObjectTreeItem* parentItem,
                                          ObjectTreeItem* childItem,
                                          QUndoCommand* parent)
   : QUndoCommand(parent),
-    mParentItem(parentItem), mChildItem(childItem)
+    mParentItem(parentItem), mChildItem(childItem->Copy())
 {
   setText(QObject::tr("child add"));
 }

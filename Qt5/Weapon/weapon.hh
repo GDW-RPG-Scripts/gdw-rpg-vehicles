@@ -85,6 +85,9 @@ namespace GDW
         QVariant Pran() const;
         void Pran(const QVariant&);
 
+        QVariant Description() const;
+        void Description(const QVariant&);
+
         QVariant SideViewImage() const;
         void SideViewImage(const QVariant&);
 
@@ -103,6 +106,7 @@ namespace GDW
         static const QString PROP_CON;
         static const QString PROP_BUR;
         static const QString PROP_PRAN;
+        static const QString PROP_DESCRIPTION;
         static const QString PROP_SIDEVIEW_IMG;
 
     };

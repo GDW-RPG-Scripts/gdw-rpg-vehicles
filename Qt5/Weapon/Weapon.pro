@@ -26,8 +26,11 @@ QT       -= gui
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += printsupport
 
-TARGET = Weapon
 TEMPLATE = lib
+
+TARGET = Weapon
+VERSION = 0.0_a2
+CONFIG += staticlib
 
 DEFINES += WEAPON_LIBRARY
 

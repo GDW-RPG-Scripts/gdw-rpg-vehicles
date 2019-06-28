@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Installer>
+  <Name>Ironmongery Installer</Name>
+  <Version>0.0_b2</Version>
+  <Title>Ironmongery Application Installer</Title>
+  <Publisher>Mike Henry Publishing</Publisher>
+  <ProductUrl>https://github.com/GDW-RPG-Scripts/gdw-rpg-vehicles</ProductUrl>
+  <InstallerWindowIcon>sunburst</InstallerWindowIcon>
+  <InstallerApplicationIcon>sunburst</InstallerApplicationIcon>
+  <Logo>sunburst</Logo>
+  <Watermark>watermark.jpg</Watermark>
+  <Background>watermark.jpg</Background>
+  <Banner>banner.jpg</Banner>
+  <WizardDefaultWidth>640</WizardDefaultWidth>
+  <WizardDefaultHeight>480</WizardDefaultHeight>
+  <StartMenuDir>GDW RPG Tools</StartMenuDir>
+  <TargetDir>@ApplicationsDir@/Ironmongery</TargetDir>
+  <RemoveTargetDir>false</RemoveTargetDir>
+</Installer>

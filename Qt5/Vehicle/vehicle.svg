@@ -1,53 +1,13 @@
 <?xml version="1.0" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
 "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-<svg
-    xmlns="http://www.w3.org/2000/svg"
-    xmlns:dc="http://purl.org/dc/elements/1.1/"
-    xmlns:cc="http://creativecommons.org/ns#"
-    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-    xmlns:svg="http://www.w3.org/2000/svg"
-    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
-    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-    width="210mm"
-    height="297mm"
-    viewBox="0 0 210 297"
-    style="background: lightgrey"
-    version="1.1"
-    id="VehiclePage"
-    inkscape:version="0.92.4 (5da689c313, 2019-01-14)"
-    sodipodi:docname="vehicle.svg">
-  <sodipodi:namedview
-      id="base"
-      pagecolor="#ffffff"
-      bordercolor="#666666"
-      borderopacity="1.0"
-      inkscape:pageopacity="0.0"
-      inkscape:pageshadow="2"
-      inkscape:zoom="1.0394345"
-      inkscape:cx="333.83536"
-      inkscape:cy="947.04653"
-      inkscape:document-units="mm"
-      inkscape:current-layer="VehiclePage"
-      showgrid="false"
-      inkscape:window-width="1440"
-      inkscape:window-height="878"
-      inkscape:window-x="0"
-      inkscape:window-y="0"
-      inkscape:window-maximized="1"
-      inkscape:snap-grids="true"
-      inkscape:snap-to-guides="true" />
-  <metadata id="metadata5">
-    <rdf:RDF>
-      <cc:Work
-	  rdf:about="">
-	<dc:format>image/svg+xml</dc:format>
-	<dc:type
-	    rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-	<dc:title></dc:title>
-      </cc:Work>
-    </rdf:RDF>
-  </metadata>
+<svg xmlns="http://www.w3.org/2000/svg"
+     xmlns:xlink="http://www.w3.org/1999/xlink"
+     version="1.2" baseProfile="tiny"
+     width="210mm" height="297mm" viewBox="0 0 210 297"
+     id="VehiclePage">
+  <title>{{name}}</title>
+  <desc>GDW RPG Vehicles - Vehicle Page</desc>
   <defs>
     <style type="text/css"><![CDATA[
     .TitleField {
@@ -58,16 +18,16 @@
     .TitleHeading {
     dominant-baseline: middle;
     fill: #ffffff;
-    font-family: '.Helvetica Neue DeskInterface';
-    font-size: 5;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 5px;
     stroke: #ffffff;
     text-anchor: end;
     }
     .TitleText {
     dominant-baseline: middle;
     fill: #000000;
-    font-family: '.Helvetica Neue DeskInterface';
-    font-size: 5;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 5px;
     stroke: #000000;
     text-anchor: end;
     }
@@ -89,72 +49,72 @@
     .Heading1Text {
     dominant-baseline: middle;
     fill: #ffffff;
-    font-family: '.Helvetica Neue DeskInterface';
-    font-size: 4.5;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 4.5%;
     stroke: #ffffff;
     text-anchor: middle;
     }
     .Heading1LeftText {
     dominant-baseline: middle;
     fill: #ffffff;
-    font-family: '.Helvetica Neue DeskInterface';
-    font-size: 4.5;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 4.5%;
     stroke: #ffffff;
     text-anchor: start;
     }
     .Heading1RightText {
     dominant-baseline: middle;
     fill: #ffffff;
-    font-family: '.Helvetica Neue DeskInterface';
-    font-size: 4.5;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 4.5%;
     stroke: #ffffff;
     text-anchor: end;
     }
     .Heading2Text {
     dominant-baseline: middle;
     fill: #ffffff;
-    font-family: '.Helvetica Neue DeskInterface';
-    font-size: 4;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 4%;
     stroke: #ffffff;
     text-anchor: middle;
     }
     .Heading2LeftText {
     dominant-baseline: middle;
     fill: #ffffff;
-    font-family: '.Helvetica Neue DeskInterface';
-    font-size: 4;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 4%;
     stroke: #ffffff;
     text-anchor: start;
     }
     .Field1Text {
     dominant-baseline: middle;
     fill: #000000;
-    font-family: '.Helvetica Neue DeskInterface';
-    font-size: 5;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 4.5%;
     stroke: #000000;
     text-anchor: middle;
     }
     .Field2Text {
     dominant-baseline: middle;
     fill: #000000;
-    font-family: '.Helvetica Neue DeskInterface';
-    font-size: 4.5;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 4.5%;
     stroke: #000000;
     text-anchor: middle;
     }
     .Field2LeftText {
     dominant-baseline: middle;
     fill: #000000;
-    font-family: '.Helvetica Neue DeskInterface';
-    font-size: 4.5;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 4.5%;
     stroke: #000000;
     text-anchor: start;
     }
     .Field2RightText {
     dominant-baseline: middle;
     fill: #000000;
-    font-family: '.Helvetica Neue DeskInterface';
-    font-size: 4.5;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 4.5%;
     stroke: #000000;
     text-anchor: end;
     }
@@ -244,7 +204,7 @@
 	  class="Heading1Text"
 	  textLength="22"
 	  x="13"
-	  y="6.5">Skill</text>
+          y="6.5">Skill</text>
     </g>
     <g id="Agility" transform="translate(58,0)">
       <use id="AgilityBox" xlink:href="#HeadingRect"/>
@@ -305,13 +265,13 @@
     </g>
     <g id="SkillField" transform="translate(29,0)">
       <use id="SkillFieldBox" xlink:href="#FieldRect"/>
-      <text
+      <textArea
 	  id="SkillValue"
 	  class="Field1Text"
-          textLength="22"
-          x="13"
-	  y="6.5"
-          >{{skill}}</text>
+          x="0"
+          y="0"
+          width="26"
+          height="12">{{skill}}</textArea>
     </g>
     <g id="AgilityField" transform="translate(58,0)">
       <use id="AgilityFieldBox" xlink:href="#FieldRect"/>
@@ -771,7 +731,7 @@
     <rect
 	id="AdditionalBox"
 	class="HeadingBox"
-	width="58"
+        width="65"
 	height="7"
 	x="1"
 	y="1"
@@ -780,11 +740,31 @@
     <text
 	id="AdditonalHeading"
 	class="Heading2LeftText"
-	textLength="54"
+        textLength="64"
         x="2.5"
 	y="5.5">Additional assets/capabilites:</text>
-    {{{assets}}}
-  </g>
+    <textArea
+        id="DisplayText_0"
+        class="Field2LeftText"
+        x="2"
+        y="9"
+        width="64"
+        height="54">{{{assets}}}</textArea>
+    <textArea
+        id="DisplayText_1"
+        class="Field2LeftText"
+        x="68"
+        y="1"
+        width="64"
+        height="54">{{{assets_2}}}</textArea>
+    <textArea
+        id="DisplayText_2"
+        class="Field2LeftText"
+        x="134"
+        y="1"
+        width="64"
+        height="54">{{{assets_3}}}</textArea>
+        </g>
   <g id="TopDownView" transform="translate(5,184)">
     <rect
 	id="TopDownBox"
@@ -794,6 +774,7 @@
 	x="0"
 	y="0"
 	ry="2" />
+        {{{topdown}}}
     <rect
 	id="DeckBox"
 	class="HeadingBox"
@@ -916,7 +897,7 @@
 	class="Heading2LeftText"
 	textLength="60.5"
 	x="2"
-	y="5.5">Pos: {{positions}}</text>
+        y="5.5">Pos: {{{positions}}}</text>
   </g>
   <g id="DisplayView" transform="translate(73,250)">
    <rect
@@ -927,6 +908,12 @@
       x="0"
       y="0"
       ry="2" />
-    {{{x8}}}
+    <textArea
+      id="DisplayText"
+      class="Field2LeftText"
+      x="2"
+      y="1"
+      width="130"
+      height="42">{{x8}}</textArea>
   </g>
 </svg>

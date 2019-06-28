@@ -924,7 +924,7 @@
         <item row="6" column="0">
          <widget class="QLabel" name="openClosedLabel">
           <property name="text">
-           <string>Open/Clsd:</string>
+           <string>Open/Clsd</string>
           </property>
          </widget>
         </item>
@@ -1240,7 +1240,7 @@
            </sizepolicy>
           </property>
           <property name="toolTip">
-           <string>Interior cargo capacity, given in kilograms.</string>
+           <string>Interior cargo capacity, given in metric tons (1000 kg).</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -1512,6 +1512,8 @@
   <tabstop>skillLineEdit</tabstop>
   <tabstop>agilityLineEdit</tabstop>
   <tabstop>hullLineEdit</tabstop>
+  <tabstop>structureLineEdit</tabstop>
+  <tabstop>openClosedLineEdit</tabstop>
   <tabstop>x8TextEdit</tabstop>
  </tabstops>
  <resources/>

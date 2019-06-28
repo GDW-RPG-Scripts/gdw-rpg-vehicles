@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<Package>
+  <DisplayName>Weapon</DisplayName>
+  <Description>Basic library common to all Ironmongery Weapons.</Description>
+  <AutoDependOn>Ironmongery.Object</AutoDependOn>
+  <Version>0.0_b2</Version>
+  <ReleaseDate>2019-06-21</ReleaseDate>
+  <SortingPriority>50</SortingPriority>
+</Package>

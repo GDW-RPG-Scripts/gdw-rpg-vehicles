@@ -142,21 +142,47 @@ Vehicle::ToVariantHash(QVariantHash& hash) const
   hash[PROP_HULL]         = Hull();
   hash[PROP_STRUCTURE]    = Structure();
   hash[PROP_OPENCLOSED]   = OpenClosed();
-  hash[PROP_X8]           = LineBreakText(X8().toString(), 140);
+  hash[PROP_X8]           = X8();
+  //  hash[PROP_X8]           = LineBreakText(X8().toString(), 140);
   hash[PROP_LOCA]         = HitLocations();
-  hash[PROP_SIDEVIEW_IMG] =
-      qUncompress(QByteArray::fromBase64(SideViewImage().toByteArray()));
-  hash[PROP_TOPDOWN_IMG]  =
-      qUncompress(QByteArray::fromBase64(TopDownImage().toByteArray()));
+  {
+    QByteArray value = SideViewImage().toByteArray();
+    hash[PROP_SIDEVIEW_IMG] =
+        value.isEmpty()
+        ? ""
+        : qUncompress(QByteArray::fromBase64(value));
+  }
+  {
+    QByteArray value = TopDownImage().toByteArray();
+    hash[PROP_TOPDOWN_IMG]  =
+        value.isEmpty()
+        ? ""
+        : qUncompress(QByteArray::fromBase64(value));
+  }
 
   // Additional asset box
-  QString paragraph;
-  paragraph += tr("Runs on ") + FuelTypes().toString() + ". ";
-  paragraph += Stabilization().toString() + tr(" stabilization. ");
-  paragraph += tr("Night vision: ") + NightVision().toString() + ". ";
-  paragraph += tr("Radiation ") + NBC().toString().toLower() + ". ";
-  hash["assets"]         = LineBreakText(paragraph, 100, 8);
+  {
+    QString assets;
 
+    QString fuelTypes = FuelTypes().toString();
+    if(!fuelTypes.isEmpty())
+      assets += tr("Runs on ") + fuelTypes + ".<tbreak/>";
+
+    QString stabilization = Stabilization().toString();
+    if(!stabilization.isEmpty())
+      assets += stabilization + tr(" stabilization.<tbreak/>");
+
+    QString nightVision = NightVision().toString();
+    if(!nightVision.isEmpty())
+      assets += tr("Night vision: ") + nightVision + ".<tbreak/>";
+
+    QString nbc = NBC().toString();
+    if(!nbc.isEmpty())
+      assets += tr("Radiation ") + nbc.toLower() + ".<tbreak/>";
+
+    hash["assets"]          = assets;
+    // hash["assets"]         = LineBreakText(paragraph, 100, 8);
+  }
 
   bool ok;
 
@@ -206,9 +232,12 @@ Vehicle::ToVariantHash(QVariantHash& hash) const
 
   double psgr = Passengers().toDouble(&ok);
   if(ok && psgr > 0) {
-    positions += "   ";
-    for(int i = 0; i < psgr; ++i) {
-      positions += " T ";
+    if(psgr + crew > 15) {
+      positions += " + " + QString::number(psgr) + " T ";
+    } else {
+      for(int i = 0; i < psgr; ++i) {
+        positions += " T ";
+      }
     }
   }
 

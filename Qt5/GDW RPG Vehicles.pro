@@ -29,6 +29,7 @@ SUBDIRS += \
     Unit \
     Weapon \
     Vehicle \
-    Ironmongery
+    Ironmongery \
+    Installer
 
 CONFIG += ordered

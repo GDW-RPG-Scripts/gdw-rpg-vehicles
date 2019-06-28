@@ -50,18 +50,20 @@ WeaponForm::Read(Mode mode, Object* object)
 
   mUi->techLevelLineEdit->setText(mWeapon-> TechLevel()    .toString());
 
-  mUi->     wtypLineEdit->setText(mWeapon->      Wtyp()    .toString());
-  mUi->    wqualLineEdit->setText(mWeapon->     Wqual()    .toString());
-  mUi->      rofLineEdit->setText(mWeapon->RateOfFire()    .toString());
-  mUi->      rngLineEdit->setText(mWeapon->     Range()    .toString());
-  mUi->       psLineEdit->setText(mWeapon->        Ps()    .toString());
-  mUi->       pmLineEdit->setText(mWeapon->        Pm()    .toString());
-  mUi->       plLineEdit->setText(mWeapon->        Pl()    .toString());
-  mUi->       pxLineEdit->setText(mWeapon->        Px()    .toString());
-  mUi->     ammoLineEdit->setText(mWeapon->      Ammo()    .toString());
-  mUi->      conLineEdit->setText(mWeapon->Concussion()    .toString());
-  mUi->      burLineEdit->setText(mWeapon->     Burst(mode).toString());
-  mUi->     pranLineEdit->setText(mWeapon->      Pran()    .toString());
+  mUi->       wtypLineEdit->setText(mWeapon->      Wtyp()    .toString());
+  mUi->      wqualLineEdit->setText(mWeapon->     Wqual()    .toString());
+  mUi->        rofLineEdit->setText(mWeapon->RateOfFire()    .toString());
+  mUi->        rngLineEdit->setText(mWeapon->     Range()    .toString());
+  mUi->         psLineEdit->setText(mWeapon->        Ps()    .toString());
+  mUi->         pmLineEdit->setText(mWeapon->        Pm()    .toString());
+  mUi->         plLineEdit->setText(mWeapon->        Pl()    .toString());
+  mUi->         pxLineEdit->setText(mWeapon->        Px()    .toString());
+  mUi->       ammoLineEdit->setText(mWeapon->      Ammo()    .toString());
+  mUi->        conLineEdit->setText(mWeapon->Concussion()    .toString());
+  mUi->        burLineEdit->setText(mWeapon->     Burst(mode).toString());
+  mUi->       pranLineEdit->setText(mWeapon->      Pran()    .toString());
+
+  mUi->descriptionTextEdit->setPlainText(mWeapon->Description().toString());
 
   AddSvgFrame(mWeapon->SideViewImage(), mUi->svgFrame);
 
@@ -77,18 +79,20 @@ WeaponForm::Write()
 
   mWeapon-> TechLevel(mUi->  techLevelLineEdit->text());
 
-  mWeapon->      Wtyp(mUi->       wtypLineEdit->text());
-  mWeapon->     Wqual(mUi->      wqualLineEdit->text());
-  mWeapon->RateOfFire(mUi->        rofLineEdit->text());
-  mWeapon->     Range(mUi->        rngLineEdit->text());
-  mWeapon->        Ps(mUi->         psLineEdit->text());
-  mWeapon->        Pm(mUi->         pmLineEdit->text());
-  mWeapon->        Pl(mUi->         plLineEdit->text());
-  mWeapon->        Px(mUi->         pxLineEdit->text());
-  mWeapon->      Ammo(mUi->       ammoLineEdit->text());
-  mWeapon->Concussion(mUi->        conLineEdit->text());
-  mWeapon->     Burst(mUi->        burLineEdit->text());
-  mWeapon->      Pran(mUi->       pranLineEdit->text());
+  mWeapon->       Wtyp(mUi->       wtypLineEdit->text());
+  mWeapon->      Wqual(mUi->      wqualLineEdit->text());
+  mWeapon-> RateOfFire(mUi->        rofLineEdit->text());
+  mWeapon->      Range(mUi->        rngLineEdit->text());
+  mWeapon->         Ps(mUi->         psLineEdit->text());
+  mWeapon->         Pm(mUi->         pmLineEdit->text());
+  mWeapon->         Pl(mUi->         plLineEdit->text());
+  mWeapon->         Px(mUi->         pxLineEdit->text());
+  mWeapon->       Ammo(mUi->       ammoLineEdit->text());
+  mWeapon-> Concussion(mUi->        conLineEdit->text());
+  mWeapon->      Burst(mUi->        burLineEdit->text());
+  mWeapon->       Pran(mUi->       pranLineEdit->text());
+
+  mWeapon->Description(mUi->descriptionTextEdit->toPlainText());
 
   SetReadOnly(true);
 
@@ -114,6 +118,7 @@ WeaponForm::SetReadOnly(bool value)
   mUi->        conLineEdit->setReadOnly(value);
   mUi->        burLineEdit->setReadOnly(value);
   mUi->       pranLineEdit->setReadOnly(value);
+  mUi->descriptionTextEdit->setReadOnly(value);
 }
 
 QString

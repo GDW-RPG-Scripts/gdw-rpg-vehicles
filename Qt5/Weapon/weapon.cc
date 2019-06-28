@@ -320,6 +320,24 @@ Weapon::Pran(const QVariant& value)
 
 
 /*
+ * Description
+ */
+const QString Weapon::PROP_DESCRIPTION = "description";
+
+QVariant
+Weapon::Description() const
+{
+  return GetVariantFor(PROP_DESCRIPTION);
+}
+
+void
+Weapon::Description(const QVariant& value)
+{
+  SetVariantFor(PROP_DESCRIPTION, value);
+}
+
+
+/*
  * SideViewImage
  */
 const QString Weapon::PROP_SIDEVIEW_IMG = "sideview";
