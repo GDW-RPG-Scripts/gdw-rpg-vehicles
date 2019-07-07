@@ -33,7 +33,15 @@
 #include <QSvgRenderer>
 #include <QVBoxLayout>
 
+void
+GDW_RPG_Object_Initialize()
+{
+  Q_INIT_RESOURCE(object);
+}
+
 using namespace GDW::RPG;
+
+ObjectTreeItem::Initialize ObjectTreeItem::Initializer;
 
 ObjectTreeItem::ObjectTreeItem()
 {}
@@ -221,8 +229,8 @@ ObjectTreeItem::Template() const
   return "";
 }
 
-void
-ObjectTreeItem::RenderPage(QPaintDevice& device) const
+QString
+ObjectTreeItem::RenderSvg() const
 {
   QVariantHash map;
 
@@ -231,9 +239,21 @@ ObjectTreeItem::RenderPage(QPaintDevice& device) const
   Mustache::Renderer renderer;
   Mustache::QtVariantContext* context = GetObject()->Context(map);
 
-  QXmlStreamReader reader(renderer.render(Template(), context));
+  return renderer.render(Template(), context);
+}
+
+void
+ObjectTreeItem::RenderPage(QPaintDevice& device) const
+{
+  QXmlStreamReader reader(RenderSvg());
   QSvgRenderer svg(&reader);
   QPainter painter(&device);
 
   svg.render(&painter);
+}
+
+void
+ObjectTreeItem::WriteSvg(QFile& file) const
+{
+  file.write(RenderSvg().toUtf8());
 }

@@ -27,6 +27,8 @@
 #include "unitform.hh"
 #include "unitmodel.hh"
 
+extern void GDW_RPG_Unit_Initialize();
+
 namespace GDW
 {
   namespace RPG
@@ -51,6 +53,12 @@ namespace GDW
         const Unit* GetObject() const override;
 
         UnitModel* Model() const override;
+
+      private:
+        static class Initialize {
+          public:
+            Initialize() { GDW_RPG_Unit_Initialize(); }
+        } Initializer;
     };
   };
 };

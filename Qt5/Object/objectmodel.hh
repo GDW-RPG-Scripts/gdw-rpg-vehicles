@@ -23,6 +23,7 @@
 
 #include <QAbstractItemModel>
 
+class QFile;
 class QPrinter;
 class QPainter;
 class QTextStream;
@@ -45,6 +46,8 @@ namespace GDW
         void Export(QJsonArray&) const;
         void Print(QModelIndex, QPrinter&) const;
         void Reset();
+        void WriteSvg(QModelIndex, QFile&) const;
+
         virtual ObjectTreeItem* Unpack(const QJsonObject&, ObjectTreeItem*);
 
         virtual ObjectTreeItem* RootItem() const;

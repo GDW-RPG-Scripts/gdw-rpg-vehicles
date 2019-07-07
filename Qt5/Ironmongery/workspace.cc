@@ -68,6 +68,8 @@ Workspace::Workspace(QWidget* parent) :
   };
   actions[0]->setShortcuts(QKeySequence::Undo);
   actions[1]->setShortcuts(QKeySequence::Redo);
+  actions[0]->setIcon(QIcon("://icons/16x16/edit-undo.png"));
+  actions[1]->setIcon(QIcon("://icons/16x16/edit-redo.png"));
   mUi.menuEdit->insertActions(mUi.action_Placeholder, actions);
   mUi.menuEdit->removeAction(mUi.action_Placeholder);
 
@@ -170,6 +172,56 @@ Workspace::Open()
       LoadFile(fileName);
       UpdateActions();
     }
+  }
+}
+
+void
+Workspace::ExportSVG()
+{
+  QString fileName =
+      QFileDialog::getSaveFileName(this, tr("Export SVG"), ".",
+                                   tr("SVG Image (*.svg)"));
+  if (!fileName.isEmpty()) {
+    QFile file(fileName);
+    if (!file.open(QFile::ReadWrite | QFile::Text)) {
+      QString message =
+          tr("Cannot read file %1:\n%2.").arg(QDir::toNativeSeparators(fileName),
+                                              file.errorString());
+      QMessageBox::warning(this,
+                           QCoreApplication::organizationName()
+                           + " "
+                           + QCoreApplication::applicationName(),
+                           message);
+      return;
+    }
+
+#ifndef QT_NO_CURSOR
+    QApplication::setOverrideCursor(Qt::WaitCursor);
+#endif
+
+    milliseconds start =
+        duration_cast<milliseconds>(system_clock::now().time_since_epoch());
+
+    QTreeView& view = GetCurrentTreeView();
+    ObjectModel* model =
+        static_cast<ObjectModel*>(view.model());
+
+    model->WriteSvg(view.currentIndex(), file);
+    file.close();
+
+    milliseconds stop =
+        duration_cast<milliseconds>(system_clock::now().time_since_epoch());
+
+    milliseconds time = stop - start;
+
+#ifndef QT_NO_CURSOR
+    QApplication::restoreOverrideCursor();
+#endif
+
+    statusBar()->showMessage(tr("SVG exported")
+                             + ": "
+                             + QString::number(time.count())
+                             + " ms.", 5000);
   }
 }
 
@@ -403,14 +455,15 @@ Workspace::Select(ObjectForm* objectForm)
   objectGroupBox->setTitle(objectForm->Title() + ": "); // + mWeapon->Wtyp());
   objectGroupBox->update();
 
-  mUi.     action_Copy->setEnabled(true);
-  mUi.      action_Cut->setEnabled(true);
-  mUi.    action_Print->setEnabled(true);
-  mUi.  editItemButton->setEnabled(true);
-  mUi.  editItemButton->setText(QObject::tr("Edit"));
-  mUi.        okButton->setEnabled(false);
-  mUi.     printButton->setEnabled(true);
-  mUi.removeItemButton->setEnabled(true);
+  mUi.     action_Copy    ->setEnabled(true);
+  mUi.      action_Cut    ->setEnabled(true);
+  mUi.    action_ExportSvg->setEnabled(true);
+  mUi.    action_Print    ->setEnabled(true);
+  mUi.  editItemButton    ->setEnabled(true);
+  mUi.  editItemButton    ->setText(QObject::tr("Edit"));
+  mUi.        okButton    ->setEnabled(false);
+  mUi.     printButton    ->setEnabled(true);
+  mUi.removeItemButton    ->setEnabled(true);
 }
 
 void
@@ -418,14 +471,15 @@ Workspace::Unselect()
 {
   ClearObjectGroupBox();
 
-  mUi.     action_Copy->setEnabled(false);
-  mUi.      action_Cut->setEnabled(false);
-  mUi.    action_Print->setEnabled(false);
-  mUi.  editItemButton->setEnabled(false);
-  mUi.  editItemButton->setText(QObject::tr("Edit"));
-  mUi.        okButton->setEnabled(false);
-  mUi.     printButton->setEnabled(false);
-  mUi.removeItemButton->setEnabled(false);
+  mUi.     action_Copy    ->setEnabled(false);
+  mUi.      action_Cut    ->setEnabled(false);
+  mUi.    action_ExportSvg->setEnabled(false);
+  mUi.    action_Print    ->setEnabled(false);
+  mUi.  editItemButton    ->setEnabled(false);
+  mUi.  editItemButton    ->setText(QObject::tr("Edit"));
+  mUi.        okButton    ->setEnabled(false);
+  mUi.     printButton    ->setEnabled(false);
+  mUi.removeItemButton    ->setEnabled(false);
 }
 
 void

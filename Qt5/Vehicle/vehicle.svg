@@ -118,6 +118,14 @@
     stroke: #000000;
     text-anchor: end;
     }
+    .ImageLine {
+    fill:none;
+    stroke-linecap:round;
+    stroke-linejoin:round;
+    stroke-miterlimit:10;
+    stroke-width:0.5;
+    stroke:#000000";
+    }
     ]]>
     </style>
     <rect

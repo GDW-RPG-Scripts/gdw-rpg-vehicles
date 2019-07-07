@@ -18,7 +18,15 @@
 
 #include "unititem.hh"
 
+void
+GDW_RPG_Unit_Initialize()
+{
+  // Q_INIT_RESOURCE(unit);
+}
+
 using namespace GDW::RPG;
+
+UnitTreeItem::Initialize UnitTreeItem::Initializer;
 
 UnitTreeItem*
 UnitTreeItem::Create(ObjectTreeItem* parent)

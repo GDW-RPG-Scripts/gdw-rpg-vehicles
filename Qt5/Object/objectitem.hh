@@ -24,6 +24,7 @@
 #include <QList>
 #include <QVariant>
 
+class QFile;
 class QJsonArray;
 class QStackedWidget;
 class QTextStream;
@@ -32,6 +33,8 @@ class QUndoStack;
 namespace Ui {
   class Workspace;
 }
+
+extern void GDW_RPG_Object_Initialize();
 
 namespace GDW
 {
@@ -57,6 +60,8 @@ namespace GDW
 
         void Export(QJsonArray&) const;
         void RenderPage(QPaintDevice&) const;
+        void WriteSvg(QFile&) const;
+
         virtual QByteArray Template() const;
 
         QModelIndex Index() const;
@@ -88,9 +93,17 @@ namespace GDW
       private:
         friend QTextStream& operator<<(QTextStream&, const ObjectTreeItem&);
 
+        QString RenderSvg() const;
+
         Object* mObject;
         QList<ObjectTreeItem*> mChildItems;
         QList<QVariant> mItemData;
+
+      private:
+        static class Initialize {
+          public:
+            Initialize() { GDW_RPG_Object_Initialize(); }
+        } Initializer;
     };
   };
 };

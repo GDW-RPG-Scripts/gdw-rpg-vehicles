@@ -34,6 +34,8 @@ namespace Ui {
   class VehicleForm;
 }
 
+extern void GDW_RPG_Weapon_Initialize();
+
 namespace GDW
 {
   namespace RPG
@@ -62,6 +64,12 @@ namespace GDW
         WeaponTreeItem(const WeaponTreeItem&);
 
         WeaponModel* Model() const override;
+
+      private:
+        static class Initialize {
+          public:
+            Initialize() { GDW_RPG_Weapon_Initialize(); }
+        } Initializer;
     };
   };
 };

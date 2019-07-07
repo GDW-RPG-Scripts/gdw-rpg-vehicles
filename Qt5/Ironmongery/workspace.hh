@@ -66,6 +66,7 @@ namespace GDW
         void New();
         void Open();
         void Import();
+        void ExportSVG();
         void Prefs();
         bool Save();
         bool SaveAs();

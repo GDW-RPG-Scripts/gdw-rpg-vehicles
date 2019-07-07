@@ -27,6 +27,8 @@
 #include "vehicleform.hh"
 #include "vehiclemodel.hh"
 
+extern void GDW_RPG_Vehicle_Initialize();
+
 namespace GDW
 {
   namespace RPG
@@ -54,6 +56,12 @@ namespace GDW
         const Vehicle* GetObject() const override;
 
         VehicleModel* Model() const override;
+
+      private:
+        static class Initialize {
+          public:
+            Initialize() { GDW_RPG_Vehicle_Initialize(); }
+        } Initializer;
     };
   };
 };

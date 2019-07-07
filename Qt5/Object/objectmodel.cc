@@ -114,6 +114,12 @@ ObjectModel::Print(QModelIndex index, QPrinter& printer) const
   //ui->textEdit->print(&printDev);
 }
 
+void
+ObjectModel::WriteSvg(QModelIndex index, QFile& file) const
+{
+  ItemFor(index)->WriteSvg(file);
+}
+
 //
 // Extension points
 //

@@ -126,6 +126,9 @@ namespace GDW
         QVariant Rf() const;
         void Rf(const QVariant&);
 
+        QVariant FireControl(Mode = Mode::Display) const;
+        void FireControl(const QVariant&);
+
         QVariant Deck(Mode = Mode::Display) const;
         void Deck(const QVariant&);
 
@@ -197,6 +200,7 @@ namespace GDW
         static const QString PROP_MNT;
         static const QString PROP_COST;
         static const QString PROP_RF;
+        static const QString PROP_FIRECONTROL;
         static const QString PROP_DECK;
         static const QString PROP_BELLY;
         static const QString PROP_STAB;

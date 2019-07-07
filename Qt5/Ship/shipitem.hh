@@ -27,6 +27,8 @@
 #include "shipform.hh"
 #include "shipmodel.hh"
 
+extern void GDW_RPG_Ship_Initialize();
+
 namespace GDW
 {
   namespace RPG
@@ -51,6 +53,12 @@ namespace GDW
         const Ship* GetObject() const override;
 
         ShipModel* Model() const override;
+
+      private:
+        static class Initialize {
+          public:
+            Initialize() { GDW_RPG_Ship_Initialize(); }
+        } Initializer;
     };
   };
 };

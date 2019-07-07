@@ -29,7 +29,15 @@
 #include <QStackedWidget>
 #include <QVBoxLayout>
 
+void
+GDW_RPG_Weapon_Initialize()
+{
+  Q_INIT_RESOURCE(weapon);
+}
+
 using namespace GDW::RPG;
+
+WeaponTreeItem::Initialize WeaponTreeItem::Initializer;
 
 WeaponTreeItem*
 WeaponTreeItem::Create(ObjectTreeItem* parent)

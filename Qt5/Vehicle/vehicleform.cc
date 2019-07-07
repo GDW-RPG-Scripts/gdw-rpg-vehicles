@@ -149,6 +149,7 @@ VehicleForm::Read(Mode mode, Object* object)
   mUi->maintenanceLineEdit->setText(mVehicle->    Maintenance()    .toString());
   mUi->       costLineEdit->setText(mVehicle->           Cost(mode).toString());
   mUi->         rFLineEdit->setText(mVehicle->             Rf()    .toString());
+  mUi->fireControlLineEdit->setText(mVehicle->    FireControl(mode).toString());
   mUi->       deckLineEdit->setText(mVehicle->           Deck(mode).toString());
   mUi->      bellyLineEdit->setText(mVehicle->          Belly(mode).toString());
   mUi->       stabLineEdit->setText(mVehicle->  Stabilization()    .toString());
@@ -198,6 +199,7 @@ VehicleForm::Write()
   mVehicle->    Maintenance(mUi->maintenanceLineEdit->text());
   mVehicle->           Cost(mUi->       costLineEdit->text());
   mVehicle->             Rf(mUi->         rFLineEdit->text());
+  mVehicle->    FireControl(mUi->fireControlLineEdit->text());
   mVehicle->           Deck(mUi->       deckLineEdit->text());
   mVehicle->          Belly(mUi->      bellyLineEdit->text());
   mVehicle->  Stabilization(mUi->       stabLineEdit->text());
@@ -245,6 +247,7 @@ VehicleForm::SetReadOnly(bool value)
   mUi->maintenanceLineEdit->setReadOnly(value);
   mUi->       costLineEdit->setReadOnly(value);
   mUi->         rFLineEdit->setReadOnly(value);
+  mUi->fireControlLineEdit->setReadOnly(value);
   mUi->       deckLineEdit->setReadOnly(value);
   mUi->      bellyLineEdit->setReadOnly(value);
   mUi->       stabLineEdit->setReadOnly(value);

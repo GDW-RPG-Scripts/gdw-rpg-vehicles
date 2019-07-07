@@ -131,6 +131,7 @@ Vehicle::ToVariantHash(QVariantHash& hash) const
   hash[PROP_MNT]          = Maintenance();
   hash[PROP_COST]         = Cost();
   hash[PROP_RF]           = Rf();
+  hash[PROP_FIRECONTROL]  = FireControl();
   hash[PROP_DECK]         = Deck();
   hash[PROP_BELLY]        = Belly();
   hash[PROP_STAB]         = Stabilization();
@@ -829,6 +830,34 @@ void
 Vehicle::Rf(const QVariant& value)
 {
   SetDoubleFor(PROP_RF, value);
+}
+
+
+/*
+ * FireControl
+ */
+const QString Vehicle::PROP_FIRECONTROL = "fc";
+
+QVariant
+Vehicle::FireControl(Mode mode) const
+{
+  QVariant variant;
+
+  if(mode == Mode::Edit)
+    return GetDoubleFor(PROP_FIRECONTROL);
+
+  bool ok;
+  double value = GetDoubleFor(PROP_FIRECONTROL).toDouble(&ok);
+  if(ok)
+    return (value > 0 ? "+" : "") + QString::number(value);
+
+  return variant;
+}
+
+void
+Vehicle::FireControl(const QVariant& value)
+{
+  SetDoubleFor(PROP_FIRECONTROL, value);
 }
 
 

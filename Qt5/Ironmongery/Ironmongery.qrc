@@ -1,21 +1,25 @@
 <RCC>
     <qresource prefix="/">
-        <file>images/MBT.svg</file>
-        <file>images/APC.svg</file>
-        <file>images/GRT.svg</file>
-        <file>images/GTD.svg</file>
-        <file>images/HVT.svg</file>
-        <file>images/IFV.svg</file>
-        <file>images/ISS.svg</file>
-        <file>images/LCV.svg</file>
-        <file>images/RCV.svg</file>
-        <file>images/SPA.svg</file>
-        <file>images/SPD.svg</file>
-        <file>images/SPG.svg</file>
-        <file>images/TLT.svg</file>
-        <file>images/WEP.svg</file>
         <file>Default.gro</file>
         <file>icons/sunburst.png</file>
         <file>icons/sunburst.icns</file>
+        <file>icons/16x16/dialog-cancel.png</file>
+        <file>icons/16x16/dialog-ok-apply.png</file>
+        <file>icons/16x16/document-edit.png</file>
+        <file>icons/16x16/document-export.png</file>
+        <file>icons/16x16/document-import.png</file>
+        <file>icons/16x16/document-new.png</file>
+        <file>icons/16x16/document-print.png</file>
+        <file>icons/16x16/document-save-as.png</file>
+        <file>icons/16x16/document-save.png</file>
+        <file>icons/16x16/edit-clear.png</file>
+        <file>icons/16x16/edit-copy.png</file>
+        <file>icons/16x16/edit-cut.png</file>
+        <file>icons/16x16/edit-paste.png</file>
+        <file>icons/16x16/edit-redo.png</file>
+        <file>icons/16x16/edit-undo.png</file>
+        <file>icons/16x16/list-add.png</file>
+        <file>icons/16x16/list-remove.png</file>
+        <file>icons/16x16/document-open.png</file>
     </qresource>
 </RCC>

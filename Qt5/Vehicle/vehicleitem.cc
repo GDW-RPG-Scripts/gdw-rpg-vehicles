@@ -30,9 +30,15 @@
 #include <QStackedWidget>
 #include <QVBoxLayout>
 
+void
+GDW_RPG_Vehicle_Initialize()
+{
+  Q_INIT_RESOURCE(vehicle);
+}
+
 using namespace GDW::RPG;
 
-class QPaintDevice;
+VehicleTreeItem::Initialize VehicleTreeItem::Initializer;
 
 VehicleTreeItem*
 VehicleTreeItem::Create(ObjectTreeItem* parent)

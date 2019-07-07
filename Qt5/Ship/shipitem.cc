@@ -19,7 +19,15 @@
 #include "shipitem.hh"
 #include "ship.hh"
 
+void
+GDW_RPG_Ship_Initialize()
+{
+  // Q_INIT_RESOURCE(ship);
+}
+
 using namespace GDW::RPG;
+
+ShipTreeItem::Initialize ShipTreeItem::Initializer;
 
 ShipTreeItem*
 ShipTreeItem::Create(ObjectTreeItem* parent)
