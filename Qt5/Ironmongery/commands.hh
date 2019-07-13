@@ -31,20 +31,6 @@ namespace GDW
     class ObjectModel;
     class ObjectTreeItem;
 
-    class AddChildItemCommand : public QUndoCommand
-    {
-      public:
-        AddChildItemCommand(ObjectTreeItem*, ObjectTreeItem*,
-                            QUndoCommand* parent = nullptr);
-
-        void undo() override;
-        void redo() override;
-
-      private:
-        ObjectTreeItem* mParentItem;
-        ObjectTreeItem* mChildItem;
-    };
-
     class InsertItemCommand : public QUndoCommand
     {
       public:

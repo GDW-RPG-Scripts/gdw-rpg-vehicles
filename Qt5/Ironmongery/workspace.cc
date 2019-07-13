@@ -31,6 +31,7 @@
 #endif // QT_CONFIG(printer)
 #endif // QT_PRINTSUPPORT_LIB
 
+#include "ruleset.hh"
 #include "commands.hh"
 #include "workspace.hh"
 #include "prefsdialog.hh"
@@ -48,8 +49,9 @@ using namespace GDW::RPG;
 
 using namespace std::chrono;
 
-Workspace::Workspace(QWidget* parent) :
-  QMainWindow(parent), mRuleSet(0), mLoadOnStart(true)
+Workspace::Workspace(QWidget* parent)
+  : QMainWindow(parent),
+    mRuleSet(Ruleset::Current()), mLoadOnStart(true)
 {
   ReadSettings();
 
@@ -176,6 +178,56 @@ Workspace::Open()
 }
 
 void
+Workspace::ExportPDF()
+{
+  QString fileName =
+      QFileDialog::getSaveFileName(this, tr("Export PDF"), ".",
+                                   tr("SVG Image (*.pdf)"));
+  if (!fileName.isEmpty()) {
+    QFile file(fileName);
+    if (!file.open(QFile::ReadWrite | QFile::Text)) {
+      QString message =
+          tr("Cannot read file %1:\n%2.").arg(QDir::toNativeSeparators(fileName),
+                                              file.errorString());
+      QMessageBox::warning(this,
+                           QCoreApplication::organizationName()
+                           + " "
+                           + QCoreApplication::applicationName(),
+                           message);
+      return;
+    }
+
+#ifndef QT_NO_CURSOR
+    QApplication::setOverrideCursor(Qt::WaitCursor);
+#endif
+
+    milliseconds start =
+        duration_cast<milliseconds>(system_clock::now().time_since_epoch());
+
+    QTreeView& view = GetCurrentTreeView();
+    ObjectModel* model =
+        static_cast<ObjectModel*>(view.model());
+
+    model->WritePdf(view.currentIndex(), file);
+    file.close();
+
+    milliseconds stop =
+        duration_cast<milliseconds>(system_clock::now().time_since_epoch());
+
+    milliseconds time = stop - start;
+
+#ifndef QT_NO_CURSOR
+    QApplication::restoreOverrideCursor();
+#endif
+
+    statusBar()->showMessage(tr("PDF exported")
+                             + ": "
+                             + QString::number(time.count())
+                             + " ms.", 5000);
+  }
+}
+
+void
 Workspace::ExportSVG()
 {
   QString fileName =
@@ -248,7 +300,7 @@ Workspace::Prefs()
 
   QSettings settings;
 
-  int dialogRuleset = dialog.Ruleset();
+  QString dialogRuleset = dialog.Ruleset();
   if(mRuleSet != dialogRuleset) {
     mRuleSet = dialogRuleset;
     settings.setValue("ruleset", dialogRuleset);
@@ -457,7 +509,8 @@ Workspace::Select(ObjectForm* objectForm)
 
   mUi.     action_Copy    ->setEnabled(true);
   mUi.      action_Cut    ->setEnabled(true);
-  mUi.    action_ExportSvg->setEnabled(true);
+  mUi.    action_ExportPdf->setEnabled(true);
+  // mUi.    action_ExportSvg->setEnabled(true);
   mUi.    action_Print    ->setEnabled(true);
   mUi.  editItemButton    ->setEnabled(true);
   mUi.  editItemButton    ->setText(QObject::tr("Edit"));
@@ -473,7 +526,8 @@ Workspace::Unselect()
 
   mUi.     action_Copy    ->setEnabled(false);
   mUi.      action_Cut    ->setEnabled(false);
-  mUi.    action_ExportSvg->setEnabled(false);
+  mUi.    action_ExportPdf->setEnabled(false);
+  // mUi.    action_ExportSvg->setEnabled(false);
   mUi.    action_Print    ->setEnabled(false);
   mUi.  editItemButton    ->setEnabled(false);
   mUi.  editItemButton    ->setText(QObject::tr("Edit"));
@@ -550,8 +604,24 @@ Workspace::AddWeapon()
     WeaponTreeItem* wti =
         static_cast<WeaponTreeItem*>(weaponIndex.internalPointer());
 
-    mUndoStack.push(new AddChildItemCommand(vti, wti));
+    //mUndoStack.push(new AddChildItemCommand(vti, wti));
   }
+}
+
+void
+Workspace::ShowContextMenu(const QPoint& position)
+{
+  QTreeView& view = GetCurrentTreeView();
+  QModelIndex index = view.currentIndex();
+  ObjectTreeItem* oti =
+      static_cast<ObjectTreeItem*>(index.internalPointer());
+
+  QFontMetrics fontMetric(QAction().font());
+  QPoint offset(0, fontMetric.height());
+
+  QMenu menu(this);
+  oti->Model()->AddActions(menu, mUndoStack, index);
+  menu.exec(view.mapToGlobal(position + offset));
 }
 
 void
@@ -594,7 +664,7 @@ Workspace::ReadSettings()
   QSettings settings;
 
   mLoadOnStart = settings.value("loadOnStart", mLoadOnStart).toBool();
-  mRuleSet = settings.value("ruleset", mRuleSet).toInt();
+  mRuleSet = settings.value("ruleset", mRuleSet).toString();
 
   const QByteArray geometry = settings.value("geometry", QByteArray()).toByteArray();
   if (geometry.isEmpty()) {

@@ -17,9 +17,9 @@
  */
 
 #include "weapon.hh"
+#include "ruleset.hh"
 
 #include <QJsonArray>
-#include <QSettings>
 
 #include <cmath>
 
@@ -96,8 +96,7 @@ Weapon::ToVariantHash(QVariantHash& hash) const
   hash[PROP_BUR]          = Burst();
   hash[PROP_PRAN]         = Pran();
 
-  hash[PROP_SIDEVIEW_IMG] =
-      qUncompress(QByteArray::fromBase64(SideViewImage().toByteArray()));
+  hash[PROP_SIDEVIEW_IMG] = UnpackSvg(SideViewImage());
 
   hash["conc?"]  = Wqual() == "C";
   value = std::round(Range().toDouble(&ok) / 2);
@@ -285,10 +284,8 @@ Weapon::Burst(Mode mode) const
     bool ok;
     double value = variant.toDouble(&ok);
     if(ok) {
-      double divisor = 2;
-      QSettings settings;
-      if(settings.value("ruleset", 0).toInt() == 1)
-        divisor = 10;
+      double divisor =
+          Ruleset::Current() == Ruleset::STRIKER ? 10 : 2;
 
       variant = std::round(value / divisor);
     }

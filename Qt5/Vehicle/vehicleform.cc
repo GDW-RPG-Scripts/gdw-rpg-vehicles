@@ -49,28 +49,39 @@ VehicleForm::~VehicleForm()
 }
 
 void
-VehicleForm::ShowSvgMenu(const QPoint& position)
+VehicleForm::ShowSideViewMenu(const QPoint& position)
 {
-  QAction action_TopDownSet(tr("Set top-down image..."), this);
   QAction action_SideViewSet(tr("Set side-view image..."), this);
-  QAction action_TopDownClear(tr("Clear top-down image"), this);
   QAction action_SideViewClear(tr("Clear side-view image"), this);
 
-  connect(&action_TopDownSet, &QAction::triggered, this, &VehicleForm::SetTopDownImage);
   connect(&action_SideViewSet, &QAction::triggered, this, &VehicleForm::SetSideViewImage);
-  connect(&action_TopDownClear, &QAction::triggered, this, &VehicleForm::ClearTopDownImage);
   connect(&action_SideViewClear, &QAction::triggered, this, &VehicleForm::ClearSideViewImage);
+
+  QFontMetrics fontMetric(action_SideViewSet.font());
+  QPoint offset(0, fontMetric.height());
+
+  QMenu menu(this);
+  menu.addAction(&action_SideViewSet);
+  menu.addAction(&action_SideViewClear);
+  menu.exec(mUi->sideViewFrame->mapToGlobal(position + offset));
+}
+
+void
+VehicleForm::ShowTopDownMenu(const QPoint& position)
+{
+  QAction action_TopDownSet(tr("Set top-down image..."), this);
+  QAction action_TopDownClear(tr("Clear top-down image"), this);
+
+  connect(&action_TopDownSet, &QAction::triggered, this, &VehicleForm::SetTopDownImage);
+  connect(&action_TopDownClear, &QAction::triggered, this, &VehicleForm::ClearTopDownImage);
 
   QFontMetrics fontMetric(action_TopDownSet.font());
   QPoint offset(0, fontMetric.height());
 
   QMenu menu(this);
   menu.addAction(&action_TopDownSet);
-  menu.addAction(&action_SideViewSet);
-  menu.addSeparator();
   menu.addAction(&action_TopDownClear);
-  menu.addAction(&action_SideViewClear);
-  menu.exec(mUi->svgFrame->mapToGlobal(position + offset));
+  menu.exec(mUi->topDownFrame->mapToGlobal(position + offset));
 }
 
 void
@@ -164,7 +175,8 @@ VehicleForm::Read(Mode mode, Object* object)
   mUi->         x8TextEdit->setPlainText(mVehicle->        X8()    .toString());
   mUi->       locaLineEdit->setText(mVehicle->   HitLocations()    .toString());
 
-  AddSvgFrame(mVehicle->TopDownImage(), mUi->svgFrame);
+  AddSvgFrame(mVehicle->SideViewImage(), mUi->sideViewFrame);
+  AddSvgFrame(mVehicle->TopDownImage(),  mUi->topDownFrame);
 
   return original;
 }

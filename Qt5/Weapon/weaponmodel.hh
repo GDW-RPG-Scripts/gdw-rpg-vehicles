@@ -42,12 +42,16 @@ namespace GDW
         bool InsertObject(int /*= INT_MAX*/) override;
         // bool RemoveObject(int /*= INT_MAX*/) override;
 
+        void AddActions(QMenu&, QUndoStack&, const QModelIndex&) override;
+
       protected:
         ObjectTreeItem* InsertObject(ObjectTreeItem*) const override;
         const QList<QVariant>& RootData() const override;
 
       private:
         WeaponModel(QObject* parent = nullptr);
+
+        void AddMunition(QUndoStack&, const QModelIndex&);
     };
   };
 };

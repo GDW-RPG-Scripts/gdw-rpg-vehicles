@@ -29,8 +29,8 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += printsupport
 TEMPLATE = lib
 
 TARGET = Unit
-VERSION = 0.0_a2
-CONFIG += staticlib
+VERSION = 0.3.0
+#CONFIG += staticlib
 
 DEFINES += UNIT_LIBRARY
 

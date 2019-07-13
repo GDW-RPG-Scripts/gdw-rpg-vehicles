@@ -29,8 +29,8 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += printsupport
 TEMPLATE = lib
 
 TARGET = Weapon
-VERSION = 0.0_a2
-CONFIG += staticlib
+VERSION = 0.3.0
+#CONFIG += staticlib
 
 DEFINES += WEAPON_LIBRARY
 
@@ -46,6 +46,9 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    munitiondialog.cc \
+    munitionitem.cc \
+    munitionmodel.cc \
     weapon.cc \
     weaponform.cc \
     weaponitem.cc \
@@ -54,6 +57,9 @@ SOURCES += \
     weapondialog.cc
 
 HEADERS += \
+    munitiondialog.hh \
+    munitionitem.hh \
+    munitionmodel.hh \
     weapon_global.hh \
     weapon.hh \
     weaponform.hh \

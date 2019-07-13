@@ -52,7 +52,8 @@ namespace GDW
         const Vehicle* GetObject() const override;
 
       private slots:
-        void ShowSvgMenu(const QPoint&);
+        void ShowSideViewMenu(const QPoint&);
+        void ShowTopDownMenu(const QPoint&);
         void SetTopDownImage();
         void SetSideViewImage();
         void ClearTopDownImage();

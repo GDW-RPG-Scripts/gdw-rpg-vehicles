@@ -24,9 +24,11 @@
 #include <QAbstractItemModel>
 
 class QFile;
+class QMenu;
 class QPrinter;
 class QPainter;
 class QTextStream;
+class QUndoStack;
 
 namespace GDW
 {
@@ -46,6 +48,7 @@ namespace GDW
         void Export(QJsonArray&) const;
         void Print(QModelIndex, QPrinter&) const;
         void Reset();
+        void WritePdf(QModelIndex, QFile&) const;
         void WriteSvg(QModelIndex, QFile&) const;
 
         virtual ObjectTreeItem* Unpack(const QJsonObject&, ObjectTreeItem*);
@@ -54,6 +57,7 @@ namespace GDW
 
         virtual bool InsertObject(int /*= INT_MAX*/);
         virtual bool RemoveObject(int /*= INT_MAX*/);
+        virtual void AddActions(QMenu&, QUndoStack&, const QModelIndex&);
 
         bool InsertChild(ObjectTreeItem*, ObjectTreeItem*, int = INT_MAX);
         ObjectTreeItem* RemoveChild(ObjectTreeItem*, int = INT_MAX);

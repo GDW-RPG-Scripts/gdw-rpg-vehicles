@@ -9,7 +9,8 @@
   <title>{{name}}</title>
   <desc>GDW RPG Vehicles - Vehicle Page</desc>
   <defs>
-    <style type="text/css"><![CDATA[
+    <style type="text/css">
+    <![CDATA[
     .TitleField {
     fill: #ffffff;
     stroke: #ffffff;
@@ -91,6 +92,7 @@
     fill: #000000;
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-size: 4.5%;
+    line-increment: 0.8;
     stroke: #000000;
     text-anchor: middle;
     }
@@ -118,13 +120,23 @@
     stroke: #000000;
     text-anchor: end;
     }
+    .TopDownText {
+    dominant-baseline: middle;
+    fill: #000000;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-weight: 900;
+    font-size: 4.5%;
+    stroke: #ffffff;
+    stroke-width: 5;
+    text-anchor: middle;
+    }
     .ImageLine {
-    fill:none;
-    stroke-linecap:round;
-    stroke-linejoin:round;
-    stroke-miterlimit:10;
-    stroke-width:0.5;
-    stroke:#000000";
+    fill: none;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-miterlimit: 10;
+    stroke-width: 0.5;
+    stroke: #000000";
     }
     ]]>
     </style>
@@ -221,7 +233,7 @@
 	  class="Heading1Text"
 	  textLength="22"
 	  x="13"
-	  y="6.5">Agility</text>
+          y="6.5">{{#cepheus?}}Agility{{/cepheus?}}{{#t2k_tne?}}Travel{{/t2k_tne?}}</text>
     </g>
     <g id="Speed" transform="translate(87,0)">
       <use id="SpeedBox" xlink:href="#HeadingRect"/>
@@ -230,7 +242,7 @@
 	  class="Heading1Text"
 	  textLength="22"
 	  x="13"
-	  y="6.5">Speed</text>
+          y="6.5">{{#cepheus?}}Speed{{/cepheus?}}{{#t2k_tne?}}Combat{{/t2k_tne?}}</text>
     </g>
     <g id="Range" transform="translate(116,0)">
       <use id="RangeBox" xlink:href="#HeadingRect"/>
@@ -278,28 +290,29 @@
 	  class="Field1Text"
           x="0"
           y="0"
-          width="26"
+          width="25"
           height="12">{{skill}}</textArea>
     </g>
     <g id="AgilityField" transform="translate(58,0)">
       <use id="AgilityFieldBox" xlink:href="#FieldRect"/>
-      <text
+      <textArea
 	  id="AgilityValue"
 	  class="Field1Text"
-          textLength="22"
-          x="13"
-	  y="6.5"
-          >{{agility}}</text>
+          x="0"
+          y="0"
+          width="25"
+          height="12">{{#cepheus?}}{{agility}}{{/cepheus?}}{{#t2k_tne?}}{{{trmov}}}{{/t2k_tne?}}</textArea>
     </g>
     <g id="SpeedField" transform="translate(87,0)">
       <use id="SpeedFieldBox" xlink:href="#FieldRect"/>
-      <text
+      <textArea
 	  id="SpeedValue"
 	  class="Field1Text"
           textLength="22"
-          x="13"
-	  y="6.5"
-          >{{speed}}</text>
+          x="0"
+          y="0"
+          width="25"
+          height="12">{{#cepheus?}}{{speed}}{{/cepheus?}}{{#t2k_tne?}}{{{ccmove}}}{{/t2k_tne?}}</textArea>
     </g>
     <g id="RangeField" transform="translate(116,0)">
       <use id="RangeFieldBox" xlink:href="#FieldRect"/>
@@ -308,7 +321,7 @@
 	  class="Field1Text"
           textLength="22"
           x="13"
-	  y="6.5"
+          y="6.5"
           >{{range}}</text>
     </g>
     <g id="CrewField" transform="translate(145,0)">
@@ -782,7 +795,8 @@
 	x="0"
 	y="0"
 	ry="2" />
-        {{{topdown}}}
+      <!-- g transform="matrix(0.08,0,0,0.08,-2.25,13.5)" -->
+      <g>{{{topdown}}}</g>
     <rect
 	id="DeckBox"
 	class="HeadingBox"
@@ -813,37 +827,36 @@
 	textLength="16"
 	x="56"
         y="5.5">Belly: {{belly}}</text>
-
     <text
 	id="HullFrontText"
 	class="Field2Text"
 	textLength="10"
-	x="33.5"
-        y="25">{{hf}}</text>
+        x="33.5"
+        y="8">{{hf}}</text>
     <text
-	id="TurretFrontText"
-	class="Field2Text"
-	textLength="10"
-	x="33.5"
-        y="36">{{tf}}</text>
+        id="TurretFrontText"
+        class="TopDownText"
+        textLength="10"
+        x="33.5"
+        y="41">{{tf}}</text>
     <text
 	id="TurretLeftText"
-	class="Field2Text"
+        class="TopDownText"
 	textLength="10"
 	x="18.5"
-        y="51">{{ts}}</text>
+        y="56">{{ts}}</text>
     <text
 	id="TurretRightText"
-	class="Field2Text"
+        class="TopDownText"
 	textLength="10"
 	x="48.5"
-        y="51">{{ts}}</text>
+        y="56">{{ts}}</text>
     <text
 	id="TurretRearText"
-	class="Field2Text"
+        class="TopDownText"
 	textLength="10"
 	x="33.5"
-        y="66">{{tr}}</text>
+        y="71">{{tr}}</text>
     <text
 	id="HullLeftText"
 	class="Field2Text"
@@ -884,6 +897,10 @@
 	x="0"
 	y="0"
 	ry="2" />
+      <!--g transform="matrix(0.15,0,0,0.15,-130,-165)"-->
+      <g>
+        {{{sideview}}}
+      </g>
     <rect
 	id="SideViewTextBox"
 	class="HeadingBox"
@@ -923,5 +940,12 @@
       y="1"
       width="130"
       height="42">{{x8}}</textArea>
+  </g>
+  <g id="RulesetView" transform="translate(5,296)">
+    <text
+      id="RulesetText"
+      class="Field2LeftText"
+      x="1"
+      y="1">Ruleset: {{ruleset}}</text>
   </g>
 </svg>

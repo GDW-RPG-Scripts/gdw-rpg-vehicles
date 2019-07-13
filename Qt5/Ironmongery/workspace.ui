@@ -613,7 +613,7 @@
     <addaction name="action_Save"/>
     <addaction name="action_SaveAs"/>
     <addaction name="separator"/>
-    <addaction name="action_ExportSvg"/>
+    <addaction name="action_ExportPdf"/>
     <addaction name="action_Import"/>
     <addaction name="separator"/>
     <addaction name="action_Print"/>
@@ -988,6 +988,21 @@
     <string>Ctrl+E</string>
    </property>
   </action>
+  <action name="action_ExportPdf">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="Ironmongery.qrc">
+     <normaloff>:/icons/16x16/document-export.png</normaloff>:/icons/16x16/document-export.png</iconset>
+   </property>
+   <property name="text">
+    <string>Export PDF...</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+E</string>
+   </property>
+  </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <customwidgets>
@@ -1249,7 +1264,7 @@
    <sender>weaponsTreeView</sender>
    <signal>customContextMenuRequested(QPoint)</signal>
    <receiver>Workspace</receiver>
-   <slot>ShowWeaponsMenu(QPoint)</slot>
+   <slot>ShowContextMenu(QPoint)</slot>
    <hints>
     <hint type="sourcelabel">
      <x>119</x>
@@ -1265,7 +1280,7 @@
    <sender>vehiclesTreeView</sender>
    <signal>customContextMenuRequested(QPoint)</signal>
    <receiver>Workspace</receiver>
-   <slot>ShowVehiclesMenu(QPoint)</slot>
+   <slot>ShowContextMenu(QPoint)</slot>
    <hints>
     <hint type="sourcelabel">
      <x>119</x>
@@ -1357,6 +1372,22 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>action_ExportPdf</sender>
+   <signal>triggered()</signal>
+   <receiver>Workspace</receiver>
+   <slot>ExportPDF()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>449</x>
+     <y>277</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>About()</slot>
@@ -1373,9 +1404,9 @@
   <slot>New()</slot>
   <slot>Prefs()</slot>
   <slot>CurrentType(int)</slot>
-  <slot>ShowVehiclesMenu(QPoint)</slot>
-  <slot>ShowWeaponsMenu(QPoint)</slot>
+  <slot>ShowContextMenu(QPoint)</slot>
   <slot>Import()</slot>
   <slot>ExportSVG()</slot>
+  <slot>ExportPDF()</slot>
  </slots>
 </ui>

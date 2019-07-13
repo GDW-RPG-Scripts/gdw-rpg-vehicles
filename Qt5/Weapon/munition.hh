@@ -16,6 +16,8 @@ namespace GDW
         Munition(const Munition&);
         ~Munition() override;
 
+        static Munition* New();
+
         Munition(const QJsonObject&);
 
         static const QString JSON_TYPE;

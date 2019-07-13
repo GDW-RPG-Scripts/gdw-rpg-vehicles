@@ -20,16 +20,7 @@
 #include "objectitem.hh"
 
 #include <QtWidgets>
-#if defined(QT_PRINTSUPPORT_LIB)
-#include <QtPrintSupport/qtprintsupportglobal.h>
-#if QT_CONFIG(printdialog)
 #include <QPrinter>
-#include <QPrintDialog>
-#if QT_CONFIG(printpreviewdialog)
-#include <QPrintPreviewDialog>
-#endif
-#endif
-#endif
 
 using namespace GDW::RPG;
 
@@ -97,6 +88,10 @@ ObjectModel::RemoveChild(ObjectTreeItem* parentItem, int position)
 }
 
 void
+ObjectModel::AddActions(QMenu&, QUndoStack&, const QModelIndex&)
+{}
+
+void
 ObjectModel::Reset()
 {
   beginResetModel();
@@ -112,6 +107,14 @@ ObjectModel::Print(QModelIndex index, QPrinter& printer) const
 {
   ItemFor(index)->RenderPage(printer);
   //ui->textEdit->print(&printDev);
+}
+
+void
+ObjectModel::WritePdf(QModelIndex index, QFile& file) const
+{
+  QPdfWriter writer(&file);
+  writer.setPageSize(QPagedPaintDevice::A4);
+  ItemFor(index)->RenderPage(writer);
 }
 
 void

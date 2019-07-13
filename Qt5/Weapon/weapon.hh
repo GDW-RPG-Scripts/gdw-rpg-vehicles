@@ -113,6 +113,4 @@ namespace GDW
   };
 };
 
-//Q_DECLARE_METATYPE(GDW::RPG::Weapon)
-
 #endif // WEAPON_HH

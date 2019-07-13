@@ -26,6 +26,21 @@ namespace GDW
   namespace RPG
   {
     class ObjectForm;
+    class ObjectTreeItem;
+
+    class AddChildItemCommand : public QUndoCommand
+    {
+      public:
+        AddChildItemCommand(ObjectTreeItem*, ObjectTreeItem*,
+                            QUndoCommand* parent = nullptr);
+
+        void undo() override;
+        void redo() override;
+
+      private:
+        ObjectTreeItem* mParentItem;
+        ObjectTreeItem* mChildItem;
+    };
 
     class ClearImageCommand : public QUndoCommand
     {

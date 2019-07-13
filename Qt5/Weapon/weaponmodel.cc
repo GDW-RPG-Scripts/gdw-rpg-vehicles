@@ -18,6 +18,13 @@
 
 #include "weaponmodel.hh"
 #include "weaponitem.hh"
+#include "munitiondialog.hh"
+#include "munitionitem.hh"
+#include "objectcmd.hh"
+
+#include <QMenu>
+
+class QUndoStack;
 
 using namespace GDW::RPG;
 
@@ -52,6 +59,39 @@ ObjectTreeItem*
 WeaponModel::InsertObject(ObjectTreeItem* parent) const
 {
   return WeaponTreeItem::Create(parent);
+}
+
+void
+WeaponModel::AddMunition(QUndoStack& undoStack, const QModelIndex& index)
+{
+  WeaponTreeItem* wti =
+      static_cast<WeaponTreeItem*>(index.internalPointer());
+
+  MunitionDialog dialog(wti);
+
+  if(dialog.exec() != QDialog::Accepted) {
+    return;
+  }
+
+  QModelIndex munitionIndex = dialog.Selected();
+  if(munitionIndex.isValid()) {
+    MunitionItem* mi =
+        static_cast<MunitionItem*>(munitionIndex.internalPointer());
+
+    undoStack.push(new AddChildItemCommand(wti, mi));
+  }
+}
+
+void
+WeaponModel::AddActions(QMenu& menu, QUndoStack& undoStack,
+                         const QModelIndex& index)
+{
+  QAction* action_AddWeapon = new QAction(tr("Add munition..."));
+
+  connect(action_AddWeapon, &QAction::triggered, this,
+          [&, this]() { this->AddMunition(undoStack, index); });
+
+  menu.addAction(action_AddWeapon);
 }
 
 ObjectTreeItem*

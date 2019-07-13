@@ -16,6 +16,7 @@
  * General Public License along with GDW RPG Vehicles. If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "ruleset.hh"
 #include "objectitem.hh"
 #include "object.hh"
 #include "objectform.hh"
@@ -27,6 +28,7 @@
 #include <QGroupBox>
 #include <QJsonArray>
 #include <QJsonDocument>
+#include <QPdfWriter>
 #include <QPainter>
 #include <QSettings>
 #include <QStackedWidget>
@@ -122,8 +124,8 @@ ObjectTreeItem::InsertChild(ObjectTreeItem* item, int position)
 
   mChildItems.insert(position, item);
 
-// Not necessary since the basic objects come with their
-// children already:
+  // Not necessary since the basic objects come with their
+  // children already:
   if(mObject)
     mObject->InsertChild(item->GetObject(), position);
 
@@ -149,7 +151,8 @@ ObjectTreeItem::RemoveChild(int position)
 ObjectTreeItem*
 ObjectTreeItem::ParentItem() const
 {
-  return qobject_cast<ObjectTreeItem*>(parent());
+  return static_cast<ObjectTreeItem*>(parent());
+  //return qobject_cast<ObjectTreeItem*>(parent());
 }
 
 int
@@ -232,12 +235,13 @@ ObjectTreeItem::Template() const
 QString
 ObjectTreeItem::RenderSvg() const
 {
-  QVariantHash map;
+  QVariantHash hash;
 
-  GetObject()->ToVariantHash(map);
+  Ruleset::ToVariantHash(hash);
+  GetObject()->ToVariantHash(hash);
 
   Mustache::Renderer renderer;
-  Mustache::QtVariantContext* context = GetObject()->Context(map);
+  Mustache::QtVariantContext* context = GetObject()->Context(hash);
 
   return renderer.render(Template(), context);
 }
@@ -245,7 +249,7 @@ ObjectTreeItem::RenderSvg() const
 void
 ObjectTreeItem::RenderPage(QPaintDevice& device) const
 {
-  QXmlStreamReader reader(RenderSvg());
+  QXmlStreamReader reader(RenderSvg().toUtf8());
   QSvgRenderer svg(&reader);
   QPainter painter(&device);
 

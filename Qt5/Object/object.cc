@@ -19,15 +19,26 @@
 #include "object.hh"
 
 #include "exception.hh"
-
 #include "mustache.hh"
+#include "ruleset.hh"
 
 #include <QFont>
 #include <QFontMetrics>
 #include <QJsonArray>
-#include <QPrinter>
 #include <QtMath>
-#include <QSettings>
+
+#if defined(QT_PRINTSUPPORT_LIB)
+#include <QtPrintSupport/qtprintsupportglobal.h>
+#if QT_CONFIG(printer)
+#if QT_CONFIG(printdialog)
+#include <QPrintDialog>
+#endif // QT_CONFIG(printdialog)
+#include <QPrinter>
+#if QT_CONFIG(printpreviewdialog)
+#include <QPrintPreviewDialog>
+#endif // QT_CONFIG(printpreviewdialog)
+#endif // QT_CONFIG(printer)
+#endif // QT_PRINTSUPPORT_LIB
 
 #include <cmath>
 
@@ -120,6 +131,8 @@ Object::operator const QJsonObject&()
 void
 Object::ToVariantHash(QVariantHash& hash) const
 {
+  Ruleset::ToVariantHash(hash);
+
   hash[PROP_TECHLEVEL]   = GetVariantFor(PROP_TECHLEVEL);
 }
 
@@ -203,11 +216,8 @@ Object::SetObjectsFor(const QString& index, QList<Object*>& objectList)
 double
 Object::ConvertFrom(double value) const
 {
-  QSettings settings;
-
-  if(settings.value("ruleset", 0).toInt() == 1) {
+  if(Ruleset::Current() == Ruleset::STRIKER)
     return STRIKER[qFloor(value)-1];
-  }
 
   return value;
 }
@@ -215,9 +225,7 @@ Object::ConvertFrom(double value) const
 double
 Object::Round(double value) const
 {
-  QSettings settings;
-
-  if(settings.value("ruleset", 0).toInt() == 1) {
+  if(Ruleset::Current() == Ruleset::STRIKER) {
     for(int i = 0; i < RANGE; ++i) {
       if(STRIKER[i] > value) {
         return i;
@@ -235,10 +243,33 @@ Object::Round(double value) const
   return std::round(value);
 }
 
+QVariant
+Object::UnpackSvg(const QVariant& variant) const
+{
+  if(variant.isNull())
+    return QVariant();
+
+  return
+      qUncompress(QByteArray::fromBase64(variant.toByteArray()));
+}
+
+QVariant
+Object::UnpackMultiValue(const QVariant& variant) const
+{
+  if(variant.isNull())
+    return QVariant();
+
+  QString move = variant.toString();
+  move.replace(QChar(' '), "");
+  move.replace(QChar(';'), "<tbreak/>");
+
+  return move;
+}
+
 QString
 Object::LineBreakText(QString paragraph, int width, double y) const
 {
-  QPrinter printer;
+  QPrinter printer(QPrinter::HighResolution);
   QFont font("Helvetica Neue", 5);
   QFontMetrics metric(font, &printer);
 

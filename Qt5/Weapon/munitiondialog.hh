@@ -16,44 +16,31 @@
  * General Public License along with GDW RPG Vehicles. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef VEHICLEMODEL_HH
-#define VEHICLEMODEL_HH
+#ifndef MUNITIONDIALOG_HH
+#define MUNITIONDIALOG_HH
 
-#include "vehicle_global.hh"
-
-#include "objectmodel.hh"
+#include <QDialog>
+#include <QModelIndex>
 
 namespace GDW
 {
   namespace RPG
   {
-    class VehicleTreeItem;
+    class WeaponTreeItem;
 
-    class VEHICLESHARED_EXPORT VehicleModel : public ObjectModel
+    class MunitionDialog : public QDialog
     {
-        Q_OBJECT
-
       public:
-        static VehicleModel* Model();
+        MunitionDialog(WeaponTreeItem*, QWidget* parent = nullptr);
 
-        ObjectTreeItem* Unpack(const QJsonObject& json,
-                               ObjectTreeItem* parent) override;
+        QModelIndex Selected() const;
 
-        bool InsertObject(int /*= INT_MAX*/) override;
-        // bool RemoveObject(int /*= INT_MAX*/) override;
-
-        void AddActions(QMenu&, QUndoStack&, const QModelIndex&) override;
-
-      protected:
-        ObjectTreeItem* InsertObject(ObjectTreeItem*) const override;
-        const QList<QVariant>& RootData() const override;
+      public slots:
+        void ItemSelected(const QModelIndex&);
 
       private:
-        VehicleModel(QObject* parent = nullptr);
-
-        void AddWeapon(QUndoStack&, const QModelIndex&);
+        QModelIndex mSelectedIndex;
     };
   };
 };
-
-#endif // VEHICLEMODEL_HH
+#endif // MUNITIONDIALOG_HH

@@ -18,10 +18,40 @@
 
 #include "objectcmd.hh"
 #include "objectform.hh"
+#include "objectmodel.hh"
+#include "objectitem.hh"
 
 #include <QDebug>
 
 using namespace GDW::RPG;
+
+//
+// Add Item Command
+//
+AddChildItemCommand::AddChildItemCommand(ObjectTreeItem* parentItem,
+                                         ObjectTreeItem* childItem,
+                                         QUndoCommand* parent)
+  : QUndoCommand(parent),
+    mParentItem(parentItem), mChildItem(childItem->Copy())
+{
+  setText(QObject::tr("child add"));
+}
+
+void
+AddChildItemCommand::undo()
+{
+  qDebug() << "AddItemCommand::undo()";
+
+  mParentItem->Model()->RemoveChild(mParentItem, mChildItem->Row());
+}
+
+void
+AddChildItemCommand::redo()
+{
+  qDebug() << "AddItemCommand::redo()";
+
+  mParentItem->Model()->InsertChild(mChildItem, mParentItem);
+}
 
 //
 // Clear Image Command

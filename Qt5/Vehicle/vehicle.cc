@@ -19,12 +19,12 @@
 #include "vehicle.hh"
 
 #include "mustache.hh"
+#include "ruleset.hh"
 #include "weapon.hh"
 
 #include <QJsonArray>
 #include <QJsonDocument>
 #include <QLocale>
-#include <QSettings>
 
 #include <cmath>
 
@@ -47,22 +47,15 @@ Vehicle::~Vehicle()
 Vehicle*
 Vehicle::New(Object* parent)
 {
-  static const QJsonObject exemplar
+  static const QJsonObject EXEMPLAR
   {
     {"__GDW_RPG_Type__", JSON_TYPE},
-    {PROP_NAME, "[Name]"}, {PROP_TYPE, "[Type]"}, {PROP_NATIONALITY, "[Nationality]"} //,
-    //    {PROP_TRMOV,   QJsonValue(QJsonValue::Double)}, {PROP_CCMOV, QJsonValue(QJsonValue::Double)}, {PROP_FCAP, QJsonValue(QJsonValue::Double)}, {PROP_FCONS, QJsonValue(QJsonValue::Double)}, {PROP_SUSP, ""},
-    //    {PROP_TF,      QJsonValue(QJsonValue::Double)}, {PROP_TS,    QJsonValue(QJsonValue::Double)}, {PROP_TR,   QJsonValue(QJsonValue::Double)}, {PROP_HF,    QJsonValue(QJsonValue::Double)}, {PROP_HS,  QJsonValue(QJsonValue::Double)}, {PROP_HR, QJsonValue(QJsonValue::Double)},
-    //    {PROP_WEAPONS, QJsonArray()},
-    //    {PROP_WEIGHT,  QJsonValue(QJsonValue::Double)}, {PROP_LOAD,  QJsonValue(QJsonValue::Double)}, {PROP_CREW, QJsonValue(QJsonValue::Double)}, {PROP_PSGR,  QJsonValue(QJsonValue::Double)}, {PROP_MNT, QJsonValue(QJsonValue::Double)},
-    //    {PROP_PRICE,   QJsonValue(QJsonValue::Double)}, {PROP_RF,    QJsonValue(QJsonValue::Double)}, {PROP_DECK, QJsonValue(QJsonValue::Double)}, {PROP_BELLY, QJsonValue(QJsonValue::Double)},
-    //    {PROP_STAB, ""}, {PROP_FUEL, ""}, {PROP_NIGHT, ""}, {PROP_RAD, ""},
-    //    {PROP_X5,   ""}, {PROP_X6,   ""}, {PROP_X7,    ""},
-    //    {PROP_X8,   ""},
-    //    {PROP_LOCA, ""}
+    {PROP_NAME,          "[Name]"},
+    {PROP_TYPE,          "[Type]"},
+    {PROP_NATIONALITY,   "[Nationality]"}
   };
 
-  return new Vehicle(exemplar, parent);
+  return new Vehicle(EXEMPLAR, parent);
 }
 
 Vehicle*
@@ -104,8 +97,8 @@ Vehicle::ToVariantHash(QVariantHash& hash) const
   hash[PROP_NAME]        = Name();
   hash[PROP_TYPE]        = Type();
   hash[PROP_NATIONALITY] = Nationality();
-  hash[PROP_TRMOV]       = TravelMove();
-  hash[PROP_CCMOV]       = CombatMove();
+  hash[PROP_TRMOV]       = UnpackMultiValue(TravelMove());
+  hash[PROP_CCMOV]       = UnpackMultiValue(CombatMove());
   hash[PROP_FCAP]        = FuelCapacity();
   hash[PROP_FCONS]       = FuelConsumption();
   hash[PROP_SUSP]        = Suspension();
@@ -146,20 +139,9 @@ Vehicle::ToVariantHash(QVariantHash& hash) const
   hash[PROP_X8]           = X8();
   //  hash[PROP_X8]           = LineBreakText(X8().toString(), 140);
   hash[PROP_LOCA]         = HitLocations();
-  {
-    QByteArray value = SideViewImage().toByteArray();
-    hash[PROP_SIDEVIEW_IMG] =
-        value.isEmpty()
-        ? ""
-        : qUncompress(QByteArray::fromBase64(value));
-  }
-  {
-    QByteArray value = TopDownImage().toByteArray();
-    hash[PROP_TOPDOWN_IMG]  =
-        value.isEmpty()
-        ? ""
-        : qUncompress(QByteArray::fromBase64(value));
-  }
+
+  hash[PROP_SIDEVIEW_IMG] = UnpackSvg(SideViewImage());
+  hash[PROP_TOPDOWN_IMG]  = UnpackSvg(TopDownImage());
 
   // Additional asset box
   {
@@ -299,14 +281,15 @@ Vehicle::Context(const QVariantHash& hash) const
 qreal
 Vehicle::Divisor() const
 {
-  static const qreal FACTOR[] = {
-    1.0, 2.0, 2.0, 2.16666, 5.4
+  static const QHash<QString,qreal> FACTOR = {
+    {Ruleset::T2K_TNE, 1.0},
+    {Ruleset::STRIKER, 2.0},
+    {Ruleset::ARMOR,   2.0},
+    {Ruleset::MGT2,    2.16666},
+    {Ruleset::CEPHEUS, 5.4}
   };
 
-  QSettings settings;
-  int ruleset = settings.value("ruleset", 0).toInt();
-
-  return FACTOR[ruleset];
+  return FACTOR[Ruleset::Current()];
 }
 
 /*

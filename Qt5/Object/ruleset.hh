@@ -16,44 +16,33 @@
  * General Public License along with GDW RPG Vehicles. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef VEHICLEMODEL_HH
-#define VEHICLEMODEL_HH
+#ifndef RULESET_HH
+#define RULESET_HH
 
-#include "vehicle_global.hh"
-
-#include "objectmodel.hh"
+#include <QCoreApplication>
+#include <QMap>
 
 namespace GDW
 {
   namespace RPG
   {
-    class VehicleTreeItem;
-
-    class VEHICLESHARED_EXPORT VehicleModel : public ObjectModel
+    class Ruleset
     {
-        Q_OBJECT
+        Q_DECLARE_TR_FUNCTIONS(Ruleset)
 
       public:
-        static VehicleModel* Model();
+        static const QString T2K_TNE;
+        static const QString STRIKER;
+        static const QString ARMOR;
+        static const QString MGT2;
+        static const QString CEPHEUS;
 
-        ObjectTreeItem* Unpack(const QJsonObject& json,
-                               ObjectTreeItem* parent) override;
+        static QString Current();
+        static void ToVariantHash(QVariantHash& hash);
 
-        bool InsertObject(int /*= INT_MAX*/) override;
-        // bool RemoveObject(int /*= INT_MAX*/) override;
-
-        void AddActions(QMenu&, QUndoStack&, const QModelIndex&) override;
-
-      protected:
-        ObjectTreeItem* InsertObject(ObjectTreeItem*) const override;
-        const QList<QVariant>& RootData() const override;
-
-      private:
-        VehicleModel(QObject* parent = nullptr);
-
-        void AddWeapon(QUndoStack&, const QModelIndex&);
+        static const QMap<QString, QString> MAP;
     };
   };
 };
 
-#endif // VEHICLEMODEL_HH
+#endif // RULESET_HH

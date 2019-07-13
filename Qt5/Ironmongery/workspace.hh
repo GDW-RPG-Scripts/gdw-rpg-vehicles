@@ -66,6 +66,7 @@ namespace GDW
         void New();
         void Open();
         void Import();
+        void ExportPDF();
         void ExportSVG();
         void Prefs();
         bool Save();
@@ -88,6 +89,7 @@ namespace GDW
 
         void AddMunition();
         void AddWeapon();
+        void ShowContextMenu(const QPoint&);
         void ShowVehiclesMenu(const QPoint&);
         void ShowWeaponsMenu(const QPoint&);
 
@@ -107,7 +109,7 @@ namespace GDW
         void Select(ObjectForm*);
         void Unselect();
 
-        int mRuleSet;
+        QString mRuleSet;
         bool mLoadOnStart;
 
         Factory mFactory;

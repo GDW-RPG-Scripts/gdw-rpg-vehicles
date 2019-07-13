@@ -78,6 +78,9 @@ namespace GDW
         double ConvertFrom(double) const;
         double Round(double) const;
 
+        QVariant UnpackSvg(const QVariant&) const;
+        QVariant UnpackMultiValue(const QVariant&) const;
+
         QString LineBreakText(QString, int, double = 0.0) const;
 
       private:

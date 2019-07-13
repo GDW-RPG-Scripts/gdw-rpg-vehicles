@@ -16,46 +16,16 @@
  * General Public License along with GDW RPG Vehicles. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef PREFSDIALOG_HH
-#define PREFSDIALOG_HH
+#include "munitionitem.hh"
 
+using namespace GDW::RPG;
 
-#include <QDialog>
-#include <QMap>
-
-class QButtonGroup;
-class QCloseEvent;
-
-namespace GDW
+MunitionItem*
+MunitionItem::Create(ObjectTreeItem* parent)
 {
-  namespace RPG
-  {
-    class Workspace;
+  return new MunitionItem(Munition::New(), parent);
+}
 
-    class PrefsDialog : public QDialog
-    {
-        Q_OBJECT
-
-      public:
-        PrefsDialog(bool, const QString&, Workspace* parent);
-        ~PrefsDialog();
-
-        bool LoadOnStart() const;
-        QString Ruleset() const;
-        void Ruleset(const QString&);
-
-      private slots:
-        void LoadOnStart(bool);
-        void Ruleset(uint);
-
-      private:
-        bool mLoadOnStart;
-        QString mRuleset;
-
-        QButtonGroup* mRuleGroup;
-        QMap<uint,QString> mRuleMap;
-    };
-  };
-};
-
-#endif // PREFSDIALOG_HH
+MunitionItem::MunitionItem(Munition* munition, ObjectTreeItem* parent)
+  : ObjectTreeItem(munition, parent)
+{}

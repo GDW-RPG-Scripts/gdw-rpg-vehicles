@@ -16,6 +16,7 @@
  * General Public License along with GDW RPG Vehicles. If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "ruleset.hh"
 #include "prefsdialog.hh"
 #include "workspace.hh"
 
@@ -23,7 +24,7 @@
 
 using namespace GDW::RPG;
 
-PrefsDialog::PrefsDialog(bool loadOnStart, int ruleset, Workspace* parent)
+PrefsDialog::PrefsDialog(bool loadOnStart, const QString& ruleset, Workspace* parent)
   : QDialog(parent), mLoadOnStart(loadOnStart), mRuleset(ruleset),
     mRuleGroup(new QButtonGroup)
 {
@@ -47,24 +48,38 @@ PrefsDialog::PrefsDialog(bool loadOnStart, int ruleset, Workspace* parent)
   QGroupBox* ruleBox = new QGroupBox(tr("Ruleset") + ":", this);
   QVBoxLayout* ruleBoxLayout = new QVBoxLayout;
 
-  QList<QRadioButton*> ruleSet =
-  {
-    new QRadioButton(tr("Twilight 2000 (2.2) and TNE rules") + ".", this),
-    new QRadioButton(tr("Striker I rules") + ".", this),
-    new QRadioButton(tr("Actual armor equivalent in centimeters of steel (cm)") + ".", this),
-    new QRadioButton(tr("Mongoose T2E vehicle rules") + ".", this),
-    new QRadioButton(tr("Cepheus vehicle rules") + ".", this),
-    new QRadioButton(tr("Armor calculator") + ".", this)
-  };
-
-  ruleSet[mRuleset]->setChecked(true);
-
-  for(int i = 0; i < ruleSet.count(); ++i) {
-    ruleBoxLayout->addWidget(ruleSet[i]);
-    mRuleGroup->addButton(ruleSet[i], i);
+  QMap<QString, QRadioButton*> ruleSet;
+  QMap<QString, QString>::const_iterator i;
+  for (i = Ruleset::MAP.cbegin(); i != Ruleset::MAP.cend(); ++i) {
+    uint hash = qHash(i.key());
+    QRadioButton* button = new QRadioButton(i.value());
+    if(i.key() == mRuleset)
+      button->setChecked(true);
+    ruleBoxLayout->addWidget(button);
+    mRuleGroup->addButton(button, hash);
+    ruleSet[i.key()] = button;
+    mRuleMap[hash] = i.key();
   }
+
+//  QList<QRadioButton*> ruleSet =
+//  {
+//    new QRadioButton(tr("Twilight 2000 (2.2) and TNE rules") + ".", this),
+//    new QRadioButton(tr("Striker I rules") + ".", this),
+//    new QRadioButton(tr("Actual armor equivalent in centimeters of steel (cm)") + ".", this),
+//    new QRadioButton(tr("Mongoose T2E vehicle rules") + ".", this),
+//    new QRadioButton(tr("Cepheus vehicle rules") + ".", this),
+//    new QRadioButton(tr("Armor calculator") + ".", this)
+//  };
+
+//  ruleSet[mRuleset]->setChecked(true);
+
+//  for(int i = 0; i < ruleSet.count(); ++i) {
+//    ruleBoxLayout->addWidget(ruleSet[i]);
+//    mRuleGroup->addButton(ruleSet[i], i);
+//  }
+
   connect(mRuleGroup, QOverload<int>::of(&QButtonGroup::buttonClicked),
-          this, QOverload<int>::of(&PrefsDialog::Ruleset));
+          this, QOverload<uint>::of(&PrefsDialog::Ruleset));
 
   ruleBox->setLayout(ruleBoxLayout);
   dialogLayout->addWidget(ruleBox);
@@ -84,14 +99,20 @@ PrefsDialog::~PrefsDialog()
   delete mRuleGroup;
 }
 
-int
+QString
 PrefsDialog::Ruleset() const
 {
   return mRuleset;
 }
 
 void
-PrefsDialog::Ruleset(int ruleset)
+PrefsDialog::Ruleset(uint ruleset)
+{
+  mRuleset = mRuleMap[ruleset];
+}
+
+void
+PrefsDialog::Ruleset(const QString& ruleset)
 {
   mRuleset = ruleset;
 }

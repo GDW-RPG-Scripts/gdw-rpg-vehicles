@@ -87,19 +87,27 @@ ObjectForm::AddSvgFrame(const QVariant& data, QWidget* parent)
   if(!data.isValid())
     return;
 
-  QSvgWidget* svg = nullptr;
+  QSvgWidget* widget = nullptr;
 
   if(!data.toByteArray().isEmpty()) {
     QByteArray base64 = data.toByteArray();
     QByteArray fragment = qUncompress(QByteArray::fromBase64(base64));
+    QByteArray svg;
+    svg .append("<svg xmlns=\"http://www.w3.org/2000/svg\"")
+        .append(" xmlns:xlink=\"http://www.w3.org/1999/xlink\"")
+        .append(" version=\"1.2\" baseProfile=\"tiny\"")
+        .append(" width=\"125px\" height=\"100px\"")
+        .append(" viewBox=\"0 0 125 100\">")
+        .append(fragment)
+        .append("</svg>");
 
-    svg = new QSvgWidget;
-    svg->load(fragment);
+    widget = new QSvgWidget;
+    widget->load(svg);
   }
 
   QHBoxLayout* hbox = new QHBoxLayout;
   hbox->setContentsMargins(2,2,2,2);
-  hbox->addWidget(svg);
+  hbox->addWidget(widget);
 
   QLayout* layout = parent->layout();
   if(layout)
@@ -124,7 +132,8 @@ ObjectForm::GetSvgFragment(const QString& message)
   QByteArray result;
   QXmlStreamReader xml(&file);
 
-  int level = 0;
+  int indent_level = 0;
+  bool skip = false;
   while (!xml.atEnd()) {
     QXmlStreamReader::TokenType type = xml.readNext();
     switch(type) {
@@ -137,17 +146,28 @@ ObjectForm::GetSvgFragment(const QString& message)
         break;
 
       case QXmlStreamReader::StartDocument:
-        qDebug() << "<!-- Start Dockument -->";
+        qDebug() << "<!-- Start Document -->";
         break;
 
       case QXmlStreamReader::EndDocument:
-        qDebug() << "<!-- End Dockument -->";
+        qDebug() << "<!-- End Document -->";
         break;
 
       case QXmlStreamReader::StartElement:
       {
+        if(xml.name() == "defs") {
+          skip = true;
+        }
+
+        if(skip)
+          break;
+
+        if(xml.name() == "svg") {
+          break;
+        }
+
         QString indent;
-        for (int i = 0; i < level; i++) {
+        for(int i = 0; i < indent_level; i++) {
           indent += "  ";
         }
         QString nsDecls;
@@ -166,15 +186,26 @@ ObjectForm::GetSvgFragment(const QString& message)
             << nsDecls
             << attributes
             << ">";
-        level += 1;
+        indent_level += 1;
         break;
       }
 
       case QXmlStreamReader::EndElement:
       {
-        level -= 1;
+        if(xml.name() == "defs") {
+          skip = false;
+          break;
+        }
+
+        if(skip)
+          break;
+
+        if(xml.name() == "svg")
+          break;
+
+        indent_level -= 1;
         QString indent;
-        for (int i = 0; i < level; i++) {
+        for(int i = 0; i < indent_level; i++) {
           indent += "  ";
         }
         result += "</" + xml.name() + ">";
@@ -187,7 +218,7 @@ ObjectForm::GetSvgFragment(const QString& message)
       case QXmlStreamReader::Characters:
       {
         QString indent;
-        for (int i = 0; i < level; i++) {
+        for (int i = 0; i < indent_level; i++) {
           indent += "  ";
         }
         if(!xml.isWhitespace()) {

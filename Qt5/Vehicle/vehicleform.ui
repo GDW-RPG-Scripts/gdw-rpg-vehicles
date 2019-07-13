@@ -1464,8 +1464,8 @@
        </item>
       </layout>
      </item>
-     <item row="1" column="3" rowspan="2">
-      <widget class="QFrame" name="svgFrame">
+     <item row="1" column="3">
+      <widget class="QFrame" name="topDownFrame">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
          <horstretch>1</horstretch>
@@ -1492,6 +1492,31 @@
        </property>
        <property name="midLineWidth">
         <number>0</number>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="3">
+      <widget class="QFrame" name="sideViewFrame">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+         <horstretch>1</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="contextMenuPolicy">
+        <enum>Qt::CustomContextMenu</enum>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(255, 255, 255);</string>
+       </property>
+       <property name="frameShape">
+        <enum>QFrame::Panel</enum>
+       </property>
+       <property name="frameShadow">
+        <enum>QFrame::Sunken</enum>
+       </property>
+       <property name="lineWidth">
+        <number>2</number>
        </property>
       </widget>
      </item>
@@ -1539,10 +1564,10 @@
  <resources/>
  <connections>
   <connection>
-   <sender>svgFrame</sender>
+   <sender>topDownFrame</sender>
    <signal>customContextMenuRequested(QPoint)</signal>
    <receiver>VehicleForm</receiver>
-   <slot>ShowSvgMenu(QPoint)</slot>
+   <slot>ShowTopDownMenu(QPoint)</slot>
    <hints>
     <hint type="sourcelabel">
      <x>739</x>
@@ -1554,9 +1579,26 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>sideViewFrame</sender>
+   <signal>customContextMenuRequested(QPoint)</signal>
+   <receiver>VehicleForm</receiver>
+   <slot>ShowSideViewMenu(QPoint)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>739</x>
+     <y>231</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>419</x>
+     <y>244</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>ViewUpdated()</slot>
-  <slot>ShowSvgMenu(QPoint)</slot>
+  <slot>ShowTopDownMenu(QPoint)</slot>
+  <slot>ShowSideViewMenu(QPoint)</slot>
  </slots>
 </ui>

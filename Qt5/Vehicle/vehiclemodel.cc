@@ -18,6 +18,13 @@
 
 #include "vehiclemodel.hh"
 #include "vehicleitem.hh"
+#include "weaponitem.hh"
+#include "weapondialog.hh"
+#include "objectcmd.hh"
+
+#include <QMenu>
+
+class QUndoStack;
 
 using namespace GDW::RPG;
 
@@ -56,18 +63,51 @@ VehicleModel::InsertObject(ObjectTreeItem* parent) const
   return VehicleTreeItem::Create(parent);
 }
 
+void
+VehicleModel::AddWeapon(QUndoStack& undoStack, const QModelIndex& index)
+{
+  VehicleTreeItem* vti =
+      static_cast<VehicleTreeItem*>(index.internalPointer());
+
+  WeaponDialog dialog;
+
+  if(dialog.exec() != QDialog::Accepted) {
+    return;
+  }
+
+  QModelIndex weaponIndex = dialog.Selected();
+  if(weaponIndex.isValid()) {
+    WeaponTreeItem* wti =
+        static_cast<WeaponTreeItem*>(weaponIndex.internalPointer());
+
+    undoStack.push(new AddChildItemCommand(vti, wti));
+  }
+}
+
+void
+VehicleModel::AddActions(QMenu& menu, QUndoStack& undoStack,
+                         const QModelIndex& index)
+{
+  QAction* action_AddWeapon = new QAction(tr("Add weapon..."));
+
+  connect(action_AddWeapon, &QAction::triggered, this,
+          [&, this]() { this->AddWeapon(undoStack, index); });
+
+  menu.addAction(action_AddWeapon);
+}
+
 ObjectTreeItem*
 VehicleModel::Unpack(const QJsonObject& json, ObjectTreeItem* parent)
 {
   if(parent == nullptr)
     parent = RootItem();
 
-//  int row = rowCount();
-//  QModelIndex index = createIndex(parent->Row(), 0, parent);
-//  beginInsertRows(index, row, row);
+  //  int row = rowCount();
+  //  QModelIndex index = createIndex(parent->Row(), 0, parent);
+  //  beginInsertRows(index, row, row);
   VehicleTreeItem* item = VehicleTreeItem::Unpack(json, parent);
   InsertChild(item, parent);
-//  endInsertRows();
+  //  endInsertRows();
 
   return item;
 }
