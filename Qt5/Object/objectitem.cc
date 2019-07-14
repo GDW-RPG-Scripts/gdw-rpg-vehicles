@@ -43,26 +43,26 @@ GDW_RPG_Object_Initialize()
 
 using namespace GDW::RPG;
 
-ObjectTreeItem::Initialize ObjectTreeItem::Initializer;
+ObjectItem::Initialize ObjectItem::Initializer;
 
-ObjectTreeItem::ObjectTreeItem()
+ObjectItem::ObjectItem()
 {}
 
-ObjectTreeItem::ObjectTreeItem(Object* object, ObjectTreeItem* parent)
+ObjectItem::ObjectItem(Object* object, ObjectItem* parent)
   : QObject(parent),
     mObject(object), mItemData(object->ItemData())
 {}
 
-ObjectTreeItem::ObjectTreeItem(const QList<QVariant>& data, ObjectTreeItem* parent)
+ObjectItem::ObjectItem(const QList<QVariant>& data, ObjectItem* parent)
   : QObject(parent), mObject(nullptr), mItemData(data)
 {}
 
-ObjectTreeItem::ObjectTreeItem(const ObjectTreeItem& item)
+ObjectItem::ObjectItem(const ObjectItem& item)
   : QObject(item.parent()),
     mObject(item.mObject->Copy()), mItemData(item.mItemData)
 {}
 
-ObjectTreeItem::~ObjectTreeItem()
+ObjectItem::~ObjectItem()
 {
   //  if(mObject != nullptr)
   //    delete mObject;
@@ -70,44 +70,44 @@ ObjectTreeItem::~ObjectTreeItem()
   // qDeleteAll(mChildItems);
 }
 
-ObjectTreeItem*
-ObjectTreeItem::Copy() const
+ObjectItem*
+ObjectItem::Copy() const
 {
   return nullptr;
 }
 
-ObjectTreeItem*
-ObjectTreeItem::Child(int row)
+ObjectItem*
+ObjectItem::Child(int row)
 {
   return mChildItems.value(row);
 }
 
 int
-ObjectTreeItem::ChildCount() const
+ObjectItem::ChildCount() const
 {
   return mChildItems.count();
 }
 
 int
-ObjectTreeItem::ColumnCount() const
+ObjectItem::ColumnCount() const
 {
   return mItemData.count();
 }
 
 QVariant
-ObjectTreeItem::Data(int column) const
+ObjectItem::Data(int column) const
 {
   return mItemData.value(column);
 }
 
 bool
-ObjectTreeItem::SetData(int column, const QVariant& variant)
+ObjectItem::SetData(int column, const QVariant& variant)
 {
   if (column < 0 || column > mItemData.size())
     return false;
 
-  if(variant.canConvert<ObjectTreeItem*>()) {
-    ObjectTreeItem* oti = variant.value<ObjectTreeItem*>();
+  if(variant.canConvert<ObjectItem*>()) {
+    ObjectItem* oti = variant.value<ObjectItem*>();
     mObject = oti->GetObject();
     mItemData = mObject->ItemData();
     return true;
@@ -117,7 +117,7 @@ ObjectTreeItem::SetData(int column, const QVariant& variant)
 }
 
 bool
-ObjectTreeItem::InsertChild(ObjectTreeItem* item, int position)
+ObjectItem::InsertChild(ObjectItem* item, int position)
 {
   if(item)
     item->setParent(this);
@@ -132,10 +132,10 @@ ObjectTreeItem::InsertChild(ObjectTreeItem* item, int position)
   return true;
 }
 
-ObjectTreeItem*
-ObjectTreeItem::RemoveChild(int position)
+ObjectItem*
+ObjectItem::RemoveChild(int position)
 {
-  ObjectTreeItem* item = nullptr;
+  ObjectItem* item = nullptr;
 
   if(position >= 0 && position < mChildItems.size()) {
     item = mChildItems.takeAt(position);
@@ -148,26 +148,26 @@ ObjectTreeItem::RemoveChild(int position)
   return item;
 }
 
-ObjectTreeItem*
-ObjectTreeItem::ParentItem() const
+ObjectItem*
+ObjectItem::ParentItem() const
 {
-  return static_cast<ObjectTreeItem*>(parent());
+  return static_cast<ObjectItem*>(parent());
   //return qobject_cast<ObjectTreeItem*>(parent());
 }
 
 int
-ObjectTreeItem::Row() const
+ObjectItem::Row() const
 {
-  ObjectTreeItem* parent = ParentItem();
+  ObjectItem* parent = ParentItem();
 
   if (parent)
-    return parent->mChildItems.indexOf(const_cast<ObjectTreeItem*>(this));
+    return parent->mChildItems.indexOf(const_cast<ObjectItem*>(this));
 
   return 0;
 }
 
 QModelIndex
-ObjectTreeItem::Index() const
+ObjectItem::Index() const
 {
   if(parent() == nullptr) {
     return QModelIndex();
@@ -177,7 +177,7 @@ ObjectTreeItem::Index() const
 }
 
 void
-ObjectTreeItem::Export(QJsonArray& jarr) const
+ObjectItem::Export(QJsonArray& jarr) const
 {
   for (int i = 0; i < mChildItems.size(); ++i) {
     Object* obj = mChildItems.at(i)->GetObject();
@@ -187,7 +187,7 @@ ObjectTreeItem::Export(QJsonArray& jarr) const
 }
 
 QTextStream&
-GDW::RPG::operator<<(QTextStream& ots, const ObjectTreeItem& item)
+GDW::RPG::operator<<(QTextStream& ots, const ObjectItem& item)
 {
   QJsonArray jarr;
 
@@ -196,44 +196,44 @@ GDW::RPG::operator<<(QTextStream& ots, const ObjectTreeItem& item)
 }
 
 ObjectForm*
-ObjectTreeItem::GetForm(QUndoStack*)
+ObjectItem::GetForm(QUndoStack*)
 {
   return nullptr;
 }
 
 void
-ObjectTreeItem::RefreshItemData()
+ObjectItem::RefreshItemData()
 {
   if(mObject)
     mItemData = mObject->ItemData();
 }
 
 Object*
-ObjectTreeItem::GetObject()
+ObjectItem::GetObject()
 {
   return mObject;
 }
 
 const Object*
-ObjectTreeItem::GetObject() const
+ObjectItem::GetObject() const
 {
   return mObject;
 }
 
 ObjectModel*
-ObjectTreeItem::Model() const
+ObjectItem::Model() const
 {
   return nullptr;
 }
 
 QByteArray
-ObjectTreeItem::Template() const
+ObjectItem::Template() const
 {
   return "";
 }
 
 QString
-ObjectTreeItem::RenderSvg() const
+ObjectItem::RenderSvg() const
 {
   QVariantHash hash;
 
@@ -247,7 +247,7 @@ ObjectTreeItem::RenderSvg() const
 }
 
 void
-ObjectTreeItem::RenderPage(QPaintDevice& device) const
+ObjectItem::RenderPage(QPaintDevice& device) const
 {
   QXmlStreamReader reader(RenderSvg().toUtf8());
   QSvgRenderer svg(&reader);
@@ -257,7 +257,7 @@ ObjectTreeItem::RenderPage(QPaintDevice& device) const
 }
 
 void
-ObjectTreeItem::WriteSvg(QFile& file) const
+ObjectItem::WriteSvg(QFile& file) const
 {
   file.write(RenderSvg().toUtf8());
 }

@@ -54,20 +54,20 @@ VehicleModel::RootData() const
 bool
 VehicleModel::InsertObject(int position)
 {
-  return InsertChild(VehicleTreeItem::Create(), RootItem(), position);
+  return InsertChild(VehicleItem::Create(), RootItem(), position);
 }
 
-ObjectTreeItem*
-VehicleModel::InsertObject(ObjectTreeItem* parent) const
+ObjectItem*
+VehicleModel::InsertObject(ObjectItem* parent) const
 {
-  return VehicleTreeItem::Create(parent);
+  return VehicleItem::Create(parent);
 }
 
 void
 VehicleModel::AddWeapon(QUndoStack& undoStack, const QModelIndex& index)
 {
-  VehicleTreeItem* vti =
-      static_cast<VehicleTreeItem*>(index.internalPointer());
+  VehicleItem* vti =
+      static_cast<VehicleItem*>(index.internalPointer());
 
   WeaponDialog dialog;
 
@@ -77,8 +77,8 @@ VehicleModel::AddWeapon(QUndoStack& undoStack, const QModelIndex& index)
 
   QModelIndex weaponIndex = dialog.Selected();
   if(weaponIndex.isValid()) {
-    WeaponTreeItem* wti =
-        static_cast<WeaponTreeItem*>(weaponIndex.internalPointer());
+    WeaponItem* wti =
+        static_cast<WeaponItem*>(weaponIndex.internalPointer());
 
     undoStack.push(new AddChildItemCommand(vti, wti));
   }
@@ -96,8 +96,8 @@ VehicleModel::AddActions(QMenu& menu, QUndoStack& undoStack,
   menu.addAction(action_AddWeapon);
 }
 
-ObjectTreeItem*
-VehicleModel::Unpack(const QJsonObject& json, ObjectTreeItem* parent)
+ObjectItem*
+VehicleModel::Unpack(const QJsonObject& json, ObjectItem* parent)
 {
   if(parent == nullptr)
     parent = RootItem();
@@ -105,7 +105,7 @@ VehicleModel::Unpack(const QJsonObject& json, ObjectTreeItem* parent)
   //  int row = rowCount();
   //  QModelIndex index = createIndex(parent->Row(), 0, parent);
   //  beginInsertRows(index, row, row);
-  VehicleTreeItem* item = VehicleTreeItem::Unpack(json, parent);
+  VehicleItem* item = VehicleItem::Unpack(json, parent);
   InsertChild(item, parent);
   //  endInsertRows();
 

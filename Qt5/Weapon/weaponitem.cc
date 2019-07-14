@@ -37,40 +37,40 @@ GDW_RPG_Weapon_Initialize()
 
 using namespace GDW::RPG;
 
-WeaponTreeItem::Initialize WeaponTreeItem::Initializer;
+WeaponItem::Initialize WeaponItem::Initializer;
 
-WeaponTreeItem*
-WeaponTreeItem::Create(ObjectTreeItem* parent)
+WeaponItem*
+WeaponItem::Create(ObjectItem* parent)
 {
-  return new WeaponTreeItem(Weapon::New(), parent);
+  return new WeaponItem(Weapon::New(), parent);
 }
 
-WeaponTreeItem*
-WeaponTreeItem::Unpack(const QJsonObject& json, ObjectTreeItem* parent)
+WeaponItem*
+WeaponItem::Unpack(const QJsonObject& json, ObjectItem* parent)
 {
   Weapon* weapon = new Weapon(json);
-  return new WeaponTreeItem(weapon, parent);
+  return new WeaponItem(weapon, parent);
 }
 
-WeaponTreeItem::WeaponTreeItem(Weapon* weapon, ObjectTreeItem* parent)
-  : ObjectTreeItem(weapon, parent)
+WeaponItem::WeaponItem(Weapon* weapon, ObjectItem* parent)
+  : ObjectItem(weapon, parent)
 {}
 
-WeaponTreeItem::WeaponTreeItem(const WeaponTreeItem& item)
-  : ObjectTreeItem(item)
+WeaponItem::WeaponItem(const WeaponItem& item)
+  : ObjectItem(item)
 {}
 
-WeaponTreeItem::~WeaponTreeItem()
+WeaponItem::~WeaponItem()
 {}
 
-WeaponTreeItem*
-WeaponTreeItem::Copy() const
+WeaponItem*
+WeaponItem::Copy() const
 {
-  return new WeaponTreeItem(*this);
+  return new WeaponItem(*this);
 }
 
 WeaponForm*
-WeaponTreeItem::GetForm(QUndoStack* undoStack)
+WeaponItem::GetForm(QUndoStack* undoStack)
 {
   return new WeaponForm(GetObject(), undoStack);
 }
@@ -82,19 +82,19 @@ WeaponTreeItem::GetForm(QUndoStack* undoStack)
 //    }
 
 Weapon*
-WeaponTreeItem::GetObject()
+WeaponItem::GetObject()
 {
-  return static_cast<Weapon*>(ObjectTreeItem::GetObject());
+  return static_cast<Weapon*>(ObjectItem::GetObject());
 }
 
 const Weapon*
-WeaponTreeItem::GetObject() const
+WeaponItem::GetObject() const
 {
-  return static_cast<const Weapon*>(ObjectTreeItem::GetObject());
+  return static_cast<const Weapon*>(ObjectItem::GetObject());
 }
 
 WeaponModel*
-WeaponTreeItem::Model() const
+WeaponItem::Model() const
 {
   return WeaponModel::Model();
 }

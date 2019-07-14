@@ -29,7 +29,7 @@ namespace GDW
     class Object;
     class ObjectForm;
     class ObjectModel;
-    class ObjectTreeItem;
+    class ObjectItem;
 
     class InsertItemCommand : public QUndoCommand
     {
@@ -58,9 +58,9 @@ namespace GDW
 
       private:
         int mRow;
-        ObjectTreeItem* mParent;
+        ObjectItem* mParent;
         ObjectModel* mModel;
-        ObjectTreeItem* mRemovedItem;
+        ObjectItem* mRemovedItem;
     };
 
     class UpdateItemCommand : public QUndoCommand

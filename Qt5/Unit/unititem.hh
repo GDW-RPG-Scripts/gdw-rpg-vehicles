@@ -33,21 +33,21 @@ namespace GDW
 {
   namespace RPG
   {
-    class UNITSHARED_EXPORT UnitTreeItem : public ObjectTreeItem
+    class UNITSHARED_EXPORT UnitItem : public ObjectItem
     {
         Q_OBJECT
 
       public:
-        static UnitTreeItem* Create(ObjectTreeItem* parent = nullptr);
-        static UnitTreeItem* Unpack(const QJsonObject&,
-                                    ObjectTreeItem* parent);
+        static UnitItem* Create(ObjectItem* parent = nullptr);
+        static UnitItem* Unpack(const QJsonObject&,
+                                    ObjectItem* parent);
 
         UnitForm* GetForm(QUndoStack*) override;
 
-        UnitTreeItem();
+        UnitItem();
 
       protected:
-        explicit UnitTreeItem(Unit*, ObjectTreeItem* parent = nullptr);
+        explicit UnitItem(Unit*, ObjectItem* parent = nullptr);
 
         Unit* GetObject() override;
         const Unit* GetObject() const override;

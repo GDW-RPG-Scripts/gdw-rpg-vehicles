@@ -52,20 +52,20 @@ WeaponModel::RootData() const
 bool
 WeaponModel::InsertObject(int position)
 {
-  return InsertChild(WeaponTreeItem::Create(), RootItem(), position);
+  return InsertChild(WeaponItem::Create(), RootItem(), position);
 }
 
-ObjectTreeItem*
-WeaponModel::InsertObject(ObjectTreeItem* parent) const
+ObjectItem*
+WeaponModel::InsertObject(ObjectItem* parent) const
 {
-  return WeaponTreeItem::Create(parent);
+  return WeaponItem::Create(parent);
 }
 
 void
 WeaponModel::AddMunition(QUndoStack& undoStack, const QModelIndex& index)
 {
-  WeaponTreeItem* wti =
-      static_cast<WeaponTreeItem*>(index.internalPointer());
+  WeaponItem* wti =
+      static_cast<WeaponItem*>(index.internalPointer());
 
   MunitionDialog dialog(wti);
 
@@ -94,13 +94,13 @@ WeaponModel::AddActions(QMenu& menu, QUndoStack& undoStack,
   menu.addAction(action_AddWeapon);
 }
 
-ObjectTreeItem*
-WeaponModel::Unpack(const QJsonObject& json, ObjectTreeItem* parent)
+ObjectItem*
+WeaponModel::Unpack(const QJsonObject& json, ObjectItem* parent)
 {
   if(parent == nullptr)
     parent = RootItem();
 
-  WeaponTreeItem* item = WeaponTreeItem::Unpack(json, parent);
+  WeaponItem* item = WeaponItem::Unpack(json, parent);
   InsertChild(item, parent);
 
   return item;

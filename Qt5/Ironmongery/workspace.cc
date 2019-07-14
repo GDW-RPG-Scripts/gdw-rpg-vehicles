@@ -463,8 +463,8 @@ Workspace::DocumentWasModified(bool isClean)
 void
 Workspace::ItemClicked(const QModelIndex& index)
 {
-  ObjectTreeItem* oti =
-      static_cast<ObjectTreeItem*>(index.internalPointer());
+  ObjectItem* oti =
+      static_cast<ObjectItem*>(index.internalPointer());
 
   if(GetCurrentTreeView().selectionModel()->isSelected(index))
     return Select(oti->GetForm(&mUndoStack));
@@ -547,8 +547,8 @@ Workspace::SaveItem()
 
   QTreeView& view = GetCurrentTreeView();
   QModelIndex index = view.currentIndex();
-  ObjectTreeItem* oti =
-      static_cast<ObjectTreeItem*>(index.internalPointer());
+  ObjectItem* oti =
+      static_cast<ObjectItem*>(index.internalPointer());
   oti->RefreshItemData();
   view.selectionModel()->select(index,
                                 QItemSelectionModel::SelectCurrent |
@@ -578,8 +578,8 @@ Workspace::AddMunition()
   QModelIndex index =
       mUi.weaponsTreeView->selectionModel()->currentIndex();
 
-  ObjectTreeItem* oti =
-      static_cast<ObjectTreeItem*>(index.internalPointer());
+  ObjectItem* oti =
+      static_cast<ObjectItem*>(index.internalPointer());
 
 }
 
@@ -590,8 +590,8 @@ Workspace::AddWeapon()
   QModelIndex vehicleIndex =
       mUi.vehiclesTreeView->selectionModel()->currentIndex();
 
-  VehicleTreeItem* vti =
-      static_cast<VehicleTreeItem*>(vehicleIndex.internalPointer());
+  VehicleItem* vti =
+      static_cast<VehicleItem*>(vehicleIndex.internalPointer());
 
   WeaponDialog dialog(this);
 
@@ -601,8 +601,8 @@ Workspace::AddWeapon()
 
   QModelIndex weaponIndex = dialog.Selected();
   if(weaponIndex.isValid()) {
-    WeaponTreeItem* wti =
-        static_cast<WeaponTreeItem*>(weaponIndex.internalPointer());
+    WeaponItem* wti =
+        static_cast<WeaponItem*>(weaponIndex.internalPointer());
 
     //mUndoStack.push(new AddChildItemCommand(vti, wti));
   }
@@ -613,8 +613,8 @@ Workspace::ShowContextMenu(const QPoint& position)
 {
   QTreeView& view = GetCurrentTreeView();
   QModelIndex index = view.currentIndex();
-  ObjectTreeItem* oti =
-      static_cast<ObjectTreeItem*>(index.internalPointer());
+  ObjectItem* oti =
+      static_cast<ObjectItem*>(index.internalPointer());
 
   QFontMetrics fontMetric(QAction().font());
   QPoint offset(0, fontMetric.height());

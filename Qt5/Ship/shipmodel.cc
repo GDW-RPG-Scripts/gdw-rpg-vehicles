@@ -43,15 +43,15 @@ ShipModel::RootData() const
   return rootData;
 }
 
-ObjectTreeItem*
-ShipModel::InsertObject(ObjectTreeItem* parent) const
+ObjectItem*
+ShipModel::InsertObject(ObjectItem* parent) const
 {
-  return ShipTreeItem::Create(parent);
+  return ShipItem::Create(parent);
 }
 
-ObjectTreeItem*
-ShipModel::Unpack(const QJsonObject& json, ObjectTreeItem* parent)
+ObjectItem*
+ShipModel::Unpack(const QJsonObject& json, ObjectItem* parent)
 {
-  ShipTreeItem* item = ShipTreeItem::Unpack(json, parent);
+  ShipItem* item = ShipItem::Unpack(json, parent);
   return item;
 }

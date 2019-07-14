@@ -49,16 +49,16 @@ Factory::Import(QFile& file)
       Unpack(jdoc[index].toObject());
 }
 
-ObjectTreeItem*
-Factory::Create(int type, ObjectTreeItem* parent)
+ObjectItem*
+Factory::Create(int type, ObjectItem* parent)
 {
-  typedef std::function<ObjectTreeItem*(ObjectTreeItem*)> CreateFunction;
+  typedef std::function<ObjectItem*(ObjectItem*)> CreateFunction;
 
   static const CreateFunction CREATE[] = {
-    VehicleTreeItem::Create,
-    WeaponTreeItem ::Create,
-    ShipTreeItem   ::Create,
-    UnitTreeItem   ::Create
+    VehicleItem::Create,
+    WeaponItem ::Create,
+    ShipItem   ::Create,
+    UnitItem   ::Create
   };
 
   return CREATE[type](parent);
@@ -70,8 +70,8 @@ Factory::Create(int type, ObjectTreeItem* parent)
 typedef std::function<ObjectModel*()> ModelFunction;
 typedef QHash<const QString, ModelFunction> ModelMap;
 
-ObjectTreeItem*
-Factory::Unpack(const QJsonValue& json, ObjectTreeItem*)
+ObjectItem*
+Factory::Unpack(const QJsonValue& json, ObjectItem*)
 {
   static const QString GDW_RPG_TYPE = "__GDW_RPG_Type__";
   static const ModelMap MODEL = {

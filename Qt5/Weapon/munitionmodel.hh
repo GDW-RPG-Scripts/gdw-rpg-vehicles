@@ -27,25 +27,25 @@ namespace GDW
 {
   namespace RPG
   {
-    class WeaponTreeItem;
+    class WeaponItem;
 
     class WEAPONSHARED_EXPORT MunitionModel : public ObjectModel
     {
         Q_OBJECT
 
       public:
-        static MunitionModel* Model(WeaponTreeItem*);
+        static MunitionModel* Model(WeaponItem*);
 
       signals:
 
       public slots:
 
       protected:
-        ObjectTreeItem* InsertObject(ObjectTreeItem*) const override;
+        ObjectItem* InsertObject(ObjectItem*) const override;
         const QList<QVariant>& RootData() const override;
 
       private:
-        MunitionModel(WeaponTreeItem*, QObject* = nullptr);
+        MunitionModel(WeaponItem*, QObject* = nullptr);
     };
   };
 };

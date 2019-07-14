@@ -22,12 +22,12 @@
 using namespace GDW::RPG;
 
 MunitionModel*
-MunitionModel::Model(WeaponTreeItem* wti)
+MunitionModel::Model(WeaponItem* wti)
 {
   return new MunitionModel(wti);
 }
 
-MunitionModel::MunitionModel(WeaponTreeItem* wti, QObject *parent)
+MunitionModel::MunitionModel(WeaponItem* wti, QObject *parent)
   : ObjectModel(parent)
 {}
 
@@ -41,8 +41,8 @@ MunitionModel::RootData() const
   return rootData;
 }
 
-ObjectTreeItem*
-MunitionModel::InsertObject(ObjectTreeItem* parent) const
+ObjectItem*
+MunitionModel::InsertObject(ObjectItem* parent) const
 {
   return MunitionItem::Create(parent);
 }

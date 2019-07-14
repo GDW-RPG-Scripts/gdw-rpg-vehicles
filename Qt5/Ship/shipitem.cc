@@ -27,25 +27,25 @@ GDW_RPG_Ship_Initialize()
 
 using namespace GDW::RPG;
 
-ShipTreeItem::Initialize ShipTreeItem::Initializer;
+ShipItem::Initialize ShipItem::Initializer;
 
-ShipTreeItem*
-ShipTreeItem::Create(ObjectTreeItem* parent)
+ShipItem*
+ShipItem::Create(ObjectItem* parent)
 {
-  return new ShipTreeItem(Ship::New(), parent);
+  return new ShipItem(Ship::New(), parent);
 }
 
-ShipTreeItem*
-ShipTreeItem::Unpack(const QJsonObject& json, ObjectTreeItem* parent)
+ShipItem*
+ShipItem::Unpack(const QJsonObject& json, ObjectItem* parent)
 {
   Ship* unit = new Ship(json);
-  ShipTreeItem* item = new ShipTreeItem(unit, parent);
+  ShipItem* item = new ShipItem(unit, parent);
 
   return item;
 }
 
-ShipTreeItem::ShipTreeItem(Ship* ship, ObjectTreeItem* parent)
-  : ObjectTreeItem(ship,
+ShipItem::ShipItem(Ship* ship, ObjectItem* parent)
+  : ObjectItem(ship,
                    parent == nullptr ? ShipModel::Model()->RootItem()
                                      : parent)
 {
@@ -56,25 +56,25 @@ ShipTreeItem::ShipTreeItem(Ship* ship, ObjectTreeItem* parent)
 }
 
 ShipForm*
-ShipTreeItem::GetForm(QUndoStack* undoStack)
+ShipItem::GetForm(QUndoStack* undoStack)
 {
   return new ShipForm(GetObject(), undoStack);
 }
 
 Ship*
-ShipTreeItem::GetObject()
+ShipItem::GetObject()
 {
-  return static_cast<Ship*>(ObjectTreeItem::GetObject());
+  return static_cast<Ship*>(ObjectItem::GetObject());
 }
 
 const Ship*
-ShipTreeItem::GetObject() const
+ShipItem::GetObject() const
 {
-  return static_cast<const Ship*>(ObjectTreeItem::GetObject());
+  return static_cast<const Ship*>(ObjectItem::GetObject());
 }
 
 ShipModel*
-ShipTreeItem::Model() const
+ShipItem::Model() const
 {
   return ShipModel::Model();
 }

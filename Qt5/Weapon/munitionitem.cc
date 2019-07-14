@@ -21,11 +21,11 @@
 using namespace GDW::RPG;
 
 MunitionItem*
-MunitionItem::Create(ObjectTreeItem* parent)
+MunitionItem::Create(ObjectItem* parent)
 {
   return new MunitionItem(Munition::New(), parent);
 }
 
-MunitionItem::MunitionItem(Munition* munition, ObjectTreeItem* parent)
-  : ObjectTreeItem(munition, parent)
+MunitionItem::MunitionItem(Munition* munition, ObjectItem* parent)
+  : ObjectItem(munition, parent)
 {}

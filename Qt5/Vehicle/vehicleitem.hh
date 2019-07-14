@@ -33,16 +33,15 @@ namespace GDW
 {
   namespace RPG
   {
-    class WeaponTreeItem;
+    class WeaponItem;
 
-    class VEHICLESHARED_EXPORT VehicleTreeItem : public ObjectTreeItem
+    class VEHICLESHARED_EXPORT VehicleItem : public ObjectItem
     {
         Q_OBJECT
 
       public:
-        static VehicleTreeItem* Create(ObjectTreeItem* parent = nullptr);
-        static VehicleTreeItem* Unpack(const QJsonObject&,
-                                       ObjectTreeItem* parent);
+        static VehicleItem* Create(ObjectItem* parent = nullptr);
+        static VehicleItem* Unpack(const QJsonObject&, ObjectItem* parent);
 
         // bool InsertChild(ObjectTreeItem*, int = INT_MAX) override;
 
@@ -50,7 +49,7 @@ namespace GDW
         QByteArray Template() const override;
 
       protected:
-        explicit VehicleTreeItem(Vehicle*, ObjectTreeItem* parent);
+        explicit VehicleItem(Vehicle*, ObjectItem* parent);
 
         Vehicle* GetObject() override;
         const Vehicle* GetObject() const override;

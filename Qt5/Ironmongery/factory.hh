@@ -32,7 +32,7 @@ namespace GDW
 {
   namespace RPG
   {
-    class ObjectTreeItem;
+    class ObjectItem;
 
     class Factory
     {
@@ -41,9 +41,9 @@ namespace GDW
 
         void Import(QFile&);
 
-        ObjectTreeItem* Create(int type, ObjectTreeItem* parent);
-        ObjectTreeItem* Unpack(const QJsonValue&,
-                               ObjectTreeItem* parent = nullptr);
+        ObjectItem* Create(int type, ObjectItem* parent);
+        ObjectItem* Unpack(const QJsonValue&,
+                               ObjectItem* parent = nullptr);
 
         friend QTextStream& operator<<(QTextStream&, const Factory&);
 

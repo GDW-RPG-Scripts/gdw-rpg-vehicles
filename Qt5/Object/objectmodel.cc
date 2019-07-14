@@ -56,8 +56,8 @@ ObjectModel::RemoveObject(int position)
 }
 
 bool
-ObjectModel::InsertChild(ObjectTreeItem* childItem,
-                         ObjectTreeItem* parentItem,
+ObjectModel::InsertChild(ObjectItem* childItem,
+                         ObjectItem* parentItem,
                          int position)
 {
   bool success = true;
@@ -72,10 +72,10 @@ ObjectModel::InsertChild(ObjectTreeItem* childItem,
   return success;
 }
 
-ObjectTreeItem*
-ObjectModel::RemoveChild(ObjectTreeItem* parentItem, int position)
+ObjectItem*
+ObjectModel::RemoveChild(ObjectItem* parentItem, int position)
 {
-  ObjectTreeItem* removed = nullptr;
+  ObjectItem* removed = nullptr;
 
   if(!parentItem)
     parentItem = RootItem();
@@ -126,22 +126,22 @@ ObjectModel::WriteSvg(QModelIndex index, QFile& file) const
 //
 // Extension points
 //
-ObjectTreeItem*
+ObjectItem*
 ObjectModel::RootItem() const
 {
   if(mRootItem == nullptr) {
-    mRootItem = new ObjectTreeItem(RootData());
+    mRootItem = new ObjectItem(RootData());
   }
 
   return mRootItem;
 }
 
-ObjectTreeItem*
+ObjectItem*
 ObjectModel::ItemFor(const QModelIndex& index) const
 {
   if (index.isValid()) {
-    ObjectTreeItem* item =
-        static_cast<ObjectTreeItem*>(index.internalPointer());
+    ObjectItem* item =
+        static_cast<ObjectItem*>(index.internalPointer());
     if (item)
       return item;
   }
@@ -157,8 +157,8 @@ ObjectModel::index(int row, int column, const QModelIndex& parent) const
   if (!hasIndex(row, column, parent))
     return QModelIndex();
 
-  ObjectTreeItem* parentItem = ItemFor(parent);
-  ObjectTreeItem* childItem = parentItem->Child(row);
+  ObjectItem* parentItem = ItemFor(parent);
+  ObjectItem* childItem = parentItem->Child(row);
   if (childItem)
     return createIndex(row, column, childItem);
   else
@@ -171,8 +171,8 @@ ObjectModel::parent(const QModelIndex& index) const
   if (!index.isValid())
     return QModelIndex();
 
-  ObjectTreeItem* childItem = ItemFor(index);
-  ObjectTreeItem* parentItem = childItem->ParentItem();
+  ObjectItem* childItem = ItemFor(index);
+  ObjectItem* parentItem = childItem->ParentItem();
 
   if (parentItem == nullptr || parentItem == RootItem())
     return QModelIndex();
@@ -234,13 +234,13 @@ ObjectModel::headerData(int section,
 bool
 ObjectModel::insertRows(int position, int rows, const QModelIndex& parent)
 {
-  ObjectTreeItem* parentItem = ItemFor(parent);
+  ObjectItem* parentItem = ItemFor(parent);
 
   beginInsertRows(parent, position, position + rows - 1);
   bool success = true;
   for (int i = 0; i < rows; ++i) {
     success =
-        success && parentItem->InsertChild(new ObjectTreeItem /*Create(parentItem)*/, position + i);
+        success && parentItem->InsertChild(new ObjectItem /*Create(parentItem)*/, position + i);
   }
   endInsertRows();
 
@@ -250,7 +250,7 @@ ObjectModel::insertRows(int position, int rows, const QModelIndex& parent)
 bool
 ObjectModel::removeRows(int position, int rows, const QModelIndex& parent)
 {
-  ObjectTreeItem* parentItem = ItemFor(parent);
+  ObjectItem* parentItem = ItemFor(parent);
 
   beginRemoveRows(parent, position, position + rows - 1);
   bool success = true;
@@ -270,7 +270,7 @@ ObjectModel::setData(const QModelIndex& index,
   if (!index.isValid() || role != Qt::EditRole)
     return false;
 
-  ObjectTreeItem* item = ItemFor(index);
+  ObjectItem* item = ItemFor(index);
   bool result = item->SetData(index.column(), value);
 
   if (result)
@@ -279,8 +279,8 @@ ObjectModel::setData(const QModelIndex& index,
   return result;
 }
 
-ObjectTreeItem*
-ObjectModel::Unpack(const QJsonObject&, ObjectTreeItem*)
+ObjectItem*
+ObjectModel::Unpack(const QJsonObject&, ObjectItem*)
 {
   return nullptr;
 }

@@ -24,7 +24,7 @@
 
 using namespace GDW::RPG;
 
-MunitionDialog::MunitionDialog(WeaponTreeItem* wti, QWidget* parent)
+MunitionDialog::MunitionDialog(WeaponItem* wti, QWidget* parent)
   : QDialog(parent)
 {
   QVBoxLayout* dialogLayout = new QVBoxLayout(this);

@@ -44,19 +44,19 @@ namespace GDW
     class ObjectForm;
     class ObjectModel;
 
-    class OBJECTSHARED_EXPORT ObjectTreeItem : public QObject
+    class OBJECTSHARED_EXPORT ObjectItem : public QObject
     {
         Q_OBJECT
 
       public:
-        ObjectTreeItem();
-        ObjectTreeItem(const ObjectTreeItem&);
-        ObjectTreeItem(Object*, ObjectTreeItem* parent = nullptr);
-        ObjectTreeItem(const QList<QVariant>&,
-                       ObjectTreeItem* parent = nullptr);
-        virtual ~ObjectTreeItem();
+        ObjectItem();
+        ObjectItem(const ObjectItem&);
+        ObjectItem(Object*, ObjectItem* parent = nullptr);
+        ObjectItem(const QList<QVariant>&,
+                       ObjectItem* parent = nullptr);
+        virtual ~ObjectItem();
 
-        virtual ObjectTreeItem* Copy() const;
+        virtual ObjectItem* Copy() const;
 
         void Export(QJsonArray&) const;
         void RenderPage(QPaintDevice&) const;
@@ -67,16 +67,16 @@ namespace GDW
         QModelIndex Index() const;
         virtual ObjectModel* Model() const;
 
-        virtual bool InsertChild(ObjectTreeItem*, int = INT_MAX);
-        ObjectTreeItem* RemoveChild(int);
-        ObjectTreeItem* Child(int row);
+        virtual bool InsertChild(ObjectItem*, int = INT_MAX);
+        ObjectItem* RemoveChild(int);
+        ObjectItem* Child(int row);
         int ChildCount() const;
 
         int ColumnCount() const;
         virtual QVariant Data(int column) const;
         virtual bool SetData(int column, const QVariant&);
         int Row() const;
-        ObjectTreeItem* ParentItem() const;
+        ObjectItem* ParentItem() const;
 
         void RefreshItemData();
 
@@ -91,12 +91,12 @@ namespace GDW
       protected:
 
       private:
-        friend QTextStream& operator<<(QTextStream&, const ObjectTreeItem&);
+        friend QTextStream& operator<<(QTextStream&, const ObjectItem&);
 
         QString RenderSvg() const;
 
         Object* mObject;
-        QList<ObjectTreeItem*> mChildItems;
+        QList<ObjectItem*> mChildItems;
         QList<QVariant> mItemData;
 
       private:

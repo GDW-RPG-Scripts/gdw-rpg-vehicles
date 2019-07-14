@@ -26,25 +26,25 @@ GDW_RPG_Unit_Initialize()
 
 using namespace GDW::RPG;
 
-UnitTreeItem::Initialize UnitTreeItem::Initializer;
+UnitItem::Initialize UnitItem::Initializer;
 
-UnitTreeItem*
-UnitTreeItem::Create(ObjectTreeItem* parent)
+UnitItem*
+UnitItem::Create(ObjectItem* parent)
 {
-  return new UnitTreeItem(Unit::New(), parent);
+  return new UnitItem(Unit::New(), parent);
 }
 
-UnitTreeItem*
-UnitTreeItem::Unpack(const QJsonObject& json, ObjectTreeItem* parent)
+UnitItem*
+UnitItem::Unpack(const QJsonObject& json, ObjectItem* parent)
 {
   Unit* unit = new Unit(json);
-  UnitTreeItem* item = new UnitTreeItem(unit, parent);
+  UnitItem* item = new UnitItem(unit, parent);
 
   return item;
 }
 
-UnitTreeItem::UnitTreeItem(Unit* unit, ObjectTreeItem* parent)
-  : ObjectTreeItem(unit,
+UnitItem::UnitItem(Unit* unit, ObjectItem* parent)
+  : ObjectItem(unit,
                    parent == nullptr ? UnitModel::Model()->RootItem()
                                      : parent)
 {
@@ -55,25 +55,25 @@ UnitTreeItem::UnitTreeItem(Unit* unit, ObjectTreeItem* parent)
 }
 
 UnitForm*
-UnitTreeItem::GetForm(QUndoStack* undoStack)
+UnitItem::GetForm(QUndoStack* undoStack)
 {
   return new UnitForm(GetObject(), undoStack);
 }
 
 Unit*
-UnitTreeItem::GetObject()
+UnitItem::GetObject()
 {
-  return static_cast<Unit*>(ObjectTreeItem::GetObject());
+  return static_cast<Unit*>(ObjectItem::GetObject());
 }
 
 const Unit*
-UnitTreeItem::GetObject() const
+UnitItem::GetObject() const
 {
-  return static_cast<const Unit*>(ObjectTreeItem::GetObject());
+  return static_cast<const Unit*>(ObjectItem::GetObject());
 }
 
 UnitModel*
-UnitTreeItem::Model() const
+UnitItem::Model() const
 {
   return UnitModel::Model();
 }

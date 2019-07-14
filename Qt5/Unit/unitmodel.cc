@@ -43,15 +43,15 @@ UnitModel::RootData() const
   return rootData;
 }
 
-ObjectTreeItem*
-UnitModel::InsertObject(ObjectTreeItem* parent) const
+ObjectItem*
+UnitModel::InsertObject(ObjectItem* parent) const
 {
-  return UnitTreeItem::Create(parent);
+  return UnitItem::Create(parent);
 }
 
-ObjectTreeItem*
-UnitModel::Unpack(const QJsonObject& json, ObjectTreeItem* parent)
+ObjectItem*
+UnitModel::Unpack(const QJsonObject& json, ObjectItem* parent)
 {
-  UnitTreeItem* item = UnitTreeItem::Unpack(json, parent);
+  UnitItem* item = UnitItem::Unpack(json, parent);
   return item;
 }

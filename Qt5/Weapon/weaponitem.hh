@@ -40,19 +40,19 @@ namespace GDW
 {
   namespace RPG
   {
-    class WEAPONSHARED_EXPORT WeaponTreeItem : public ObjectTreeItem
+    class WEAPONSHARED_EXPORT WeaponItem : public ObjectItem
     {
         Q_OBJECT
 
       public:
-        static WeaponTreeItem* Create(ObjectTreeItem* parent = nullptr);
-        static WeaponTreeItem* Unpack(const QJsonObject&,
-                                      ObjectTreeItem* parent);
+        static WeaponItem* Create(ObjectItem* parent = nullptr);
+        static WeaponItem* Unpack(const QJsonObject&,
+                                      ObjectItem* parent);
 
-        WeaponTreeItem(Weapon*, ObjectTreeItem* parent);
-        ~WeaponTreeItem() override;
+        WeaponItem(Weapon*, ObjectItem* parent);
+        ~WeaponItem() override;
 
-        WeaponTreeItem* Copy() const override;
+        WeaponItem* Copy() const override;
 
         WeaponForm* GetForm(QUndoStack*) override;
         // void Select(Ui::Workspace&, ObjectForm* = nullptr) override;
@@ -61,7 +61,7 @@ namespace GDW
         const Weapon* GetObject() const override;
 
       protected:
-        WeaponTreeItem(const WeaponTreeItem&);
+        WeaponItem(const WeaponItem&);
 
         WeaponModel* Model() const override;
 

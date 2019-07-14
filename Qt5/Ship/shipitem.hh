@@ -33,21 +33,21 @@ namespace GDW
 {
   namespace RPG
   {
-    class SHIPSHARED_EXPORT ShipTreeItem : public ObjectTreeItem
+    class SHIPSHARED_EXPORT ShipItem : public ObjectItem
     {
         Q_OBJECT
 
       public:
-        static ShipTreeItem* Create(ObjectTreeItem* parent = nullptr);
-        static ShipTreeItem* Unpack(const QJsonObject&,
-                                    ObjectTreeItem* parent);
+        static ShipItem* Create(ObjectItem* parent = nullptr);
+        static ShipItem* Unpack(const QJsonObject&,
+                                    ObjectItem* parent);
 
         ShipForm* GetForm(QUndoStack*) override;
 
-        ShipTreeItem();
+        ShipItem();
 
       protected:
-        explicit ShipTreeItem(Ship*, ObjectTreeItem* parent = nullptr);
+        explicit ShipItem(Ship*, ObjectItem* parent = nullptr);
 
         Ship* GetObject() override;
         const Ship* GetObject() const override;

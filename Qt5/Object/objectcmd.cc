@@ -28,8 +28,8 @@ using namespace GDW::RPG;
 //
 // Add Item Command
 //
-AddChildItemCommand::AddChildItemCommand(ObjectTreeItem* parentItem,
-                                         ObjectTreeItem* childItem,
+AddChildItemCommand::AddChildItemCommand(ObjectItem* parentItem,
+                                         ObjectItem* childItem,
                                          QUndoCommand* parent)
   : QUndoCommand(parent),
     mParentItem(parentItem), mChildItem(childItem->Copy())

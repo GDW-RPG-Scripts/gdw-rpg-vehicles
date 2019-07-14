@@ -66,7 +66,7 @@ RemoveItemCommand::RemoveItemCommand(const QModelIndex& index,
                                      QUndoCommand* parent)
   : QUndoCommand(parent),
     mRow(index.row()),
-    mParent(static_cast<ObjectTreeItem*>(index.parent().internalPointer())),
+    mParent(static_cast<ObjectItem*>(index.parent().internalPointer())),
     mRemovedItem(nullptr)
 {
   setText(QObject::tr("remove"));

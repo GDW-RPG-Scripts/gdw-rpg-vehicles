@@ -38,19 +38,19 @@ GDW_RPG_Vehicle_Initialize()
 
 using namespace GDW::RPG;
 
-VehicleTreeItem::Initialize VehicleTreeItem::Initializer;
+VehicleItem::Initialize VehicleItem::Initializer;
 
-VehicleTreeItem*
-VehicleTreeItem::Create(ObjectTreeItem* parent)
+VehicleItem*
+VehicleItem::Create(ObjectItem* parent)
 {
-  return new VehicleTreeItem(Vehicle::New(), parent);
+  return new VehicleItem(Vehicle::New(), parent);
 }
 
-VehicleTreeItem*
-VehicleTreeItem::Unpack(const QJsonObject& json, ObjectTreeItem* parent)
+VehicleItem*
+VehicleItem::Unpack(const QJsonObject& json, ObjectItem* parent)
 {
   Vehicle* vehicle = new Vehicle(json);
-  VehicleTreeItem* vti = new VehicleTreeItem(vehicle, parent);
+  VehicleItem* vti = new VehicleItem(vehicle, parent);
 
   QList<Weapon*> list;// = vehicle->Weapons();
   const QString PROP_WEAPONS = "weap";
@@ -59,14 +59,14 @@ VehicleTreeItem::Unpack(const QJsonObject& json, ObjectTreeItem* parent)
   }
 
   for(Weapon* weapon: list) {
-    VehicleModel::Model()->InsertChild(new WeaponTreeItem(weapon, vti), vti);
+    VehicleModel::Model()->InsertChild(new WeaponItem(weapon, vti), vti);
   }
 
   return vti;
 }
 
-VehicleTreeItem::VehicleTreeItem(Vehicle* vehicle, ObjectTreeItem* parent)
-  : ObjectTreeItem(vehicle, parent)
+VehicleItem::VehicleItem(Vehicle* vehicle, ObjectItem* parent)
+  : ObjectItem(vehicle, parent)
 {}
 
 //bool
@@ -88,31 +88,31 @@ VehicleTreeItem::VehicleTreeItem(Vehicle* vehicle, ObjectTreeItem* parent)
 //}
 
 VehicleForm*
-VehicleTreeItem::GetForm(QUndoStack* undoStack)
+VehicleItem::GetForm(QUndoStack* undoStack)
 {
   return new VehicleForm(GetObject(), undoStack);
 }
 
 Vehicle*
-VehicleTreeItem::GetObject()
+VehicleItem::GetObject()
 {
-  return static_cast<Vehicle*>(ObjectTreeItem::GetObject());
+  return static_cast<Vehicle*>(ObjectItem::GetObject());
 }
 
 const Vehicle*
-VehicleTreeItem::GetObject() const
+VehicleItem::GetObject() const
 {
-  return static_cast<const Vehicle*>(ObjectTreeItem::GetObject());
+  return static_cast<const Vehicle*>(ObjectItem::GetObject());
 }
 
 VehicleModel*
-VehicleTreeItem::Model() const
+VehicleItem::Model() const
 {
   return VehicleModel::Model();
 }
 
 QByteArray
-VehicleTreeItem::Template() const
+VehicleItem::Template() const
 {
   QFile file(":/vehicle.svg");
 

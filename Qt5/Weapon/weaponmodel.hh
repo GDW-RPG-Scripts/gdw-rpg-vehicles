@@ -27,7 +27,7 @@ namespace GDW
 {
   namespace RPG
   {
-    class WeaponTreeItem;
+    class WeaponItem;
 
     class WEAPONSHARED_EXPORT WeaponModel : public ObjectModel
     {
@@ -36,8 +36,8 @@ namespace GDW
       public:
         static WeaponModel* Model();
 
-        ObjectTreeItem* Unpack(const QJsonObject&,
-                               ObjectTreeItem* parent) override;
+        ObjectItem* Unpack(const QJsonObject&,
+                               ObjectItem* parent) override;
 
         bool InsertObject(int /*= INT_MAX*/) override;
         // bool RemoveObject(int /*= INT_MAX*/) override;
@@ -45,7 +45,7 @@ namespace GDW
         void AddActions(QMenu&, QUndoStack&, const QModelIndex&) override;
 
       protected:
-        ObjectTreeItem* InsertObject(ObjectTreeItem*) const override;
+        ObjectItem* InsertObject(ObjectItem*) const override;
         const QList<QVariant>& RootData() const override;
 
       private:

@@ -28,12 +28,12 @@ namespace GDW
 {
   namespace RPG
   {
-    class MunitionItem : public ObjectTreeItem
+    class MunitionItem : public ObjectItem
     {
       public:
-        static MunitionItem* Create(ObjectTreeItem* parent = nullptr);
+        static MunitionItem* Create(ObjectItem* parent = nullptr);
 
-        MunitionItem(Munition*, ObjectTreeItem*);
+        MunitionItem(Munition*, ObjectItem*);
     };
   };
 };

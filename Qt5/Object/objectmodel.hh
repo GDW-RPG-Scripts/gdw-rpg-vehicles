@@ -34,7 +34,7 @@ namespace GDW
 {
   namespace RPG
   {
-    class ObjectTreeItem;
+    class ObjectItem;
 
     class OBJECTSHARED_EXPORT ObjectModel : public QAbstractItemModel
     {
@@ -51,16 +51,16 @@ namespace GDW
         void WritePdf(QModelIndex, QFile&) const;
         void WriteSvg(QModelIndex, QFile&) const;
 
-        virtual ObjectTreeItem* Unpack(const QJsonObject&, ObjectTreeItem*);
+        virtual ObjectItem* Unpack(const QJsonObject&, ObjectItem*);
 
-        virtual ObjectTreeItem* RootItem() const;
+        virtual ObjectItem* RootItem() const;
 
         virtual bool InsertObject(int /*= INT_MAX*/);
         virtual bool RemoveObject(int /*= INT_MAX*/);
         virtual void AddActions(QMenu&, QUndoStack&, const QModelIndex&);
 
-        bool InsertChild(ObjectTreeItem*, ObjectTreeItem*, int = INT_MAX);
-        ObjectTreeItem* RemoveChild(ObjectTreeItem*, int = INT_MAX);
+        bool InsertChild(ObjectItem*, ObjectItem*, int = INT_MAX);
+        ObjectItem* RemoveChild(ObjectItem*, int = INT_MAX);
 
         // Mandatory overrides
         QModelIndex index(int row, int column,
@@ -90,13 +90,13 @@ namespace GDW
 
       protected:
         // Extension points
-        ObjectTreeItem* ItemFor(const QModelIndex& index) const;
+        ObjectItem* ItemFor(const QModelIndex& index) const;
 
-        virtual ObjectTreeItem* InsertObject(ObjectTreeItem*) const = 0;
+        virtual ObjectItem* InsertObject(ObjectItem*) const = 0;
         virtual const QList<QVariant>& RootData() const = 0;
 
       private:
-        mutable ObjectTreeItem* mRootItem;
+        mutable ObjectItem* mRootItem;
     };
   };
 };

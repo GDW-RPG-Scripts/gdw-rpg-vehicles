@@ -26,12 +26,12 @@ namespace GDW
 {
   namespace RPG
   {
-    class WeaponTreeItem;
+    class WeaponItem;
 
     class MunitionDialog : public QDialog
     {
       public:
-        MunitionDialog(WeaponTreeItem*, QWidget* parent = nullptr);
+        MunitionDialog(WeaponItem*, QWidget* parent = nullptr);
 
         QModelIndex Selected() const;
 
