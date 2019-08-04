@@ -233,10 +233,12 @@ Object::Round(double value) const
     }
   }
 
-  if(value > 100)
-    return std::round(value / 10) * 10;
-  if (value > 50)
-    return std::round(value / 5) * 5;
+// -- Is this really necessary?
+//  if(value > 100)
+//    return std::round(value / 10) * 10;
+//  if (value > 50)
+//    return std::round(value / 5) * 5;
+
   if (value < 1)
     return 1;
 

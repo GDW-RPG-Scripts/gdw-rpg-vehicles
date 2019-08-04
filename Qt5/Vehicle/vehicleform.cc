@@ -51,36 +51,22 @@ VehicleForm::~VehicleForm()
 void
 VehicleForm::ShowSideViewMenu(const QPoint& position)
 {
-  QAction action_SideViewSet(tr("Set side-view image..."), this);
-  QAction action_SideViewClear(tr("Clear side-view image"), this);
-
-  connect(&action_SideViewSet, &QAction::triggered, this, &VehicleForm::SetSideViewImage);
-  connect(&action_SideViewClear, &QAction::triggered, this, &VehicleForm::ClearSideViewImage);
-
-  QFontMetrics fontMetric(action_SideViewSet.font());
-  QPoint offset(0, fontMetric.height());
+  QPoint offset(0, QFontMetrics(QAction().font()).height());
 
   QMenu menu(this);
-  menu.addAction(&action_SideViewSet);
-  menu.addAction(&action_SideViewClear);
+  menu.addAction(tr("Set side-view image..."), this, &VehicleForm::SetSideViewImage);
+  menu.addAction(tr("Clear side-view image"), this, &VehicleForm::ClearSideViewImage);
   menu.exec(mUi->sideViewFrame->mapToGlobal(position + offset));
 }
 
 void
 VehicleForm::ShowTopDownMenu(const QPoint& position)
 {
-  QAction action_TopDownSet(tr("Set top-down image..."), this);
-  QAction action_TopDownClear(tr("Clear top-down image"), this);
-
-  connect(&action_TopDownSet, &QAction::triggered, this, &VehicleForm::SetTopDownImage);
-  connect(&action_TopDownClear, &QAction::triggered, this, &VehicleForm::ClearTopDownImage);
-
-  QFontMetrics fontMetric(action_TopDownSet.font());
-  QPoint offset(0, fontMetric.height());
+  QPoint offset(0, QFontMetrics(QAction().font()).height());
 
   QMenu menu(this);
-  menu.addAction(&action_TopDownSet);
-  menu.addAction(&action_TopDownClear);
+  menu.addAction(tr("Set top-down image..."), this, &VehicleForm::SetTopDownImage);
+  menu.addAction(tr("Clear top-down image"), this, &VehicleForm::ClearTopDownImage);
   menu.exec(mUi->topDownFrame->mapToGlobal(position + offset));
 }
 

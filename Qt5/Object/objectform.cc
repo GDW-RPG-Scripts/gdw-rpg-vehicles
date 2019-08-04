@@ -89,6 +89,10 @@ ObjectForm::AddSvgFrame(const QVariant& data, QWidget* parent)
 
   QSvgWidget* widget = nullptr;
 
+  QSize size = parent->size();
+  int width = size.width();
+  int height = size.height();
+
   if(!data.toByteArray().isEmpty()) {
     QByteArray base64 = data.toByteArray();
     QByteArray fragment = qUncompress(QByteArray::fromBase64(base64));
@@ -96,9 +100,20 @@ ObjectForm::AddSvgFrame(const QVariant& data, QWidget* parent)
     svg .append("<svg xmlns=\"http://www.w3.org/2000/svg\"")
         .append(" xmlns:xlink=\"http://www.w3.org/1999/xlink\"")
         .append(" version=\"1.2\" baseProfile=\"tiny\"")
-        .append(" width=\"125px\" height=\"100px\"")
-        .append(" viewBox=\"0 0 125 100\">")
+
+        .append(" width=\"" + QString::number(width) + "px\"")
+        .append(" height=\"" + QString::number(height) + "px\"")
+
+        .append(" viewBox=\"0 0 ")
+        .append(QString::number(width))
+        .append(" ")
+        .append(QString::number(height))
+        .append("\"")
+
+        .append(">")
+        .append("<g transform=\"matrix(1.2 0 0 1.2 0 0)\">")
         .append(fragment)
+        .append("</g>")
         .append("</svg>");
 
     widget = new QSvgWidget;

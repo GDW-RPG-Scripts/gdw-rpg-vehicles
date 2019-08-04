@@ -27,10 +27,10 @@ QT       -= gui
 greaterThan(QT_MAJOR_VERSION, 4): QT += printsupport
 
 TEMPLATE = lib
+CONFIG += staticlib
 
 TARGET = Weapon
 VERSION = 0.3.0
-#CONFIG += staticlib
 
 DEFINES += WEAPON_LIBRARY
 
@@ -47,6 +47,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
     munitiondialog.cc \
+    munitionform.cc \
     munitionitem.cc \
     munitionmodel.cc \
     weapon.cc \
@@ -58,6 +59,7 @@ SOURCES += \
 
 HEADERS += \
     munitiondialog.hh \
+    munitionform.hh \
     munitionitem.hh \
     munitionmodel.hh \
     weapon_global.hh \
@@ -69,6 +71,7 @@ HEADERS += \
     weapondialog.hh
 
 FORMS += \
+    munitionform.ui \
     weaponform.ui
 
 unix {
