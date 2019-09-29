@@ -32,7 +32,7 @@
 #endif // QT_PRINTSUPPORT_LIB
 
 #include "ruleset.hh"
-#include "commands.hh"
+#include "objectcmd.hh"
 #include "workspace.hh"
 #include "prefsdialog.hh"
 #include "weapondialog.hh"
@@ -409,17 +409,17 @@ Workspace::EditItem()
   }
 }
 
-void
-Workspace::RemoveSelectedItems()
-{
-  QTreeView& view = GetCurrentTreeView();
-  QItemSelectionModel* selectionModel = view.selectionModel();
-  QModelIndexList indexList = selectionModel->selectedRows();
-  for(QModelIndex index: indexList) {
-    Unselect();
-    mUndoStack.push(new RemoveItemCommand(index));
-  }
-}
+//void
+//Workspace::RemoveSelectedItems()
+//{
+//  QTreeView& view = GetCurrentTreeView();
+//  QItemSelectionModel* selectionModel = view.selectionModel();
+//  QModelIndexList indexList = selectionModel->selectedRows();
+//  for(QModelIndex index: indexList) {
+//    Unselect();
+//    mUndoStack.push(new RemoveItemCommand(index));
+//  }
+//}
 
 void
 Workspace::PrintItem()
@@ -493,6 +493,9 @@ Workspace::Select(ObjectForm* objectForm)
 {
   ClearObjectGroupBox();
 
+  if(mUi.objectForm)
+    delete mUi.objectForm;
+
   mUi.objectForm = objectForm;
 
   QGroupBox* objectGroupBox = mUi.objectGroupBox;
@@ -516,7 +519,6 @@ Workspace::Select(ObjectForm* objectForm)
   mUi.  editItemButton    ->setText(QObject::tr("Edit"));
   mUi.        okButton    ->setEnabled(false);
   mUi.     printButton    ->setEnabled(true);
-  mUi.removeItemButton    ->setEnabled(true);
 }
 
 void
@@ -533,7 +535,6 @@ Workspace::Unselect()
   mUi.  editItemButton    ->setText(QObject::tr("Edit"));
   mUi.        okButton    ->setEnabled(false);
   mUi.     printButton    ->setEnabled(false);
-  mUi.removeItemButton    ->setEnabled(false);
 }
 
 void
@@ -571,88 +572,118 @@ void Workspace::CommitData(QSessionManager& manager)
 }
 #endif
 
-void
-Workspace::AddMunition()
-{
-  qDebug() << "Workspace::AddMunition";
-  QModelIndex index =
-      mUi.weaponsTreeView->selectionModel()->currentIndex();
+//void
+//Workspace::AddMunition()
+//{
+//  qDebug() << "Workspace::AddMunition";
+//  QModelIndex index =
+//      mUi.weaponsTreeView->selectionModel()->currentIndex();
 
-  ObjectItem* oti =
-      static_cast<ObjectItem*>(index.internalPointer());
+//  ObjectItem* oti =
+//      static_cast<ObjectItem*>(index.internalPointer());
 
-}
+//}
 
-void
-Workspace::AddWeapon()
-{
-  qDebug() << "Workspace::AddWeapon";
-  QModelIndex vehicleIndex =
-      mUi.vehiclesTreeView->selectionModel()->currentIndex();
+//void
+//Workspace::AddWeapon()
+//{
+//  qDebug() << "Workspace::AddWeapon";
+//  QModelIndex vehicleIndex =
+//      mUi.vehiclesTreeView->selectionModel()->currentIndex();
 
-  VehicleItem* vti =
-      static_cast<VehicleItem*>(vehicleIndex.internalPointer());
+//  VehicleItem* vti =
+//      static_cast<VehicleItem*>(vehicleIndex.internalPointer());
 
-  WeaponDialog dialog(this);
+//  WeaponDialog dialog(this);
 
-  if(dialog.exec() != PrefsDialog::Accepted) {
-    return;
-  }
+//  if(dialog.exec() != PrefsDialog::Accepted) {
+//    return;
+//  }
 
-  QModelIndex weaponIndex = dialog.Selected();
-  if(weaponIndex.isValid()) {
-    WeaponItem* wti =
-        static_cast<WeaponItem*>(weaponIndex.internalPointer());
+//  QModelIndex weaponIndex = dialog.Selected();
+//  if(weaponIndex.isValid()) {
+//    WeaponItem* wti =
+//        static_cast<WeaponItem*>(weaponIndex.internalPointer());
 
-    //mUndoStack.push(new AddChildItemCommand(vti, wti));
-  }
-}
+//    //mUndoStack.push(new AddChildItemCommand(vti, wti));
+//  }
+//}
 
 void
 Workspace::ShowContextMenu(const QPoint& position)
 {
   QTreeView& view = GetCurrentTreeView();
   QModelIndex index = view.currentIndex();
-  ObjectItem* oti =
-      static_cast<ObjectItem*>(index.internalPointer());
+
+  QMenu menu(this);
+  ObjectModel* viewModel =
+      static_cast<ObjectModel*>(view.model());
+
+  if(viewModel) {
+    viewModel->AddViewActions(menu, mUndoStack, index);
+  }
+
+  QItemSelectionModel* selectionModel = view.selectionModel();
+  QModelIndexList indexList = selectionModel->selectedRows();
+
+  if(!indexList.isEmpty()) {
+    if(viewModel) {
+      menu.addSeparator();
+    }
+
+    ObjectItem* item =
+        static_cast<ObjectItem*>(index.internalPointer());
+    ObjectModel* itemModel = item->Model();
+
+    itemModel->AddItemActions(menu, mUndoStack, index);
+
+    menu.addSeparator();
+
+    menu.addAction(QIcon("://icons/16x16/list-remove.png"),
+                   tr("Remove Selected"), this,
+                   [&, this]() {
+      for(QModelIndex index: indexList) {
+        Unselect();
+        mUndoStack.push(new RemoveItemCommand(index));
+      }
+    });
+  }
 
   QFontMetrics fontMetric(QAction().font());
   QPoint offset(0, fontMetric.height());
 
-  QMenu menu(this);
-  oti->Model()->AddActions(menu, mUndoStack, index);
   menu.exec(view.mapToGlobal(position + offset));
 }
 
-void
-Workspace::ShowVehiclesMenu(const QPoint& position)
-{
-  QAction action(tr("Add weapon..."), this);
+//void
+//Workspace::ShowVehiclesMenu(const QPoint& position)
+//{
+//  QAction action(tr("Add weapon..."), this);
 
-  connect(&action, &QAction::triggered, this, &Workspace::AddWeapon);
+//  connect(&action, &QAction::triggered, this, &Workspace::AddWeapon);
 
-  QFontMetrics fontMetric(action.font());
-  QPoint offset(0, fontMetric.height());
+//  QFontMetrics fontMetric(action.font());
+//  QPoint offset(0, fontMetric.height());
 
-  QMenu menu(this);
-  menu.addAction(&action);
-  menu.exec(mUi.vehiclesTreeView->mapToGlobal(position + offset));
-}
+//  QMenu menu(this);
+//  menu.addAction(&action);
+//  menu.exec(mUi.vehiclesTreeView->mapToGlobal(position + offset));
+//}
 
-void
-Workspace::ShowWeaponsMenu(const QPoint& position)
-{
-  QAction action(tr("Add munition..."), this);
+//void
+//Workspace::ShowWeaponsMenu(const QPoint& position)
+//{
+//  QAction action(tr("Add munition..."), this);
 
-  connect(&action, &QAction::triggered, this, &Workspace::AddMunition);
+//  connect(&action, &QAction::triggered, this, &Workspace::AddMunition);
 
-  QFontMetrics fontMetric(action.font());
-  QPoint offset(0, fontMetric.height());
+//  QFontMetrics fontMetric(action.font());
+//  QPoint offset(0, fontMetric.height());
 
-  QMenu menu(this);
-  menu.addAction(&action);
-  menu.exec(mUi.weaponsTreeView->mapToGlobal(position + offset));
-}
+//  QMenu menu(this);
+//  menu.addAction(&action);
+//  menu.exec(mUi.weaponsTreeView->mapToGlobal(position + offset));
+//}
 
 //
 // Methods
@@ -862,7 +893,6 @@ Workspace::UpdateActions()
   mUi.action_AddWeapon->setEnabled(currentIndex == 1 || hasSelection);
   mUi.      action_Cut->setEnabled(hasSelection);
   mUi.     action_Copy->setEnabled(hasSelection);
-  mUi.removeItemButton->setEnabled(hasSelection);
 
   if(hasSelection) {
     connect(selectionModel, &QItemSelectionModel::selectionChanged,
@@ -871,7 +901,6 @@ Workspace::UpdateActions()
 
   bool hasCurrent =
       selectionModel != nullptr && selectionModel->currentIndex().isValid();
-  mUi.insertItemButton->setEnabled(true); // hasCurrent);
   if (hasCurrent) {
     view.closePersistentEditor(selectionModel->currentIndex());
   }

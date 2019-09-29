@@ -26,6 +26,7 @@
 #include "weapon.hh"
 
 namespace Ui {
+  class MunitionForm;
   class WeaponForm;
 }
 
@@ -33,6 +34,7 @@ namespace GDW
 {
   namespace RPG
   {
+    class MunitionForm;
     class Weapon;
 
     class WEAPONSHARED_EXPORT WeaponForm : public ObjectForm
@@ -51,9 +53,12 @@ namespace GDW
         Weapon* GetObject() override;
         const Weapon* GetObject() const override;
 
+        void SetMunitionForm(MunitionForm*);
+
       private:
         Weapon* mWeapon;
         Ui::WeaponForm* mUi;
+        MunitionForm* mMunitionForm;
     };
   };
 };

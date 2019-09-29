@@ -61,6 +61,9 @@ HEADERS += \
 FORMS += \
     vehicleform.ui
 
+RESOURCES += \
+    vehicle.qrc
+
 unix {
     target.path = /usr/lib
     INSTALLS += target
@@ -79,6 +82,3 @@ else:unix: LIBS += -L$$OUT_PWD/../Weapon/ -lWeapon
 
 INCLUDEPATH += $$PWD/../Weapon
 DEPENDPATH += $$PWD/../Weapon
-
-RESOURCES += \
-    vehicle.qrc

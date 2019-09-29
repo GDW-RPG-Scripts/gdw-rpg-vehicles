@@ -6,12 +6,12 @@
     "weap": [{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "175 mm HEAT", "wqual": "C", "rof": 0.333, "rng": 400,
-	"ps": 110, "pm": 110, "pl": 110, "px": 110, "ammo": 3,
+	"ps": 110, "pm": 110, "pl": 110, "px": 110, "mag": 3,
 	"con": 24, "bur": 30, "pran": 0	    
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "175 mm HE", "wqual": "C", "rof": 0.333, "rng": 400,
-	"ps": 3, "pm": 3, "pl": 3, "px": 3, "ammo": 3,
+	"ps": 3, "pm": 3, "pl": 3, "px": 3, "mag": 3,
 	"con": 34, "bur": 40
 	}],
     "mass": 30, "load": 0.8, "crew": 6, "mnt": 10,
@@ -28,7 +28,7 @@
     "weap": [{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "203 mm HEAT", "wqual": "C", "rof": 0.333, "rng": 400,
-	"ps": 4, "pm": 4, "pl": 4, "px": 4, "ammo": 2,
+	"ps": 4, "pm": 4, "pl": 4, "px": 4, "mag": 2,
 	"con": 36, "bur": 44
 	}],
     "mass": 31, "load": 0.5, "crew": 4, "psgr": 3, "mnt": 10,
@@ -45,17 +45,17 @@
     "weap": [{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "17 pdr", "wqual": "C", "rof": 0.5, "rng": 250,
-	"ps": 37, "pm": 36, "pl": 34, "px": 30, "ammo": 50,
+	"ps": 37, "pm": 36, "pl": 34, "px": 30, "mag": 50,
 	"con": 6
 	},{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "Polsten 20mm", "wqual": "X", "rof": 10, "rng": 125,
-	"ps": 6, "pm": 4, "pl": 2, "px": 1, "ammo": 999,
+	"ps": 6, "pm": 4, "pl": 2, "px": 1, "mag": 999,
 	"con": 0.4, "bur": 2, "pran": 125
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "M2HB", "wqual": "X", "rof": 5, "rng": 150,
-	"ps": 4, "pm": 4, "pl": 3, "px": 3, "ammo": 600,
+	"ps": 4, "pm": 4, "pl": 3, "px": 3, "mag": 600,
 	"con": 1, "bur": 9, "pran": 150
     }],
     "mass": 52.6, "load": 0.6, "crew": 4, "mnt": 10,
@@ -72,12 +72,12 @@
     "weap": [{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp":"QF 20-pdr L/67", "wqual": "P", "rof": 0.5, "rng": 250,
-	"ps": 44, "pm": 40, "pl": 34, "px": 28, "ammo": 50,
+	"ps": 44, "pm": 40, "pl": 34, "px": 28, "mag": 50,
 	"con": 8, "pran": 64
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "M1919 A4 MG", "wqual": "X", "rof": 10, "rng": 125,
-	"ps": 2, "pm": 2, "pl": 1, "ammo": 999,
+	"ps": 2, "pm": 2, "pl": 1, "mag": 999,
 	"con": 0.4, "bur": 2, "pran": 3600
     }],
     "mass": 51.62, "load": 0.6, "crew": 4, "mnt": 10,
@@ -93,12 +93,12 @@
     "weap": [{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": 	"8 cm Mass Driver", "wqual": "X", "rof": 5, "rng": 1980,
-	"ps": 397, "pm": 397, "pl": 198, "px": 40, "ammo": 200,
+	"ps": 397, "pm": 397, "pl": 198, "px": 40, "mag": 200,
 	"con": 158, "bur": 35, "pran": 1980
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "25 mm Autocannon", "wqual": "X", "rof": 50, "rng": 300,
-	"ps": 6, "pm": 6, "pl": 2, "px": 1, "ammo": 120000,
+	"ps": 6, "pm": 6, "pl": 2, "px": 1, "mag": 120000,
 	"con": 0.4, "bur": 2, "pran": 300
     }],
    
@@ -114,7 +114,7 @@
     "weap": [{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "7,5L/48 APCR", "wqual": "X", "rof": 1, "rng": 250,
-	"ps": 36, "pm": 34, "pl": 30, "px": 26, "ammo": 50,
+	"ps": 36, "pm": 34, "pl": 30, "px": 26, "mag": 50,
 	"con": 6
     }],
    
@@ -130,12 +130,12 @@
     "weap": [{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "7,5cm/70 APCR", "wqual": "X", "rof": 0.5, "rng": 500,
-	"ps": 50, "pm": 47, "pl": 40, "px": 29, "ammo": 50,
+	"ps": 50, "pm": 47, "pl": 40, "px": 29, "mag": 50,
 	"con": 6
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "7,5cm/70 APCBC", "wqual": "X", "rof": 0.5, "rng": 250,
-	"ps": 37, "pm": 36, "pl": 34, "px": 30, "ammo": 50,
+	"ps": 37, "pm": 36, "pl": 34, "px": 30, "mag": 50,
 	"con": 6
     }],
    
@@ -151,12 +151,12 @@
     "weap": [{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "8,8L/56 PzGr.39", "wqual": "X", "rof": 0.5, "rng": 500,
-	"ps": 32, "pm": 30, "pl": 25, "px": 22, "ammo": 50,
+	"ps": 32, "pm": 30, "pl": 25, "px": 22, "mag": 50,
 	"con": 8
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "8,8L/56 PzGr.40", "wqual": "X", "rof": 0.5, "rng": 500,
-	"ps": 44, "pm": 40, "pl": 34, "px": 28, "ammo": 50,
+	"ps": 44, "pm": 40, "pl": 34, "px": 28, "mag": 50,
 	"con": 8
     }],
     "mass": 69.8, "load": 2, "crew": 5, "mnt": 25,
@@ -172,12 +172,12 @@
     "weap": [{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "8,8L/71 PzGr.40", "wqual": "X", "rof": 0.5, "rng": 500,
-	"ps": 61, "pm": 56, "pl": 51, "px": 42, "ammo": 50,
+	"ps": 61, "pm": 56, "pl": 51, "px": 42, "mag": 50,
 	"con": 8
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "8,8L/71 PzGr.39", "wqual": "X", "rof": 0.5, "rng": 500,
-	"ps": 46, "pm": 44, "pl": 41, "px": 36, "ammo": 50,
+	"ps": 46, "pm": 44, "pl": 41, "px": 36, "mag": 50,
 	"con": 8
     }],
     "mass": 69.8, "load": 2, "crew": 5, "mnt": 25,
@@ -193,22 +193,22 @@
     "weap": [{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "85 mm AP", "wqual": "C", "rof": 0.5, "rng": 250,
-	"ps": 28, "pm": 25, "pl": 70, "px": 16, "ammo": 56,
+	"ps": 28, "pm": 25, "pl": 70, "px": 16, "mag": 56,
 	"con": 4, "bur": 10, "pran": 250
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "85 mm APCR", "wqual": "C", "rof": 0.5, "rng": 250,
-	"ps": 35, "pm": 32, "pl": 20, "px": 11, "ammo": 56,
+	"ps": 35, "pm": 32, "pl": 20, "px": 11, "mag": 56,
 	"con": 4, "bur": 10, "pran": 250
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "85 mm APBC", "wqual": "C", "rof": 0.5, "rng": 250,
-	"ps": 28, "pm": 26, "pl": 21, "px": 16, "ammo": 56,
+	"ps": 28, "pm": 26, "pl": 21, "px": 16, "mag": 56,
 	"con": 4, "bur": 10, "pran": 250
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "PK MG", "wqual": "X", "rof": 5, "rng": 125,
-	"ps": 2, "pm": 2, "pl": 1, "ammo": 0.4,
+	"ps": 2, "pm": 2, "pl": 1, "mag": 0.4,
 	"con": 1, "bur": 2, "pran": 125
     }],
     "mass": 33, "load": 0.5, "crew": 4, "mnt": 5,
@@ -224,12 +224,12 @@
     "weap": [{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "175 Mj RPZ-15", "wqual": "C", "rof": 5, "rng": 1980,
-	"ps": 397, "pm": 397, "pl": 198, "px": 40, "ammo": 200,
+	"ps": 397, "pm": 397, "pl": 198, "px": 40, "mag": 200,
 	"con": 158, "bur": 35, "pran": 1980
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "VRF 4x20 mm/60 Dart", "wqual": "X", "rof": 50, "rng": 300,
-	"ps": 6, "pm": 6, "pl": 2, "px": 1, "ammo": 120000,
+	"ps": 6, "pm": 6, "pl": 2, "px": 1, "mag": 120000,
 	"con": 0.4, "bur": 2, "pran": 300
     }],
    
@@ -245,12 +245,12 @@
     "weap": [{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "74 Mj RPX-14", "wqual": "C", "rof": 5, "rng": 1290,
-	"ps": 258, "pm": 258, "pl": 129, "px": 26, "ammo": 410,
+	"ps": 258, "pm": 258, "pl": 129, "px": 26, "mag": 410,
 	"con": 67, "bur": 25, "pran": 1290
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "VRF 4x20 mm/60 Dart", "wqual": "X", "rof": 50, "rng": 300,
-	"ps": 6, "pm": 6, "pl": 2, "px": 1, "ammo": 120000,
+	"ps": 6, "pm": 6, "pl": 2, "px": 1, "mag": 120000,
 	"con": 0.4, "bur": 2, "pran": 300
     }],
    
@@ -266,12 +266,12 @@
     "weap": [{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "125 Mj RPY-14", "wqual": "C", "rof": 4, "rng": 1680,
-	"ps": 335, "pm": 335, "pl": 168, "px": 34, "ammo": 200,
+	"ps": 335, "pm": 335, "pl": 168, "px": 34, "mag": 200,
 	"con": 112, "bur": 35, "pran": 1680
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "VR 4x20 mm/60 Dart", "wqual": "X", "rof": 50, "rng": 300,
-	"ps": 6, "pm": 6, "pl": 2, "px": 1, "ammo": 120000,
+	"ps": 6, "pm": 6, "pl": 2, "px": 1, "mag": 120000,
 	"con": 0.4, "bur": 2, "pran": 300
     }],
    
@@ -287,12 +287,12 @@
     "weap": [{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "120mm/75 ETC", "wqual": "C", "rof": 3, "rng": 780,
-	"ps": 545, "pm": 535, "pl": 525, "px": 505, "ammo": 520,
+	"ps": 545, "pm": 535, "pl": 525, "px": 505, "mag": 520,
 	"con": 29, "bur": 35, "pran": 580
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "15mmRC/E", "wqual": "X", "rof": 10, "rng": 300,
-	"ps": 8, "pm": 8, "pl": 8, "px": 8, "ammo": 5000,
+	"ps": 8, "pm": 8, "pl": 8, "px": 8, "mag": 5000,
 	"con": 0.4, "bur": 2, "pran": 300
     }],
    
@@ -308,12 +308,12 @@
     "weap": [{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "12 Mj Plasma", "wqual": "C", "rof": 1, "rng": 350,
-	"ps": 104, "pm": 104, "pl": 52, "px": 10, "ammo": 100,
+	"ps": 104, "pm": 104, "pl": 52, "px": 10, "mag": 100,
 	"con": 10, "bur": 20, "pran": 350
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "7.5 mm LMG", "wqual": "X", "rof": 10, "rng": 300,
-	"ps": 4, "pm": 4, "pl": 2, "px": 2, "ammo": 999999,
+	"ps": 4, "pm": 4, "pl": 2, "px": 2, "mag": 999999,
 	"con": 0.4, "bur": 2, "pran": 300
     }],
    
@@ -329,7 +329,7 @@
     "weap": [{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "15 mm HMG", "wqual": "X", "rof": 50, "rng": 300,
-	"ps": 8, "pm": 8, "pl": 8, "px": 8, "ammo": 999999,
+	"ps": 8, "pm": 8, "pl": 8, "px": 8, "mag": 999999,
 	"con": 0.4, "bur": 2, "pran": 300
     }],
    
@@ -345,7 +345,7 @@
     "weap": [{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "15 mm HMG", "wqual": "X", "rof": 50, "rng": 300,
-	"ps": 8, "pm": 8, "pl": 8, "px": 8, "ammo": 999999,
+	"ps": 8, "pm": 8, "pl": 8, "px": 8, "mag": 999999,
 	"con": 0.4, "bur": 2, "pran": 300
     }],
    
@@ -361,12 +361,12 @@
     "weap": [{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "7 cmL75", "wqual": "C", "rof": 3, "rng": 740,
-	"ps": 225, "pm": 215, "pl": 205, "px": 185, "ammo": 50,
+	"ps": 225, "pm": 215, "pl": 205, "px": 185, "mag": 50,
 	"con": 9, "bur": 30, "pran": 550
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "15 mm HMG", "wqual": "X", "rof": 50, "rng": 300,
-	"ps": 8, "pm": 8, "pl": 8, "px": 8, "ammo": 999999,
+	"ps": 8, "pm": 8, "pl": 8, "px": 8, "mag": 999999,
 	"con": 0.4, "bur": 2, "pran": 300
     }],
    
@@ -382,12 +382,12 @@
     "weap": [{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "7 cmL75", "wqual": "C", "rof": 3, "rng": 740,
-	"ps": 225, "pm": 215, "pl": 205, "px": 185, "ammo": 200,
+	"ps": 225, "pm": 215, "pl": 205, "px": 185, "mag": 200,
 	"con": 9, "bur": 30, "pran": 550
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "15 mm HMG", "wqual": "X", "rof": 50, "rng": 300,
-	"ps": 8, "pm": 8, "pl": 8, "px": 8, "ammo": 999999,
+	"ps": 8, "pm": 8, "pl": 8, "px": 8, "mag": 999999,
 	"con": 0.4, "bur": 2, "pran": 300
     }],
    
@@ -403,12 +403,12 @@
     "weap": [{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "12cmL75", "wqual": "C", "rof": 3, "rng": 780,
-	"ps": 545, "pm": 535, "pl": 525, "px": 505, "ammo": 75,
+	"ps": 545, "pm": 535, "pl": 525, "px": 505, "mag": 75,
 	"con": 30, "bur": 40, "pran": 580
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "15 mm HMG", "wqual": "X", "rof": 50, "rng": 300,
-	"ps": 8, "pm": 8, "pl": 8, "px": 8, "ammo": 999999,
+	"ps": 8, "pm": 8, "pl": 8, "px": 8, "mag": 999999,
 	"con": 0.4, "bur": 2, "pran": 300
     }],
    
@@ -424,12 +424,12 @@
     "weap": [{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "4.75 Mj Fusion", "wqual": "C", "rof": 1, "rng": 220,
-	"ps": 65, "pm": 65, "pl": 33, "px": 7, "ammo": 75,
+	"ps": 65, "pm": 65, "pl": 33, "px": 7, "mag": 75,
 	"con": 4, "bur": 10, "pran": 220
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "Thunderbyrd", "wqual": "R", "rof": 1, "rng": 36000,
-	"ps": 281, "pm": 281, "pl": 281, "px": 281, "ammo": 4,
+	"ps": 281, "pm": 281, "pl": 281, "px": 281, "mag": 4,
 	"con": 81, "bur": 100, "pran": 36000
     }],
    
@@ -445,12 +445,12 @@
     "weap": [{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "14 Mj Fusion", "wqual": "C", "rof": 1, "rng": 370,
-	"ps": 112, "pm": 112, "pl": 56, "px": 11, "ammo": 75,
+	"ps": 112, "pm": 112, "pl": 56, "px": 11, "mag": 75,
 	"con": 10, "bur": 20, "pran": 370
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "Thunderbyrd", "wqual": "R", "rof": 1, "rng": 36000,
-	"ps": 281, "pm": 281, "pl": 281, "px": 281, "ammo": 2,
+	"ps": 281, "pm": 281, "pl": 281, "px": 281, "mag": 2,
 	"con": 81, "bur": 100, "pran": 36000
     }],
    
@@ -466,12 +466,12 @@
     "weap": [{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "175 Mj RPZ-15", "wqual": "C", "rof": 5, "rng": 1980,
-	"ps": 397, "pm": 397, "pl": 198, "px": 40, "ammo": 105,
+	"ps": 397, "pm": 397, "pl": 198, "px": 40, "mag": 105,
 	"con": 158, "bur": 35, "pran": 1980
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "VRF 4x20 mm/60 Dart", "wqual": "X", "rof": 50, "rng": 300,
-	"ps": 6, "pm": 6, "pl": 2, "px": 1, "ammo": 120000,
+	"ps": 6, "pm": 6, "pl": 2, "px": 1, "mag": 120000,
 	"con": 0.4, "bur": 2, "pran": 300
     }],
    
@@ -487,12 +487,12 @@
     "weap": [{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "3 Mj RPV-14", "wqual": "C", "rof": 5, "rng": 260,
-	"ps": 52, "pm": 52, "pl": 26, "px": 5, "ammo": 500,
+	"ps": 52, "pm": 52, "pl": 26, "px": 5, "mag": 500,
 	"con": 3, "bur": 5, "pran": 260
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "VRF 4x20 mm/60 Dart", "wqual": "X", "rof": 50, "rng": 300,
-	"ps": 6, "pm": 6, "pl": 2, "px": 1, "ammo": 120000,
+	"ps": 6, "pm": 6, "pl": 2, "px": 1, "mag": 120000,
 	"con": 0.4, "bur": 2, "pran": 300
     }],
     "mass": 130, "crew": 2, "psgr": 10,
@@ -508,12 +508,12 @@
     "weap": [{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "175 Mj RPZ-15", "wqual": "C", "rof": 3, "rng": 650,
-	"ps": 129, "pm": 129, "pl": 65, "px": 13, "ammo": 500,
+	"ps": 129, "pm": 129, "pl": 65, "px": 13, "mag": 500,
 	"con": 17, "bur": 15, "pran": 650
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "VRF 4x20 mm/60 Dart", "wqual": "X", "rof": 50, "rng": 300,
-	"ps": 6, "pm": 6, "pl": 2, "px": 1, "ammo": 120000,
+	"ps": 6, "pm": 6, "pl": 2, "px": 1, "mag": 120000,
 	"con": 0.4, "bur": 2, "pran": 300
     }],
     "mass": 130, "crew": 2, "psgr": 10,
@@ -529,7 +529,7 @@
     "weap": [{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "120mm/20 6-barrel AC", "wqual": "C", "rof": 10, "rng": 280,
-	"ps": 137, "pm": 137, "pl": 137, "px": 137, "ammo": 1200,
+	"ps": 137, "pm": 137, "pl": 137, "px": 137, "mag": 1200,
 	"con": 29, "bur": 35, "pran": 400
     }],
     "mass": 1291, "load": 0.6, "crew": 4, "psgr": 10, "mnt": 113,
@@ -545,12 +545,12 @@
     "weap": [{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "130mm/60 HV Gun", "wqual": "C", "rof": 0.2, "rng": 670,
-	"ps": 207, "pm": 197, "pl": 187, "px": 167, "ammo": 100,
+	"ps": 207, "pm": 197, "pl": 187, "px": 167, "mag": 100,
 	"con": 30, "bur": 35, "pran": 510
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "7 mm Rotary", "wqual": "X", "rof": 50, "rng": 270,
-	"ps": 3, "pm": 3, "pl": 2, "ammo": 2500,
+	"ps": 3, "pm": 3, "pl": 2, "mag": 2500,
 	"con": 1, "bur": 9, "pran": 270
     }],
     "mass": 247, "crew": 3, "mnt": 67,
@@ -566,12 +566,12 @@
     "weap": [{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "30mm/70 Gun", "wqual": "C", "rof": 10, "rng": 470,
-	"ps": 23, "pm": 20, "pl": 17, "px": 11, "ammo": 140,
+	"ps": 23, "pm": 20, "pl": 17, "px": 11, "mag": 140,
 	"con": 1, "bur": 5, "pran": 350
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "7 mm LMG", "wqual": "X", "rof": 10, "rng": 150,
-	"ps": 2, "pm": 2, "ammo": 1000,
+	"ps": 2, "pm": 2, "mag": 1000,
 	"con": 1, "bur": 9, "pran": 150
     }],
     "mass": 35, "crew": 3, "mnt": 12,
@@ -587,17 +587,17 @@
     "weap": [{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "105 mm APFSDSDU", "wqual": "C", "rof": 0.5, "rng": 500,
-	"ps": 100, "pm": 90, "pl": 80, "px": 60, "ammo": 55,
+	"ps": 100, "pm": 90, "pl": 80, "px": 60, "mag": 55,
 	"con": 6, "bur": 15, "pran": 400
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "M2HB", "wqual": "X", "rof": 5, "rng": 150,
-	"ps": 4, "pm": 4, "pl": 3, "px": 3, "ammo": 600,
+	"ps": 4, "pm": 4, "pl": 3, "px": 3, "mag": 600,
 	"con": 1, "bur": 9, "pran": 150
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "MAG MG", "wqual": "X", "rof": 10, "rng": 125,
-	"ps": 2, "pm": 2, "pl": 1, "ammo": 999,
+	"ps": 2, "pm": 2, "pl": 1, "mag": 999,
 	"con": 0.4, "bur": 2, "pran": 125
     }],
     "mass": 54, "load": 0.7, "crew": 4, "mnt": 14,
@@ -614,17 +614,17 @@
     "weap": [{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "120 mm APFSDSDU", "wqual": "C", "rof": 0.5, "rng": 600,
-	"ps": 150, "pm": 140, "pl": 130, "px": 110, "ammo": 40,
+	"ps": 150, "pm": 140, "pl": 130, "px": 110, "mag": 40,
 	"con": 10, "bur": 25, "pran": 400
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "M2HB", "wqual": "X", "rof": 5, "rng": 150,
-	"ps": 4, "pm": 4, "pl": 3, "px": 3, "ammo": 600,
+	"ps": 4, "pm": 4, "pl": 3, "px": 3, "mag": 600,
 	"con": 1, "bur": 9, "pran": 150
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "MAG MG", "wqual": "X", "rof": 10, "rng": 125,
-	"ps": 2, "pm": 2, "pl": 1, "ammo": 999,
+	"ps": 2, "pm": 2, "pl": 1, "mag": 999,
 	"con": 0.4, "bur": 2, "pran": 125
     }],
     "mass": 63, "load": 0.7, "crew": 4, "mnt": 14,
@@ -641,17 +641,17 @@
     "weap": [{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "120 mm Smth", "wqual": "C", "rof": 0.5, "rng": 600,
-	"ps": 150, "pm": 140, "pl": 130, "px": 110, "ammo": 40,
+	"ps": 150, "pm": 140, "pl": 130, "px": 110, "mag": 40,
 	"con": 10, "bur": 25, "pran": 400
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "MAG MG", "wqual": "X", "rof": 10, "rng": 125,
-	"ps": 2, "pm": 2, "pl": 1, "ammo": 11400,
+	"ps": 2, "pm": 2, "pl": 1, "mag": 11400,
 	"con": 0.4, "bur": 2, "pran": 125
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "M2HB", "wqual": "X", "rof": 5, "rng": 150,
-	"ps": 4, "pm": 4, "pl": 3, "px": 3, "ammo": 1000,
+	"ps": 4, "pm": 4, "pl": 3, "px": 3, "mag": 1000,
 	"con": 1, "bur": 9, "pran": 150
     }],
     "mass": 63, "load": 0.7, "crew": 4, "mnt": 16,
@@ -667,27 +667,27 @@
     "weap": [{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "120 mm APFDSDDU", "wqual": "P", "rof": 0.5, "rng": 500,
-	"ps": 150, "pm": 140, "pl": 130, "px": 110, "ammo": 40,
+	"ps": 150, "pm": 140, "pl": 130, "px": 110, "mag": 40,
 	"con": 10, "bur": 25, "pran": 400
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "120 mm APFDSD", "wqual": "P", "rof": 0.5, "rng": 500,
-	"ps": 110, "pm": 100, "pl": 90, "px": 70, "ammo": 40,
+	"ps": 110, "pm": 100, "pl": 90, "px": 70, "mag": 40,
 	"con": 10, "bur": 25, "pran": 400
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "120 mm HEAT", "wqual": "C", "rof": 0.5, "rng": 600,
-	"ps": 110, "pm": 110, "pl": 110, "px": 110, "ammo": 40,
+	"ps": 110, "pm": 110, "pl": 110, "px": 110, "mag": 40,
 	"con": 10, "bur": 25, "pran": 400
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "MAG MG", "wqual": "X", "rof": 10, "rng": 125,
-	"ps": 2, "pm": 2, "pl": 1, "ammo": 11400,
+	"ps": 2, "pm": 2, "pl": 1, "mag": 11400,
 	"con": 0.4, "bur": 2, "pran": 125
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "M2HB", "wqual": "X", "rof": 5, "rng": 150,
-	"ps": 4, "pm": 4, "pl": 3, "px": 3, "ammo": 1000,
+	"ps": 4, "pm": 4, "pl": 3, "px": 3, "mag": 1000,
 	"con": 1, "bur": 9, "pran": 150
     }],
     "mass": 63, "load": 0.7, "crew": 4, "mnt": 16,
@@ -703,17 +703,17 @@
     "weap": [{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "76 mm HVAP", "wqual": "C", "rof": 1, "rng": 300,
-	"ps": 12, "pm": 6, "pl": 6, "px": 3, "ammo": 71,
+	"ps": 12, "pm": 6, "pl": 6, "px": 3, "mag": 71,
 	"con": 6, "bur": 12, "pran": 300
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "MAG MG", "wqual": "X", "rof": 10, "rng": 125,
-	"ps": 2, "pm": 2, "pl": 1, "ammo": 999,
+	"ps": 2, "pm": 2, "pl": 1, "mag": 999,
 	"con": 0.4, "bur": 2, "pran": 125
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "M2HB", "wqual": "X", "rof": 5, "rng": 150,
-	"ps": 4, "pm": 4, "pl": 3, "px": 3, "ammo": 600,
+	"ps": 4, "pm": 4, "pl": 3, "px": 3, "mag": 600,
 	"con": 1, "bur": 9, "pran": 150
     }],
     "mass": 33, "load": 0.5, "crew": 5, "mnt": 6,
@@ -729,17 +729,17 @@
     "weap": [{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "90 mm APDS-T", "wqual": "C", "rof": 0.5, "rng": 350,
-	"ps": 30, "pm": 25, "pl": 20, "px": 15, "ammo": 71,
+	"ps": 30, "pm": 25, "pl": 20, "px": 15, "mag": 71,
 	"con": 5, "bur": 10, "pran": 350
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "M2HB", "wqual": "X", "rof": 5, "rng": 150,
-	"ps": 4, "pm": 4, "pl": 3, "px": 3, "ammo": 600,
+	"ps": 4, "pm": 4, "pl": 3, "px": 3, "mag": 600,
 	"con": 1, "bur": 9, "pran": 150
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "MAG MG", "wqual": "X", "rof": 10, "rng": 125,
-	"ps": 2, "pm": 2, "pl": 1, "ammo": 999,
+	"ps": 2, "pm": 2, "pl": 1, "mag": 999,
 	"con": 0.4, "bur": 2, "pran": 125
     }],
     "mass": 46, "load": 0.5, "crew": 5, "mnt": 5,
@@ -755,17 +755,17 @@
     "weap": [{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "90 mm APDS-T", "wqual": "C", "rof": 0.5, "rng": 350,
-	"ps": 30, "pm": 25, "pl": 20, "px": 15, "ammo": 71,
+	"ps": 30, "pm": 25, "pl": 20, "px": 15, "mag": 71,
 	"con": 5, "bur": 10, "pran": 350
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "M2HB", "wqual": "X", "rof": 5, "rng": 150,
-	"ps": 4, "pm": 4, "pl": 3, "px": 3, "ammo": 600,
+	"ps": 4, "pm": 4, "pl": 3, "px": 3, "mag": 600,
 	"con": 1, "bur": 9, "pran": 150
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "MAG MG", "wqual": "X", "rof": 10, "rng": 125,
-	"ps": 2, "pm": 2, "pl": 1, "ammo": 999,
+	"ps": 2, "pm": 2, "pl": 1, "mag": 999,
 	"con": 0.4, "bur": 2, "pran": 125
     }],
     "mass": 46, "load": 0.5, "crew": 5, "mnt": 5,
@@ -781,17 +781,17 @@
     "weap": [{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "90 mm APFSDS", "wqual": "C", "rof": 0.5, "rng": 350,
-	"ps": 55, "pm": 50, "pl": 46, "px": 40, "ammo": 71,
+	"ps": 55, "pm": 50, "pl": 46, "px": 40, "mag": 71,
 	"con": 5, "bur": 10, "pran": 350
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "M2HB", "wqual": "X", "rof": 5, "rng": 150,
-	"ps": 4, "pm": 4, "pl": 3, "px": 3, "ammo": 600,
+	"ps": 4, "pm": 4, "pl": 3, "px": 3, "mag": 600,
 	"con": 1, "bur": 9, "pran": 150
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "MAG MG", "wqual": "X", "rof": 10, "rng": 125,
-	"ps": 2, "pm": 2, "pl": 1, "ammo": 999,
+	"ps": 2, "pm": 2, "pl": 1, "mag": 999,
 	"con": 0.4, "bur": 2, "pran": 125
     }],
     "mass": 46, "load": 0.5, "crew": 5, "mnt": 5,
@@ -807,12 +807,12 @@
     "weap": [{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "90 mm APFSDSDU", "wqual": "C", "rof": 0.5, "rng": 500,
-	"ps": 56, "pm": 50, "pl": 41, "px": 30, "ammo": 54,
+	"ps": 56, "pm": 50, "pl": 41, "px": 30, "mag": 54,
 	"con": 6, "bur": 15, "pran": 400
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "MAG MG", "wqual": "X", "rof": 10, "rng": 125,
-	"ps": 2, "pm": 2, "pl": 1, "ammo": 999,
+	"ps": 2, "pm": 2, "pl": 1, "mag": 999,
 	"con": 0.4, "bur": 2, "pran": 125
     }],
     "mass": 49, "load": 0.5, "crew": 4, "mnt": 10,
@@ -828,12 +828,12 @@
     "weap": [{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "105 mm APFSDSDU", "wqual": "C", "rof": 0.5, "rng": 500,
-	"ps": 100, "pm": 90, "pl": 80, "px": 60, "ammo": 54,
+	"ps": 100, "pm": 90, "pl": 80, "px": 60, "mag": 54,
 	"con": 6, "bur": 15, "pran": 400
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "MAG MG", "wqual": "X", "rof": 10, "rng": 125,
-	"ps": 2, "pm": 2, "pl": 1, "ammo": 999,
+	"ps": 2, "pm": 2, "pl": 1, "mag": 999,
 	"con": 0.4, "bur": 2, "pran": 125
     }],
     "mass": 49, "load": 0.5, "crew": 4, "mnt": 10,
@@ -849,17 +849,17 @@
     "weap": [{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "105 mm APFSDSDU", "wqual": "C", "rof": 0.5, "rng": 500,
-	"ps": 100, "pm": 90, "pl": 80, "px": 60, "ammo": 63,
+	"ps": 100, "pm": 90, "pl": 80, "px": 60, "mag": 63,
 	"con": 6, "bur": 15, "pran": 400
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "MAG MG", "wqual": "X", "rof": 10, "rng": 125,
-	"ps": 2, "pm": 2, "pl": 1, "ammo": 999,
+	"ps": 2, "pm": 2, "pl": 1, "mag": 999,
 	"con": 0.4, "bur": 2, "pran": 125
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "M2HB", "wqual": "X", "rof": 5, "rng": 150,
-	"ps": 4, "pm": 4, "pl": 3, "px": 3, "ammo": 600,
+	"ps": 4, "pm": 4, "pl": 3, "px": 3, "mag": 600,
 	"con": 1, "bur": 9, "pran": 150
     }],
     "mass": 52.6, "load": 0.6, "crew": 4, "mnt": 10,
@@ -875,17 +875,17 @@
     "weap": [{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "105 mm APFSDSDU", "wqual": "C", "rof": 1, "rng": 500,
-	"ps": 100, "pm": 90, "pl": 80, "px": 60, "ammo": 36,
+	"ps": 100, "pm": 90, "pl": 80, "px": 60, "mag": 36,
 	"con": 6, "bur": 15, "pran": 400
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "MAG MG", "wqual": "X", "rof": 10, "rng": 125,
-	"ps": 2, "pm": 2, "pl": 1, "ammo": 999,
+	"ps": 2, "pm": 2, "pl": 1, "mag": 999,
 	"con": 0.4, "bur": 2, "pran": 125
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "M2HB", "wqual": "X", "rof": 5, "rng": 150,
-	"ps": 4, "pm": 4, "pl": 3, "px": 3, "ammo": 600,
+	"ps": 4, "pm": 4, "pl": 3, "px": 3, "mag": 600,
 	"con": 1, "bur": 9, "pran": 150
     }],
     "mass": 21, "load": 0.7, "crew": 4, "mnt": 14,
@@ -901,17 +901,17 @@
     "weap": [{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "105 mm APFSDSDU", "wqual": "C", "rof": 1, "rng": 500,
-	"ps": 100, "pm": 90, "pl": 80, "px": 60, "ammo": 30,
+	"ps": 100, "pm": 90, "pl": 80, "px": 60, "mag": 30,
 	"con": 6, "bur": 15, "pran": 400
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "MAG MG", "wqual": "X", "rof": 10, "rng": 125,
-	"ps": 2, "pm": 2, "pl": 1, "ammo": 4500,
+	"ps": 2, "pm": 2, "pl": 1, "mag": 4500,
 	"con": 0.4, "bur": 2, "pran": 125
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "M2HB", "wqual": "X", "rof": 5, "rng": 150,
-	"ps": 4, "pm": 4, "pl": 3, "px": 3, "ammo": 600,
+	"ps": 4, "pm": 4, "pl": 3, "px": 3, "mag": 600,
 	"con": 1, "bur": 9, "pran": 150
     }],
     "mass": 38.5, "load": 0.2, "crew": 3, "mnt": 10,
@@ -927,17 +927,17 @@
     "weap": [{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "105 mm APFSDSDU", "wqual": "C", "rof": 1, "rng": 500,
-	"ps": 100, "pm": 90, "pl": 80, "px": 60, "ammo": 30,
+	"ps": 100, "pm": 90, "pl": 80, "px": 60, "mag": 30,
 	"con": 6, "bur": 15, "pran": 400
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "MAG MG", "wqual": "X", "rof": 10, "rng": 125,
-	"ps": 2, "pm": 2, "pl": 1, "ammo": 999,
+	"ps": 2, "pm": 2, "pl": 1, "mag": 999,
 	"con": 0.4, "bur": 2, "pran": 125
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "M2HB", "wqual": "X", "rof": 5, "rng": 150,
-	"ps": 4, "pm": 4, "pl": 3, "px": 3, "ammo": 600,
+	"ps": 4, "pm": 4, "pl": 3, "px": 3, "mag": 600,
 	"con": 1, "bur": 9, "pran": 150
     }],
     "mass": 44.5, "load": 0.2, "crew": 3, "mnt": 10,
@@ -953,17 +953,17 @@
     "weap": [{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "105 mm APFSDSDU", "wqual": "C", "rof": 1, "rng": 500,
-	"ps": 100, "pm": 90, "pl": 80, "px": 60, "ammo": 30,
+	"ps": 100, "pm": 90, "pl": 80, "px": 60, "mag": 30,
 	"con": 6, "bur": 15, "pran": 400
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "MAG MG", "wqual": "X", "rof": 10, "rng": 125,
-	"ps": 2, "pm": 2, "pl": 1, "ammo": 999,
+	"ps": 2, "pm": 2, "pl": 1, "mag": 999,
 	"con": 0.4, "bur": 2, "pran": 125
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "M2HB", "wqual": "X", "rof": 5, "rng": 150,
-	"ps": 4, "pm": 4, "pl": 3, "px": 3, "ammo": 600,
+	"ps": 4, "pm": 4, "pl": 3, "px": 3, "mag": 600,
 	"con": 1, "bur": 9, "pran": 150
     }],
     "mass": 49.5, "load": 0.2, "crew": 3, "mnt": 10,
@@ -979,17 +979,17 @@
     "weap": [{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "25 mm APFSDSDU", "wqual": "C", "rof": 5, "rng": 250,
-	"ps": 13, "pm": 9, "pl": 3, "px": 3, "ammo": 900,
+	"ps": 13, "pm": 9, "pl": 3, "px": 3, "mag": 900,
 	"con": 1, "bur": 2, "pran": 250
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "MAG MG", "wqual": "X", "rof": 10, "rng": 125,
-	"ps": 2, "pm": 2, "pl": 1, "ammo": 999,
+	"ps": 2, "pm": 2, "pl": 1, "mag": 999,
 	"con": 0.4, "bur": 2, "pran": 125
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "TOW", "wqual": "R", "rof": 1, "rng": 3500,
-	"ps": 220, "ammo": 7,
+	"ps": 220, "mag": 7,
 	"con": 12, "bur": 12, "pran": 3500
     }],
     "mass": 33, "load": 1.5, "crew": 3, "psgr": 6, "mnt": 8,
@@ -1005,17 +1005,17 @@
     "weap": [{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "25 mm APFSDSDU", "wqual": "C", "rof": 5, "rng": 250,
-	"ps": 13, "pm": 9, "pl": 3, "px": 3, "ammo": 900,
+	"ps": 13, "pm": 9, "pl": 3, "px": 3, "mag": 900,
 	"con": 1, "bur": 3, "pran": 250
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "MAG MG", "wqual": "X", "rof": 10, "rng": 125,
-	"ps": 2, "pm": 2, "pl": 1, "ammo": 2200,
+	"ps": 2, "pm": 2, "pl": 1, "mag": 2200,
 	"con": 0.4, "bur": 2, "pran": 125
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "TOW", "wqual": "R", "rof": 1, "rng": 3500,
-	"ps": 220, "ammo": 7,
+	"ps": 220, "mag": 7,
 	"con": 12, "bur": 15, "pran": 3500
     }],
     "mass": 33, "load": 1.5, "crew": 3, "psgr": 6, "mnt": 8,
@@ -1031,17 +1031,17 @@
     "weap": [{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "25 mm APFSDSDU", "wqual": "C", "rof": 5, "rng": 250,
-	"ps": 13, "pm": 9, "pl": 3, "px": 3, "ammo": 900,
+	"ps": 13, "pm": 9, "pl": 3, "px": 3, "mag": 900,
 	"con": 1, "bur": 2, "pran": 250
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "MAG MG", "wqual": "X", "rof": 10, "rng": 125,
-	"ps": 2, "pm": 2, "pl": 1, "ammo": 999,
+	"ps": 2, "pm": 2, "pl": 1, "mag": 999,
 	"con": 0.4, "bur": 2, "pran": 125
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "Hellfire", "wqual": "R", "rof": 1, "rng": 4500,
-	"ps": 220, "ammo": 7,
+	"ps": 220, "mag": 7,
 	"con": 12, "bur": 12, "pran": 4500
     }],
     "mass": 33, "load": 1.5, "crew": 3, "psgr": 6, "mnt": 8,
@@ -1057,17 +1057,17 @@
     "weap": [{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "25 mm APFSDSDU", "wqual": "C", "rof": 5, "rng": 250,
-	"ps": 13, "pm": 9, "pl": 3, "px": 3, "ammo": 300,
+	"ps": 13, "pm": 9, "pl": 3, "px": 3, "mag": 300,
 	"con": 1, "bur": 2, "pran": 250
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "MAG MG", "wqual": "X", "rof": 10, "rng": 125,
-	"ps": 2, "pm": 2, "pl": 1, "ammo": 999,
+	"ps": 2, "pm": 2, "pl": 1, "mag": 999,
 	"con": 0.4, "bur": 2, "pran": 125
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "TOW", "wqual": "R", "rof": 1, "rng": 3500,
-	"ps": 220, "ammo": 12,
+	"ps": 220, "mag": 12,
 	"con": 12, "bur": 12, "pran": 3500
     }],
     "mass": 33, "load": 1.5, "crew": 3, "psgr": 3, "mnt": 8,
@@ -1083,7 +1083,7 @@
     "weap": [{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "25 mm APFSDSDU", "wqual": "C", "rof": 5, "rng": 250,
-	"ps": 13, "pm": 9, "pl": 3, "px": 3, "ammo": 324,
+	"ps": 13, "pm": 9, "pl": 3, "px": 3, "mag": 324,
 	"con": 1, "bur": 1, "pran": 250
     }],
    
@@ -1099,7 +1099,7 @@
     "weap": [{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "M2HB", "wqual": "X", "rof": 5, "rng": 150,
-	"ps": 4, "pm": 4, "pl": 3, "px": 3, "ammo": 2000,
+	"ps": 4, "pm": 4, "pl": 3, "px": 3, "mag": 2000,
 	"con": 1, "bur": 9, "pran": 150
     }],
     "mass": 11, "load": 2, "crew": 2, "psgr": 11, "mnt": 6,
@@ -1115,7 +1115,7 @@
     "weap": [{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "Mk-19 HVHEDP", "wqual": "C", "rof": 5, "rng": 200,
-	"ps": 4, "pm": 4, "pl": 4, "px": 4, "ammo": 150,
+	"ps": 4, "pm": 4, "pl": 4, "px": 4, "mag": 150,
 	"con": 3, "bur": 15, "pran": 200
     }],
     "mass": 10, "load": 1.25, "crew": 3, "mnt": 3,
@@ -1131,12 +1131,12 @@
     "weap": [{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "25 mm APFSDSDU", "wqual": "C", "rof": 5, "rng": 250,
-	"ps": 13, "pm": 9, "pl": 3, "px": 3, "ammo": 630,
+	"ps": 13, "pm": 9, "pl": 3, "px": 3, "mag": 630,
 	"con": 1, "bur": 3, "pran": 250
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "MAG MG", "wqual": "X", "rof": 10, "rng": 125,
-	"ps": 2, "pm": 2, "pl": 1, "ammo": 999,
+	"ps": 2, "pm": 2, "pl": 1, "mag": 999,
 	"con": 0.4, "bur": 2, "pran": 125
     }],
     "mass": 12, "load": 2, "crew": 3, "psgr": 6, "mnt": 6,
@@ -1152,12 +1152,12 @@
     "weap": [{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "75 mm APFSDS", "wqual": "C", "rof": 3, "rng": 400,
-	"ps": 30, "pm": 20, "pl": 20, "px": 10, "ammo": 36,
+	"ps": 30, "pm": 20, "pl": 20, "px": 10, "mag": 36,
 	"con": 6, "bur": 12, "pran": 300
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "MAG MG", "wqual": "X", "rof": 10, "rng": 125,
-	"ps": 2, "pm": 2, "pl": 1, "ammo": 999,
+	"ps": 2, "pm": 2, "pl": 1, "mag": 999,
 	"con": 0.4, "bur": 2, "pran": 125
     }],
     "mass": 15, "load": 0.5, "crew": 3, "mnt": 10,
@@ -1173,17 +1173,17 @@
     "weap": [{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "155 mm HE", "wqual": "C", "rof": 0.33, "rng": 350,
-	"ps": 1, "pm":   1, "pl":   1, "px":   1, "ammo": 36,
+	"ps": 1, "pm":   1, "pl":   1, "px":   1, "mag": 36,
 	"con": 30, "bur": 45
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "155 mm HEAT", "wqual": "C", "rof": 0.33, "rng": 350,
-	"ps": 110, "pm": 110, "pl": 110, "px": 110, "ammo": 36,
+	"ps": 110, "pm": 110, "pl": 110, "px": 110, "mag": 36,
 	"con": 30, "bur": 45, "pran": 350
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "M2HB", "wqual": "X", "rof": 5, "rng": 150,
-	"ps": 4, "pm": 4, "pl": 3, "px": 3, "ammo": 600,
+	"ps": 4, "pm": 4, "pl": 3, "px": 3, "mag": 600,
 	"con": 1, "bur": 9, "pran": 150
     }],
     "mass": 25, "load": 1, "crew": 6, "mnt": 10,
@@ -1204,7 +1204,7 @@
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "MG3 MG", "wqual": "X", "rof": 10, "rng": 125,
-	"ps": 2, "pm": 2, "pl": 1, "ammo": 999,
+	"ps": 2, "pm": 2, "pl": 1, "mag": 999,
 	"con": 0.4, "bur": 2, "pran": 125
     }],
    
@@ -1220,7 +1220,7 @@
     "weap": [{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "MG3 MG", "wqual": "X", "rof": 10, "rng": 125,
-	"ps": 2, "pm": 2, "pl": 1, "ammo": 1000,
+	"ps": 2, "pm": 2, "pl": 1, "mag": 1000,
 	"con": 0.4, "bur": 2, "pran": 125
     }],
     "mass": 17, "load": 1, "crew": 2, "psgr": 10, "mnt": 6,
@@ -1236,12 +1236,12 @@
     "weap": [{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "25 mm AC APFSDSDU", "wqual": "C", "rof": 5, "rng": 250,
-	"ps": 13, "pm": 9, "pl": 3, "px": 3, "ammo": 1100,
+	"ps": 13, "pm": 9, "pl": 3, "px": 3, "mag": 1100,
 	"con": 1, "bur": 3, "pran": 250
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "MG3 MG", "wqual": "X", "rof": 10, "rng": 125,
-	"ps": 2, "pm": 2, "pl": 1, "ammo": 999,
+	"ps": 2, "pm": 2, "pl": 1, "mag": 999,
 	"con": 0.4, "bur": 2, "pran": 125
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
@@ -1266,7 +1266,7 @@
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "MG3 MG", "wqual": "X", "rof": 10, "rng": 125,
-	"ps": 2, "pm": 2, "pl": 1, "ammo": 999,
+	"ps": 2, "pm": 2, "pl": 1, "mag": 999,
 	"con": 0.4, "bur": 2, "pran": 125
     }],
    
@@ -1282,17 +1282,17 @@
     "weap": [{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "90 mm HEAT", "wqual": "C", "rof": 0.5, "rng": 350,
-	"ps": 60, "pm": 60, "pl": 60, "px": 60, "ammo": 51,
+	"ps": 60, "pm": 60, "pl": 60, "px": 60, "mag": 51,
 	"con": 7, "bur": 15, "pran": 250
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "90 mm HESH", "wqual": "C", "rof": 0.5, "rng": 200,
-	"ps": 3, "pm": 3, "pl": 3, "px": 3, "ammo": 51,
+	"ps": 3, "pm": 3, "pl": 3, "px": 3, "mag": 51,
 	"con": 10, "bur": 5, "pran": 250
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "MG3 MG", "wqual": "X", "rof": 10, "rng": 125,
-	"ps": 2, "pm": 2, "pl": 1, "ammo": 999,
+	"ps": 2, "pm": 2, "pl": 1, "mag": 999,
 	"con": 0.4, "bur": 2, "pran": 125
     }],
     "mass": 23, "load": 0.5, "crew": 4, "mnt": 6,
@@ -1308,12 +1308,12 @@
     "weap": [{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "105 mm APFSDSDU", "wqual": "C", "rof": 0.5, "rng": 500,
-	"ps": 100, "pm": 90, "pl": 80, "px": 60, "ammo": 60,
+	"ps": 100, "pm": 90, "pl": 80, "px": 60, "mag": 60,
 	"con": 6, "bur": 15, "pran": 400
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "MG3 MG", "wqual": "X", "rof": 10, "rng": 125,
-	"ps": 2, "pm": 2, "pl": 1, "ammo": 999,
+	"ps": 2, "pm": 2, "pl": 1, "mag": 999,
 	"con": 0.4, "bur": 2, "pran": 125
     }],
     "mass": 40, "load": 0.7, "crew": 4, "mnt": 8,
@@ -1334,7 +1334,7 @@
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "MG3 MG", "wqual": "X", "rof": 10, "rng": 125,
-	"ps": 2, "pm": 2, "pl": 1, "ammo": 999,
+	"ps": 2, "pm": 2, "pl": 1, "mag": 999,
 	"con": 0.4, "bur": 2, "pran": 125
     }],
     "mass": 62.5, "load": 0.7, "crew": 4, "mnt": 14,
@@ -1355,7 +1355,7 @@
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "MG3 MG", "wqual": "X", "rof": 10, "rng": 125,
-	"ps": 2, "pm": 2, "pl": 1, "ammo": 4750,
+	"ps": 2, "pm": 2, "pl": 1, "mag": 4750,
 	"con": 0.4, "bur": 2, "pran": 125
     }],
     "mass": 62.5, "load": 0.7, "crew": 4, "mnt": 14,
@@ -1376,7 +1376,7 @@
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "MG3 MG", "wqual": "X", "rof": 10, "rng": 125,
-	"ps": 2, "pm": 2, "pl": 1, "ammo": 4750,
+	"ps": 2, "pm": 2, "pl": 1, "mag": 4750,
 	"con": 0.4, "bur": 2, "pran": 125
     }],
     "mass": 62.5, "load": 0.7, "crew": 4, "mnt": 14,
@@ -1392,12 +1392,12 @@
     "weap": [{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "120 mm APFSDSDU", "wqual": "C", "rof": 0.5, "rng": 600,
-	"ps": 150, "pm": 140, "pl": 130, "px": 110, "ammo": 52,
+	"ps": 150, "pm": 140, "pl": 130, "px": 110, "mag": 52,
 	"con": 14, "bur": 25, "pran": 400
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "L7A2 GPMG", "wqual": "X", "rof": 10, "rng": 125,
-	"ps": 2, "pm": 2, "pl": 1, "ammo": 4000,
+	"ps": 2, "pm": 2, "pl": 1, "mag": 4000,
 	"con": 0.4, "bur": 2, "pran": 125
     }],
     "mass": 62.5, "load": 0.5, "crew": 4, "mnt": 16,
@@ -1418,7 +1418,7 @@
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "L7A2 GPMG", "wqual": "X", "rof": 10, "rng": 125,
-	"ps": 2, "pm": 2, "pl": 1, "ammo": 999,
+	"ps": 2, "pm": 2, "pl": 1, "mag": 999,
 	"con": 0.4, "bur": 2, "pran": 125
     }],
     "mass": 58, "load": 0.5, "crew": 4, "mnt": 16,
@@ -1439,7 +1439,7 @@
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "L7A2 GPMG", "wqual": "X", "rof": 10, "rng": 125,
-	"ps": 2, "pm": 2, "pl": 1, "ammo": 999,
+	"ps": 2, "pm": 2, "pl": 1, "mag": 999,
 	"con": 0.4, "bur": 2, "pran": 125
     }],
     "mass": 54, "load": 0.4, "crew": 4, "mnt": 8,
@@ -1460,7 +1460,7 @@
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "L7A2 GPMG", "wqual": "X", "rof": 10, "rng": 125,
-	"ps": 2, "pm": 2, "pl": 1, "ammo": 999,
+	"ps": 2, "pm": 2, "pl": 1, "mag": 999,
 	"con": 0.4, "bur": 2, "pran": 125
     }],
    
@@ -1476,12 +1476,12 @@
     "weap": [{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "30 mm Rarden APDS", "wqual": "C", "rof": 5, "rng": 250,
-	"ps": 8, "pm": 3, "pl": -2, "px": -2, "ammo": 200,
+	"ps": 8, "pm": 3, "pl": -2, "px": -2, "mag": 200,
 	"con": 1, "bur": 3, "pran": 250
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "L7A2 GPMG", "wqual": "X", "rof": 10, "rng": 125,
-	"ps": 2, "pm": 2, "pl": 1, "ammo": 999,
+	"ps": 2, "pm": 2, "pl": 1, "mag": 999,
 	"con": 0.4, "bur": 2, "pran": 125
     }],
     "mass": 24, "load": 0.6, "crew": 3, "psgr": 7, "mnt": 12,
@@ -1513,7 +1513,7 @@
     "weap": [{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "M2HB", "wqual": "X", "rof": 5, "rng": 150,
-	"ps": 4, "pm": 4, "pl": 3, "px": 3, "ammo": 500,
+	"ps": 4, "pm": 4, "pl": 3, "px": 3, "mag": 500,
 	"con": 1, "bur": 9, "pran": 150
     }],
     "mass": 12.5, "load": 0.8, "crew": 2, "psgr": 8, "mnt": 4,
@@ -1529,7 +1529,7 @@
     "weap": [{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "20 mm AC API", "wqual": "C", "rof": 10, "rng": 250,
-	"ps": 3, "pm": 3, "pl": -2, "px": -5, "ammo": 100,
+	"ps": 3, "pm": 3, "pl": -2, "px": -5, "mag": 100,
 	"con": 1, "bur": 3, "pran": 250
     }],
     "mass": 15, "load": 0.8, "crew": 2, "psgr": 8, "mnt": 4,
@@ -1545,7 +1545,7 @@
     "weap": [{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "M2HB", "wqual": "X", "rof": 5, "rng": 150,
-	"ps": 4, "pm": 4, "pl": 3, "px": 3, "ammo": 300,
+	"ps": 4, "pm": 4, "pl": 3, "px": 3, "mag": 300,
 	"con": 1, "bur": 9, "pran": 150
     }],
     "mass": 14.8, "load": 0.8, "crew": 2, "psgr": 8, "mnt": 5,
@@ -1744,12 +1744,12 @@
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "PK MG", "wqual": "X", "rof": 5, "rng": 125,
-	"ps": 2, "pm": 2, "pl": 1, "ammo": 0.4,
+	"ps": 2, "pm": 2, "pl": 1, "mag": 0.4,
 	"con": 1, "bur": 2, "pran": 125
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "DShK MG", "wqual": "X", "rof": 5, "rng": 150,
-	"ps": 4, "pm": 4, "pl": 1, "ammo": 500,
+	"ps": 4, "pm": 4, "pl": 1, "mag": 500,
 	"con": 1, "bur": 9, "pran": 150
     }],
     "mass": 36, "load": 0.4, "crew": 4, "mnt": 8,
@@ -1770,12 +1770,12 @@
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "PK MG", "wqual": "X", "rof": 5, "rng": 125,
-	"ps": 2, "pm": 2, "pl": 1, "ammo": 0.4,
+	"ps": 2, "pm": 2, "pl": 1, "mag": 0.4,
 	"con": 1, "bur": 2, "pran": 125
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "DShK MG", "wqual": "X", "rof": 5, "rng": 150,
-	"ps": 4, "pm": 4, "pl": 1, "ammo": 500,
+	"ps": 4, "pm": 4, "pl": 1, "mag": 500,
 	"con": 1, "bur": 9, "pran": 150
     }],
     "mass": 36, "load": 0.4, "crew": 4, "mnt": 8,
@@ -1791,17 +1791,17 @@
     "weap": [{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "115 mm APFSDS", "wqual": "C", "rof": 0.5, "rng": 400,
-	"ps": 90, "pm": 80, "pl": 70, "px": 60, "ammo": 40,
+	"ps": 90, "pm": 80, "pl": 70, "px": 60, "mag": 40,
 	"con": 12, "bur": 24, "pran": 400
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "PK MG", "wqual": "X", "rof": 5, "rng": 125,
-	"ps": 2, "pm": 2, "pl": 1, "ammo": 0.4,
+	"ps": 2, "pm": 2, "pl": 1, "mag": 0.4,
 	"con": 1, "bur": 2, "pran": 125
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "DShK MG", "wqual": "X", "rof": 5, "rng": 150,
-	"ps": 4, "pm": 4, "pl": 1, "ammo": 500,
+	"ps": 4, "pm": 4, "pl": 1, "mag": 500,
 	"con": 1, "bur": 9, "pran": 150
     }],
     "mass": 36.5, "load": 0.5, "crew": 4, "mnt": 6,
@@ -1817,17 +1817,17 @@
     "weap": [{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "125 mm APFSDSDU", "wqual": "C", "rof": 0.3333, "rng": 400,
-	"ps": 110, "pm": 100, "pl": 90, "px": 70, "ammo": 36,
+	"ps": 110, "pm": 100, "pl": 90, "px": 70, "mag": 36,
 	"con": 14, "bur": 35, "pran": 400
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "PK MG", "wqual": "X", "rof": 5, "rng": 125,
-	"ps": 2, "pm": 2, "pl": 1, "ammo": 0.4,
+	"ps": 2, "pm": 2, "pl": 1, "mag": 0.4,
 	"con": 1, "bur": 2, "pran": 125
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "AT-8 Songster", "wqual": "R", "rof": 0.14257, "rng": 5000,
-	"ps": 130, "ammo": 5,
+	"ps": 130, "mag": 5,
 	"con": 12, "bur": 15, "pran": 5000
     }],
     "mass": 38, "load": 0.5, "crew": 3, "mnt": 6,
@@ -1848,12 +1848,12 @@
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "PK MG", "wqual": "X", "rof": 5, "rng": 125,
-	"ps": 2, "pm": 2, "pl": 1, "ammo": 0.4,
+	"ps": 2, "pm": 2, "pl": 1, "mag": 0.4,
 	"con": 1, "bur": 2, "pran": 125
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "DShK MG", "wqual": "X", "rof": 5, "rng": 150,
-	"ps": 4, "pm": 4, "pl": 1, "ammo": 500,
+	"ps": 4, "pm": 4, "pl": 1, "mag": 500,
 	"con": 1, "bur": 9, "pran": 150
     }],
     "mass": 40, "load": 0.5, "crew": 3, "mnt": 14,
@@ -1874,12 +1874,12 @@
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "DShK MG", "wqual": "X", "rof": 5, "rng": 150,
-	"ps": 4, "pm": 4, "pl": 1, "ammo": 500,
+	"ps": 4, "pm": 4, "pl": 1, "mag": 500,
 	"con": 1, "bur": 9, "pran": 150
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "AT-8 Songster", "wqual": "R", "rof": 0.14257, "rng": 5000,
-	"ps": 130, "ammo": 5,
+	"ps": 130, "mag": 5,
 	"con": 12, "bur": 15, "pran": 5000
     }],
     "mass": 40, "load": 0.5, "crew": 3, "mnt": 18,
@@ -1895,17 +1895,17 @@
     "weap": [{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "125 mm APFSDSDU", "wqual": "C", "rof": 0.3333, "rng": 450,
-	"ps": 110, "pm": 100, "pl": 90, "px": 70, "ammo": 36,
+	"ps": 110, "pm": 100, "pl": 90, "px": 70, "mag": 36,
 	"con": 14, "bur": 35, "pran": 400
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "12.7 mm DShK", "wqual": "X", "rof": 5, "rng": 150,
-	"ps": 4.5, "pm": 4.5, "pl": 4.5, "px": 3, "ammo": 300,
+	"ps": 4.5, "pm": 4.5, "pl": 4.5, "px": 3, "mag": 300,
 	"con": 1, "bur": 9, "pran": 150
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "9M119 Reflecks", "wqual": "R", "rof": 0.14257, "rng": 5000,
-	"ps": 170, "ammo": 6,
+	"ps": 170, "mag": 6,
 	"con": 12, "bur": 15, "pran": 5000
     }],
     "mass": 45, "load": 0.5, "crew": 3, "mnt": 18,
@@ -1921,17 +1921,17 @@
     "weap": [{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "73 mm AC HEAT", "wqual": "C", "rof": 0.5, "rng": 200,
-	"ps": 70, "pm": 70, "pl": 70, "px": 70, "ammo": 40,
+	"ps": 70, "pm": 70, "pl": 70, "px": 70, "mag": 40,
 	"con": 6, "bur": 12, "pran": 200
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "PK MG", "wqual": "X", "rof": 5, "rng": 125,
-	"ps": 2, "pm": 2, "pl": 1, "ammo": 0.4,
+	"ps": 2, "pm": 2, "pl": 1, "mag": 0.4,
 	"con": 1, "bur": 2, "pran": 125
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "AT-3 Sagger", "wqual": "R", "rof": 1, "rng": 3000,
-	"ps": 75, "ammo": 4,
+	"ps": 75, "mag": 4,
 	"con": 6, "bur": 4, "pran": 3000
     }],
     "mass": 9, "load": 0.6, "crew": 3, "psgr": 6, "mnt": 11,
@@ -1952,7 +1952,7 @@
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "PK MG", "wqual": "X", "rof": 5, "rng": 125,
-	"ps": 2, "pm": 2, "pl": 1, "ammo": 0.4,
+	"ps": 2, "pm": 2, "pl": 1, "mag": 0.4,
 	"con": 1, "bur": 2, "pran": 125
     }],
     "mass": 9.5, "load": 0.6, "crew": 2, "psgr": 8, "mnt": 11,
@@ -1968,12 +1968,12 @@
     "weap": [{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "76.2 mm HEAT", "wqual": "C", "rof": 0.5, "rng": 300,
-	"ps": 40, "pm": 40, "pl": 40, "px": 40, "ammo": 40,
+	"ps": 40, "pm": 40, "pl": 40, "px": 40, "mag": 40,
 	"con": 8, "bur": 14, "pran": 300
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "PK MG", "wqual": "X", "rof": 5, "rng": 125,
-	"ps": 2, "pm": 2, "pl": 1, "ammo": 1000,
+	"ps": 2, "pm": 2, "pl": 1, "mag": 1000,
 	"con": 1, "bur": 2, "pran": 125
     }],
     "mass": 14, "load": 0.3, "crew": 3, "mnt": 5,
@@ -1989,17 +1989,17 @@
     "weap": [{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "30 mm AC API", "wqual": "C", "rof": 5, "rng": 250,
-	"ps": 5, "pm": 1, "pl": -2, "px": -2, "ammo": 200,
+	"ps": 5, "pm": 1, "pl": -2, "px": -2, "mag": 200,
 	"con": 1, "bur": 3, "pran": 250
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "PK MG", "wqual": "X", "rof": 5, "rng": 125,
-	"ps": 2, "pm": 2, "pl": 1, "ammo": 0.4,
+	"ps": 2, "pm": 2, "pl": 1, "mag": 0.4,
 	"con": 1, "bur": 2, "pran": 125
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "AT-5 Spandrel", "wqual": "R", "rof": 1, "rng": 3500,
-	"ps": 140, "ammo": 4,
+	"ps": 140, "mag": 4,
 	"con": 12, "bur": 15, "pran": 3500
     }],
     "mass": 12.5, "load": 1.5, "crew": 3, "psgr": 8, "mnt": 12,
@@ -2015,17 +2015,17 @@
     "weap": [{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "100 mm APDS-T", "wqual": "C", "rof": 0.5, "rng": 350,
-	"ps": 70, "pm": 60, "pl": 50, "px": 30, "ammo": 40,
+	"ps": 70, "pm": 60, "pl": 50, "px": 30, "mag": 40,
 	"con": 6, "bur": 15, "pran": 300
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "30 mm AC API", "wqual": "C", "rof": 5, "rng": 250,
-	"ps": 5, "pm": 1, "pl": -2, "px": -2, "ammo": 500,
+	"ps": 5, "pm": 1, "pl": -2, "px": -2, "mag": 500,
 	"con": 1, "bur": 3, "pran": 250
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "AT-10", "wqual": "R", "rof": 0.14257, "rng": 3000,
-	"ps": 80, "ammo": 6,
+	"ps": 80, "mag": 6,
 	"con": 6, "bur": 5, "pran": 3000
     }],
     "mass": 18.7, "load": 1.5, "crew": 3, "psgr": 7, "mnt": 12,
@@ -2041,17 +2041,17 @@
     "weap": [{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "23 mm AC API", "wqual": "C", "rof": 10, "rng": 250,
-	"ps": -2, "pm": -4, "pl": -6, "px": -6, "ammo": 600,
+	"ps": -2, "pm": -4, "pl": -6, "px": -6, "mag": 600,
 	"con": 1, "bur": 3, "pran": 250
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "PK MG", "wqual": "X", "rof": 5, "rng": 125,
-	"ps": 2, "pm": 2, "pl": 1, "ammo": 2000,
+	"ps": 2, "pm": 2, "pl": 1, "mag": 2000,
 	"con": 1, "bur": 2, "pran": 125
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "AT-3 Sagger", "wqual": "R", "rof": 0.333, "rng": 3000,
-	"ps": 70, "ammo": 4,
+	"ps": 70, "mag": 4,
 	"con": 6, "bur": 5, "pran": 3000
     }],
     "mass": 15.2, "load": 0.7, "crew": 3, "psgr": 7, "mnt": 5,
@@ -2067,17 +2067,17 @@
     "weap": [{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "30 mm AC API", "wqual": "C", "rof": 5, "rng": 250,
-	"ps": 5, "pm": 1, "pl": -2, "px": -2, "ammo": 500,
+	"ps": 5, "pm": 1, "pl": -2, "px": -2, "mag": 500,
 	"con": 1, "bur": 3, "pran": 250
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "PK MG", "wqual": "X", "rof": 5, "rng": 125,
-	"ps": 2, "pm": 2, "pl": 1, "ammo": 2000,
+	"ps": 2, "pm": 2, "pl": 1, "mag": 2000,
 	"con": 1, "bur": 2, "pran": 125
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "AT-3 Sagger", "wqual": "R", "rof": 0.333, "rng": 3000,
-	"ps": 70, "ammo": 4,
+	"ps": 70, "mag": 4,
 	"con": 6, "bur": 5, "pran": 3000
     }],
     "mass": 15.2, "load": 0.7, "crew": 3, "psgr": 7, "mnt": 5,
@@ -2093,12 +2093,12 @@
     "weap": [{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "14.5 mm KPV MG", "wqual": "X", "rof": 5, "rng": 150,
-	"ps": 6, "pm": 6, "pl": 6, "px": 4, "ammo": 500,
+	"ps": 6, "pm": 6, "pl": 6, "px": 4, "mag": 500,
 	"con": 1, "bur": 9, "pran": 150
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "PK MG", "wqual": "X", "rof": 5, "rng": 125,
-	"ps": 2, "pm": 2, "pl": 1, "ammo": 0.4,
+	"ps": 2, "pm": 2, "pl": 1, "mag": 0.4,
 	"con": 1, "bur": 2, "pran": 125
     }],
     "mass": 13.6, "load": 2.5, "crew": 3, "psgr": 8, "mnt": 8,
@@ -2114,12 +2114,12 @@
     "weap": [{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "14.5 mm KPV MG", "wqual": "X", "rof": 5, "rng": 150,
-	"ps": 6, "pm": 6, "pl": 6, "px": 4, "ammo": 500,
+	"ps": 6, "pm": 6, "pl": 6, "px": 4, "mag": 500,
 	"con": 1, "bur": 9, "pran": 150
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "PK MG", "wqual": "X", "rof": 5, "rng": 125,
-	"ps": 2, "pm": 2, "pl": 1, "ammo": 2000,
+	"ps": 2, "pm": 2, "pl": 1, "mag": 2000,
 	"con": 1, "bur": 2, "pran": 125
     }],
     "mass": 11, "load": 0.8, "crew": 3, "psgr": 8, "mnt": 4,
@@ -2135,12 +2135,12 @@
     "weap": [{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "14.5 mm KPV MG", "wqual": "X", "rof": 5, "rng": 150,
-	"ps": 6, "pm": 6, "pl": 6, "px": 4, "ammo": 500,
+	"ps": 6, "pm": 6, "pl": 6, "px": 4, "mag": 500,
 	"con": 1, "bur": 9, "pran": 150
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "PK MG", "wqual": "X", "rof": 5, "rng": 125,
-	"ps": 2, "pm": 2, "pl": 1, "ammo": 2000,
+	"ps": 2, "pm": 2, "pl": 1, "mag": 2000,
 	"con": 1, "bur": 2, "pran": 125
     }],
     "mass": 11.5, "load": 0.9, "crew": 3, "psgr": 9, "mnt": 4,
@@ -2156,7 +2156,7 @@
     "weap": [{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "12.7 mm DShK", "wqual": "X", "rof": 5, "rng": 150,
-	"ps": 4.5, "pm": 4.5, "pl": 4.5, "px": 3, "ammo": 1120,
+	"ps": 4.5, "pm": 4.5, "pl": 4.5, "px": 3, "mag": 1120,
 	"con": 1, "bur": 9, "pran": 150
     }],
     "mass": 12.6, "load": 1.3, "crew": 3, "psgr": 13, "mnt": 4,
@@ -2172,7 +2172,7 @@
     "weap": [{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "M2HB", "wqual": "X", "rof": 5, "rng": 150,
-	"ps": 4, "pm": 4, "pl": 3, "px": 3, "ammo": 500,
+	"ps": 4, "pm": 4, "pl": 3, "px": 3, "mag": 500,
 	"con": 1, "bur": 9, "pran": 150
     }],
     "mass": 5.7, "load": 0.8, "crew": 2, "psgr": 8, "mnt": 2,
@@ -2188,17 +2188,17 @@
     "weap": [{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "20 mm AC API", "wqual": "C", "rof": 10, "rng": 250,
-	"ps": 3, "pm": -2, "pl": -5, "px": -5, "ammo": 400,
+	"ps": 3, "pm": -2, "pl": -5, "px": -5, "mag": 400,
 	"con": 1, "bur": 3, "pran": 250
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "PK MG", "wqual": "X", "rof": 5, "rng": 125,
-	"ps": 2, "pm": 2, "pl": 1, "ammo": 2250,
+	"ps": 2, "pm": 2, "pl": 1, "mag": 2250,
 	"con": 1, "bur": 2, "pran": 125
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "AT-3 Sagger", "wqual": "R", "rof": 0.333, "rng": 3000,
-	"ps": 70, "ammo": 4,
+	"ps": 70, "mag": 4,
 	"con": 6, "bur": 5, "pran": 3000
     }],
     "mass": 13.7, "load": 0.7, "crew": 3, "psgr": 7, "mnt": 5,
@@ -2214,17 +2214,17 @@
     "weap": [{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "20 mm AC API", "wqual": "C", "rof": 10, "rng": 250,
-	"ps": 3, "pm": -2, "pl": -5, "px": -5, "ammo": 400,
+	"ps": 3, "pm": -2, "pl": -5, "px": -5, "mag": 400,
 	"con": 1, "bur": 3, "pran": 250
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "PK MG", "wqual": "X", "rof": 5, "rng": 125,
-	"ps": 2, "pm": 2, "pl": 1, "ammo": 2000,
+	"ps": 2, "pm": 2, "pl": 1, "mag": 2000,
 	"con": 1, "bur": 2, "pran": 125
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "AT-3 Sagger", "wqual": "R", "rof": 0.333, "rng": 3000,
-	"ps": 70, "ammo": 4,
+	"ps": 70, "mag": 4,
 	"con": 6, "bur": 5, "pran": 3000
     }],
     "mass": 13.7, "load": 0.7, "crew": 3, "psgr": 7, "mnt": 5,
@@ -2240,12 +2240,12 @@
     "weap": [{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "M2HB", "wqual": "X", "rof": 5, "rng": 150,
-	"ps": 4, "pm": 4, "pl": 3, "px": 3, "ammo": 500,
+	"ps": 4, "pm": 4, "pl": 3, "px": 3, "mag": 500,
 	"con": 1, "bur": 9, "pran": 150
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "MG-42", "wqual": "X", "rof": 10, "rng": 125,
-	"ps": 2, "pm": 2, "pl": 1, "ammo": 2000,
+	"ps": 2, "pm": 2, "pl": 1, "mag": 2000,
 	"con": 1, "bur": 2, "pran": 125
     }],
     "mass": 11, "load": 1, "crew": 4, "psgr": 10, "mnt": 4,
@@ -2261,12 +2261,12 @@
     "weap": [{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "14.5 mm KPV MG", "wqual": "X", "rof": 5, "rng": 150,
-	"ps": 6, "pm": 6, "pl": 6, "px": 4, "ammo": 500,
+	"ps": 6, "pm": 6, "pl": 6, "px": 4, "mag": 500,
 	"con": 1, "bur": 9, "pran": 150
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "PK MG", "wqual": "X", "rof": 5, "rng": 125,
-	"ps": 2, "pm": 2, "pl": 1, "ammo": 0.4,
+	"ps": 2, "pm": 2, "pl": 1, "mag": 0.4,
 	"con": 1, "bur": 2, "pran": 125
     }],
     "mass": 13.6, "load": 2.5, "crew": 3, "psgr": 7, "mnt": 6,
@@ -2282,12 +2282,12 @@
     "weap": [{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "82 mm RR", "wqual": "C", "rof": 1, "rng": 100,
-	"ps": 4, "pm": 4, "pl": 4, "px": 4, "ammo": 12,
+	"ps": 4, "pm": 4, "pl": 4, "px": 4, "mag": 12,
 	"con": 3, "bur": 8, "pran": 100
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "PK MG", "wqual": "X", "rof": 5, "rng": 125,
-	"ps": 2, "pm": 2, "pl": 1, "ammo": 0.4,
+	"ps": 2, "pm": 2, "pl": 1, "mag": 0.4,
 	"con": 1, "bur": 2, "pran": 125
     }],
     "mass": 15, "load": 1.8, "crew": 3, "psgr": 18, "mnt": 5,
@@ -2303,12 +2303,12 @@
     "weap": [{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "14.5 mm KPV MG", "wqual": "X", "rof": 5, "rng": 150,
-	"ps": 6, "pm": 6, "pl": 6, "px": 4, "ammo": 500,
+	"ps": 6, "pm": 6, "pl": 6, "px": 4, "mag": 500,
 	"con": 1, "bur": 9, "pran": 150
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "PK MG", "wqual": "X", "rof": 5, "rng": 125,
-	"ps": 2, "pm": 2, "pl": 1, "ammo": 0.4,
+	"ps": 2, "pm": 2, "pl": 1, "mag": 0.4,
 	"con": 1, "bur": 2, "pran": 125
     }],
     "mass": 16.4, "load": 1.2, "crew": 3, "psgr": 12, "mnt": 6,
@@ -2324,12 +2324,12 @@
     "weap": [{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "14.5 mm KPV MG", "wqual": "X", "rof": 5, "rng": 150,
-	"ps": 6, "pm": 6, "pl": 6, "px": 4, "ammo": 500,
+	"ps": 6, "pm": 6, "pl": 6, "px": 4, "mag": 500,
 	"con": 1, "bur": 9, "pran": 150
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "PK MG", "wqual": "X", "rof": 5, "rng": 125,
-	"ps": 2, "pm": 2, "pl": 1, "ammo": 0.4,
+	"ps": 2, "pm": 2, "pl": 1, "mag": 0.4,
 	"con": 1, "bur": 2, "pran": 125
     }],
     "mass": 14, "load": 3, "crew": 2, "psgr": 15, "mnt": 6,
@@ -2345,7 +2345,7 @@
     "weap": [{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "PK MG", "wqual": "X", "rof": 5, "rng": 125,
-	"ps": 2, "pm": 2, "pl": 1, "ammo": 1250,
+	"ps": 2, "pm": 2, "pl": 1, "mag": 1250,
 	"con": 1, "bur": 2, "pran": 125
     }],
     "mass": 7, "load": 0.4, "crew": 2, "psgr": 4, "mnt": 2,
@@ -2361,12 +2361,12 @@
     "weap": [{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "14.5 mm KPV MG", "wqual": "X", "rof": 5, "rng": 150,
-	"ps": 6, "pm": 6, "pl": 6, "px": 4, "ammo": 500,
+	"ps": 6, "pm": 6, "pl": 6, "px": 4, "mag": 500,
 	"con": 1, "bur": 9, "pran": 150
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "PK MG", "wqual": "X", "rof": 5, "rng": 125,
-	"ps": 2, "pm": 2, "pl": 1, "ammo": 2000,
+	"ps": 2, "pm": 2, "pl": 1, "mag": 2000,
 	"con": 1, "bur": 2, "pran": 125
     }],
     "mass": 7.5, "load": 0.3, "crew": 3, "psgr": 6, "mnt": 3,
@@ -2382,12 +2382,12 @@
     "weap": [{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "AT-3 Sagger", "wqual": "R", "rof": 0.333, "rng": 3000,
-	"ps": 75, "pm": 75, "pl": 75, "px": 75, "ammo": 6,
+	"ps": 75, "pm": 75, "pl": 75, "px": 75, "mag": 6,
 	"con": 6, "bur": 4, "pran": 3000
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "PK MG", "wqual": "X", "rof": 5, "rng": 125,
-	"ps": 2, "pm": 2, "pl": 1, "ammo": 0.4,
+	"ps": 2, "pm": 2, "pl": 1, "mag": 0.4,
 	"con": 1, "bur": 2, "pran": 125
     }],
     "mass": 5.6, "load": 0.5, "crew": 3, "mnt": 6,
@@ -2403,12 +2403,12 @@
     "weap": [{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "14.5 mm KPV MG", "wqual": "X", "rof": 5, "rng": 150,
-	"ps": 6, "pm": 6, "pl": 6, "px": 4, "ammo": 500,
+	"ps": 6, "pm": 6, "pl": 6, "px": 4, "mag": 500,
 	"con": 1, "bur": 9, "pran": 150
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "PK MG", "wqual": "X", "rof": 5, "rng": 125,
-	"ps": 2, "pm": 2, "pl": 1, "ammo": 0.4,
+	"ps": 2, "pm": 2, "pl": 1, "mag": 0.4,
 	"con": 1, "bur": 2, "pran": 125
     }],
     "mass": 8, "load": 0.6, "crew": 4, "mnt": 4,
@@ -2424,7 +2424,7 @@
     "weap": [{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "AT-5 Spandrel", "wqual": "R", "rof": 0.333, "rng": 3500,
-	"ps": 155, "pm": 155, "pl": 155, "px": 155, "ammo": 10,
+	"ps": 155, "pm": 155, "pl": 155, "px": 155, "mag": 10,
 	"con": 12, "bur": 12, "pran": 3500
     }],
     "mass": 8, "load": 0.6, "crew": 3, "mnt": 4,
@@ -2440,12 +2440,12 @@
     "weap": [{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "30 mm AC", "wqual": "C", "rof": 5, "rng": 250,
-	"ps": 5, "pm": 1, "pl": -2, "px": -2, "ammo": 250,
+	"ps": 5, "pm": 1, "pl": -2, "px": -2, "mag": 250,
 	"con": 1, "bur": 3, "pran": 250
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "PK MG", "wqual": "X", "rof": 5, "rng": 125,
-	"ps": 2, "pm": 2, "pl": 1, "ammo": 0.4,
+	"ps": 2, "pm": 2, "pl": 1, "mag": 0.4,
 	"con": 1, "bur": 2, "pran": 125
     }],
     "mass": 8, "load": 0.6, "crew": 4, "mnt": 4,
@@ -2472,7 +2472,7 @@
     "weap": [{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "100 mm HVAPDS-T", "wqual": "C", "rof": 0.5, "rng": 350,
-	"ps": 70, "pm": 60, "pl": 50, "px": 30, "ammo": 43,
+	"ps": 70, "pm": 60, "pl": 50, "px": 30, "mag": 43,
 	"con": 6, "bur": 15, "pran": 300
     }],
     "mass": 36, "load": 0.4, "crew": 4, "mnt": 8,
@@ -2488,7 +2488,7 @@
     "weap": [{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "120 mm APFSDSDU", "wqual": "C", "rof": 0.5, "rng": 500,
-	"ps": 150, "pm": 140, "pl": 130, "px": 110, "ammo": 40,
+	"ps": 150, "pm": 140, "pl": 130, "px": 110, "mag": 40,
 	"con": 10, "bur": 25, "pran": 400
     }],
     "mass": 39, "load": 0.5, "crew": 4, "mnt": 8,
@@ -2504,17 +2504,17 @@
     "weap": [{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "125 mm APFSDSDU", "wqual": "C", "rof": 0.3333, "rng": 450,
-	"ps": 110, "pm": 100, "pl": 90, "px": 70, "ammo": 42,
+	"ps": 110, "pm": 100, "pl": 90, "px": 70, "mag": 42,
 	"con": 14, "bur": 35, "pran": 400
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "PK MG", "wqual": "X", "rof": 5, "rng": 125,
-	"ps": 2, "pm": 2, "pl": 1, "ammo": 3000,
+	"ps": 2, "pm": 2, "pl": 1, "mag": 3000,
 	"con": 1, "bur": 2, "pran": 125
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "M2HB", "wqual": "X", "rof": 5, "rng": 150,
-	"ps": 4, "pm": 4, "pl": 3, "px": 3, "ammo": 500,
+	"ps": 4, "pm": 4, "pl": 3, "px": 3, "mag": 500,
 	"con": 1, "bur": 9, "pran": 150
     }],
     "mass": 41, "load": 0.5, "crew": 3, "mnt": 13,
@@ -2530,17 +2530,17 @@
     "weap": [{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "100 mm APDS-T", "wqual": "C", "rof": 0.5, "rng": 350,
-	"ps": 70, "pm": 60, "pl": 50, "px": 30, "ammo": 43,
+	"ps": 70, "pm": 60, "pl": 50, "px": 30, "mag": 43,
 	"con": 6, "bur": 15, "pran": 300
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "PK MG", "wqual": "X", "rof": 5, "rng": 125,
-	"ps": 2, "pm": 2, "pl": 1, "ammo": 3000,
+	"ps": 2, "pm": 2, "pl": 1, "mag": 3000,
 	"con": 1, "bur": 2, "pran": 125
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "DShK MG", "wqual": "X", "rof": 5, "rng": 150,
-	"ps": 4, "pm": 4, "pl": 1, "ammo": 500,
+	"ps": 4, "pm": 4, "pl": 1, "mag": 500,
 	"con": 1, "bur": 9, "pran": 150
     }],
     "mass": 36, "load": 0.4, "crew": 4, "mnt": 12,
@@ -2556,12 +2556,12 @@
     "weap": [{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "152 mm", "wqual": "C", "rof": 0.333, "rng": 350,
-	"ps": 80, "pm": 80, "pl": 80, "px": 80, "ammo": 28,
+	"ps": 80, "pm": 80, "pl": 80, "px": 80, "mag": 28,
 	"con": 75, "bur": 45, "pran": 300
     },{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "DShK MG", "wqual": "X", "rof": 5, "rng": 150,
-	"ps": 4, "pm": 4, "pl": 1, "ammo": 300,
+	"ps": 4, "pm": 4, "pl": 1, "mag": 300,
 	"con": 1, "bur": 9, "pran": 150
     }],
     "mass": 23, "load": 0.5, "crew": 5, "mnt": 8,
@@ -2577,7 +2577,7 @@
     "weap": [{
 	"__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
 	"wtyp": "30 mm", "wqual": "C", "rof": 10, "rng": 250,
-	"ps": 5, "pm": 5, "pl": -1, "px": -2, "ammo": 800,
+	"ps": 5, "pm": 5, "pl": -1, "px": -2, "mag": 800,
 	"con": 1, "bur": 3, "pran": 2500
     }],
     "mass": 10.3, "load": 0.5, "crew": 5, "mnt": 3,
@@ -2588,6 +2588,6 @@
 },{
     "__GDW_RPG_Type__": "__GDW_RPG_Weapon__",
     "wtyp": "30 mm", "wqual": "C", "rof": 10, "rng": 250,
-    "ps": 5, "pm": 5, "pl": -1, "px": -2, "ammo": 800,
+    "ps": 5, "pm": 5, "pl": -1, "px": -2, "mag": 800,
     "con": 1, "bur": 3, "pran": 2500
 }]

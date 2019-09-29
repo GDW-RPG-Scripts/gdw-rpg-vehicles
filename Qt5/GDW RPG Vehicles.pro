@@ -32,4 +32,10 @@ SUBDIRS += \
     Ironmongery \
     Installer
 
-CONFIG += ordered
+
+Ship.depends = Object
+Unit.depends = Object
+Weapon.depends = Object
+Vehicle.depends = Weapon Object
+Installer.depends = Ironmongery
+Ironmongery.depends = Ship Unit Vehicle Weapon

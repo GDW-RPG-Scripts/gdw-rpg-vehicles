@@ -88,7 +88,11 @@ ObjectModel::RemoveChild(ObjectItem* parentItem, int position)
 }
 
 void
-ObjectModel::AddActions(QMenu&, QUndoStack&, const QModelIndex&)
+ObjectModel::AddItemActions(QMenu&, QUndoStack&, const QModelIndex&)
+{}
+
+void
+ObjectModel::AddViewActions(QMenu&, QUndoStack&, const QModelIndex&)
 {}
 
 void

@@ -21,19 +21,34 @@
 
 #include "weapon_global.hh"
 
-#include "objectitem.hh"
 #include "munition.hh"
+#include "objectitem.hh"
 
 namespace GDW
 {
   namespace RPG
   {
-    class MunitionItem : public ObjectItem
+    class Munition;
+
+    class WEAPONSHARED_EXPORT MunitionItem : public ObjectItem
     {
+        Q_OBJECT
+
       public:
         static MunitionItem* Create(ObjectItem* parent = nullptr);
 
         MunitionItem(Munition*, ObjectItem*);
+        ~MunitionItem() override;
+
+        MunitionItem* Copy() const override;
+
+        ObjectForm* GetForm(QUndoStack*) override;
+
+        Munition* GetObject() override;
+        const Munition* GetObject() const override;
+
+      protected:
+        MunitionItem(const MunitionItem&);
     };
   };
 };

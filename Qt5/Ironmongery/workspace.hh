@@ -16,8 +16,8 @@
  * General Public License along with GDW RPG Vehicles. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef MAINWINDOW_HH
-#define MAINWINDOW_HH
+#ifndef WORKSPACE_HH
+#define WORKSPACE_HH
 
 #include "factory.hh"
 
@@ -84,14 +84,10 @@ namespace GDW
         void EditItem();
         void ItemClicked(const QModelIndex&);
         void PrintItem();
-        void RemoveSelectedItems();
+        // void RemoveSelectedItems();
         void SaveItem();
 
-        void AddMunition();
-        void AddWeapon();
         void ShowContextMenu(const QPoint&);
-        void ShowVehiclesMenu(const QPoint&);
-        void ShowWeaponsMenu(const QPoint&);
 
       private:
         void ReadSettings();
@@ -101,7 +97,7 @@ namespace GDW
         bool SaveFile(const QString& fileName);
         const QString& CurrentFile() const;
         void CurrentFile(const QString& fileName);
-        //QAbstractItemModel* Model();
+        // QAbstractItemModel* Model();
         QTreeView& GetCurrentTreeView();
         void ResizeViewColumns();
 
@@ -122,4 +118,4 @@ namespace GDW
     };
   };
 };
-#endif // MAINWINDOW_HH
+#endif // WORKSPACE_HH

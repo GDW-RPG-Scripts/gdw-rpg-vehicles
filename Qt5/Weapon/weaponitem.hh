@@ -16,8 +16,8 @@
  * General Public License along with GDW RPG Vehicles. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef TREEITEM_HH
-#define TREEITEM_HH
+#ifndef WEAPONITEM_HH
+#define WEAPONITEM_HH
 
 #include "weapon_global.hh"
 
@@ -26,6 +26,8 @@
 #include "weapon.hh"
 #include "weaponform.hh"
 #include "weaponmodel.hh"
+
+#include "munitionmodel.hh"
 
 #include <QList>
 #include <QVariant>
@@ -74,4 +76,4 @@ namespace GDW
   };
 };
 
-#endif // TREEITEM_HH
+#endif // WEAPONITEM_HH

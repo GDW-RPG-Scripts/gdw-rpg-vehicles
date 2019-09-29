@@ -46,13 +46,11 @@ CONFIG += lrelease embed_translations
 SOURCES += \
     main.cc \
     prefsdialog.cc \
-    commands.cc \
     factory.cc \
     workspace.cc
 
 HEADERS += \
     prefsdialog.hh \
-    commands.hh \
     factory.hh \
     workspace.hh
 
@@ -62,11 +60,6 @@ HEADERS += \
 TRANSLATIONS = \
     translations/Ironmongery_sv.ts
 
-# Default rules for deployment.
-qnx: target.path = /tmp/$${TARGET}/bin
-else: unix:!android: target.path = /opt/$${TARGET}/bin
-!isEmpty(target.path): INSTALLS += target
-
 FORMS += \
     workspace.ui
 
@@ -74,6 +67,16 @@ RESOURCES += \
     Ironmongery.qrc
 
 ICON = icons/sunburst.icns
+
+# Default rules for deployment.
+qnx: target.path = /tmp/$${TARGET}/bin
+else: unix:!android: target.path = /opt/$${TARGET}/bin
+!isEmpty(target.path): INSTALLS += target
+
+CONFIG(release, release|debug) {
+  macx: QMAKE_POST_LINK = $$(QTDIR)/bin/macdeployqt \"$$OUT_PWD/$${TARGET}.app\"
+  win32: QMAKE_POST_LINK = $$(QTDIR)/bin/windeployqt \"$$OUT_PWD/release/$${TARGET}.exe\"
+}
 
 win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../Object/release/ -lObject
 else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../Object/debug/ -lObject

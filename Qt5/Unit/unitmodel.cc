@@ -19,6 +19,10 @@
 #include "unitmodel.hh"
 #include "unititem.hh"
 
+#include "objectcmd.hh"
+
+#include <QMenu>
+
 using namespace GDW::RPG;
 
 UnitModel UnitModel::MODEL;
@@ -47,6 +51,26 @@ ObjectItem*
 UnitModel::InsertObject(ObjectItem* parent) const
 {
   return UnitItem::Create(parent);
+}
+
+void
+UnitModel::AddItemActions(QMenu& menu, QUndoStack& undoStack,
+                         const QModelIndex& index)
+{
+  menu.addAction(QIcon("://icons/16x16/list-add.png"),
+                 tr("Add Unit Child..."), this,
+                 [&, this]() { ; });
+}
+
+void
+UnitModel::AddViewActions(QMenu& menu, QUndoStack& undoStack,
+                         const QModelIndex& index)
+{
+  menu.addAction(QIcon("://icons/16x16/list-add.png"),
+                 tr("Insert New Unit..."), this,
+                 [&, this]() {
+    undoStack.push(new InsertItemCommand(index, this));
+  });
 }
 
 ObjectItem*

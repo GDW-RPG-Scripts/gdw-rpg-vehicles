@@ -19,20 +19,14 @@
   a copy of the GNU General Public License along with GDW RPG Vehicles. If not,
   see <http://www.gnu.org/licenses/>.
 -->
-<Installer>
-  <Name>Ironmongery</Name>
-  <Version>0.0.3</Version>
-  <Title>Ironmongery 0.0.3</Title>
-  <Publisher>Mike Henry Publishing</Publisher>
-  <ProductUrl>https://github.com/GDW-RPG-Scripts/gdw-rpg-vehicles</ProductUrl>
-  <!--InstallerWindowIcon>sunburst</InstallerWindowIcon-->
-  <!--InstallerApplicationIcon>sunburst</InstallerApplicationIcon-->
-  <Logo>:/logo</Logo>
-  <!--Watermark>:/watermark</Watermark-->
-  <Banner>:/banner</Banner>
-  <!--Background>:/watermark</Background-->
-  <WizardStyle>Modern</WizardStyle>
-  <TitleColor>#fe0002</TitleColor>
-  <StartMenuDir>GDW RPG Tools</StartMenuDir>
-  <TargetDir>@ApplicationsDir@/Ironmongery</TargetDir>
-</Installer>
+<Package>
+    <DisplayName>Ironmongery</DisplayName>
+    <Description>Install the Ironmongery application.</Description>
+    <Version>0.0.3</Version>
+    <ReleaseDate>2019-10-01</ReleaseDate>
+    <Licenses>
+        <License name="GNU General Public License, Version 3" file="LICENSE" />
+    </Licenses>
+    <ForcedInstallation>true</ForcedInstallation>
+    <Default>true</Default>
+</Package>

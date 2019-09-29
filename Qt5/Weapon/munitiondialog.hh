@@ -30,6 +30,8 @@ namespace GDW
 
     class MunitionDialog : public QDialog
     {
+        Q_OBJECT
+
       public:
         MunitionDialog(WeaponItem*, QWidget* parent = nullptr);
 
@@ -37,6 +39,9 @@ namespace GDW
 
       public slots:
         void ItemSelected(const QModelIndex&);
+
+      signals:
+        void createMunition();
 
       private:
         QModelIndex mSelectedIndex;

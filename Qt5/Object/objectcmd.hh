@@ -19,14 +19,63 @@
 #ifndef OBJECTCMD_HH
 #define OBJECTCMD_HH
 
+#include <QModelIndex>
 #include <QUndoCommand>
 
 namespace GDW
 {
   namespace RPG
   {
+    class Object;
     class ObjectForm;
+    class ObjectModel;
     class ObjectItem;
+
+    class InsertItemCommand : public QUndoCommand
+    {
+      public:
+        InsertItemCommand(const QModelIndex&, ObjectModel*,
+                          QUndoCommand* parent = nullptr);
+
+        void undo() override;
+        void redo() override;
+
+      private:
+        int mRow;
+        bool mInserted;
+        QModelIndex mParent;
+        ObjectModel* mModel;
+    };
+
+    class RemoveItemCommand : public QUndoCommand
+    {
+      public:
+        RemoveItemCommand(const QModelIndex&,
+                          QUndoCommand* parent = nullptr);
+
+        void undo() override;
+        void redo() override;
+
+      private:
+        int mRow;
+        ObjectItem* mParent;
+        ObjectModel* mModel;
+        ObjectItem* mRemovedItem;
+    };
+
+    class UpdateItemCommand : public QUndoCommand
+    {
+      public:
+        UpdateItemCommand(ObjectForm*, QUndoCommand* parent = nullptr);
+        ~UpdateItemCommand();
+
+        void undo() override;
+        void redo() override;
+
+      private:
+        Object* mObject;
+        ObjectForm* mObjectForm;
+    };
 
     class AddChildItemCommand : public QUndoCommand
     {

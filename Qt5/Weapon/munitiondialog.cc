@@ -39,9 +39,17 @@ MunitionDialog::MunitionDialog(WeaponItem* wti, QWidget* parent)
       new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel, this);
   connect(buttonBox, &QDialogButtonBox::accepted, this, &QDialog::accept);
   connect(buttonBox, &QDialogButtonBox::rejected, this, &QDialog::reject);
+  QPushButton* createButton =
+      new QPushButton(QIcon("://icons/16x16/list-add.png"), tr("Create munition"));
+  connect(createButton, &QPushButton::clicked, this,
+          [=]() {
+    this->finished(2);
+    emit createMunition();
+  });
+  buttonBox->addButton(createButton, QDialogButtonBox::ResetRole);
   dialogLayout->addWidget(buttonBox);
 
-  setWindowTitle(tr("Select a weapon"));
+  setWindowTitle(tr("Select a munition"));
   setLayout(dialogLayout);
 }
 

@@ -39,6 +39,9 @@ namespace GDW
         ObjectItem* Unpack(const QJsonObject&,
                                ObjectItem* parent) override;
 
+        void AddItemActions(QMenu&, QUndoStack&, const QModelIndex&) override;
+        void AddViewActions(QMenu&, QUndoStack&, const QModelIndex&) override;
+
       protected:
         ObjectItem* InsertObject(ObjectItem*) const override;
         const QList<QVariant>& RootData() const override;

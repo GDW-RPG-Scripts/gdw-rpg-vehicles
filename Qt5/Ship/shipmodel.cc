@@ -19,6 +19,10 @@
 #include "shipmodel.hh"
 #include "shipitem.hh"
 
+#include "objectcmd.hh"
+
+#include <QMenu>
+
 using namespace GDW::RPG;
 
 ShipModel ShipModel::MODEL;
@@ -38,7 +42,7 @@ ShipModel::RootData() const
 {
   static QList<QVariant> rootData =
   {
-    tr("Name")
+    tr("Class")
   };
   return rootData;
 }
@@ -47,6 +51,28 @@ ObjectItem*
 ShipModel::InsertObject(ObjectItem* parent) const
 {
   return ShipItem::Create(parent);
+}
+
+void
+ShipModel::AddItemActions(QMenu& menu, QUndoStack& undoStack,
+                         const QModelIndex& index)
+{
+  menu.addAction(QIcon("://icons/16x16/list-add.png"),
+                 tr("Add Ship Child..."), this,
+                 [&, this]() {
+    ;
+  });
+}
+
+void
+ShipModel::AddViewActions(QMenu& menu, QUndoStack& undoStack,
+                         const QModelIndex& index)
+{
+  menu.addAction(QIcon("://icons/16x16/list-add.png"),
+                 tr("Insert New Ship..."), this,
+                 [&, this]() {
+    undoStack.push(new InsertItemCommand(index, this));
+  });
 }
 
 ObjectItem*

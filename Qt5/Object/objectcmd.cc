@@ -77,6 +77,112 @@ ClearImageCommand::redo()
 
   mObjectForm->Read();
 }
+//
+// Insert Item Command
+//
+InsertItemCommand::InsertItemCommand(const QModelIndex& index,
+                                     ObjectModel* model,
+                                     QUndoCommand* parent)
+  : QUndoCommand(parent),
+    mRow(index.row()+1),
+    mInserted(false),
+    mParent(index.parent()),
+    mModel(model)
+{
+  setText(QObject::tr("insert"));
+}
+
+void
+InsertItemCommand::undo()
+{
+  qDebug() << "InsertItemCommand::undo()";
+
+  if(mInserted)
+    mModel->RemoveObject(mRow);
+}
+
+void
+InsertItemCommand::redo()
+{
+  qDebug() << "InsertItemCommand::redo()";
+
+  mInserted = mModel->InsertObject(mRow);
+}
+
+//
+// Remove Item Command
+//
+RemoveItemCommand::RemoveItemCommand(const QModelIndex& index,
+                                     QUndoCommand* parent)
+  : QUndoCommand(parent),
+    mRow(index.row()),
+    mParent(static_cast<ObjectItem*>(index.parent().internalPointer())),
+    mRemovedItem(nullptr)
+{
+  setText(QObject::tr("remove"));
+
+  const ObjectModel* model =
+      static_cast<const ObjectModel*>(index.model());
+
+  if(model)
+    mModel = const_cast<ObjectModel*>(model); // Kludge
+}
+
+void
+RemoveItemCommand::undo()
+{
+  qDebug() << "RemoveItemCommand::undo()";
+
+  if(mRemovedItem)
+    mModel->InsertChild(mRemovedItem, mParent, mRow);
+}
+
+void
+RemoveItemCommand::redo()
+{
+  qDebug() << "RemoveItemCommand::redo()";
+
+  mRemovedItem =
+      mModel->RemoveChild(mParent, mRow);
+}
+
+
+//
+// Update Item Command
+//
+UpdateItemCommand::UpdateItemCommand(ObjectForm* form, QUndoCommand* parent)
+  : QUndoCommand(parent), mObject(nullptr), mObjectForm(form)
+{
+  setText(QObject::tr("update"));
+}
+
+UpdateItemCommand::~UpdateItemCommand()
+{
+  qDebug() << "UpdateItemCommand::~UpdateItemCommand()";
+
+  //  if(mObject)
+  //    delete mObject;
+}
+
+void
+UpdateItemCommand::undo()
+{
+  qDebug() << "UpdateItemCommand::undo()";
+
+  mObject = mObjectForm->Read(Mode::Display, mObject);
+}
+
+void
+UpdateItemCommand::redo()
+{
+  qDebug() << "UpdateItemCommand::redo()";
+
+  if(mObject) {
+    mObject = mObjectForm->Read(Mode::Display, mObject);
+  } else {
+    mObject = mObjectForm->Write();
+  }
+}
 
 //
 // Set Image Command

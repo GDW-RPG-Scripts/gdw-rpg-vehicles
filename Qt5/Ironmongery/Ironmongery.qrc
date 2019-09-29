@@ -21,5 +21,6 @@
         <file>icons/16x16/list-add.png</file>
         <file>icons/16x16/list-remove.png</file>
         <file>icons/16x16/document-open.png</file>
+        <file>icons/sunburst.ico</file>
     </qresource>
 </RCC>

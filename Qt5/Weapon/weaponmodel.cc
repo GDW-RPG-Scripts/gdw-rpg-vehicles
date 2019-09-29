@@ -44,7 +44,7 @@ WeaponModel::RootData() const
 {
   static const QList<QVariant> rootData =
   {
-    tr("Munition type")
+    tr("Name")
   };
   return rootData;
 }
@@ -62,12 +62,23 @@ WeaponModel::InsertObject(ObjectItem* parent) const
 }
 
 void
-WeaponModel::AddMunition(QUndoStack& undoStack, const QModelIndex& index)
+WeaponModel::AddAccessory(QUndoStack& undoStack, const QModelIndex& index)
+{
+}
+
+void
+WeaponModel::AddMunitionType(QUndoStack& undoStack, const QModelIndex& index)
 {
   WeaponItem* wti =
       static_cast<WeaponItem*>(index.internalPointer());
 
   MunitionDialog dialog(wti);
+
+  connect(&dialog, &MunitionDialog::createMunition, this,
+          [&, this]() {
+    dialog.close();
+    undoStack.push(new AddChildItemCommand(wti, MunitionItem::Create(wti)));
+  });
 
   if(dialog.exec() != QDialog::Accepted) {
     return;
@@ -83,15 +94,30 @@ WeaponModel::AddMunition(QUndoStack& undoStack, const QModelIndex& index)
 }
 
 void
-WeaponModel::AddActions(QMenu& menu, QUndoStack& undoStack,
+WeaponModel::AddItemActions(QMenu& menu, QUndoStack& undoStack,
                          const QModelIndex& index)
 {
-  QAction* action_AddWeapon = new QAction(tr("Add munition..."));
+  menu.addAction(QIcon("://icons/16x16/list-add.png"),
+                 tr("Add Weapon Accessory..."), this,
+                 [&, this]() {
+    AddAccessory(undoStack, index);
+  });
+  menu.addAction(QIcon("://icons/16x16/list-add.png"),
+                 tr("Add Weapon Munition Type..."), this,
+                 [&, this]() {
+    AddMunitionType(undoStack, index);
+  });
+}
 
-  connect(action_AddWeapon, &QAction::triggered, this,
-          [&, this]() { this->AddMunition(undoStack, index); });
-
-  menu.addAction(action_AddWeapon);
+void
+WeaponModel::AddViewActions(QMenu& menu, QUndoStack& undoStack,
+                         const QModelIndex& index)
+{
+  menu.addAction(QIcon("://icons/16x16/list-add.png"),
+                 tr("Insert New Weapon..."), this,
+                 [&, this]() {
+    undoStack.push(new InsertItemCommand(index, this));
+  });
 }
 
 ObjectItem*

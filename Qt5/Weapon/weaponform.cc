@@ -17,17 +17,19 @@
  */
 
 #include "weaponform.hh"
-#include "weapon.hh"
 #include "ui_weaponform.h"
+
+#include "munitionform.hh"
+#include "weapon.hh"
 
 using namespace GDW::RPG;
 
 WeaponForm::WeaponForm(Weapon* weapon, QUndoStack* undoStack, QWidget* parent)
-  : ObjectForm(parent, undoStack), mWeapon(weapon), mUi(new Ui::WeaponForm)
+  : ObjectForm(parent, undoStack), mWeapon(weapon), mUi(new Ui::WeaponForm),
+    mMunitionForm(nullptr)
 {
   mUi->setupUi(this);
 
-  //AddSvgFrame("WEP", mUi->svgFrame);
   Read();
 }
 
@@ -54,11 +56,11 @@ WeaponForm::Read(Mode mode, Object* object)
   mUi->      wqualLineEdit->setText(mWeapon->     Wqual()    .toString());
   mUi->        rofLineEdit->setText(mWeapon->RateOfFire()    .toString());
   mUi->        rngLineEdit->setText(mWeapon->     Range()    .toString());
-  mUi->         psLineEdit->setText(mWeapon->        Ps()    .toString());
-  mUi->         pmLineEdit->setText(mWeapon->        Pm()    .toString());
-  mUi->         plLineEdit->setText(mWeapon->        Pl()    .toString());
-  mUi->         pxLineEdit->setText(mWeapon->        Px()    .toString());
-  mUi->       ammoLineEdit->setText(mWeapon->      Ammo()    .toString());
+  mUi->         psLineEdit->setText(mWeapon->  PenShort()    .toString());
+  mUi->         pmLineEdit->setText(mWeapon-> PenMedium()    .toString());
+  mUi->         plLineEdit->setText(mWeapon->   PenLong()    .toString());
+  mUi->         pxLineEdit->setText(mWeapon->PenExtreme()    .toString());
+  mUi->        magLineEdit->setText(mWeapon->  Magazine()    .toString());
   mUi->        conLineEdit->setText(mWeapon->Concussion()    .toString());
   mUi->        burLineEdit->setText(mWeapon->     Burst(mode).toString());
   mUi->       pranLineEdit->setText(mWeapon->      Pran()    .toString());
@@ -66,6 +68,9 @@ WeaponForm::Read(Mode mode, Object* object)
   mUi->descriptionTextEdit->setPlainText(mWeapon->Description().toString());
 
   AddSvgFrame(mWeapon->SideViewImage(), mUi->svgFrame);
+
+  if(mMunitionForm)
+    mMunitionForm->Read(mode);
 
   return original;
 }
@@ -83,11 +88,11 @@ WeaponForm::Write()
   mWeapon->      Wqual(mUi->      wqualLineEdit->text());
   mWeapon-> RateOfFire(mUi->        rofLineEdit->text());
   mWeapon->      Range(mUi->        rngLineEdit->text());
-  mWeapon->         Ps(mUi->         psLineEdit->text());
-  mWeapon->         Pm(mUi->         pmLineEdit->text());
-  mWeapon->         Pl(mUi->         plLineEdit->text());
-  mWeapon->         Px(mUi->         pxLineEdit->text());
-  mWeapon->       Ammo(mUi->       ammoLineEdit->text());
+  mWeapon->   PenShort(mUi->         psLineEdit->text());
+  mWeapon->  PenMedium(mUi->         pmLineEdit->text());
+  mWeapon->    PenLong(mUi->         plLineEdit->text());
+  mWeapon-> PenExtreme(mUi->         pxLineEdit->text());
+  mWeapon->   Magazine(mUi->        magLineEdit->text());
   mWeapon-> Concussion(mUi->        conLineEdit->text());
   mWeapon->      Burst(mUi->        burLineEdit->text());
   mWeapon->       Pran(mUi->       pranLineEdit->text());
@@ -95,6 +100,9 @@ WeaponForm::Write()
   mWeapon->Description(mUi->descriptionTextEdit->toPlainText());
 
   SetReadOnly(true);
+
+  if(mMunitionForm)
+    mMunitionForm->Write();
 
   return original;
 }
@@ -114,11 +122,15 @@ WeaponForm::SetReadOnly(bool value)
   mUi->         pmLineEdit->setReadOnly(value);
   mUi->         plLineEdit->setReadOnly(value);
   mUi->         pxLineEdit->setReadOnly(value);
-  mUi->       ammoLineEdit->setReadOnly(value);
+  mUi->   ammoTypeLineEdit->setReadOnly(value);
+  mUi->        magLineEdit->setReadOnly(value);
   mUi->        conLineEdit->setReadOnly(value);
   mUi->        burLineEdit->setReadOnly(value);
   mUi->       pranLineEdit->setReadOnly(value);
   mUi->descriptionTextEdit->setReadOnly(value);
+
+  if(mMunitionForm)
+    mMunitionForm->SetReadOnly(value);
 }
 
 QString
@@ -137,4 +149,21 @@ const Weapon*
 WeaponForm::GetObject() const
 {
   return mWeapon;
+}
+
+void
+WeaponForm::SetMunitionForm(MunitionForm* munitionForm)
+{
+  mMunitionForm = munitionForm;
+  mMunitionForm->setParent(this);
+
+  QFrame* munitionFrame = mUi->munitionFrame;
+  QLayout* layout = munitionFrame->layout();
+
+  if(layout)
+    delete layout;
+
+  layout = new QVBoxLayout;
+  layout->addWidget(mMunitionForm);
+  munitionFrame->setLayout(layout);
 }

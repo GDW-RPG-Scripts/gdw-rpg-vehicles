@@ -18,14 +18,54 @@
 
 #include "munitionitem.hh"
 
+#include "munition.hh"
+#include "munitionform.hh"
+#include "weaponform.hh"
+#include "weaponitem.hh"
+
 using namespace GDW::RPG;
 
 MunitionItem*
 MunitionItem::Create(ObjectItem* parent)
 {
-  return new MunitionItem(Munition::New(), parent);
+  return new MunitionItem(Munition::New(parent->GetObject()), parent);
 }
 
 MunitionItem::MunitionItem(Munition* munition, ObjectItem* parent)
   : ObjectItem(munition, parent)
 {}
+
+MunitionItem::MunitionItem(const MunitionItem& item)
+  : ObjectItem(item)
+{}
+
+MunitionItem::~MunitionItem()
+{}
+
+MunitionItem*
+MunitionItem::Copy() const
+{
+  return new MunitionItem(*this);
+}
+
+ObjectForm*
+MunitionItem::GetForm(QUndoStack* undoStack)
+{
+  WeaponItem* weapon =
+      static_cast<WeaponItem*>(parent());
+  WeaponForm* weaponForm = weapon->GetForm(undoStack);
+  weaponForm->SetMunitionForm(new MunitionForm(GetObject()));
+  return weaponForm;
+}
+
+Munition*
+MunitionItem::GetObject()
+{
+  return static_cast<Munition*>(ObjectItem::GetObject());
+}
+
+const Munition*
+MunitionItem::GetObject() const
+{
+  return static_cast<const Munition*>(ObjectItem::GetObject());
+}

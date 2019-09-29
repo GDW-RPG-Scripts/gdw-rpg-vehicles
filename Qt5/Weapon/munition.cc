@@ -18,35 +18,75 @@
 
 #include "munition.hh"
 
+#include "weapon.hh"
+
 using namespace GDW::RPG;
 
 const QString
 Munition::JSON_TYPE = "__GDW_RPG_Munition__";
 
-Munition::Munition()
+Munition::Munition(const QJsonObject& json, Object* parent)
+  : Object(json, parent)
 {}
 
-Munition::Munition(const Munition& object)
-  : Object (object)
+Munition::Munition(const Munition& object, Object* parent)
+  : Object (object, parent)
 {}
 
 Munition::~Munition()
 {}
 
-Munition::Munition(const QJsonObject& json)
-  : Object (json)
-{}
-
 Munition*
-Munition::New()
+Munition::New(Object* parent)
 {
-  static const QJsonObject weapon
+  static const QJsonObject munition
   {
-    {"__GDW_RPG_Type__", JSON_TYPE} //,
-    // {PROP_WTYP, "[Type]"} //, {PROP_WQUAL, ""},    {PROP_ROF, QJsonValue(QJsonValue::Double)}, {PROP_RNG,  QJsonValue(QJsonValue::Double)},
-    //    {PROP_PS,  QJsonValue(QJsonValue::Double)}, {PROP_PM,  QJsonValue(QJsonValue::Double)}, {PROP_PL,   QJsonValue(QJsonValue::Double)}, {PROP_PX, QJsonValue(QJsonValue::Double)}, {PROP_AMMO, QJsonValue(QJsonValue::Double)},
-    //    {PROP_CON, QJsonValue(QJsonValue::Double)}, {PROP_BUR, QJsonValue(QJsonValue::Double)}, {PROP_PRAN, QJsonValue(QJsonValue::Double)}
+    {"__GDW_RPG_Type__", JSON_TYPE},
+    {PROP_TYPE, "[Type]"}
   };
 
-  return new Munition(weapon);
+  return new Munition(munition, parent);
+}
+
+Munition*
+Munition::Copy(Object* parent)
+{
+  return new Munition(*this, parent);
+}
+
+const Munition*
+Munition::Copy(Object* parent) const
+{
+  return new Munition(*this, parent);
+}
+
+QList<QVariant>
+Munition::ItemData() const
+{
+  QList<QVariant> data = {
+    Type()
+  };
+
+  return data;
+}
+
+void
+Munition::ToVariantHash(QVariantHash& hash) const
+{
+  hash[PROP_TYPE]           = Type();
+}
+
+
+const QString Munition::PROP_TYPE = "type";
+
+QVariant
+Munition::Type() const
+{
+  return GetVariantFor(PROP_TYPE);
+}
+
+void
+Munition::Type(const QVariant& value)
+{
+  SetVariantFor(PROP_TYPE, value);
 }

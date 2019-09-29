@@ -61,20 +61,8 @@ namespace GDW
         QVariant Range() const;
         void Range(const QVariant&);
 
-        QVariant Ps() const;
-        void Ps(const QVariant&);
-
-        QVariant Pm() const;
-        void Pm(const QVariant&);
-
-        QVariant Pl() const;
-        void Pl(const QVariant&);
-
-        QVariant Px() const;
-        void Px(const QVariant&);
-
-        QVariant Ammo() const;
-        void Ammo(const QVariant&);
+        QVariant Magazine() const;
+        void Magazine(const QVariant&);
 
         QVariant Concussion() const;
         void Concussion(const QVariant&);
@@ -91,6 +79,18 @@ namespace GDW
         QVariant SideViewImage() const;
         void SideViewImage(const QVariant&);
 
+        QVariant PenShort() const;
+        void PenShort(const QVariant&);
+
+        QVariant PenMedium() const;
+        void PenMedium(const QVariant&);
+
+        QVariant PenLong() const;
+        void PenLong(const QVariant&);
+
+        QVariant PenExtreme() const;
+        void PenExtreme(const QVariant&);
+
         static const QString JSON_TYPE;
 
       private:
@@ -102,7 +102,7 @@ namespace GDW
         static const QString PROP_PM;
         static const QString PROP_PL;
         static const QString PROP_PX;
-        static const QString PROP_AMMO;
+        static const QString PROP_MAG;
         static const QString PROP_CON;
         static const QString PROP_BUR;
         static const QString PROP_PRAN;

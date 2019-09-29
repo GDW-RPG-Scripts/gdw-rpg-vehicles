@@ -87,11 +87,11 @@ Weapon::ToVariantHash(QVariantHash& hash) const
   hash[PROP_WQUAL]        = Wqual();
   hash[PROP_ROF]          = RateOfFire();
   hash[PROP_RNG]          = Range();
-  hash[PROP_PS]           = Ps();
-  hash[PROP_PM]           = Pl();
-  hash[PROP_PL]           = Pm();
-  hash[PROP_PX]           = Px();
-  hash[PROP_AMMO]         = Ammo();
+  hash[PROP_PS]           = PenShort();
+  hash[PROP_PM]           = PenLong();
+  hash[PROP_PL]           = PenMedium();
+  hash[PROP_PX]           = PenExtreme();
+  hash[PROP_MAG]          = Magazine();
   hash[PROP_CON]          = Concussion();
   hash[PROP_BUR]          = Burst();
   hash[PROP_PRAN]         = Pran();
@@ -186,13 +186,13 @@ Weapon::Range(const QVariant& value)
 const QString Weapon::PROP_PS = "ps";
 
 QVariant
-Weapon::Ps() const
+Weapon::PenShort() const
 {
   return GetVariantFor(PROP_PS);
 }
 
 void
-Weapon::Ps(const QVariant& value)
+Weapon::PenShort(const QVariant& value)
 {
   SetVariantFor(PROP_PS, value);
 }
@@ -201,13 +201,13 @@ Weapon::Ps(const QVariant& value)
 const QString Weapon::PROP_PM = "pm";
 
 QVariant
-Weapon::Pm() const
+Weapon::PenMedium() const
 {
   return GetVariantFor(PROP_PM);
 }
 
 void
-Weapon::Pm(const QVariant& value)
+Weapon::PenMedium(const QVariant& value)
 {
   SetVariantFor(PROP_PM, value);
 }
@@ -216,13 +216,13 @@ Weapon::Pm(const QVariant& value)
 const QString Weapon::PROP_PL = "pl";
 
 QVariant
-Weapon::Pl() const
+Weapon::PenLong() const
 {
   return GetVariantFor(PROP_PL);
 }
 
 void
-Weapon::Pl(const QVariant& value)
+Weapon::PenLong(const QVariant& value)
 {
   SetVariantFor(PROP_PL, value);
 }
@@ -231,30 +231,30 @@ Weapon::Pl(const QVariant& value)
 const QString Weapon::PROP_PX = "px";
 
 QVariant
-Weapon::Px() const
+Weapon::PenExtreme() const
 {
   return GetVariantFor(PROP_PX);
 }
 
 void
-Weapon::Px(const QVariant& value)
+Weapon::PenExtreme(const QVariant& value)
 {
   SetVariantFor(PROP_PX, value);
 }
 
 
-const QString Weapon::PROP_AMMO = "ammo";
+const QString Weapon::PROP_MAG = "mag";
 
 QVariant
-Weapon::Ammo() const
+Weapon::Magazine() const
 {
-  return GetVariantFor(PROP_AMMO);
+  return GetVariantFor(PROP_MAG);
 }
 
 void
-Weapon::Ammo(const QVariant& value)
+Weapon::Magazine(const QVariant& value)
 {
-  SetVariantFor(PROP_AMMO, value);
+  SetVariantFor(PROP_MAG, value);
 }
 
 

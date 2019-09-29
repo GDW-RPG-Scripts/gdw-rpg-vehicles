@@ -41,6 +41,9 @@ namespace GDW
 
         UnitModel(QObject* parent = nullptr);
 
+        void AddItemActions(QMenu&, QUndoStack&, const QModelIndex&) override;
+        void AddViewActions(QMenu&, QUndoStack&, const QModelIndex&) override;
+
       protected:
         ObjectItem* InsertObject(ObjectItem*) const override;
         const QList<QVariant>& RootData() const override;

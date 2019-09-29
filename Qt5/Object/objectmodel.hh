@@ -57,7 +57,8 @@ namespace GDW
 
         virtual bool InsertObject(int /*= INT_MAX*/);
         virtual bool RemoveObject(int /*= INT_MAX*/);
-        virtual void AddActions(QMenu&, QUndoStack&, const QModelIndex&);
+        virtual void AddItemActions(QMenu&, QUndoStack&, const QModelIndex&);
+        virtual void AddViewActions(QMenu&, QUndoStack&, const QModelIndex&);
 
         bool InsertChild(ObjectItem*, ObjectItem*, int = INT_MAX);
         ObjectItem* RemoveChild(ObjectItem*, int = INT_MAX);

@@ -18,9 +18,10 @@
 
 #include "vehiclemodel.hh"
 #include "vehicleitem.hh"
+
+#include "objectcmd.hh"
 #include "weaponitem.hh"
 #include "weapondialog.hh"
-#include "objectcmd.hh"
 
 #include <QMenu>
 
@@ -85,15 +86,25 @@ VehicleModel::AddWeapon(QUndoStack& undoStack, const QModelIndex& index)
 }
 
 void
-VehicleModel::AddActions(QMenu& menu, QUndoStack& undoStack,
+VehicleModel::AddItemActions(QMenu& menu, QUndoStack& undoStack,
                          const QModelIndex& index)
 {
-  QAction* action_AddWeapon = new QAction(tr("Add weapon..."));
+  menu.addAction(QIcon("://icons/16x16/list-add.png"),
+                 tr("Add Vehicle Weapon..."), this,
+                 [&, this]() {
+    AddWeapon(undoStack, index);
+  });
+}
 
-  connect(action_AddWeapon, &QAction::triggered, this,
-          [&, this]() { this->AddWeapon(undoStack, index); });
-
-  menu.addAction(action_AddWeapon);
+void
+VehicleModel::AddViewActions(QMenu& menu, QUndoStack& undoStack,
+                         const QModelIndex& index)
+{
+  menu.addAction(QIcon("://icons/16x16/list-add.png"),
+                 tr("Insert New Vehicle..."), this,
+                 [&, this]() {
+    undoStack.push(new InsertItemCommand(index, this));
+  });
 }
 
 ObjectItem*
