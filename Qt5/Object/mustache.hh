@@ -12,6 +12,8 @@
     and/or other materials provided with the distribution.
 */
 
+#include "object_global.hh"
+
 #pragma once
 
 #include <QtCore/QStack>
@@ -31,7 +33,7 @@ class Renderer;
 /** Context is an interface that Mustache::Renderer::render() uses to
   * fetch substitutions for template tags.
   */
-class Context
+class OBJECTSHARED_EXPORT Context
 {
 public:
         /** Create a context.  @p resolver is used to fetch the expansions for any {{>partial}} tags
@@ -97,7 +99,7 @@ private:
 };
 
 /** A context implementation which wraps a QVariantHash or QVariantMap. */
-class QtVariantContext : public Context
+class OBJECTSHARED_EXPORT QtVariantContext : public Context
 {
 public:
         /** Construct a QtVariantContext which wraps a dictionary in a QVariantHash
@@ -125,7 +127,7 @@ private:
 };
 
 /** Interface for fetching template partials. */
-class PartialResolver
+class OBJECTSHARED_EXPORT PartialResolver
 {
 public:
         virtual ~PartialResolver() {}
@@ -136,7 +138,7 @@ public:
 
 /** A simple partial fetcher which returns templates from a map of (partial name -> template)
   */
-class PartialMap : public PartialResolver
+class OBJECTSHARED_EXPORT PartialMap : public PartialResolver
 {
 public:
         explicit PartialMap(const QHash<QString,QString>& partials);
@@ -152,7 +154,7 @@ private:
  *
  * Once a partial has been loaded, it is cached for future use.
  */
-class PartialFileLoader : public PartialResolver
+class OBJECTSHARED_EXPORT PartialFileLoader : public PartialResolver
 {
 public:
         explicit PartialFileLoader(const QString& basePath);
@@ -165,7 +167,7 @@ private:
 };
 
 /** Holds properties of a tag in a mustache template. */
-struct Tag
+struct OBJECTSHARED_EXPORT Tag
 {
         enum Type
         {
@@ -205,7 +207,7 @@ struct Tag
 /** Renders Mustache templates, replacing mustache tags with
   * values from a provided context.
   */
-class Renderer
+class OBJECTSHARED_EXPORT Renderer
 {
 public:
         Renderer();

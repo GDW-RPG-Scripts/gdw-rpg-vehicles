@@ -269,13 +269,13 @@ VehicleForm::Title() const
 }
 
 Vehicle*
-VehicleForm::GetObject()
+VehicleForm::GetObjectPtr()
 {
   return mVehicle;
 }
 
 const Vehicle*
-VehicleForm::GetObject() const
+VehicleForm::GetObjectPtr() const
 {
   return mVehicle;
 }

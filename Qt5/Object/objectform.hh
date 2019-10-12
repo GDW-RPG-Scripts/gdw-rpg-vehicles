@@ -47,8 +47,8 @@ namespace GDW
 
         bool IsReadOnly() const;
 
-        virtual Object* GetObject();
-        virtual const Object* GetObject() const;
+        virtual Object* GetObjectPtr();
+        virtual const Object* GetObjectPtr() const;
 
       protected:
         QUndoStack* UndoStack();

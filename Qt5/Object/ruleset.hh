@@ -19,6 +19,8 @@
 #ifndef RULESET_HH
 #define RULESET_HH
 
+#include "object_global.hh"
+
 #include <QCoreApplication>
 #include <QMap>
 
@@ -26,7 +28,7 @@ namespace GDW
 {
   namespace RPG
   {
-    class Ruleset
+    class OBJECTSHARED_EXPORT Ruleset
     {
         Q_DECLARE_TR_FUNCTIONS(Ruleset)
 

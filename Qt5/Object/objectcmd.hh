@@ -19,6 +19,9 @@
 #ifndef OBJECTCMD_HH
 #define OBJECTCMD_HH
 
+#include "object_global.hh"
+
+
 #include <QModelIndex>
 #include <QUndoCommand>
 
@@ -31,7 +34,7 @@ namespace GDW
     class ObjectModel;
     class ObjectItem;
 
-    class InsertItemCommand : public QUndoCommand
+    class OBJECTSHARED_EXPORT InsertItemCommand : public QUndoCommand
     {
       public:
         InsertItemCommand(const QModelIndex&, ObjectModel*,
@@ -47,7 +50,7 @@ namespace GDW
         ObjectModel* mModel;
     };
 
-    class RemoveItemCommand : public QUndoCommand
+    class OBJECTSHARED_EXPORT RemoveItemCommand : public QUndoCommand
     {
       public:
         RemoveItemCommand(const QModelIndex&,
@@ -63,7 +66,7 @@ namespace GDW
         ObjectItem* mRemovedItem;
     };
 
-    class UpdateItemCommand : public QUndoCommand
+    class OBJECTSHARED_EXPORT UpdateItemCommand : public QUndoCommand
     {
       public:
         UpdateItemCommand(ObjectForm*, QUndoCommand* parent = nullptr);
@@ -77,7 +80,7 @@ namespace GDW
         ObjectForm* mObjectForm;
     };
 
-    class AddChildItemCommand : public QUndoCommand
+    class OBJECTSHARED_EXPORT AddChildItemCommand : public QUndoCommand
     {
       public:
         AddChildItemCommand(ObjectItem*, ObjectItem*,
@@ -91,7 +94,7 @@ namespace GDW
         ObjectItem* mChildItem;
     };
 
-    class ClearImageCommand : public QUndoCommand
+    class OBJECTSHARED_EXPORT ClearImageCommand : public QUndoCommand
     {
       public:
         ClearImageCommand(ObjectForm*, QUndoCommand* parent = nullptr);
@@ -103,7 +106,7 @@ namespace GDW
         ObjectForm* mObjectForm;
     };
 
-    class SetImageCommand : public QUndoCommand
+    class OBJECTSHARED_EXPORT SetImageCommand : public QUndoCommand
     {
       public:
         SetImageCommand(ObjectForm*, QUndoCommand* parent = nullptr);

@@ -49,8 +49,8 @@ namespace GDW
       protected:
         explicit UnitItem(Unit*, ObjectItem* parent = nullptr);
 
-        Unit* GetObject() override;
-        const Unit* GetObject() const override;
+        Unit* GetObjectPtr() override;
+        const Unit* GetObjectPtr() const override;
 
         UnitModel* Model() const override;
 

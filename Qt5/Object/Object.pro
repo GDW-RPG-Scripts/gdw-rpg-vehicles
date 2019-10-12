@@ -27,10 +27,10 @@ QT       -= gui
 greaterThan(QT_MAJOR_VERSION, 4): QT += printsupport
 
 TEMPLATE  = lib
-CONFIG   += staticlib
+#CONFIG   += staticlib
 
 TARGET    = Object
-VERSION   = 0.3.0
+#VERSION   = 0.3.0
 
 DEFINES  += OBJECT_LIBRARY
 

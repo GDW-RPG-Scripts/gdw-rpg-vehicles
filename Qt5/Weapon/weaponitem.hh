@@ -59,8 +59,8 @@ namespace GDW
         WeaponForm* GetForm(QUndoStack*) override;
         // void Select(Ui::Workspace&, ObjectForm* = nullptr) override;
 
-        Weapon* GetObject() override;
-        const Weapon* GetObject() const override;
+        Weapon* GetObjectPtr() override;
+        const Weapon* GetObjectPtr() const override;
 
       protected:
         WeaponItem(const WeaponItem&);

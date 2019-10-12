@@ -48,8 +48,8 @@ namespace GDW
         void SetReadOnly(bool) override;
         QString Title() const override;
 
-        Ship* GetObject() override;
-        const Ship* GetObject() const override;
+        Ship* GetObjectPtr() override;
+        const Ship* GetObjectPtr() const override;
 
       private:
         Ship* mShip;

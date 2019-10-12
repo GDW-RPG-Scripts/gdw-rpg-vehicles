@@ -64,13 +64,13 @@ ObjectForm::Title() const
 }
 
 Object*
-ObjectForm::GetObject()
+ObjectForm::GetObjectPtr()
 {
   return nullptr;
 }
 
 const Object*
-ObjectForm::GetObject() const
+ObjectForm::GetObjectPtr() const
 {
   return nullptr;
 }

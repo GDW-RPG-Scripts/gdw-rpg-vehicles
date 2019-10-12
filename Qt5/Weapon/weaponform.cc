@@ -140,13 +140,13 @@ WeaponForm::Title() const
 }
 
 Weapon*
-WeaponForm::GetObject()
+WeaponForm::GetObjectPtr()
 {
   return mWeapon;
 }
 
 const Weapon*
-WeaponForm::GetObject() const
+WeaponForm::GetObjectPtr() const
 {
   return mWeapon;
 }

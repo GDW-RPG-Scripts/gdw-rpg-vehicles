@@ -49,8 +49,8 @@ namespace GDW
       protected:
         explicit ShipItem(Ship*, ObjectItem* parent = nullptr);
 
-        Ship* GetObject() override;
-        const Ship* GetObject() const override;
+        Ship* GetObjectPtr() override;
+        const Ship* GetObjectPtr() const override;
 
         ShipModel* Model() const override;
 

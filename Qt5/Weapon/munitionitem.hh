@@ -44,8 +44,8 @@ namespace GDW
 
         ObjectForm* GetForm(QUndoStack*) override;
 
-        Munition* GetObject() override;
-        const Munition* GetObject() const override;
+        Munition* GetObjectPtr() override;
+        const Munition* GetObjectPtr() const override;
 
       protected:
         MunitionItem(const MunitionItem&);

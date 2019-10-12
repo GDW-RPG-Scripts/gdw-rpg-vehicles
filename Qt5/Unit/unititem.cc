@@ -57,19 +57,19 @@ UnitItem::UnitItem(Unit* unit, ObjectItem* parent)
 UnitForm*
 UnitItem::GetForm(QUndoStack* undoStack)
 {
-  return new UnitForm(GetObject(), undoStack);
+  return new UnitForm(GetObjectPtr(), undoStack);
 }
 
 Unit*
-UnitItem::GetObject()
+UnitItem::GetObjectPtr()
 {
-  return static_cast<Unit*>(ObjectItem::GetObject());
+  return static_cast<Unit*>(ObjectItem::GetObjectPtr());
 }
 
 const Unit*
-UnitItem::GetObject() const
+UnitItem::GetObjectPtr() const
 {
-  return static_cast<const Unit*>(ObjectItem::GetObject());
+  return static_cast<const Unit*>(ObjectItem::GetObjectPtr());
 }
 
 UnitModel*

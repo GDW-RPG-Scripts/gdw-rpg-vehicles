@@ -66,13 +66,13 @@ ShipForm::Title() const
 }
 
 Ship*
-ShipForm::GetObject()
+ShipForm::GetObjectPtr()
 {
   return mShip;
 }
 
 const Ship*
-ShipForm::GetObject() const
+ShipForm::GetObjectPtr() const
 {
   return mShip;
 }

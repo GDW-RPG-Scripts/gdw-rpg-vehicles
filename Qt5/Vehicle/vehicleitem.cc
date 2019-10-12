@@ -90,19 +90,19 @@ VehicleItem::VehicleItem(Vehicle* vehicle, ObjectItem* parent)
 VehicleForm*
 VehicleItem::GetForm(QUndoStack* undoStack)
 {
-  return new VehicleForm(GetObject(), undoStack);
+  return new VehicleForm(GetObjectPtr(), undoStack);
 }
 
 Vehicle*
-VehicleItem::GetObject()
+VehicleItem::GetObjectPtr()
 {
-  return static_cast<Vehicle*>(ObjectItem::GetObject());
+  return static_cast<Vehicle*>(ObjectItem::GetObjectPtr());
 }
 
 const Vehicle*
-VehicleItem::GetObject() const
+VehicleItem::GetObjectPtr() const
 {
-  return static_cast<const Vehicle*>(ObjectItem::GetObject());
+  return static_cast<const Vehicle*>(ObjectItem::GetObjectPtr());
 }
 
 VehicleModel*

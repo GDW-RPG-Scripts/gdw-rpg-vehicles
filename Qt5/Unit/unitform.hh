@@ -48,8 +48,8 @@ namespace GDW
         void SetReadOnly(bool) override;
         QString Title() const override;
 
-        Unit* GetObject() override;
-        const Unit* GetObject() const override;
+        Unit* GetObjectPtr() override;
+        const Unit* GetObjectPtr() const override;
 
       private:
         Unit* mUnit;

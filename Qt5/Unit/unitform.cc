@@ -66,13 +66,13 @@ UnitForm::Title() const
 }
 
 Unit*
-UnitForm::GetObject()
+UnitForm::GetObjectPtr()
 {
   return mUnit;
 }
 
 const Unit*
-UnitForm::GetObject() const
+UnitForm::GetObjectPtr() const
 {
   return mUnit;
 }

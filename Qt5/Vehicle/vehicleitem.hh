@@ -51,8 +51,8 @@ namespace GDW
       protected:
         explicit VehicleItem(Vehicle*, ObjectItem* parent);
 
-        Vehicle* GetObject() override;
-        const Vehicle* GetObject() const override;
+        Vehicle* GetObjectPtr() override;
+        const Vehicle* GetObjectPtr() const override;
 
         VehicleModel* Model() const override;
 

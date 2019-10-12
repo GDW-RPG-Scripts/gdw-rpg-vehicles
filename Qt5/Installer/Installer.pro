@@ -55,7 +55,7 @@ CONFIG(release, release|debug) {
     win32 {
         APP_NAME = Ironmongery.exe
         APP_PWD = $$OUT_PWD/../Ironmongery/release
-        copydata.commands = C:/Qt/QtIFW-3.1.1/bin/archivegen \"$$APP_DATA/application.7z\" \"$$APP_PWD/$$APP_NAME\" \"$$APP_PWD/*.dll\" \"$$APP_PWD/iconengines\" \"$$APP_PWD/imageformats\" \"$$APP_PWD/platforms\" \"$$APP_PWD/styles\" \"$$APP_PWD/translations\"
+        copydata.commands = C:/Qt/Tools/QtInstallerFramework/3.1/bin/archivegen \"$$APP_DATA/application.7z\" \"$$APP_PWD/$$APP_NAME\" \"$$APP_PWD/*.dll\" \"$$APP_PWD/iconengines\" \"$$APP_PWD/imageformats\" \"$$APP_PWD/platforms\" \"$$APP_PWD/styles\" \"$$APP_PWD/translations\"
     }
 
     export(copydata.commands)
@@ -67,7 +67,7 @@ CONFIG(release, release|debug) {
     installer.input = INPUT
     installer.output = \"$$INSTALLER\"
     macx: installer.commands = /opt/Qt/QtIFW-3.1.1/bin/binarycreator -f -c $$PWD/config/config.xml -p $$PWD/packages -r $$PWD/installer.qrc ${QMAKE_FILE_OUT}
-    win32: installer.commands = C:/Qt/QtIFW-3.1.1/bin/binarycreator -f -c $$PWD/config/config.xml -p $$PWD/packages -r $$PWD/installer.qrc ${QMAKE_FILE_OUT}
+    win32: installer.commands = C:/Qt/Tools/QtInstallerFramework/3.1/bin/binarycreator -f -c $$PWD/config/config.xml -p $$PWD/packages -r $$PWD/installer.qrc ${QMAKE_FILE_OUT}
     installer.CONFIG += target_predeps no_link combine
 
     QMAKE_EXTRA_COMPILERS += installer

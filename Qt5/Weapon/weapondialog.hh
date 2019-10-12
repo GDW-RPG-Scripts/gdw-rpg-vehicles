@@ -19,12 +19,14 @@
 #ifndef WEAPONDIALOG_HH
 #define WEAPONDIALOG_HH
 
+#include "weapon_global.hh"
+
 #include <QDialog>
 #include <QModelIndex>
 
 namespace GDW {
   namespace RPG {
-    class WeaponDialog : public QDialog
+    class WEAPONSHARED_EXPORT WeaponDialog : public QDialog
     {
       public:
         WeaponDialog(QWidget* parent = nullptr);

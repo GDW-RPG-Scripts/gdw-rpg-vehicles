@@ -28,7 +28,7 @@ using namespace GDW::RPG;
 MunitionItem*
 MunitionItem::Create(ObjectItem* parent)
 {
-  return new MunitionItem(Munition::New(parent->GetObject()), parent);
+  return new MunitionItem(Munition::New(parent->GetObjectPtr()), parent);
 }
 
 MunitionItem::MunitionItem(Munition* munition, ObjectItem* parent)
@@ -54,18 +54,18 @@ MunitionItem::GetForm(QUndoStack* undoStack)
   WeaponItem* weapon =
       static_cast<WeaponItem*>(parent());
   WeaponForm* weaponForm = weapon->GetForm(undoStack);
-  weaponForm->SetMunitionForm(new MunitionForm(GetObject()));
+  weaponForm->SetMunitionForm(new MunitionForm(GetObjectPtr()));
   return weaponForm;
 }
 
 Munition*
-MunitionItem::GetObject()
+MunitionItem::GetObjectPtr()
 {
-  return static_cast<Munition*>(ObjectItem::GetObject());
+  return static_cast<Munition*>(ObjectItem::GetObjectPtr());
 }
 
 const Munition*
-MunitionItem::GetObject() const
+MunitionItem::GetObjectPtr() const
 {
-  return static_cast<const Munition*>(ObjectItem::GetObject());
+  return static_cast<const Munition*>(ObjectItem::GetObjectPtr());
 }

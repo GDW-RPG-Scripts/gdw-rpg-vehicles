@@ -81,13 +81,13 @@ MunitionForm::Title() const
 }
 
 Munition*
-MunitionForm::GetObject()
+MunitionForm::GetObjectPtr()
 {
   return mMunition;
 }
 
 const Munition*
-MunitionForm::GetObject() const
+MunitionForm::GetObjectPtr() const
 {
   return mMunition;
 }

@@ -81,8 +81,8 @@ namespace GDW
         void RefreshItemData();
 
         virtual ObjectForm* GetForm(QUndoStack*);
-        virtual Object* GetObject();
-        virtual const Object* GetObject() const;
+        virtual Object* GetObjectPtr();
+        virtual const Object* GetObjectPtr() const;
 
       signals:
 

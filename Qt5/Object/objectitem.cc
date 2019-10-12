@@ -108,7 +108,7 @@ ObjectItem::SetData(int column, const QVariant& variant)
 
   if(variant.canConvert<ObjectItem*>()) {
     ObjectItem* oti = variant.value<ObjectItem*>();
-    mObject = oti->GetObject();
+    mObject = oti->GetObjectPtr();
     mItemData = mObject->ItemData();
     return true;
   }
@@ -127,7 +127,7 @@ ObjectItem::InsertChild(ObjectItem* item, int position)
   // Not necessary since the basic objects come with their
   // children already:
   if(mObject)
-    mObject->InsertChild(item->GetObject(), position);
+    mObject->InsertChild(item->GetObjectPtr(), position);
 
   return true;
 }
@@ -180,7 +180,7 @@ void
 ObjectItem::Export(QJsonArray& jarr) const
 {
   for (int i = 0; i < mChildItems.size(); ++i) {
-    Object* obj = mChildItems.at(i)->GetObject();
+    Object* obj = mChildItems.at(i)->GetObjectPtr();
     QJsonValue jv(*obj);
     jarr.append(jv);
   }
@@ -209,13 +209,13 @@ ObjectItem::RefreshItemData()
 }
 
 Object*
-ObjectItem::GetObject()
+ObjectItem::GetObjectPtr()
 {
   return mObject;
 }
 
 const Object*
-ObjectItem::GetObject() const
+ObjectItem::GetObjectPtr() const
 {
   return mObject;
 }
@@ -238,10 +238,10 @@ ObjectItem::RenderSvg() const
   QVariantHash hash;
 
   Ruleset::ToVariantHash(hash);
-  GetObject()->ToVariantHash(hash);
+  GetObjectPtr()->ToVariantHash(hash);
 
   Mustache::Renderer renderer;
-  Mustache::QtVariantContext* context = GetObject()->Context(hash);
+  Mustache::QtVariantContext* context = GetObjectPtr()->Context(hash);
 
   return renderer.render(Template(), context);
 }

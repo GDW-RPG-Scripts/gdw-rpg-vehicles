@@ -50,8 +50,8 @@ namespace GDW
         void SetReadOnly(bool) override;
         QString Title() const override;
 
-        Weapon* GetObject() override;
-        const Weapon* GetObject() const override;
+        Weapon* GetObjectPtr() override;
+        const Weapon* GetObjectPtr() const override;
 
         void SetMunitionForm(MunitionForm*);
 

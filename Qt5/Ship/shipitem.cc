@@ -58,19 +58,19 @@ ShipItem::ShipItem(Ship* ship, ObjectItem* parent)
 ShipForm*
 ShipItem::GetForm(QUndoStack* undoStack)
 {
-  return new ShipForm(GetObject(), undoStack);
+  return new ShipForm(GetObjectPtr(), undoStack);
 }
 
 Ship*
-ShipItem::GetObject()
+ShipItem::GetObjectPtr()
 {
-  return static_cast<Ship*>(ObjectItem::GetObject());
+  return static_cast<Ship*>(ObjectItem::GetObjectPtr());
 }
 
 const Ship*
-ShipItem::GetObject() const
+ShipItem::GetObjectPtr() const
 {
-  return static_cast<const Ship*>(ObjectItem::GetObject());
+  return static_cast<const Ship*>(ObjectItem::GetObjectPtr());
 }
 
 ShipModel*

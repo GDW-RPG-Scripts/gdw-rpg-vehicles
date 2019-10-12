@@ -46,8 +46,8 @@ namespace GDW
         void SetReadOnly(bool) override;
         QString Title() const override;
 
-        Munition* GetObject() override;
-        const Munition* GetObject() const override;
+        Munition* GetObjectPtr() override;
+        const Munition* GetObjectPtr() const override;
 
         Ui::MunitionForm* getUi() const;
 

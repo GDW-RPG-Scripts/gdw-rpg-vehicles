@@ -48,8 +48,8 @@ namespace GDW
         void SetReadOnly(bool) override;
         QString Title() const override;
 
-        Vehicle* GetObject() override;
-        const Vehicle* GetObject() const override;
+        Vehicle* GetObjectPtr() override;
+        const Vehicle* GetObjectPtr() const override;
 
       private slots:
         void ShowSideViewMenu(const QPoint&);

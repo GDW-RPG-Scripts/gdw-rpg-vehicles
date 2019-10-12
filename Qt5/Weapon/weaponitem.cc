@@ -72,7 +72,7 @@ WeaponItem::Copy() const
 WeaponForm*
 WeaponItem::GetForm(QUndoStack* undoStack)
 {
-  return new WeaponForm(GetObject(), undoStack);
+  return new WeaponForm(GetObjectPtr(), undoStack);
 }
 
 //    void
@@ -82,15 +82,15 @@ WeaponItem::GetForm(QUndoStack* undoStack)
 //    }
 
 Weapon*
-WeaponItem::GetObject()
+WeaponItem::GetObjectPtr()
 {
-  return static_cast<Weapon*>(ObjectItem::GetObject());
+  return static_cast<Weapon*>(ObjectItem::GetObjectPtr());
 }
 
 const Weapon*
-WeaponItem::GetObject() const
+WeaponItem::GetObjectPtr() const
 {
-  return static_cast<const Weapon*>(ObjectItem::GetObject());
+  return static_cast<const Weapon*>(ObjectItem::GetObjectPtr());
 }
 
 WeaponModel*
